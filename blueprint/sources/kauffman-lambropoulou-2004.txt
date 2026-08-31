@@ -1,0 +1,2297 @@
+arXiv:math/0311499v2 [math.GT] 12 Jan 2004
+
+
+
+
+                                                    On the classification of rational tangles
+                                                                  Louis H. Kauffman
+                                              Department of Mathematics, Statistics and Computer Science
+                                                            University of Illinois at Chicago
+                                                  851 South Morgan St., Chicago IL 60607-7045, USA
+                                                                   kauffman@uic.edu
+                                                                           and
+                                                                 Sofia Lambropoulou
+                                                        National Technical University of Athens
+                                                             Department of Mathematics
+                                                     Zografou campus, GR-157 80 Athens, Greece
+                                                                  sofia@math.ntua.gr
+
+
+                                                                                   Abstract
+
+                                                   In this paper we give two new combinatorial proofs of the classification of
+                                                   rational tangles using the calculus of continued fractions. One proof uses
+                                                   the classification of alternating knots. The other proof uses colorings of
+                                                   tangles. We also obtain an elementary proof that alternating rational
+                                                   tangles have minimal number of crossings. Rational tangles form a basis
+                                                   for the classification of knots and are of fundamental importance in the
+                                                   study of DNA recombination.
+
+                                             Keywords: knot, tangle, isotopy, rational tangle, continued fraction, flype,
+                                             tangle fraction, alternating knots and links, coloring.
+
+
+                                             1     Introduction
+                                             A rational tangle is a proper embedding of two unoriented arcs α1 , α2 in a
+                                             3-ball B 3 , so that the four endpoints lie in the boundary of B 3 , and such that
+                                             there exists a homeomorphism of pairs:
+
+                                                      h : (B 3 , α1 , α2 ) −→ (D 2 × I, {x, y} × I) (a trivial tangle).
+
+                                                                                       1
+2                                               Kauffman & Lambropoulou
+
+
+This is equivalent to saying that rational tangles have specific representatives
+obtained by applying a finite number of consecutive twists of neighbouring
+endpoints starting from two unknotted and unlinked arcs (see Note 1 in Sec-
+tion 2). Such a pair of arcs comprise the [0] or [∞] tangles, depending on
+their position in the plane (Figures 1 and 2). We shall use this characterizing
+property of rational tangles as our definition (Definition 1 below).
+
+    We are interested in tangles up to isotopy. Two rational tangles, T, S,
+in B 3 are isotopic, denoted by T ∼ S, if there is an orientation-preserving
+self-homeomorphism h : (B 3 , T ) −→ (B 3 , S) that is the identity map on the
+boundary. Equivalently, T, S are isotopic if and only if any two diagrams of
+theirs (i.e. seeing the tangles as planar graphs) have identical configurations
+of their four endpoints on the boundary of the projection disc, and they differ
+by a finite sequence of the well-known Reidemeister moves [31], which take
+place in the interior of the disc. Of course, each twisting operation changes
+the isotopy class of the tangle to which it is applied.
+
+    The rational tangles consist in a special class of 2-tangles, i.e. embeddings
+in a 3-ball of two arcs and a finite number of circles. The 2-tangles are par-
+ticularly interesting because of the simple symmetry of their endpoints, which
+keeps the class closed under the tangle operations (see Figure 3 below). More-
+over, the special symmetry of the endpoints of 2-tangles allows for the following
+closing operations, which yield two different knots or links: The Numerator of
+a 2-tangle, T , denoted by N(T ), which is obtained by joining with simple arcs
+the two upper endpoints and the two lower endpoints of T, and the Denomina-
+tor of a 2-tangle, T , which is obtained by joining with simple arcs each pair of
+the corresponding top and bottom endpoints of T , and it shall be denoted by
+D(T ). Every knot or link can arise as the numerator closure of a 2-tangle. The
+theory of general tangles has been introduced in 1967 by John H. Conway [8]
+in his work on enumerating and classifying knots. (In fact Conway had been
+thinking about tangles since he was a student in high school and he obtained
+his results as an undergraduate student in college.)
+
+    The rational tangles give rise via numerator or denominator closure to a
+special class of knots and links, the rational knots (also known as Viergeflechte,
+four-plats and 2-bridge knots). These have one or two components, they are
+alternating and they are the easiest knots and links to make (also for Nature,
+as DNA recombination suggests). The first twenty five knots, except for 85 , are
+rational. Furthermore all knots and links up to ten crossings are either rational
+or are obtained by inserting rational tangles into a few simple planar graphs,
+see [8]. The 2-fold branched covering spaces of S 3 along the rational knots
+give rise to the lens spaces L(p, q) [38], [37]. Different rational tangles can give
+Rational tangles and continued fractions                                       3
+
+
+the same rational knot when closed and this leads to the subtle theory of the
+classification of rational knots, see [36], [6] and [17]. Finally, rational knots
+and rational tangles figure prominently in the applications of knot theory to
+the topology of DNA, see [10], [44]. Treatments of various aspects of rational
+tangles and rational knots can be found in various places in the literature,
+see [8], [39], [7], [18], [24]. See also [2] for a good discussion on classical
+relationships of rational tangles, covering spaces and surgery. At the end of
+the paper we give a short history of rational knots and rational tangles.
+
+
+
+                                 3
+
+                                               2
+
+
+
+
+                            -2
+
+
+
+
+                Figure 1 - A rational tangle in standard form
+
+
+A rational tangle is associated in a canonical manner with a unique, reduced
+rational number or ∞, called the fraction of the tangle. Rational tangles are
+classified by their fractions by means of the following theorem due to John H.
+Conway [8]:
+
+Theorem 1 (Conway, 1970) Two rational tangles are isotopic if and only
+if they have the same fraction.
+
+    In [8] Conway defined the fraction of a rational tangle using its continued
+fraction form. He also defined a topological invariant F (R) for an arbitrary 2-
+tangle R using the Alexander polynomial of the knots N(R) and D(R), namely
+as: F (R) = ∆(N     (R))
+                ∆(D(R))
+                         . He then observed that this evaluated at −1 coincides
+with the fraction for rational tangles. The advantage of the second definition
+is that it is already a topological invariant of the tangle. Proofs of Theorem 1
+are given in [23], [7] p.196 and [14]. The first two proofs used the second
+definition of the fraction as an isotopy invariant of rational tangles. Then,
+for proving that the fraction classifies the rational tangles, they invoked the
+classification of rational knots. The proof by Goldman and Kauffman [14] is
+4                                               Kauffman & Lambropoulou
+
+
+the first combinatorial proof of the classification of rational tangles. In [14] the
+fraction of an unoriented 2-tangle S is defined via the bracket polynomial of
+                                                                     (R)>(A)
+the unoriented knots N(R) and D(R), namely as: F (R) = i <N       <D(R)>(A)
+                                                                             , where
+                                     √
+the indeterminate A is specified to i. There again the fraction is by definition
+an isotopy invariant of the tangles. The first definition of the fraction is more
+natural, in the sense that it is obtained directly from the topological structure
+of the rational tangles. In order to prove Theorem 1 using this definition we
+need to rely on a deep result in knot theory – namely the solution of the
+Tait Conjecture [46] concerning the classification of alternating knots that was
+given by Menasco and Thistlethwaite [22] in 1993, and to adapt it to rational
+tangles.
+
+    It is the main purpose of this paper to give this direct combinatorial proof
+of Theorem 1. We believe that our proof gives extra insight into the isotopies
+of rational tangles and the nature of the theorem beyond the proof in [14].
+The fraction is defined directly from the algebraic combinatorial structure of
+the rational tangle by means of a continued fraction expansion, and we have to
+show that it is an isotopy invariant. The topological invariance of the fraction
+is proved via flyping. We will show that the fraction is invariant under flyping
+(Definition 2) and the transfer moves (see Figure 14), from which it follows
+that it is an isotopy invariant of rational tangles. We will also show that two
+rational tangles with the same fraction are isotopic. These two facts imply
+Theorem 1.
+    In the course of this proof we will see and we will exploit the extraordinary
+interplay between the elementary number theory of continued fractions and the
+topological structure of rational tangles, using their characteristic properties:
+The rational flypes (Definition 2) and equivalence of flips (Definition 3). The
+core of our proof is that rational tangles and continued fractions have a similar
+canonical form, and the fact that rational tangles are alternating, for which
+we believe we found the simplest possible proof. This implies the known result
+that the rational knots are alternating. We also give a second combinatorial
+proof of Theorem 1 by defining in section 5, without using the Tait conjecture,
+the tangle fraction via coloring. This paper serves as a basis for a sequel paper
+[17], where we give the first combinatorial proofs of Schubert’s classification
+theorems for unoriented and oriented rational knots [36], using the results and
+the techniques developed here.
+
+    The paper is organized as follows. In Section 2 we introduce the operations
+on rational tangles, we discuss the Tait conjecture for alternating knots and
+we prove a canonical form for rational tangles. In Section 3 we discuss some
+facts about continued fractions and we prove a key result, a unique canonical
+Rational tangles and continued fractions                                                 5
+
+
+form. In Section 4 we define the fraction of a rational tangle, we unravel in
+full the analogy between continued fractions and rational tangles (analogy of
+operations and calculus), and we give our proof of the classification of rational
+tangles. We also prove the minimality of crossings for alternating rational
+tangles without necessarily resting on the solution to the Tait conjecture. In
+Section 5 we give an alternate definition of the fraction of a rational tangle
+via integral coloring, as well as another combinatorial proof of Theorem 1,
+without using the Tait conjecture. In Section 5 we use the structure of integral
+colorings of rational tangles to prove for rational knots and links a special case
+of a conjecture of Kauffman and Harary [16] about colorings of alternating
+links. Finally, in Section 6 we reduce the number of operations that generate
+the rational tangles and we give a short history of rational knots and rational
+tangles. Throughout the paper by ‘tangle’ we will mean ‘tangle diagram’ and
+by ‘knots’ we will be referring to both knots and links.
+
+
+2      The Canonical Form of Rational Tangles
+Clearly the simplest rational tangles are the [0], the [∞], the [+1] and the [−1]
+tangles, whilst the next simplest ones are:
+    (i) The integer tangles, denoted by [n], made of n horizontal twists, n ∈ ZZ,
+                                        1
+ (ii) The vertical tangles, denoted by [n] , made of n vertical twists, n ∈ ZZ.
+
+
+
+      ... ,           ,               ,                     ,         ,          , ...
+              [-2]         [-1]               [0]               [1]       [2]
+
+
+      ... ,          ,            ,                     ,             ,          , ...
+
+               _1          _1             [         ]            _1        _1
+              [-2]        [-1]                                  [1]        [2]
+
+        Figure 2 - The elementary rational tangles and the shading rule
+
+We note that the type of crossings of knots and tangles follow the checkerboard
+rule: Shade the regions of the tangle (knot) in two colors, starting from the
+left (outside) to the right (inside) with grey, and so that adjacent regions have
+6                                               Kauffman & Lambropoulou
+
+
+different colors. Crossings in the tangle are said to be of positive type if they
+are arranged with respect to the shading as exemplified in Figure 2 by the
+tangle [+1], whilst crossings of the reverse type are said to be of negative type
+and they are exemplified in Figure 2 by the tangle [−1]. The reader should
+note that our crossing type conventions are the opposite of those of Conway in
+[8] and of those of Kawauchi in [18]. Our conventions agree with those of Ernst
+and Sumners in [10], which also follow the standard conventions of biologists.
+    Rational tangles can be added, multiplied, rotated, mirror imaged and
+inverted. These are well-defined (up to isotopy) operations in the class of
+2-tangles, adequately described in Figure 3. In particular, the sum of two 2-
+tangles is denoted by ‘+’ and the product by ‘∗’. Notice that addition and
+multiplication of tangles are not commutative. Also, they do not preserve
+                                                          1     1
+the class of rational tangles. For example, the tangle [3]  + [2]   is not rational.
+We point out that the numerator (denominator) closure of the sum (product)
+of two rational tangles is still a rational knot, but the sum (product) of two
+rational tangles is a rational tangle if and only if one of the two is an integer
+(a vertical) tangle.
+    The mirror image of a tangle T, denoted −T, is obtained from T by switch-
+                                                      1       1
+ing all the crossings. E.g. −[n] = [−n] and − [n]        = [−n]   . Then we have
+−(T + S) = (−T ) + (−S) and −(T ∗ S) = (−T ) ∗ (−S). Finally, the rotation
+of T , denoted T r , is obtained by rotating T counterclockwise by 900 , whilst
+the inverse of T , denoted T i , is defined to be −T r . For example, [n]i = [n]  1
+
+     1 i
+and [n] = [n]. Turning the tangle clockwise by 900 is the cancelling opera-
+tion of our defined inversion, denoted T −i. In particular [0]r = [0]i = [∞] and
+[∞]r = [∞]i = [0]. We have that N(T ) = D(T r ) and D(T ) = N(T r ).
+
+
+
+
+                                    T
+
+                           ,                ,                     ~
+                                                                         -T
+
+
+
+
+           T         S                                 -T
+
+                                   S
+               T+S                                     Ti
+                                  T* S
+
+
+           Figure 3 - Addition, multiplication and inversion of 2-tangles
+Rational tangles and continued fractions                                                                   7
+
+
+Note that T r and T i are in general not isotopic to T . Also, it is in general not
+the case that the inverse of the inverse of a 2-tangle is isotopic to the original
+tangle, since (T i )i = (T r )r is the tangle obtained from T by rotating it on its
+plane by 1800 . For 2-tangles the inversion is an order four operation. But,
+remarkably, for rational tangles the inversion is an operation of order two, i.e.
+T −i ∼ T i and T ∼ (T i )i (see Lemma 2). For this reason we shall denote the
+inverse of a rational tangle S as S1 . This explains the notation for the vertical
+                                          1              1
+tangles. In particular we shall have [0]    = [∞] and [∞]  = [0].
+
+Definition 1 A rational tangle is in twist form if it is created by consecutive
+additions and multiplications by the tangles [±1], starting from the tangle [0]
+or the tangle [∞]. (See Figure 4 for an example.)
+
+Conversely, a rational tangle in twist form can be brought to one of the tan-
+gles [0] or [∞] by a finite sequence of untwistings. It follows that a rational
+tangle in twist form can be obtained inductively from a previously created
+rational tangle by consecutive additions of integer tangles and multiplications
+by vertical tangles, and it can be described by an algebraic expression of the
+type:
+                        1                  1               1                  1
+  [sk ] + (· · · + (         ∗ ([s1 ] + (       ∗ [s0 ] ∗       ) + [s2 ]) ∗       ) + · · ·) + [sk+1 ],
+                       [r3 ]              [r1 ]           [r2 ]              [r4 ]
+
+or of the type:
+
+    1                           1                1                1                             1
+         ∗ (· · · ∗ ([s3 ] + (       ∗ ([s1 ] +       + [s2 ]) ∗       ) + [s4 ]) ∗ · · ·) ∗         ,
+   [rk ]                       [r1 ]            [r0 ]            [r2 ]                       [rk+1 ]
+
+according as we start building from the tangle [0] or [∞], where all si , ri ∈ ZZ.
+Note that some of the si , ri may be zero. By allowing [sk ] + [sk+1 ] = [0] and
+[s0 ] = [∞] in the first expression, an algebraic expression of the following type
+can subsume both cases.
+                           1                  1               1                  1
+T = [sk ] + (· · · + (          ∗ ([s1 ] + (       ∗ [s0 ] ∗       ) + [s2 ]) ∗       ) + · · ·) + [sk+1 ],
+                          [r3 ]              [r1 ]           [r2 ]              [r4 ]
+
+where si , ri ∈ ZZ. For example, the rational tangle of Figure 4 can be described
+                         1               1
+as (([3] + ([1] ∗ [3] ∗ [2] ) + [−4]) ∗ [−4] ) + [2]. With the above notation and for
+any j ≤ k we call a truncation of T the result of untwisting T for a while, i.e.
+a rational tangle of the type:
+
+                           1                  1               1                  1
+R = [sj ] + (· · · + (          ∗ ([s1 ] + (       ∗ [s0 ] ∗       ) + [s2 ]) ∗       ) + · · ·) + [sj+1 ].
+                          [r3 ]              [r1 ]           [r2 ]              [r4 ]
+8                                              Kauffman & Lambropoulou
+
+
+
+
+                   Figure 4 - A rational tangle in twist form
+
+Note 1 To see the equivalence of Definition 1 with the definition of a rational
+tangle given in the introduction let S 2 denote the two-dimensional sphere,
+which is the boundary of the 3-ball, B 3 , and let p denote four specified points
+in S 2 . Let further h : (S 2 , p) −→ (S 2 , p) be a self-homeomorphism of S 2 with
+the four points. This extends to a self-homeomorphism h of the 3-ball B 3 (see
+[34], page 10). Further, let a denote the two straight arcs {x, y} × I joining
+pairs of the fours point of the boundary of B 3 . Consider now h(a). We call
+this the tangle induced by h. We note that, up to isotopy, h is a composition
+of braidings of pairs of points in S 2 (see [27], pages 61 to 65). Each such
+braiding induces a twist in the corresponding tangle. So, if h is a composition
+of braidings of pairs of points, then the extension h is a composition of twists
+of neighbouring end arcs. Thus h(a) is a rational tangle and every rational
+tangle can be obtained this way.
+    We define now an isotopy move for rational tangles that plays a crucial role
+in the whole theory that follows.
+Definition 2 A flype is an isotopy of a 2-tangle/a knot applied on a 2-
+subtangle of the form [±1] + t or [±1] ∗ t as illustrated in Figure 5. A flype
+fixes the endpoints of the subtangle on which it is applied. A flype shall be
+called rational if the 2-subtangle on which it acts is rational.
+Rational tangles and continued fractions                                       9
+
+
+
+                                                             t
+                        t              ~
+                                      flype
+
+
+
+
+                        t
+                                       ~                 t
+                                      flype
+
+
+
+
+                            Figure 5 - The flype moves
+
+A tangle is said to be alternating if the crossings alternate from under to
+over as we go along any component or arc of the weave. Similarly, a knot
+is alternating if it possesses an alternating diagram. Notice that, according
+to the checkerboard shading, the only way the weave alternates is if any two
+adjacent crossings are of the same type, and this propagates to the whole
+diagram. Thus, a tangle or a knot diagram with all crossings of the same type
+is alternating, and this characterizes alternating tangles and knot diagrams. It
+is important to note that flypes preserve the alternating structure. Moreover,
+flypes are the only isotopy moves needed in the statement of the celebrated Tait
+Conjecture for alternating knots. This was P.G. Tait’s working assumption in
+1877 (see [46]) and was proved by W. Menasco and M. Thistlethwaite [22] in
+1993.
+
+The Tait Conjecture for Knots. Two alternating knots are isotopic if and
+only if any two corresponding diagrams on S 2 are related by a finite sequence
+of flypes.
+
+For rational tangles flypes are of very specific types, as the lemma below shows.
+
+
+Lemma 1 Let T be a rational tangle in twist form. Then
+  (i) T does not contain any non-rational 2-subtangles.
+ (ii) Every 2-subtangle of T is a truncation of T .
+Proof. By induction. Notice that both statements are true for the tangles
+[0], [∞] and [±1]. Assume they are true for all rational tangles with less than
+n crossings, and let T be a rational tangle in twist form with n crossings. By
+10                                                 Kauffman & Lambropoulou
+
+
+Definition 1 the tangle T will contain an outmost crossing, i.e. T = T ′ + [±1]
+or T = [±1] + T ′ or T = T ′ ∗ [±1] or T = [±1] ∗ T ′ .
+    For proving (i) we proceed as follows. Let U be a 2-subtangle of T. Then
+U either contains the outmost crossing of T or not. If U does not contain the
+crossing, then by removing it we have U as a 2-subtangle of the tangle T ′ . But
+T ′ has n − 1 crossings, and by induction hypothesis U is rational. If U does
+contain the outmost crossing, then by removing it we also remove it from U,
+and so we obtain a 2-subtangle U ′ of the new tangle T ′ . But U is rational if
+and only if U ′ is rational, and U ′ has to be rational by induction hypothesis.
+    For proving (ii) let U be a 2-subtangle of T. By (i) U has to be rational and,
+arguing as in (i), U either contains the outmost crossing of T or not. If not,
+then by removing the crossing we have U as a 2-subtangle of the tangle T ′ , and
+by induction hypothesis U is a truncation of T ′ , and thus also of T. If U does
+contain the outmost crossing, then by removing it we obtain a 2-subtangle U ′
+of the new tangle T ′ , and by induction hypothesis U ′ is a truncation of T ′ .
+Then U ′ is also a truncation of T, and thus so is U.                           ✷
+
+Corollary 1 All flypes of a rational tangle T are rational.
+
+
+Definition 3 A flip is a rotation in space of a 2-tangle by 1800 . We say that
+T hf lip is the horizontal flip of the 2-tangle T if T hf lip is obtained from T by a
+1800 − rotation around a horizontal axis on the plane of T , and T vf lip is the
+vertical flip of the tangle T if T vf lip is obtained from T by a 1800− rotation
+around a vertical axis on the plane of T , see Figure 6 for illustrations.
+
+
+
+                                            180 o             R
+                    R
+
+                                        hflip
+
+
+
+                                           180 o
+
+                    R                                         R
+
+                                           vflip
+
+
+                 Figure 6 - The horizontal and the vertical flip
+Rational tangles and continued fractions                                                   11
+
+
+In view of the above definitions, a flype on a 2-subtangle t can be described
+by one of the isotopy identities:
+
+               [±1] + t ∼ thf lip + [±1]    or     [±1] ∗ t ∼ tvf lip ∗ [±1].
+
+Now we come to a remarkable property of rational tangles. Note that a flip
+switches the endpoints of the tangle and, in general, a flipped tangle is not
+isotopic to the original one. But this is the case for rational tangles, as the
+lemma below shows.
+
+Lemma 2 (Flipping Lemma) If T is rational, then:
+
+      (i) T ∼ T hf lip ,    (ii) T ∼ T vf lip    and     (iii) T ∼ (T i )i = (T r )r .
+
+Proof. We prove (i) and (ii) by induction. Note that both statements are true
+for the tangles [0], [∞], [±1], and assume they are true for any rational tangle,
+R say, with n crossings, i.e. R ∼ Rhf lip and R ∼ Rvf lip . We will show that then
+the statements hold also for the tangles F = R + [±1], F ′ = [±1] + R,
+L = R ∗ [±1], and L′ = [±1] ∗ R. Then, by Definition 1 and by Note
+1, the statements shall be true for any rational tangle. Indeed, for F hf lip and
+Lhf lip we have:
+
+
+
+                                                    by
+           F                  R
+                      =                             ~
+                                                 induction
+                                                                  R                 = F
+
+
+  and
+
+                                                   R            by
+           L                             ~                      ~             R          =L.
+                     =                 flype                 induction
+                              R                                twice
+
+
+
+
+                           Figure 7 - The proof of Lemma 2
+
+
+With the same arguments we show that F vf lip ∼ F and Lvf lip ∼ L. For the
+tangles F ′ and L′ the proofs are completely analogous. Finally, statement (iii)
+follows from (i) and (ii), since (T i )i = (T r )r = (T hf lip )vf lip .      ✷
+12                                              Kauffman & Lambropoulou
+
+
+Remark 1 As a consequence of Lemma 2, addition of [±1] and multiplication
+by [±1] are commutative, so a rational flype is described by
+
+                [±1] + t ∼ t + [±1]     or     [±1] ∗ t ∼ t ∗ [±1].
+
+In general for any m, n ∈ ZZ we have the following isotopy identities:
+                                              1        1          1
+       [m] + T + [n] ∼ T + [m + n],              ∗T ∗     ∼ T∗         .
+                                             [m]      [n]      [m + n]
+In view of Lemma 2, another way to define a rational flype is by one of the
+following isotopy identities:
+
+          [±1] + t ∼ ([±1] + t)vf lip   or     [±1] ∗ t ∼ ([±1] ∗ t)hf lip .
+
+    Lemma 2(iii) says that inversion is an operation of order 2 for rational
+tangles. Thus, if T rational then T i ∼ T −i , so we can rotate the mirror image
+of T by 900 either counterclockwise or clockwise to obtain T i . Thus, for a
+rational tangle T its inverse shall be denoted by T1 or T −1 . With this notation
+we have 11 = T and T r = −T  1
+                                = − T1 .
+         T
+
+
+Definition 4 A rational tangle is said to be in standard form if it is created
+by consecutive additions of the tangles [±1] only on the right (or only on the
+left) and multiplications by the tangles [±1] only at the bottom (or only at the
+top), starting from the tangle [0] or [∞].
+
+Thus, a rational tangle in standard form can be obtained inductively from a
+previously created rational tangle, T say, either by adding an integer tangle on
+the right: T → T + [±k], or by multiplying by a vertical tangle at the bottom:
+              1
+T → T ∗ [±k]    , starting from [0] or [∞], see Figure 8.
+
+
+
+                T      +                 =       T
+
+
+
+
+                                                 T
+                T        *               =
+Rational tangles and continued fractions                                                               13
+
+
+                Figure 8 - Creating rational tangles in standard form
+
+                                         1
+Figure 1 illustrates the tangle (([3] ∗ [−2] ) + [2]) in standard form. Hence, a
+rational tangle in standard form has an algebraic expression of the type:
+                    1                              1
+  ((([an ] ∗             ) + [an−2 ]) ∗ · · · ∗         ) + [a1 ], for a2 , . . . , an−1 ∈ ZZ − {0},
+               [an−1 ]                            [a2 ]
+
+where [a1 ] could be [0] and [an ] could be [∞] (see also Remark 2 below). The
+ai ’s are integers denoting numbers of twists with their types. Note that the
+tangle begins to twist from the tangle [an ] and it untwists from the tangle [a1 ].
+Figure 9 illustrates two equivalent (by the Flipping Lemma) ways of represent-
+ing an abstract rational tangle in standard form: The standard representation
+of a rational tangle. In either illustration the rational tangle begins to twist
+from the tangle [an ] ([a5 ] in Figure 9), and it untwists from the tangle [a1 ].
+Note that the tangle in Figure 9 has an odd number of sets of twists (n = 5)
+and this causes [a1 ] to be horizontal. If n is even and [an ] is horizontal then
+[a1 ] has to be vertical.
+
+
+               a5                                                                      a5
+                           a3                                               a3
+                                       a1            vflip       a1
+        a4                                                                                  a4
+                                                      ~
+                a2                                                                  a2
+
+
+
+
+                           Figure 9 - The standard representations
+
+
+    Another way of representing an abstract rational tangle in standard form
+is the 3-strand-braid representation, illustrated in Figure 10, which is more
+useful for studying rational knots. For an example see Figure 11. As Figure
+10 shows, the 3-strand-braid representation is actually a compressed version
+of the standard representation, so the two representations are equivalent. The
+upper row of crossings of the 3-strand-braid representation corresponds to the
+horizontal crossings of the standard representation and the lower row to the
+14                                              Kauffman & Lambropoulou
+
+
+vertical ones, as it is easy to see by a planar rotation. Note that, even though
+the type of crossings does not change by this planar rotation, we need to draw
+the mirror images of the even terms, since when we rotate them to the vertical
+position we obtain crossings of the opposite type in the local tangles. In order
+to bear in mind this change of the local signs we put on the geometric picture
+the minuses on the even terms.
+
+
+                        a5
+               a3
+     a1                            planar         a1             a3           a5
+                             a4
+                                     ~
+                                  isotopy
+                                                         -a 2          -a
+                                                                          4
+
+
+                      a2
+
+
+
+
+       Figure 10 - The standard and the 3-strand-braid representation
+
+
+Remark 2 When we start creating a rational tangle, the very first crossing
+can be equally seen as a horizontal or as a vertical one. Thus, we may always
+assume that we start twisting from the [0]-tangle. Moreover, because of the
+same ambiguity, we may always assume that the index n in the above notation
+is always odd. This is illustrated in Figure 11.
+
+
+
+
+                                          ~
+
+                 Figure 11 - The ambiguity of the first crossing
+
+From the above one may associate to a rational tangle T a vector of integers
+(a1 , a2 , . . . , an ). The first entry denotes the place where T starts unravelling
+Rational tangles and continued fractions                                                               15
+
+
+and the last entry is where it begins to twist. For example the rational tangle
+of Figure 1 is associated to the induced vector (2, −2, 3), while the tangle of
+Figure 4 corresponds after a sequence of flypes to the vector (2, −4, −1, 3, 3).
+For the rational tangle T this vector is unique, up to breaking the entry an by
+a unit, according to Remark 2. I.e. (a1 , a2 , . . . , an ) = (a1 , a2 , . . . , an − 1, 1),
+if an > 0, and (a1 , a2 , . . . , an ) = (a1 , a2 , . . . , an + 1, −1), if an < 0. (From the
+above n may be assumed to be odd.) As we shall soon see, if T changes by an
+isotopy the induced associated vector is not the same.
+
+The following lemma shows that the standard form is generic for rational
+tangles.
+
+Lemma 3 Every rational tangle can be brought via isotopy to standard form.
+
+Proof. Let T be a rational tangle in twist form. Starting from the outmost
+crossings of T and using horizontal and vertical rational flypes we bring, by
+induction, all horizontal and all vertical twists to the right and to the bottom
+applying the isotopy identities for rational flypes given in Remark 1. This
+process yields that the tangle
+
+                          1                  1               1                  1
+T = [sk ] + (· · · + (         ∗ ([s1 ] + (       ∗ [s0 ] ∗       ) + [s2 ]) ∗       ) + · · ·) + [sk+1 ],
+                         [r3 ]              [r1 ]           [r2 ]              [r4 ]
+
+gets transformed isotopically to the tangle in standard form:
+
+                           1                            1
+         (((([s0 ] ∗              ) + [s1 + s2 ]) ∗            ) + · · ·) + [sk + sk+1 ].
+                       [r1 + r2 ]                   [r3 + r4 ]
+                                                                                                       ✷
+                                                                       1
+For example, the tangle in Figure 4 is isotopic to the tangle ((([3]∗ [3] ) + [−1]) ∗
+ 1
+[−4]
+     ) + [2] in standard form.
+
+Remark 3 It follows from Definition 4 and Lemma 3 that the whole class
+of rational tangles can be generated inductively by the two simple algebraic
+operations below starting from the tangles [0] or [∞], where T is any previously
+created rational tangle.
+
+   1. Right addition of [+1] or [−1]:                         T −→ T + [±1].
+
+   2. Bottom multiplication by [+1] or [−1]: T −→ T ∗ [±1].
+16                                                            Kauffman & Lambropoulou
+
+
+Definition 5 A continued fraction in integer tangles is an algebraic descrip-
+tion of a rational tangle via a continued fraction built from the tangles [a1 ],
+[a2 ], . . . , [an ] with all numerators equal to 1, namely an expression of the type:
+                                                                            1
+               T = [[a1 ], [a2 ], . . . , [an ]] := [a1 ] +
+                                                              [a2 ] + · · · + [an−11]+ 1
+                                                                                     [an ]
+
+
+for a2 , . . . , an ∈ ZZ− {0} and n even or odd. We allow that the term a1 may be
+zero, and in this case the tangle [0] may be omitted. A rational tangle described
+via a continued fraction in integer tangles is said to be in continued fraction
+form. The length of the continued fraction is arbitrary – here illustrated at
+length n whether the first summand is the tangle [0] or not.
+
+
+Lemma 4 Every rational tangle T satisfies the following isotopic equations:
+                          1        1                           1         1
+                   T∗        =                   and              ∗T = 1       .
+                         [n]   [n] + T1                       [n]      T
+                                                                         + [n]
+
+Proof. Figure 12 illustrates the proof of the first equation. Here ‘L.2’ stands
+for ‘Lemma 2’. The second one is similar. That the two equations are indeed
+isotopic follows from the proof of Lemma 3.                                  ✷
+
+
+
+                                                                                T
+                               n                                                           L.2
+        1
+               = -                                -T                  ~                      = T * 1_ .
+                                                                                                   [n]
+     [n] + _
+           1
+           T
+                                                                            n
+
+
+
+                            Figure 12 - The proof of Lemma 4
+
+
+Remark 4 It follows now from Remark 3 and Lemma 4 that the two simple
+algebraic operations below generate inductively the whole class of rational
+tangles starting from the tangle [0], where T is any previously created rational
+tangle.
+
+     1. Right addition of [+1] or [−1]: T −→ T + [±1].
+Rational tangles and continued fractions                                                                          17
+
+
+      2. Inversion of rational tangles:                  T −→ T1 = T −1 .
+
+It is easy to see that the second operation can be replaced by the operation:
+
+  2′ . Rotation of rational tangles:                    T −→ T r = − T1 .
+
+In Section 6 we sharpen this even more by showing that the class of rational
+tangles is generated inductively from the tangle [0] by addition of [+1] and
+rotation. We are now in a position to prove the following:
+
+Proposition 1 Every rational tangle can be written in continued fraction
+form.
+
+Proof. By Lemma 3, a rational tangle may be assumed to be in standard
+form and so by repeated applications of Lemma 4 we obtain the corresponding
+continued fraction form:
+                1                                  1                                       1
+((([an ] ∗             ) + [an−2 ]) ∗ · · · ∗           ) + [a1 ] −→ [a1 ] +                            .
+             [an−1 ]                              [a2 ]                      [a2 ] + · · · + [an−11]+ 1
+                                                                                                               [an ]
+
+
+                                                                                  ✷
+Thus the continued fraction form and the standard form of a rational tangle
+are equivalent and the above correspondence shows that it is straightforward
+to write out the one from the other. For example, the tangle of Figure 1
+                           1
+can be written as [2] + [−2]+ 1 , the one of Figure 4 as [[2], [−4], [−1], [3], [3]],
+                                            [3]
+whilst the illustrations of Figures 9 and 10 depict an abstract rational tangle
+[[a1 ], [a2 ], [a3 ], [a4 ], [a5 ]]. The following statements, now, about the continued
+fraction form of rational tangles are straightforward.
+
+Lemma 5 Let T = [[a1 ], [a2 ], . . . , [an ]] be a rational tangle in continued frac-
+tion form. Then
+
+ 1. T + [±1] = [[a1 ± 1], [a2 ], . . . , [an ]],
+                  1
+ 2.               T
+                        = [[0], [a1 ], [a2 ], . . . , [an ]],
+ 3.            −T = [[−a1 ], [−a2 ], . . . , [−an ]],
+ 4.           If R = [[ai+1 ], . . . , [an ]], then we write T = [[a1 ], . . . , [ai ], R],
+ 5.          If ai = bi + ci and S = [[ci ], [ai+1 ], . . . , [an ]], then
+       T = [[a1 ], . . . , [ai−1 ], [bi ] + S] = [[a1 ], . . . , [ai−1 ], [bi ], [0], [ci ], [ai+1 ], . . . , [an ]].
+
+    Recall that a rational tangle [[a1 ], [a2 ], . . . , [an ]] is alternating if the ai ’s are
+all positive or all negative.
+18                                                         Kauffman & Lambropoulou
+
+
+Definition 6 A rational tangle T = [[β1 ], [β2 ], . . . , [βm ]] is in canonical form if
+T is alternating and m is odd. Moreover, T shall be called positive or negative
+according to the sign of its terms.
+
+We note that if T is alternating and m even, then we can bring T to canonical
+form by breaking [βm ] to [sign(βm )·(|βm|−1)]+[sign(βm)·1], by Remark 2, and
+thus, [[β1 ], [β2 ], . . . , [βm ]] to [[β1 ], [β2 ], . . . , [sign(βm ) · (|βm| − 1)], [sign(βm) · 1]].
+Proposition 2 below is a key property of rational tangles.
+
+Proposition 2 Every rational tangle can be isotoped to canonical form.
+
+Proof. Let T be a rational tangle. By Proposition 1, T may be assumed to
+be in continued fraction form, say T = [[a1 ], [a2 ], . . . , [an ]]. We will show that
+T ∼ [[β1 ], [β2 ], . . . , [βm ]], where all βi ’s are positive or all negative. If T is non-
+alternating then the aj ’s are not all of the same sign. Let ai−1 , ai be the first
+pair of adjacent aj ’s of opposite sign, and let ai−1 > 0. Then a configuration
+of the following type, as illustrated in Figure 13 below, must occur for i odd
+or a similar one for i even.
+
+
+
+
+                     an                                                         ...
+                                   ai
+               t
+                          a i+1                                   a i-2
+           s
+                                                                                     ...
+
+
+
+
+                     a i-1
+
+
+               ...
+                       Figure 13 - A non-alternating configuration
+
+If ai−1 < 0 then similar configurations will occur, but with the signs of a1 , . . . , ai
+switched. We remind that the signs of ai+1 , . . . , an are irrelevant, and we note
+Rational tangles and continued fractions                                          19
+
+
+that the subtangles t and s are rational and in continued fraction form. Now,
+inside s the arc connecting the two crossings of opposite signs can be isotoped
+in both types of configurations to yield a simpler rational tangle s′ isotopic
+to s. See Figure 14 for i odd and for i even respectively. Such an isotopy
+move shall be called a transfer move. Since s is a rational tangle in continued
+fraction form, the upper left arc of s joins directly to the subtangle an , and
+thus it meets no other arcs of the diagram. Hence, after the transfer move the
+subtangle s′ has one fewer crossing than s so we can apply induction.
+
+
+                                                                         flype &
+                                                                          hflip
+         t           ~                t          ~                         ~
+
+                                                             t
+                                                                        - _ + [+1] = s',
+                                                                          1
+                                                                          t
+                                                                         for i odd
+
+
+or
+
+
+                                                                          flype &
+                                                                           hflip
+          t          ~                t          ~                          ~
+                                                             t
+
+
+
+
+                                                                        - _ * [+1] = s',
+                                                                          1
+                                                                          t
+                                                                          for i even.
+
+
+                           Figure 14 - The transfer moves
+
+
+The above isotopies are reflected in the following tangle identities for the cases i
+odd and i even respectively. There are similar identities for switched crossings.
+
+                            L.4         1          1
+     s = (t + [−1]) ∗ [+1] =               1    ∼ − + [+1] = s′ , if i odd, and
+                                  [+1] + [−1]+t    t
+
+                     L.4             1        1      L.4    1
+s = (t∗[−1])+[+1] = [+1]+                1 ∼ − ∗[+1] =            = s′ , if i even.
+                                  [−1] + t    t          [+1] − t
+In terms of tangle continued fractions the above can be expressed as follows:
+     20                                                           Kauffman & Lambropoulou
+
+
+ If i odd: We have from Figure 13 that t = [[ai + 1], [ai+1 ], . . . , [an ]],
+            s = [[0], [+1], [−1]+t] = [[0], [+1], [ai ], . . . , [an ]] and, from Figure 14, that
+            s′ = [[+1], −t] = [[+1], −[ai + 1], −[ai+1 ], . . . , −[an ]].
+            And so,
+            T = [[a1 ], . . . , [(ai−1 − 1) + 1], . . . , [an ]] = [[a1 ], . . . , [ai−2 ], [ai−1 − 1] + 1s ]
+                  = [[a1 ], . . . , [ai−2 ], [(ai−1 − 1) + (+1)], [−1] + t]
+             L.5(5)
+                  = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], [0], [+1], [−1] + t] ⇐⇒
+            T = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], [0], [+1], [ai], . . . , [an ]],
+            which gets isotopically transformed to
+            T ′ = [[a1 ], . . . , [ai−2 ], [ai−1 − 1] + s1′ ] = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], s′ ]
+                   = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], [+1], −t] ⇐⇒
+            T ′ = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], [+1], −[ai + 1], −[ai+1 ], . . . , −[an ]].
+If i even: Here we have t = [[0], [ai + 1], [ai+1 ], . . . , [an ]],
+                                      L.4                   L.5(5)
+            s = [[+1], [−1] ∗ t] = [[+1], [−1], t] = [[+1], [ai ], . . . , [an ]] and
+                  L.4
+            s′ = [[0], [+1] + (−t)] = [[0], [+1], −[ai + 1], −[ai+1 ], . . . , −[an ]].
+            And so,
+            T = [[a1 ], [a2 ], . . . , [an ]] = [[a1 ], . . . , [ai−2 ], [ai−1 − 1] + s]
+                  = [[a1 ], . . . , [ai−2 ], [(ai−1 − 1) + (+1)], [−1] + 1t ]
+             L.5(5)
+                  = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], [0], [+1], [−1] + 1t ] ⇐⇒
+            T = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], [0], [+1], [ai], . . . , [an ]],
+            which gets isotopically transformed to
+            T ′ = [[a1 ], . . . , [ai−2 ], [ai−1 − 1] + s′ ] = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], s1′ ]
+                   = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], [+1] + (−t)] ⇐⇒
+              ′
+            T = [[a1 ], . . . , [ai−2 ], [ai−1 − 1], [+1], −[ai + 1], −[ai+1 ], . . . , −[an ]].
+     Notice that the breaking of T as well as the final tangle T ′ are the same in either
+     case. Note also, that the total number of crossings in T ′ is indeed reduced by
+     one. For the cases of the same configurations, but with the signs of a1 , . . . , ai
+     switched we have completely analogous formulae. Thus, by induction T is
+     isotopic to an alternating rational tangle [[β1 ], [β2 ], . . . , [βm ]], where m is odd
+     by the discussion before the proposition.
+         Finally observe that, if the above isotopy involves the integer tangle [a1 ],
+     the transfer move will not be needed again in the same region. Thus, in
+Rational tangles and continued fractions                                                   21
+
+
+principle, the sign of a1 or of a2 , if a1 = 0, dominates the type of cross-
+ings in the alternating weave. There is one exception to this rule, namely
+when the tangle begins with an alteration of [+1] and [−1] tangles. More
+precisely, if T = [[+1], [−1], t], then the sign of T is opposite to the sign of
+t. If T = [[+1], [−1], [+1], [−1], t], then the sign of T is same as the sign of t,
+and if T = [[+1], [−1], [+1], [−1], [+1], [−1], t], then T = t. There are analogous
+considerations for alterations of [−1] and [+1]. The proof is now completed.
+✷
+
+The alternating nature of the rational tangles will be very useful to us in clas-
+sifying rational knots in [17]. It is easy to see that the closure of an alternating
+rational tangle is an alternating knot. Thus we have
+
+Corollary 2 Rational knots are alternating, since they possess a diagram that
+is the closure of an alternating rational tangle.
+
+
+3     Some facts about Continued Fractions
+It is clear that every rational number can be written as a continued fractions
+with all numerators equal to 1, namely as an arithmetic expression of the type:
+                                                                  1
+                     [a1 , a2 , . . . , an ] := a1 +
+                                                       a2 + · · · + an−11+ 1
+                                                                          an
+
+
+for a1 ∈ ZZ, a2 , . . . , an ∈ ZZ− {0} and n even or odd. As in the case of rational
+tangles we allow that the term a1 may be zero. In the case of the subject at
+hand we shall only consider this kind of continued fractions. The subject of
+continued fractions is of perennial interest to mathematicians, see for example
+[20], [25], [51], [19]. The length of the continued fraction is the number n
+whether a1 is zero or not. Note that if a1 6= 0 (a1 = 0), then the absolute value
+of the continued fraction is greater (smaller) than one. Clearly, the two simple
+algebraic operations addition of +1 or −1 and inversion generate inductively
+the whole class of continued fractions starting from zero.
+In this section we prove a well-known canonical form for continued fractions.
+The algorithm we develop works in parallel with the algorithm for the canonical
+form of rational tangles in the previous section. The following statements
+about continued fractions are really straightforward (compare with Lemma 5).
+
+Lemma 6 Let pq be any rational number. Then
+
+1. there are a1 ∈ ZZ, a2 , . . . , an ∈ ZZ − {0} such that pq = [a1 , a2 , . . . , an ],
+22                                                                Kauffman & Lambropoulou
+
+       p
+ 2.    q
+         ±1        = [a1 ± 1, a2 , . . . , an ],
+             q
+ 3.          p
+                   = [0, a1 , a2 , . . . , an ],
+ 4.       − pq     = [−a1 , −a2 , . . . , −an ],
+ 5.      If dr     = [ai+1 , . . . , an ], then we write pq = [a1 , . . . , ai , dr ].
+
+ 6.    If ai = bi + ci and us = [ci , ai+1 , . . . , an ], then pq = [a1 , . . . , ai−1 , bi + us ]
+      and pq = [a1 , . . . , ai−1 , bi +ci , ai+1 , . . . , an ] = [a1 , . . . , ai−1 , bi , 0, ci , ai+1 , . . . , an ].
+
+
+Remark 5 If a continued fraction [a1 , a2 , . . . , an ] has even length, then we
+can bring it to odd length via the last term transformations:
+
+                 [a1 , a2 , . . . , an ] = [a1 , a2 , . . . , an − 1, +1] for an > 0 and
+
+                 [a1 , a2 , . . . , an ] = [a1 , a2 , . . . , an + 1, −1] for an < 0.
+
+We shall say that a continued fraction is termwise positive (negative) if all the
+numerical terms in its expression are positive (negative).
+
+Definition 7 A continued fraction [β1 , β2 , . . . , βm ] is said to be in canonical
+form if it is termwise positive or negative and m is odd.
+
+By Remark 5 above any termwise positive or negative continued fraction may
+be assumed to be in canonical form. The main observation now is the following
+well-known fact about continued fractions (the analogue of Proposition 2).
+
+Proposition 3 Every continued fraction [a1 , a2 , . . . , an ] can be transformed
+to a unique canonical form with sign generically equal to the sign of the first
+non-zero term.
+
+Proof. Let pq = [a1 , a2 , . . . , an ] and suppose that the aj ’s are not all of the
+same sign. Let ai−1 , ai be the first pair of adjacent aj ’s of opposite sign, with
+ai−1 > 0. We point out that the signs of ai+1 , . . . , an are irrelevant. We will
+show that pq = [β1 , β2 , . . . , βm ], where all βi ’s are positive or all negative. We
+do the same arithmetic operations to the continued fraction [a1 , a2 , . . . , an ], as
+for rational tangles and we check the results. Indeed, we have:
+ p
+ q
+        =        [a1 , a2 , . . . , an ]
+        =        [a1 , . . . , ai−2 , (ai−1 − 1) + 1, −1 + (ai + 1), ai+1 , . . . , an ]
+      L.6(6)
+        =        [a1 , . . . , ai−2 , (ai−1 − 1), 0, +1, −1 + (ai + 1), ai+1 , . . . , an ]
+      L.6(6)
+        =        [a1 , . . . , ai−2 , (ai−1 − 1), 0, +1, −1 + rl ],
+Rational tangles and continued fractions                                                23
+
+         r
+where    l
+           = [ai + 1, ai+1 , . . . , an ].   This is transformed to
+ p′
+ q′
+      = [a1 , . . . , ai−2 , (ai−1 − 1), +1, −(ai + 1), −ai+1 , . . . , −an ]
+      = [a1 , . . . , ai−2 , (ai−1 − 1), +1, − rl ].
+
+                                    p     ′
+In order to show now that           q
+                                      = pq′    it suffices to show the arithmetic equality
+
+                         r          r         1            l
+             [0, +1, −1 + ] = [+1, − ] ⇐⇒        1   = +1 − ,
+                         l          l     +1 + −1+ r       r
+                                                                    l
+
+
+which is indeed valid. There is a similar identity for ai−1 < 0. Notice that the
+                                                                          ′
+sum of the absolute values of the entries of the continued fraction pq′ is reduced
+by one. So, proceeding by induction, we eliminate in the continued fraction
+all entries with negative sign. Notice also that the sign of ai−1 and thus of
+a1 , if a1 6= 0, dominates the above calculations. As in the case of rational
+tangles (Proposition 2) there is one exception to this rule, namely when the
+continued fraction begins with an alteration of +1 and −1. More precisely, if
+P
+Q
+    = [+1, −1, pq ], then Q
+                          P     q
+                            = q−p , and the sign of PQ is opposite to the sign of pq .
+   P
+If Q  = [+1, −1, +1, −1, pq ], then Q
+                                    P
+                                      = p−q
+                                          p
+                                            , and the sign of Q  P
+                                                                   is same as the sign
+    p         P                               p          P     p
+of q , and if Q = [+1, −1, +1, −1, +1, −1, q ], then Q = q . There are analogous
+identities for alterations of −1 and +1. Finally, by Remark 5, the index m of
+the last term of the continued fraction [β1 , β2 , . . . , βm ] can be assumed to be
+odd, and the uniqueness of the final continued fraction follows from Euclid’s
+algorithm. This completes the proof.                                                 ✷
+
+    Another interesting fact about continued fractions is that any positive con-
+tinued fraction can be written as a continued fraction with even integer de-
+nominators, see [39]. Note that, by Lemma 6(4), this fact can be extended to
+negative continued fractions. Siebenmann [39] uses this observation for finding
+an obvious Seifert surface spanning a given rational knot.
+
+Matrix interpretation for continued fractions. We now give a way of
+calculating continued fractions via 2×2 matrices (compare with [11], !        [20], [39],
+                                                                            p
+[7]). Let [a1 , a2 , . . . , an ] = p/q. We correspond p/q to the vector        and we
+                                                                            q
+                              !               !
+                   ai 1                     1
+let M(ai ) =                     and v =        . Then, in this notation we have:
+                    1 0                     0
+
+                      [a1 , a2 , . . . , an ] = M(a1 )M(a2 ) · · · M(an ) v.
+
+Infinite tangles. Before closing this section we push the analogy to periodic
+infinite tangles and imaginary tangles. It is a classic result that to every real
+24                                                    Kauffman & Lambropoulou
+
+
+number r corresponds a unique continued fraction [a1 , a2 , . . .] that converges
+to r, such that the ai ∈ ZZ and ai > 0 for all i > 1 (see for example [19]).
+It is easy to see that we could have instead the ai ’s either all positive or all
+negative. This continued fraction is finite if r is rational and infinite if r is
+irrational.
+
+    Further, it was proved by Lagrange that an irrational number is quadratic
+(i.e. it satisfies a quadratic equation with integer coefficients) if and only
+if it has a continued fraction expansion which is periodic from some point
+onward. (See [19], [25].) Let αχ2 = βχ + γ, be a quadratic equation
+with integer coefficients and α 6= 0. The solutions χ, χ′ will be either both
+real or both complex conjugates. If the roots are real irrationals we can find
+the periodic continued fraction expansion of one of the two (the greater one,
+say χ) by solving the equation χ = a1 + χ12 , where the number χ2 =
+  1
+χ−a1
+      > 1 is irrational. We continue solving a similar equation for χ2 , and so
+on, until we obtain χ = [a1 , a2 , . . . , ak , b1 , b2 , . . . , bn ], where the bar marks the
+period of the continued fraction. For example, the golden ratio is the positive
+root of the equation χ2 = χ + 1, which gives rise to the infinite continued
+fraction [1, 1, 1, . . .]. For the continued fraction expansion of the root χ′ we
+know the following remarkable theorem of Galois (also implicit in the work
+of Lagrange, see for example [25]): If χ > 1 is a quadratic irrational number
+and we have that −1 < χ′ < 0, then the continued fraction expansion of χ
+is purely periodic. Let χ = [a1 , a2 , . . . , an ] for a1 , a2 , . . . , an positive integers
+and let ψ = [an , an−1 , . . . , a1 ] be the continued fraction for χ with the period
+reversed. Then − ψ1 = χ′ is the conjugate root of the quadratic equation
+satisfied by χ.
+
+    It is interesting to look at the relations of the above continued fractions
+and corresponding infinite tangles. According to the above, each non-rational
+real number (algebraic or transcendental) can be associated to an infinite tan-
+gle [[a1 ], [a2 ], [a3 ], . . .], all the approximants of which are rational tangles. A
+quadratic irrational number χ will be associated to an infinite periodic ratio-
+nal tangle. This demonstrates a fractal pattern. If the tangle for χ is purely
+periodic, i.e. a tangle of the form [χ] = [[a1 ], [a2 ], · · · [an ]] then its conjugate
+will correspond to the 900 − rotation of this tangle with the period reversed.
+In Figure 15 we illustrate the tangle for the golden ratio:
+
+
+                                 √
+                              1+ 5                  1
+                            [      ] = [1] +                .
+                                2            [1] + [1]+ 1 1
+                                                            [1]+···
+Rational tangles and continued fractions                                         25
+
+
+
+
+                                                             ...
+
+
+
+                                                                       √
+                Figure 15 - The tangle of the golden ratio 1+2 5
+
+
+    Suppose now that the quadratic equation αχ2 = βχ + γ, does not have
+real roots. In this case we cannot apply the above algorithm for obtaining an
+infinite continued fraction, whose limit value is well-defined. Yet we can write
+a formal solution as an infinite continued fraction with rational entries, in the
+following way:
+
+                                  γ                               γ
+       β    γ                 β                              β        β    1
+χ2 =     χ+       =⇒     χ=     + α       =⇒           χ=      + α γ = + β 1.
+       α    α                 α χ                            α  β
+                                                                  + α α  γ
+                                                                           +χ
+                                                                   α   χ
+
+Thus, with repeated iterations we obtain for χ the infinite purely periodic
+formal continued fraction with rational terms:
+
+                      β               1                        β β
+                     ( )+ β                 1
+                                                            = [ , ].
+                      α  (γ ) +    β            1
+                                                               α γ
+                                  (α )+ β           1
+                                       ( γ )+
+                                                  β
+                                                ( α )+···
+
+
+The finitely iterated fraction values must oscillate in some set of values (possi-
+bly infinite), and we have behaviours of great complexity related to the powers
+of the complex number solutions. In this form we can insert the rational tangles
+[β/α] and [β/γ] into the places of horizontal and vertical twists respectively
+of the standard form of rational tangles illustrated in Figure 9 (where we have
+previously restricted ourselves to integer and vertical tangles). The continued
+fraction form of the rational tangles [β/α] and [β/γ] is found by writing out
+the fractions β/α and β/γ as continued fractions. The result is a sequence of
+generalized continued fraction tangles that are not (even in the finite approx-
+imations) neccessarily rational. We shall call such tangles ‘imaginary’.
+                                                                             √
+             consider the equation χ2 = χ − 2. This has roots χ = (1+ 2 −7)
+For example, √
+and χ′ = (1− 2 −7) . According to the above we can set up an infinite imagi-
+                                                     1
+nary tangle with corresponding equation [χ] = [[1], [−2] ]. We leave it as an
+26                                                          Kauffman & Lambropoulou
+
+
+exercise for the reader to investigate [χ] and its finite approximations. The
+finite approximations go chaotically through
+                                           √
+                                                  an infinite set of fraction values.
+                                        (1+ −7)
+Certainly [χ] deserves the name [ 2 ]. This is a case of using a rational
+insertion in the pattern of the continued fraction forms. Another example is
+[ψ] = [[1], [−1]] for which the corresponding formal infinite continued fraction
+                                                                    1
+is [1, −1, 1, −1, . . .]. This leads to the equation ψ = 1 + −1+      1   and to the
+                                                             √        ψ
+
+quadratic equation ψ 2 = ψ − 1 with roots ψ = (1 ± 3i)/2. The approxi-
+                                                           1               1
+mating fractions oscillate through the values 1, 1 + −1       = 0, 1 + −1+   1 = ∞
+                                                                             1
+with period three. Notice that the periodic continued fraction [1, −1, 1, −1, . . .]
+does not satisfy the conditions for convergence √   to a real number. Finally, an-
+other interesting example is the tangle [i] = [ −1]. Here i is a root of the
+quadratic equation χ2 + 1 = 0, so χ = − χ1 . Thus, the elemental imaginary
+                                   √
+tangle satisfies the equation [ −1] = − [√1−1] . Since − T1 is represented by the
+                                √         √
+rotation T r , we see that [ −1] = [ −1]r . This is illustrated by the infinite
+tangle in Figure 16.
+
+
+
+
+                                                                   =          i
+
+
+
+
+                  Figure 16 - The tangle of the square root of -1
+
+
+
+4     The Proof of the Classification Theorem
+Let T be a rational tangle in twist form:
+                          1                  1               1                  1
+T = [sk ] + (· · · + (         ∗ ([s1 ] + (       ∗ [s0 ] ∗       ) + [s2 ]) ∗       ) + · · ·) + [sk+1 ].
+                         [r3 ]              [r1 ]           [r2 ]              [r4 ]
+Rational tangles and continued fractions                                                                      27
+
+
+Definition 8 We define the fraction of T, F (T ), to be the rational number
+                                1           1      1          1
+    F (T ) = sk + (· · · + (       ∗ (s1 + ( ∗ s0 ∗ ) + s2 ) ∗ ) + · · ·) + sk+1 ,
+                                r3          r1     r2         r4
+
+if T 6= [∞], and F ([∞]) := ∞ = 10 , as a formal expression, where the arithmetic
+operation ‘∗’ is defined via
+                                              1
+                               x ∗ y := 1 1 .
+                                            x
+                                              +y
+
+                                                                       1
+For example we have: F ([0]) = 0, F ([±1]) = ±1, F ([±k]) = ±k, F ( [±k] )=
+ 1                      1           1                     1
+±k
+   . Also, F (([3] + ( [5] ∗ [6] ∗ [2] ) + [−4]) = 3 + 5+ 1 +2 + (−4).
+                                                                         6
+
+
+Lemma 7 Let T be a rational tangle in twist form and C its continued frac-
+tion form. Then F (T ) = F (C).
+
+Proof. We observe first that, by Definition 8, the operation ‘∗’ is commutative.
+Also it is associative, since (a ∗ b) ∗ c = a ∗ (b ∗ c) = 1 + 11 + 1 . Thus, for the
+                                                            a  b   c
+operations ‘+’ and ‘∗’ we have the identities: F ([n] + T ) = F (T + [n]) and
+     1                  1
+F ( [n] ∗ T ) = F (T ∗ [n] ). For T now with an expression as above we have
+
+                                                       1
+         F (T ) = sk + · · · +                          1                         + · · · + sk+1 .
+                                   (r3 + (s1 +           1
+                                                                 +s2 )
+                                                                         + r4 )
+                                                  (r1 + s1 +r2 )
+                                                         0
+
+
+On the other hand we have from Lemma 3 that
+                               1                            1
+   C = (· · · ((([s0 ] ∗              ) + [s1 + s2 ]) ∗            ) + · · ·) + [sk + sk+1 ]).
+                           [r1 + r2 ]                   [r3 + r4 ]
+Thus
+                                                                  1
+       F (C) = (sk + sk+1 ) + · · · +                                                        = F (T ).
+                                            (r3 + r4 ) + (s1 +s2 )+ 1              1
+                                                                             (r1 +r2 )+ s1
+                                                                                         0
+
+                                                                                                              ✷
+
+Remark 6 It follows from the above that:
+                                1                                                             1
+ If T = [a1 ] +                                   then F (T ) = a1 +                                     ,
+                  [a2 ] + · · · + [an−11]+ 1                                       a2 + · · · + an−11+ 1
+                                          [an ]                                                          an
+
+
+and this can be taken as the definition of F (T ).
+28                                                     Kauffman & Lambropoulou
+
+
+Lemma 8 Let T = [[a1 ], [a2 ], . . . , [an ]] be a rational tangle in continued frac-
+tion form. Then the tangle fraction has the following properties.
+
+ 1. F (T + [±1]) = F (T ) ± 1, and F (T ± [k]) = F (T ) ± k,
+ 2.          F ( T1 ) =      1
+                           F (T )
+                                  ,
+ 3.        F (−T ) = −F (T ),
+                                                 1
+ 4.   F (T ∗ [±1]) = F (T ) ∗ (±1), and F (T ∗ [±k] ) = ±k+1 1 ,
+                                                                           F (T )
+ 5.          If R = [[ai+1 ], . . . , [an ]], then F (T ) = [a1 , . . . , ai , F (R)],
+ 6.          If ai = bi + ci and S = [[ci ], [ai+1 ], . . . , [an ]],
+      then F (T ) = [a1 , . . . , ai−1 , bi + F (S)] = [a1 , . . . , ai−1 , bi , 0, F (S)].
+
+Proof. Immediate from Lemmas 4, 5 and 6.                                                        ✷
+
+It follows from Lemma 8(2) that F ( 11 ) = F ((T r )r ) = F (T ).
+                                             T
+
+
+Lemma 9 If T rational, then F (T hf lip) = F (T ) = F (T vf lip ).
+
+Proof. We prove the first equality; the proof of the second one is completely
+analogous. As for Lemma 2, we proceed by induction. The statement is true
+for the tangles [0], [∞], [±1], and assume it is also true for any rational tangle
+R with n crossings, i.e. F (R) = F (Rhf lip ). By Remark 1, we only need to show
+that the statement is valid for the tangles F = R + [±1] and L = R ∗ [±1].
+Indeed, for F hf lip and Lhf lip we have:
+                                                                L.8(1)                   induction
+F (F hf lip ) = F ((R + [±1])hf lip ) = F (Rhf lip + [±1]) = F (Rhf lip ) ± 1               =
+           L.8(1)
+F (R) ± 1 = F (R + [±1]) = F (F ), and
+                                                          L.8                       induction
+F (Lhf lip ) = F (R ∗ [±1])hf lip = F ([±1] ∗ Rhf lip ) = ±1 ∗ F (Rhf lip )            =
+            L.7                L.8(4)
+±1 ∗ F (R) = F (R) ∗ ±1 = F (R ∗ [±1]) = F (L).                                                 ✷
+
+Lemma 10 Let T be a rational tangle in continued fraction form and T ′ its
+canonical form. Then F (T ) = F (T ′ ).
+
+Proof. Direct consequence of the proofs of Propositions 2 and 3.                                ✷
+
+    We will show next that two alternating rational tangles are isotopic if and
+only if they differ by a finite sequence of flypes. Diagrams for knots and
+links are represented on the surface of a two dimensional sphere and then
+notationally on a plane for purposes of illustration. A pancake flip of a diagram
+is a diagram obtained by picking up the diagram, turning it by 1800 in space
+and then replacing it on the plane.
+Rational tangles and continued fractions                                       29
+
+
+     Abstractly we know that a diagram and its pancake flip are isotopic by
+Reidemeister moves. In fact, as we illustrate in Figure 17, a pancake flip is
+a composition of S 2 -isotopies, planar isotopy and a flype. (By an S 2 -isotopy
+we mean the sliding of an arc around the back of the sphere.) To see this,
+note first that we can assume without loss of generality that we can isolate one
+crossing at the ‘outer edge’ of the diagram in the plane and decompose the
+diagram into this crossing and a complementary tangle. I.e. the diagram in
+question is of the form N([±1] + R) for some tangle R not necessarily rational.
+In order to place the diagram in this form we only need to use isotopies of the
+diagram in the plane. Thus, a pancake flip is a composition of flypes up to
+S 2 -isotopies, but it is convenient to have this move on diagrams articulated
+directly.
+
+
+
+
+                  S 2 - isotopy                     planar
+            R
+                                         R          isotopy         R
+
+
+        pancake                                                   S 2 - isotopies
+        flip
+                                         R
+                S 2 - isotopy                        flype          R
+           R
+
+
+
+
+                             Figure 17 - Pancake flip
+
+
+Proposition 4 Two alternating rational tangles on S 2 are isotopic if and
+only if they differ by a finite sequence of rational flypes.
+
+Proof. Let T be a 2-tangle contained in a 3-ball in S 3 . By shrinking the
+complementary 3-ball to a point we may view it as a rigid vertex attached to the
+tangle, see Figure 18. Thus, the vertex closure V (T ) is associated to the tangle
+T in a natural way. Note that V (T ) is an amalgamation of the numerator
+closure and the denominator closure of T, as defined in the introduction. An
+isotopy of 2-tangles fixes their endpoints, so it can be considered as an isotopy
+of their vertex closures.
+30                                             Kauffman & Lambropoulou
+
+
+
+
+                                   T
+
+
+
+
+                           Figure 18 - Vertex closure
+
+
+
+
+In [45], end of Section 1 it is argued that the solution to the Tait conjecture
+for alternating knots implies that the flyping conjecture is also true for vertex
+closures of alternating 2-tangles and thus true for alternating 2-tangles, see
+also [35]. We shall assume the Tait flyping conjecture for vertex closures of
+alternating rational tangles and we shall derive from this the flyping conjecture
+for alternating rational tangles.
+
+     Let T be an alternating rational tangle diagram. We consider all possible
+flypes on V (T ). If a flype does not involve the rigid vertex of the closure then
+it is a tangle flype, thus by Corollary 1 a rational flype, and so there is nothing
+to show. Consider now a flype that contains the rigid vertex. We will show
+that such a flype can be reconfigured as the composition of a pancake flip with
+a flype of a subtangle of the tangle T. Thus, up to a pancake flip, all flypes
+can take place on the tangle without involving the vertex.
+    Indeed, the region of a flype can be enclosed by a simple closed curve
+on the plane, that intersects the tangle in four points. Hence, a flype that
+involves the rigid vertex can only fall into one of the two cases for T : either
+T = P + [±1] + R or T = P ∗ [±1] ∗ R. Figure 19 illustrates for the first case
+how to avoid to flype the rigid vertex up to a pancake flip. Note that we have
+shaded one arc of the rigid vertex darker, in order to make the isotopies easier
+to follow. The second case for T follows from the first one by a 900 −rotation
+on the plane.
+Rational tangles and continued fractions                                         31
+
+
+
+
+                                   vertex
+                                                           R
+       P            R                           P
+                                    flype
+
+
+
+                    pancake                                    slide
+                                                                             2
+                    flip                                       crossing on S
+
+
+                                 horizontal
+      P             R                                           R
+                                                       P
+                                   tangle
+                                    flype
+
+
+                        Figure 19 - Vertex flype analysis
+
+
+    Let now T and S be two isotopic alternating rational tangles and let V (T )
+and V (S) be their vertex closures. By [45] we have that V (T ) and V (S) are
+related by a sequence of flypes. From the above reasoning it can be assumed
+that, up to a pancake flip, these flypes all leave the rigid vertex fixed, hence
+they are tangle flypes. Now, the horizontal pancake flip induces a horizontal
+flip and the vertical pancake flip induces a vertical flip on the rational tangle.
+These, by Lemma 2, are isotopic to the original rational tangle. Thus, all steps
+above are tangle isotopies. Finally, by Corollary 1, tangle flypes on rational
+tangles have to be rational. This completes the proof.                          ✷
+
+Corollary 3 It follows from Lemma 1 and Proposition 4 that two isotopic
+rational tangles with all crossings of the same type will be twist forms of the
+same canonical form.
+
+
+Lemma 11 Two rational tangles that differ by a rational flype have the same
+fraction.
+
+Proof. Let T and S be two rational tangles that differ by a flype with respect
+to a rational subtangle t. The flype will have one of the algebraic expressions:
+32                                                       Kauffman & Lambropoulou
+
+
+[±1]+t ∼ thf lip +[±1] or [±1]∗t ∼ tvf lip ∗[±1]. By Lemma 9 F (thf lip ) = F (t)
+and F (tvf lip ) = F (t), and by Lemma 7 F ([±1] + t) = F (t + [±1]) and
+F ([±1] ∗ t) = F (t ∗ [±1]). Finally, by Corollary 1 t is a rational truncation
+of T, and Lemmas 5 and 6 tell us that continued fractions of rational tangles
+and arithmetic continued fractions agree on truncations. Thus, we obtain
+F (T ) = F (S).                                                                ✷
+
+Theorem 2 The fraction is an isotopy invariant of rational tangles.
+
+Proof. Let T, S be two isotopic rational tangles in twist form. By Lemma
+3 and Proposition 1 the tangles T, S can be isotoped to two rational tangles
+T ′ , S ′ in continued fraction form, and by Lemma 7 we have F (T ) = F (T ′ ) and
+F (S) = F (S ′ ). Further, by Proposition 2 the tangles T ′ , S ′ can be isotoped to
+two alternating rational tangles T ′′ , S ′′ in canonical form, and by Lemma 10
+we have F (T ′ ) = F (T ′′ ) and F (S ′ ) = F (S ′′ ). Finally, by Proposition 4 the
+tangles T ′′ , S ′′ will differ only by rational flypes, and by Lemma 11 we have
+F (T ′′ ) = F (S ′′ ). Thus F (T ) = F (S), and this ends the proof of the theorem.
+✷
+
+Theorem 3 Two rational tangles with the same fraction are isotopic.
+
+Proof. Indeed, let T = [[a1 ], [a2 ], . . . , [an ]] and S = [[b1 ], [b2 ], . . . , [bm ]] be two
+rational tangles with F (T ) = F (S) = pq . We bring T, S to their canonical
+forms T ′ = [[α1 ], [α2 ], . . . , [αk ]] and S ′ = [[β1 ], [β2 ], . . . , [βl ]] respectively. From
+Theorem 2 we have F (T ′ ) = F (T ) = F (S) = F (S ′ ) = pq . By Proposition 3,
+the fraction pq has a unique continued fraction expansion in canonical form,
+say pq = [γ1 , γ2 , . . . , γr ]. This gives rise to the alternating rational tangle in
+canonical form Q = [[γ1 ], [γ2 ], . . . , [γr ]], which is uniquely determined from
+the vector of integers (γ1 , γ2 , . . . , γr ). We claim that Q = T ′ (and similarly
+Q = S ′ ). Indeed, if this were not the case we would have the two different
+continued fractions in canonical form giving rise to the same rational number:
+[α1 , α2 , . . . , αk ] = pq = [γ1 , γ2 , . . . , γr ]. But this contradicts the uniqueness of
+the canonical form of continued fractions (Proposition 3).                                         ✷
+
+Proof of Theorem 1. Theorems 2 and 3 show that two rational tangles
+are isotopic if and only if they have the same fraction, yielding the proof of
+Theorem 1 as a corollary.                                              Q.E.D.
+
+     We conclude this section with some comments.
+Rational tangles and continued fractions                                                33
+
+
+Note 2 It follows from Theorem 1 that if T = [[a1 ], [a2 ], . . . , [an ]] is a rational
+tangle in continued fraction form, and if pq = [a1 , a2 , . . . , an ] is the evaluation
+of the corresponding arithmetic continued fraction then, without ambiguity,
+we can write T = [ pq ]. Thus, rational numbers are represented bijectively by
+rational tangles, their negatives are represented by the mirror images and their
+inverses by the inverses of the rational tangles.
+    Moreover, adding integers to a rational number corresponds to adding in-
+teger twists to a rational tangle, but sums of non-integer rational numbers do
+not correspond to the rational tangles of the sums. Such sums go beyond the
+rational tangle category; they give rise to ‘algebraic tangles’. We call a tangle
+algebraic if it can be obtained by substituting rational tangles into an algebraic
+expression generated from some finite set of variables by tangle addition and
+inversion.
+    Further, given a rational tangle in twist or standard form, in order to bring
+it to its canonical form one simply has to calculate its fraction and express it
+in canonical form. This last one gives rise to an alternating tangle in canonical
+form which, by Theorem 1, is isotopic to the initial one. For example, let
+T = [[2], [−3], [5]]. Then F (T ) = [2, −3, 5] = 23     14
+                                                                 23
+                                                           . But 14 = [1, 1, 1, 1, 4], thus
+T ∼ [[1], [1], [1], [1], [4]], and this last tangle is the canonical form of T.
+   From the uniqueness of the canonical form of a continued fraction we also
+have that:
+Corollary 4 The canonical form of a rational tangle is unique.
+
+Corollary 5 Rational tangles in canonical form have minimal number of
+crossings.
+Proof. Let T ′′ be a rational tangle in canonical form and let T be the set of all
+rational tangles in twist form with canonical form the tangle T ′′ . By Corollary
+4, for each element of T the canonical form T ′′ is unique. Let now T ∈ T be
+a rational tangle with k crossings in twist form. By a sequence of flypes we
+bring T to standard form T ′ ∼ T, and since flypes do not change the number
+of crossings it follows that T ′ has k crossings. Note that T ′ ∈ T . We bring T ′
+to its canonical form T ′′ , and by the proof of Proposition 2, T ′′ will have less
+crossings than T ′ .                                                             ✷
+Corollary 6 Alternating rational tangles have minimal number of crossings.
+Proof. Indeed, if an alternating rational tangle is in twist form then by a
+sequence of flypes we bring it to canonical form, which by Corollary 5 has
+minimal number of crossings. And since flypes do not change the number of
+crossings the assertion is proved.                                       ✷
+34                                             Kauffman & Lambropoulou
+
+
+5     The Fraction through Integral Coloring
+
+In this section we show how to compute the fraction of a rational tangle by
+coloring the arcs of the tangle with integers. This section is self-contained and
+does not depend upon the development of the fraction that we have already
+made. So we eliminate the need for using the Tait conjecture in our proof of
+classification of rational tangles.
+
+    We used the Tait conjecture to show that if two alternating rational tan-
+gles are isotopic then their fractions are equal. Without the Tait conjecture
+we showed that if they have same fraction they are isotopic. Here we get
+the isotopy invariance by the definition of the fraction. Thus, in combination
+with the Sections 2 and 3 and Theorem 3 this section provides another ele-
+mentary proof of the classification of rational tangles. The coloring method
+explained here is special to rational tangles and some of their generalizations.
+The coloring gives an efficient and reliable method for computing the fraction
+of a rational tangle (and from this its canonical form). Along with producing
+the fraction, the coloring itself is of interest and it can be used to investigate
+related colorings of the closures of the tangle. (See for example [9, 28, 29].)
+
+
+
+
+We shall use colors from either ZZ or from ZZn for some n. The coloring rule
+is that if two undercrossing arcs colored α and γ meet at an overcrossing arc
+colored β, then α + γ = 2β. See Figure 20. We often think of one of the
+undercrossing arc colors as determined by the other one and the color of the
+overcrossing arc. Then one writes γ = 2β − α. It is easy to verify that this
+coloring method is invariant under the Reidemeister moves in the following
+sense: Given a choice of coloring for the tangle (knot), there is a way to re-
+color it each time a Reidemeister move (or a flype) is performed, so that no
+change occurs to the colors on the external strands of the tangle (so that we
+still have a valid coloring). This means that a coloring potentially contains
+topological information about a knot or a tangle.
+
+
+In coloring a knot (and also many non-rational tangles) it is usually necessary
+to reduce the colors to the set of integers modulo N for some modulus N. In
+Figure 20 it is clear that the color set ZZ/3ZZ = {0, 1, 2} is forced for coloring
+a trefoil knot.
+Rational tangles and continued fractions                                                 35
+
+
+
+
+                                                                                   4
+                                                               1       2       3
+                    2β − α           1   2   3   4                                 1=4
+           β
+                                                                                   0=3
+                    α                                         0
+                                     0
+
+
+
+
+           Figure 20 - The coloring rule, integral and modular coloring
+
+
+When there exists a coloring of a tangle by integers, so that it is not necessary
+to reduce the colors over some modulus we shall say that the tangle is inte-
+grally colorable. It turns out that every rational tangle is integrally colorable:
+Choose two colors for the initial strands (e.g. the colors 0 and 1) and color the
+rational tangle as you create it by successive twisting. We call the colors on
+the initial strands the starting colors. It is important that we start coloring
+from the initial strands, because then the coloring propagates automatically
+and uniquely. If one starts from somewhere else, one might get into an edge
+with an undetermined color.
+
+
+
+                                                     1                             18
+                                                             2 3           4
+           0    1            1   1
+                        or
+                             0   0                   0
+           0    1
+
+                                                                  3
+       0         1           1   2
+
+                                                                      -3
+      -1         0           0   1
+                                                                                   11
+                                                     -6
+
+                                                          T = [2] + 1/([2] + 1/[3])
+                                                          F(T) = 17/7 = f(T)
+
+
+               Figure 21 - The starting colors, coloring rational tangles
+36                                                   Kauffman & Lambropoulou
+
+
+The resulting colored tangle now has colors assigned to its external strands
+at the northwest, northeast, southwest and southeast positions. Let NW (T ),
+NE(T ), SW (T ) and SE(T ) denote these respective colors of the colored tangle
+T and define the color matrix of T , M(T ), by the equation
+                                    "                         #
+                                        NW (T ) NE(T )
+                          M(T ) =                                 .
+                                        SW (T ) SE(T )
+We wish to extract topological information about the rational tangle T from
+this matrix. Letting
+                                           "         #
+                                               a b
+                                    M=
+                                               c d
+be a given color matrix we see at once from the above description of the coloring
+of a rational tangle that
+                                    "                     #
+                               ′        na + k nb + k
+                             M =
+                                        nc + k nd + k
+will also be a color matrix for the given tangle. To see this replace each color α
+by the color nα+k and note that if γ = 2β −α then nγ +k = 2nβ +k−(nα+k).
+Hence the new coloring is indeed a coloring and the endpoints are replaced as
+indicated. As a result of this observation, we see that it is possible to set the
+starting colors equal to 0 and 1 and that this will change the color matrix by
+a sequence of transformations of the type M 7−→ M ′ shown above.
+
+Theorem 4 Let
+                                           "         #
+                                               a b
+                                    M=
+                                               c d
+be a color matrix for an integrally colored tangle T . Then
+
+     1. M satisfies the ‘diagonal sum rule’: a + d = b + c.
+     2. If T is rational, then the quantity
+
+                                                    b−a
+                                        f (T ) :=
+                                                    b−d
+        is a topological invariant associated with the tangle T.
+     3. f (T + S) = f (T ) + f (S), when there is given an integral coloring of
+        a tangle T + S. The colorings of T and S are the restrictions of the
+        coloring of T + S to these subtangles.
+Rational tangles and continued fractions                                         37
+
+
+  4. f (− T1 ) = − f (T
+                      1
+                        )
+     for any integrally colored 2-tangle T satisfying the diagonal sum rule.
+  5. f (−T ) = −f (T ) for any rational tangle T . Hence,
+  6. f ( T1 ) = f (T
+                   1
+                     )
+                       for any rational tangle T .
+  7. f (T ) = F (T ) for any rational tangle T .
+Thus the coloring fraction is identical to the arithmetical fraction defined ear-
+lier.
+We note that if T is colored but not rational, we let f (T ) be defined by the
+same formula, but note that it may depend on the choice of coloring.
+Proof. It is easy to see that there are colorings for [0] and [1] (see Figure 21)
+so that f ([0]) = 01 , f ([∞]) = 10 , f ([1]) = 1. Hence property 7 follows by 3,
+5 and induction. To see that the diagonal sum rule is satisfied for colorings
+of rational tangles, note that a + d = b + c implies that d − c = b − a and
+d − b = c − a. Then we proceed by induction on the number of crossings in the
+tangle. The diagonal sum rule is satisfied for colorings of the [0] or [∞] tangle,
+since the matrix for a coloring of such a tangle consists in two equal rows or
+two equal columns. Now assume that
+                                        "         #
+                                            a b
+                                  M=
+                                            c d
+is a matrix for a coloring of a given tangle T satisfying the diagonal sum rule.
+Then it is easy to see that T + [1] has color matrix
+                                  "               #
+                                      a 2b − d
+                                      c    b
+and the identity a + b = (2b − d) + c is equivalent to the identity a + d = b + c.
+Thus the induced coloring on T + [1] satisfies the diagonal sum rule. The
+same argument applies to adding a negative twist, as well as a twist on the
+left, bottom or top of the tangle. Thus we have proved by induction that the
+diagonal sum rule is satisfied for colorings of rational tangles. We leave it as
+an exercise for the reader to prove the diagonal sum rule for any integrally
+colored 2-tangle. To show that f (T ) = (b − a)/(b − d) is a topological invariant
+of the tangle T note that, by definition, the quantity f (T ) is unchanged by
+the matrix transformations M 7−→ M ′ discussed prior to the statement of this
+proposition. Thus, f (T ) does not depend upon the choice of coloring for the
+rational tangle. Since, for any given coloring, f (T ) is a topological invariant
+of the tangle with respect to that coloring, it follows that f (T ) is a topological
+invariant of the tangle, independent of the choice of coloring used to compute
+it.
+38                                                        Kauffman & Lambropoulou
+
+
+For proving property 3, suppose that T has color matrix M(T ) and S has color
+matrix M(S). Then for these to be the restrictions from a coloring of T + S
+it must be that the right column of M(T ) is identical with the left column of
+M(S). Thus
+
+                 "         #                "         #                        "         #
+                     a b                        b e                                a e
+       M(T ) =                 ,   M(S) =                 ,       M(T + S) =                 .
+                     c d                        d f                                c f
+
+Note that by the diagonal sum rule for S, b − d = e − f. Then
+
+
+                        b−a e−b   b−a   e−b   e−a
+     f (T ) + f (S) =      +    =     +     =     = f (T + S).
+                        b−d e−f   e−f   e−f   e−f
+
+This shows that f (T ) is additive with respect to tangle addition. Given M(T )
+as above, we have M(− T1 ) = M(T r ) given by the formula below:
+                                                "             #
+                                      1             b d
+                                   M(− ) =                        .
+                                      T             a c
+
+Thus
+                   1    d−b   d−b        b−a        1
+               f (− ) =     =     = −1/(     )=−        ,
+                   T    d−c   b−a        b−d     f (T )
+and so property 4 is proved. The tangle −T is obtained from the tangle T
+by switching all the crossings in T . Let T ′ be the tangle obtained from T by
+reflecting it in a plane P perpendicular to the plane on which the diagram of
+T is drawn, as illustrated in Figure 22, i.e. T ′ := (−T )vf lip . We shall call T ′
+the vertical reflect of T.
+
+
+                           a           b              b                a
+
+
+                                   R                          -R
+
+                           c           d              d                c
+
+                                   T                              T'
+
+
+                        Figure 22 - The vertical reflect of T
+Rational tangles and continued fractions                                                   39
+
+
+It is then easy to see that a coloring of T always induces a coloring of T ′ (the
+same colors that appear in T will also appear in T ′ .) In fact, if
+                "         #                                                  "         #
+                    a b                                                  ′       b a
+      M(T ) =                 is a color matrix for T, then M(T ) =
+                    c d                                                          d c
+
+is the matrix for the induced coloring of T ′ . Therefore, using a + d = b + c, we
+have
+
+                           a−b     a−b        b−a
+                    f (T ′) =   =         =−         = −f (T ).
+                           a−c     b−d        b−d
+By Lemma 2, T ′ is isotopic to −T for rational tangles. So, property 5 is proved.
+Property 6 follows from 4 and 5. This completes the proof.                     ✷
+
+Remark 7 Rational tangles are integrally colorable, and it is easy to see that
+sums of rational tangles are also integrally colorable. Also, it is easy to see
+that algebraic tangles are integrally colorable (recall definition in Note 2). At
+this writing, it is an open problem to characterize integrally colorable tangles.
+The presence of a local knot, can keep a tangle from being integrally colorable
+(by forcing the coloring into a specific modulus), but knotted arcs can occur
+in integrally colorable tangles. For example, the non-rational algebraic tangle
+ 1     1
+[3]
+    + [2] is integrally colorable and has a knotted arc in the form of the trefoil
+knot (linked with another arc in the tangle).
+
+
+Remark 8 Note that if we have a tangle T with color matrix
+                                               "         #
+                                                   a b
+                                  M(T ) =                    ,
+                                                   c d
+
+we can subtract the color a from all colors in the tangle, obtaining a new
+coloring with matrix             "              #
+                          ′          0    b−a
+                        M (T ) =                  .
+                                   c−a d−a
+By the diagonal sum rule this has the form
+                                           "                     #
+                                  ′            0     a′
+                                M (T ) =                             .
+                                               b′ a′ + b′
+
+In thinking about colorings of tangles, it is useful to understand that one can
+always shift one of the peripheral colors to the value zero.
+40                                                Kauffman & Lambropoulou
+
+
+Remark 9 Let T be an (m, n)-tangle that is colored integrally, and suppose
+that a1 , a2 , . . . , am are the colors from left to right on the top m strands of T ,
+and that b1 , b2 , . . . , bn are the colors from left to right on the bottom n strands
+of T . Show that
+
+                          Σm
+                           i=1 (−1)
+                                   i+1
+                                       ai = Σnj=1 (−1)j+1bi
+
+This is a generalization of the diagonal sum rule (pointed out to us by W.B.R.
+Lickorish [21].)
+   Consider, now, the knot or link K = N(T ). In order for the coloring of
+T to be a coloring of K, we then need that a ≡ b and that c ≡ d. Since
+a − b = c − d (by the diagonal sum rule), we can take the coloring of K to
+have values in ZZ/DZZ where D = a − b. This is an example of a coloring
+of a knot occurring in a modular number system. This is more generally
+the case, and one can√always attempt to color a knot in ZZ/Det(K)ZZ, where
+Det(K) = | < K > ( i)|, the determinant of the knot, where < K > denotes
+the Kauffman bracket polynomial of the knot K. There are many fascinating
+combinatorial/topological problems related to coloring of knots and tangles.
+
+Remark 10 View Figure 21 and note that the rational tangle T = [2] +
+1/([2] + 1/[3]) with fraction 17/7 is colored by starting with colors 0 and 1
+at the generating arcs of the tangle and that all the colors are distinct from
+one another as integers. Furthermore, if one takes the numerator closure K =
+N(T ) and colors in ZZ/17ZZ, the colors remain distinct in this modulus. This
+is not an accident! This is part of a more general conjecture about coloring
+alternating knots. See [16]. Here we prove the conjecture for rational knots and
+links. The general result is stated below after a few preliminary definitions.
+
+    If a crossing in a link diagram is regarded as the tangle [+1] or [−1] then
+it can be replaced by the tangle [0] or the tangle [∞], maintaining the same
+outward connections with the rest of the diagram. Such a replacement is
+called a smoothing of the crossing. A connected link diagram is said to have a
+nugatory crosssing if there is a crossing in the link diagram such that one of the
+smoothings of the diagram yields a disconnected diagram with two non-empty
+components. In other words, at a nugatory crossing the diagram falls apart into
+two pieces when it is smoothed in one of the two possible ways. We say that a
+diagram is reduced if it is connected and has no nugatory crossings. One can
+see easily that any rational tangle diagram with no simplifiying Reidemeister
+one moves is a reduced diagram.
+
+Theorem 5 Let T be a reduced alternating rational tangle diagram in twist
+form. Let C(T ) be any coloring of T over the integers. Then all the colors
+Rational tangles and continued fractions                                      41
+
+
+appearing on the arcs of T are mutually distinct. Furthermore, let K = N(T )
+be the numerator closure of T and suppose that the determinant of the link
+K is a prime number p. Then for any coloring of K in ZZ/pZZ, all the colors
+on the arcs of K are distinct in ZZ/pZZ. In other words, if v(K) denotes the
+number of crossings in the diagram K, then there will be v(K) distinct colors
+in any coloring of the diagram K in ZZ/pZZ.
+
+Proof. The key to this proof is the observation that when one colors a reduced
+rational tangle starting with the integers 0 and 1 at the generating arcs, then
+all the colors on the other arcs in the tangle are mutually distinct and increase
+or decrease in absolute value so that the largest colors in absolute value are
+the ones on the outer arcs of the tangle. We have illustrated this phenomena
+in Figure 21. Note that in this figure the colors literally increase as one goes
+through the first horizontal twist out to colors 3 and 4. Then we enter a
+sequence that is descending to −1 and −6. The point to note is that this
+second sequence is genuinely descending and hence the sequence of numbers
+starting from −1 and −6 is ascending to 3 and 4. The remaining twist sequence
+ascends to 11 and 18. We leave it as an exercise for the reader to show by
+induction that this distinctness with maximal value at the periphery holds for
+any reduced alternating rational tangle in twist form.
+    Having checked this property for tangles with starting values of 0 and 1
+we can now assert its truth for all colorings of the rational tangle by integers.
+All such colorings are obtained from the given one by multiplying all colors
+by a non-zero constant or by adding a constant to each label in the coloring.
+Distinctness and maximality is preserved by these arithmetical operations.
+Now consider the numerator closure K = N(T ). It is not hard to see (and
+we leave the proof for the reader) that if we start with colors 0 and 1 at the
+generating arcs of the tangle, and if the resulting coloring has color matrix
+                                        "         #
+                                            a b
+                              M(T ) =                 ,
+                                            c d
+
+then Det(K) = ±(b − a). By the above discussion we can assume that b and a
+are the largest colors in absolute value on the diagram of T . Hence when we
+color K in the modulus M = |Det(K)| we find that all the colors on K are dis-
+tinct in ZZ/MZZ. This proves that the chosen coloring for K has the distinctness
+property. Now suppose that N is a prime number p. Then ZZ/MZZ = ZZ/pZZ is a
+field and hence the operation of multiplication of colors by an non-zero element
+of ZZ/pZZ is invertible. It follows that all colorings constructed from the given
+coloring by addition of a constant or multiplication by a non-zero constant
+share in the distinctness property. Since these constitute all the non-trivial
+colorings of K over ZZ/pZZ, the proof is complete.                              ✷
+42                                                     Kauffman & Lambropoulou
+
+
+    Theorem 5 constitutes a proof, for rational knots and links, of a conjecture
+of Kauffman and Harary [16]. The conjecture states that if K is a reduced,
+alternating link diagram, and K has prime determinant p then every coloring
+of the diagram K in ZZ/pZZ has v(K) distinct colors, where v(K) denotes the
+number of crossings in the diagram K. The conjecture has been independently
+verified for rational knots and links and for certain related families of links in
+[26].
+
+
+Remark 11 Finally, we note that there is the following mapping
+
+                           J : Color Matrices −→ C
+                                                 I
+induced via
+                                 "            #!
+                                     a b
+               J(M(T )) := J                       := (b − a) + i(b − d),
+                                     c d
+
+where Color Matrices denotes the set of color matrices satisfying the diagonal
+sum condition. If M is a color matrix, let M r be the color matrix obtained by
+rotating M counterclockwise by 900 . Thus
+                            "         #                 "         #
+                                a b                r        b c
+                       M=                 ,   M =                     .
+                                c d                         a d
+Note that if M = M(T ), then M r = M(T r ), the matrix of the rotate of the
+tangle T . Then it is easy to see that
+
+                                J(M r ) = i · J(M).
+Usually multiplication by i is interpreted as a 900 − rotation of vectors in the
+complex plane. With the equation
+
+                     J(M(T r )) = J(M(T )r ) = i J(M(T ))
+we see a new interpretation of i in terms of 900 rotations of tangles or matrices.
+
+    We would like to conclude this section by a brief description of the fraction
+of rational tangles through conductance. Conductance is a quantity defined
+in electrical networks as the inverse of resistance. In [13] the conductance is
+defined as a weighted sum of maximal trees in a graph divided by a weighted
+sum of maximal trees in an associated graph, that is obtained by identifying the
+input and output vertices of the original graph. This definition allows negative
+values for conductance and it agrees with the classical one, implying that in
+the resistance one would have to consider also the notion of an amplifier.
+Rational tangles and continued fractions                                        43
+
+
+    Conductance satisfies the law of parallel and series connection as well as
+the star-triangle relation for appropriate values. Given a knot diagram one
+can associate a graph, so that the Reidemeister moves on the knot diagram
+correspond to parallel and series connection of resistances (Kirkhoff laws) and
+the star-triangle changes in the graph. By defining the conductance on the
+knot diagram as the conductance on the corresponding graph one shows that
+the conductance is an isotopy invariant of knots. The conductance of a rational
+tangle turns out to be the numerical fraction of the tangle and from the above
+it does not depend on its isotopy class.
+
+
+6     Negative Unity, the Group SL(2, ZZ) and Square
+      Dancing
+The main result of this last section is integral to an illustrative game for the
+Conway Theorem on rational tangles. In this game (called ‘Square Dancing’
+by Conway) four people hold two ropes, allowing the display of various tan-
+gles. The ‘dancers’ are allowed to perform two basic moves called turn and
+add. Adding corresponds to an interchange of two dancers that adds one to
+the corresponding tangle. Turning is a rotation of all four dancers by ninety
+degrees, accomplishing negative reciprocation of the tangle. We will show in
+this section that all rational tangles can be produced by these operations, so
+the players can illustrate the classification theorem.
+
+It is an interesting fact that the operations of rotation and +[1] generate all
+rational tangles from the starting tangle of [0]. In order to see this, we generate
+the operation −[1] (which is the same as +[−1]) by iteration of the other two.
+Indeed, we have:
+
+
+Lemma 12 The following identity holds for all rational tangles x.
+
+                                             −1
+                             x − [1] =     −1          .
+                                         −1
+                                            +[1]
+                                                 + [1]
+                                         x
+
+
+
+
+Proof. The thing is that this identity holds for real numbers, thus showing that
+all rational numbers are generated by negative reciprocation and addition of 1.
+Since we know that arithmetical identities about rational tangles correspond
+to topological identities the above identity is also valid for rational tangles.
+This is the arithmetic proof.                                                 ✷
+44                                                Kauffman & Lambropoulou
+
+
+Note that this property is equivalent to saying that
+
+                              (r ◦ (+1))3 (x) = x,
+where r stands for the rotation operation, +1 for adding [1], and ◦ for compo-
+sition of functions. That the three-fold iteration of r ◦ (+1) gives the identity
+on any tangle T is illustrated in Figure 23, where we see that after applying
+r ◦ (+1) three times to T , one of the tangle arcs can be isotoped to that the
+whole tangle is just a turned version of the original.
+
+
+
+
+                                                          T
+           T                                 ~
+
+
+
+
+                          Figure 23 - (r ◦ (+1))3 = id
+
+We also note that the statement of Lemma 12 can be modified for any 2-tangle.
+                                   2
+Now it reads (r ◦ (+1))3 (T ) = T r . Figure 23 illustrates the general proof.
+
+In the header to this section, we advertized the group SL(2, ZZ). The point is
+that Lemma 12 shows that the arithmetic of rational tangles is just isomorphic
+to the arithmetic of integer 2 × 2 matrices of determinant equal to +1 (that
+being the definition of SL(2, ZZ).) The key point is the well-known fact that
+SL(2, ZZ) is generated by matrices that correspond to r (negative reciprocation)
+and +1 (adding one) in the following sense. We define the fraction of a vector
+v, [v], by the formula
+                                             !
+                                         a         a
+                              [v] = [            ]= .
+                                         b         b
+We also define the two basic matrices
+                                   !                           !
+                            0 −1                         1 1
+                M(r) =                  and M(+1) =                .
+                            1 0                          0 1
+Rational tangles and continued fractions                                       45
+
+
+Then
+                                 −1
+                  [M(r) · v] =       and [M(+1) · v] = [v] + 1
+                                 [v]
+for any vector v. So, we showed here that addition of [+1] and inversion suffice
+for generating all rational tangles. By the result of this section, the players of
+the Square Dancing can dance their way through the intricacies of SL(2, ZZ).
+
+History of rational knots and rational tangles. As explained in [15],
+rational knots and links were first considered by O. Simony [40, 41, 42, 43] in
+1882, taking twistings and knottings of a band. Simony [41] is the first one
+to relate knots to continued fractions. After about sixty years Tietze wrote a
+series of papers [47, 48, 49, 50] with reference to Simony’s work. Reidemeister
+[32] in 1929 calculated the knot group of a special class of rational knots, but
+rational knots were studied by Goeritz [12] and by Bankwitz and Schumann
+[1] in 1934. In [12] and [1] rational knots are represented as plat closures of
+four-strand braids.
+    Figure 2 in [1] illustrates a rational tangle, but no special importance is
+given to this object. The rational tangle is obtained by a four-strand braid by
+plat-closing only the top four ends. A rational tangle obtained this way may
+be said to be between the twist form (Definition 1) and the standard form
+(Definition 4), in the sense that, if we twist neighbouring endpoints starting
+from two trivial arcs, we may twist to the right and to the left but only to
+the bottom, not to the top (see Lage 3 of [1]). In [12] and [1] proofs are
+given independently and with different techniques that rational knots have
+3-strand-braid representations (in [1] using the horizontal-vertical structure
+of the rational tangles), in the sense that the first strand of the four-strand
+braids can be free of crossings. The 3-strand-braid representation of a four-plat
+corresponds to the numerator of a rational tangle in standard form. In [12]
+and [1] proofs are also given that rational knots are alternating. The proof of
+this fact in [1] can be easily applied on the corresponding rational tangles in
+standard form.
+    It was not until 1956 that Schubert [36] classified rational knots by finding
+canonical forms via representing them as 2-bridge knots. His proof was based
+on Seifert’s observation that the 2-fold branched coverings of 2-bridge knots
+give rise to lens spaces and on the classification of lens spaces by Reidemeister
+[33] using Reidemeister torsion (and later by Brody [4, 5] using knot theory in
+lens spaces). See also [30]. Schubert’s theorem was reformulated by Conway [8]
+in terms of rational tangles. See the paper of Siebenmann [39] for an excellent
+exposition and see the book by Bonahon and Siebenmann [3] for developments
+about tangles circa 1980.
+
+Acknowledgments. It gives us great pleasure to thank John Conway, Ray
+46                                              Kauffman & Lambropoulou
+
+
+Lickorish and Jozef Przytycki for useful conversations. We also thank Jozef
+Przytycki for telling us about the work of Simony and of Tietze.
+
+
+References
+  [1] C. Bankwitz and H.G. Schumann, Über Viergeflechte, Abh. Math. Sem.
+      Univ. Hamburg, 10 (1934), 263–284.
+
+  [2] S. Bleiler and J. Moriah, Heegaard splittings and branched coverings of
+      B 3 , Math. Ann., 281, 531–543.
+
+  [3] F. Bonahon, L. Siebenmann, “Geometric splittings of classical knots and
+      Conway’s algebraic knots”, unpublished notes, 1980.
+
+  [4] J.E. Brody, “On the Fox Invariant”, PhD thesis, Princeton University, 1954.
+
+  [5] J.E. Brody, The topological classification of the lens spaces, Annals of Math-
+      ematics, 71 (1960), 163–184.
+
+  [6] G. Burde, Verschlingungsinvarianten von Knoten und Verkettungen mit zwei
+      Brücken, Math. Zeitschrift, 145 (1975), 235–242.
+
+  [7] G. Burde, H. Zieschang, “Knots”, de Gruyter Studies in Mathematics 5,
+      1985.
+
+  [8] J.H. Conway, An enumeration of knots and links and some of their alge-
+      braic properties, Proceedings of the conference on Computational problems in
+      Abstract Algebra held at Oxford in 1967, J. Leech ed., (First edition 1970),
+      Pergamon Press, 329–358.
+
+  [9] J. Dymara, T. Januszkiewicz, J.H. Przytycki, Symplectic structure on
+      colorings, preprint 2001.
+
+ [10] C.Ernst, D.W. Sumners, A calculus for rational tangles: Applications to
+      DNA Recombination, Math. Proc. Camb. Phil. Soc., 108 (1990), 489–515.
+
+ [11] J.S. Frame, Continued fractions and matrices, Classroom notes, C.B. Allen-
+      doerfer ed., The Amer. Math. Monthly, 56 (1949), 98–103.
+
+ [12] L. Goeritz, Bemerkungen zur Knotentheorie, Abh. Math. Sem. Univ. Ham-
+      burg, 10 (1934), 201–210.
+
+ [13] J.R. Goldman, L.H. Kauffman, Knots, Tangles and Electrical Networks,
+      Advances in Applied Math., 14 (1993), 267–306.
+
+ [14] J.R. Goldman, L.H. Kauffman, Rational Tangles, Advances in Applied
+      Math., 18 (1997), 300–332.
+Rational tangles and continued fractions                                      47
+
+
+[15] E. Grgeta, “Simony, Knots, and Continued Fractions”, Senior Thesis,
+     George Washington University, 1998; Supervisor J.H. Przytycki.
+
+[16] F. Harary, L.H. Kauffman, Knots and Graphs I–Arc Graphs and Color-
+     ings, Advances in Applied Math., 22 (1999), 312–337.
+
+[17] L.H. Kauffman, S. Lambropoulou, On the Classification of Rational
+     Knots, to appear in L’ Enseignement Mathématique.
+
+[18] A. Kawauchi, “A survey of knot theory”, Birkhäuser Verlag, 1996.
+
+[19] A.Ya. Khinchin, “Continued Fractions”, Dover, 1997 (republication of the
+     1964 edition of Chicago Univ. Press).
+
+[20] K. Kolden, Continued fractions and linear substitutions, Archiv for Math.
+     og Naturvidenskab, 6 (1949), 141–196.
+
+[21] W.B.R. Lickorish, private conversation, Fall 2000.
+
+[22] W. Menasco, M. Thistlethwaite, The classification of alternating links,
+     Annals of Mathematics, 138 (1993), 113–171.
+
+[23] J.M. Montesinos, Revetements ramifies des noeuds, Espaces fibres de Seifert
+     et scindements de Heegaard, Publicaciones del Seminario Mathematico Garcia
+     de Galdeano, Serie II, Seccion 3 (1984).
+
+[24] K. Murasugi, “Knot theory and its applications”, Translated from the 1993
+     japanese original by B. Kurpita, Birkhäuser Verlag (1996).
+
+[25] C.D. Olds, “Continued Fractions”, New Mathematical Library, Math. Assoc.
+     of America, 9, 1963.
+
+[26] L. Person, M. Dunne, J. DeNinno, B. Guntel and L. Smith, Colorings
+     of rational, alternating knots and links, (preprint 2002).
+
+[27] V.V. Prasolov, A.B. Sossinsky, “Knots, Links, Braids and 3-Manifolds”,
+     AMS Translations of Mathematical Monographs 154 (1997).
+
+[28] J.H. Przytycki, 3-coloring and other elementary invariants of knots, Banach
+     Center Publications, Vol. 42, Knot Theory ,1998, 275–295.
+
+[29] J.H. Przytycki, Three talks in Cuautitlan under the general title: Topologia
+     algebraica basada sobre nudos, Proceedings of the First International Work-
+     shop on Graphs – Operads – Logic, Cuautitlan, Mexico, March 12-16, 2001, to
+     appear 2003. (see: http://front.math.ucdavis.edu/math.GT/0109029)
+
+[30] J.H. Przytycki and A. Yasuhara, Symmetry of links and classification of
+     lens spaces, preprint, arXiv:math.GT/0011119 17 Nov 2000.
+48                                             Kauffman & Lambropoulou
+
+
+[31] K. Reidemeister, Knotentheorie, Ergebn. Math. Grenzgeb., 1; Berlin:
+     Springer-Verlag (1932). Reprint, Chelsea, New York, 1948. (English trans-
+     lation: Knot theory, BSC Associates, Moscow, Idaho, USA, 1983).
+[32] K. Reidemeister, Knoten und Verkettungen, Math. Zeitschrift, 29 (1929),
+     713–729.
+[33] K. Reidemeister, Homotopieringe und Linsenräume, Abh. Math. Sem. Ham-
+     burg, 11 (1936), 102–109.
+[34] D. Rolfsen, “Knots and Links”, Publish or Perish Press, Berkeley (1976).
+[35] J. Sawollek, Alternating diagrams of 4-regular graphs in 3-space, Topology
+     Appl., 93 (1999), no. 3, 261–273.
+[36] H. Schubert, Knoten mit zwei Brücken, Math. Zeitschriften, 65 (1956), 133–
+     170.
+[37] H. Seifert, W. Threlfall, “Lehrbuch der Topologie”, Leipzig, 1934,
+     Chelsea, 1947; “A Textbook of Topology”, Translated by Michael A. Gold-
+     man Ed. by Joan S. Birman and Julian Eisner Academic Press (1980)
+[38] H.    Seifert,      Die     Verschlingungsinvarianten  der    zyklischen
+     Knotenüberlagerungen, Abh. Math. Sem. Hamburg, 11 (1936), 84–101.
+
+[39] L. Siebenmann, Lecture Notes on Rational Tangles, Orsay (1972) (unpub-
+     lished).
+[40] O. Simony, Über eine Reihe neuer Thatsachen aus dem Gebiete der Topologie,
+     Math. Annalen, 19 (1882), 110–120.
+[41] O. Simony, Über eine Reihe neuer Thatsachen aus dem Gebiete der Topologie,
+     Teil II, Math. Annalen, 24 (1884), 253–280.
+[42] O. Simony, Demonstration eines neuen topologischen Apparates zur Her-
+     stellung gewisser,      zahlentheoretisch verwerthbarer Knotensysteme,
+     Deutsch.Natf.Tagebl., (1887), 110–111.
+[43] O. Simony, Über den Zusammenhang gewisser topologischer Thatsachen mit
+     neuen Sätzen der höheren Arithmetik und dessen theoretische Bedeutung
+     [1887], Wien, Ak. Sber, 96 (1888),(Abth.2), 191–286; Deutsch.Natf.Tagebl.,
+     (1887), 229–231.
+[44] D.W. Sumners, Untangling DNA, Math.Intelligencer, 12 (1990), 71–80.
+[45] C. Sundberg, M. Thistlethwaite, The rate of growth of the number of
+     alternating links and tangles, Pacific J. Math., 182 No. 2 (1998), 329–358.
+[46] P.G. Tait, On knots I. II. III. Scientific Papers, I. 273–437, 1877–1885, Lon-
+     don: Cambridge Univ. Press 1898.
+Rational tangles and continued fractions                                          49
+
+
+[47] H. Tietze, Über verknotete und verkettete Linien. I. Über die speziellen
+     Simony-Knoten und Simony-Ketten, S.-B. Math.-Nat. Abt. Bayer. Akad.
+     Wiss., (1942), 53–62.
+
+[48] H. Tietze, Bemerkungen über verknotete und verkettete Linien. II.
+     Vorgeschriebene singuläre Primzahlen für eine Simony-Figur und für ihr
+     Spiegelbild, S.-B. Math.-Nat. Abt. Bayer. Akad. Wiss., (1943), 265–268.
+
+[49] H. Tietze, Über spezielle Simony-Knoten und Simony-Ketten mit
+     vorgeschriebenen singulären Primzahlen, I, II, Monatshefte für Math. und
+     Phys., 51 (1943-44), pp. 1–14 and 85–100.
+
+[50] H. Tietze, Über spezielle Simony-Knoten und Simony-Ketten mit
+     vorgeschriebenen singulären Primzahlen für die Figur und für ihr Spiegelbild,
+     Math. Zeitschrift, 49 (1943-44), 351–369.
+
+[51] H.S. Wall, “Analytic Theory of Continued Fractions”, D. Van Nostrand
+     Company, Inc., 1948.
+
+L.H.Kauffman: Department of Mathematics, Statistics and Computer
+Science, University of Illinois at Chicago, 851 South Morgan St., Chicago
+IL 60607-7045, U.S.A.
+S.Lambropoulou: National Technical University of Athens, Depart-
+ment of Mathematics, Zografou campus, GR-157 80 Athens, Greece.
+E-mails: kauffman@math.uic.edu                 sofia@math.ntua.gr
+http://www.math.uic.edu/˜kauffman/             http://users.ntua.gr/sofial
+
