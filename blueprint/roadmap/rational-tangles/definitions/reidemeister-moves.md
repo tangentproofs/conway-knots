@@ -1,6 +1,8 @@
 ---
 declaration: def
 origin: bridged
+statement: formalized
+lean: RationalTangles.ReidemeisterMove
 ---
 
 # Reidemeister moves
