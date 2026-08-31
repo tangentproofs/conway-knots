@@ -47,6 +47,9 @@ def flip : CrossingSign → CrossingSign
   | .pos => .neg
   | .neg => .pos
 
+@[simp] theorem flip_flip (s : CrossingSign) : s.flip.flip = s := by
+  cases s <;> rfl
+
 end CrossingSign
 
 namespace Crossing
@@ -60,6 +63,10 @@ def maxArc (C : Crossing) : Nat :=
     This is the local picture of taking the mirror image. -/
 def switch (C : Crossing) : Crossing :=
   { a0 := C.a1, a1 := C.a2, a2 := C.a3, a3 := C.a0, sign := C.sign.flip }
+
+@[simp] theorem switch_switch (C : Crossing) : C.switch.switch = C.rotate180 := by
+  rcases C with ⟨a0, a1, a2, a3, s⟩
+  cases s <;> rfl
 
 end Crossing
 

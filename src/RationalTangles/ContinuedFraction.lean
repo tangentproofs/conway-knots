@@ -53,9 +53,31 @@ def add : CFValue → CFValue → CFValue
   | inf, _ => inf
   | _, inf => inf
 
+/-- Negation, with `-∞ = ∞` (the single point at infinity on `ℝP¹`). -/
+def neg : CFValue → CFValue
+  | ofRat q => ofRat (-q)
+  | inf => inf
+
 instance : Zero CFValue := ⟨ofRat 0⟩
 instance : One CFValue := ⟨ofRat 1⟩
 instance : Coe Rat CFValue := ⟨ofRat⟩
+instance : Neg CFValue := ⟨neg⟩
+
+@[simp] theorem neg_ofRat (q : Rat) : neg (ofRat q) = ofRat (-q) := rfl
+@[simp] theorem neg_inf : neg inf = inf := rfl
+@[simp] theorem neg_neg (x : CFValue) : neg (neg x) = x := by
+  cases x <;> simp [neg]
+
+theorem add_inf_left (x : CFValue) : inf.add x = inf := rfl
+theorem add_ofRat_inf (q : Rat) : (ofRat q).add inf = inf := rfl
+
+@[simp] theorem inv_inf : inv inf = (0 : CFValue) := rfl
+
+theorem inv_ofRat {q : Rat} (hq : q ≠ 0) : inv (ofRat q) = ofRat q⁻¹ := by
+  simp [inv, hq]
+
+/-- `-1/x`. -/
+def negInv (x : CFValue) : CFValue := (inv x).neg
 
 end CFValue
 

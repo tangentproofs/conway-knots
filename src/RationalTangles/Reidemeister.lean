@@ -126,6 +126,19 @@ def IsKink (C : Crossing) (loopPort : Fin 4) : Prop :=
     C.arcs loopPort ≠ C.arcs (loopPort + 3) ∧
     C.arcs (loopPort + 2) ≠ C.arcs (loopPort + 3)
 
+@[simp] theorem rotate180_a0 (C : Crossing) : C.rotate180.a0 = C.a2 := rfl
+@[simp] theorem rotate180_a1 (C : Crossing) : C.rotate180.a1 = C.a3 := rfl
+@[simp] theorem rotate180_a2 (C : Crossing) : C.rotate180.a2 = C.a0 := rfl
+@[simp] theorem rotate180_a3 (C : Crossing) : C.rotate180.a3 = C.a1 := rfl
+@[simp] theorem rotate180_sign (C : Crossing) : C.rotate180.sign = C.sign := rfl
+
+@[simp] theorem rotate180_involutive (C : Crossing) : C.rotate180.rotate180 = C := by
+  cases C; rfl
+
+theorem sameUpToRotation_rotate180 (C : Crossing) :
+    C.sameUpToRotation C.rotate180 :=
+  Or.inr (rotate180_involutive C ▸ rfl)
+
 end Crossing
 
 /-- Combinatorial 2-tangle diagram in the disc: PD-code of the interior

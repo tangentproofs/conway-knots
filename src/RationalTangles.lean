@@ -11,6 +11,7 @@ import RationalTangles.IntegerTangle
 import RationalTangles.Flip
 import RationalTangles.Flype
 import RationalTangles.Coloring
+import RationalTangles.ColoringMoves
 import RationalTangles.Rational
 import RationalTangles.StandardForm
 import RationalTangles.ContinuedFractionForm
@@ -27,8 +28,8 @@ Formalization of Conway's classification of rational tangles after Conway
 Currently the Lean sources contain combinatorial 2-tangle diagrams, the
 Reidemeister generators, integer/vertical tangles, flypes and flips,
 twist-form rational tangles, continued-fraction and canonical form, the
-arithmetic and tangle fractions, and the integral coloring of §5
-(the coloring rule, color matrix, coloring fraction, and affine freedom).
+arithmetic and tangle fractions, the integral coloring of §5, and local coloring lemmas for τ
+(Reidemeister I–III identities and coloring transport along planar isotopy).
 
 See `blueprint/` for the roadmap. The classification theorem is not yet
 stated.
