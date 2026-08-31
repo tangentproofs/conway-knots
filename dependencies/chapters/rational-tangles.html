@@ -717,30 +717,30 @@
 
 <h1 id="rational-tangles-dependency-map">Rational tangles dependency map</h1>
 <p><a href="../../dependencies.html">Project map</a> · <a href="../full.html">Full theorem DAG</a> · <a href="../../roadmap/rational-tangles/index.html">Open textbook chapter</a></p>
-<p>This map contains the 31 decomposed items in this chapter. Dashed chapter boxes stand for external prerequisites or dependents. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span><span class="bp-swatch bp-swatch-planned"></span><span class="bp-legend-label">planned</span><span class="bp-legend-count">27</span><span class="bp-legend-meaning">Described in the blueprint only.</span></div></span></span></p>
+<p>This map contains the 31 decomposed items in this chapter. Dashed chapter boxes stand for external prerequisites or dependents. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">15</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">14</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span><span class="bp-swatch bp-swatch-planned"></span><span class="bp-legend-label">planned</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Described in the blueprint only.</span></div></span></span></p>
 <div class="mermaid">graph LR
-  n0["The fraction through integral coloring&lt;br/&gt;&lt;small&gt;10 items · 10 planned&lt;/small&gt;"]:::scope
-  n1["Canonical form of a rational tangle"]:::planned
-  n2["Continued fraction form"]:::planned
+  n0["The fraction through integral coloring&lt;br/&gt;&lt;small&gt;10 items · 4 fully proved · 6 ready to state&lt;/small&gt;"]:::scope
+  n1["Canonical form of a rational tangle"]:::fully_proved
+  n2["Continued fraction form"]:::fully_proved
   n3["Arithmetic continued fraction"]:::fully_proved
-  n4["Flip"]:::planned
-  n5["Flype"]:::planned
-  n6["Integer and vertical tangles"]:::planned
-  n7["Rational tangle"]:::planned
+  n4["Flip"]:::fully_proved
+  n5["Flype"]:::fully_proved
+  n6["Integer and vertical tangles"]:::fully_proved
+  n7["Rational tangle"]:::fully_proved
   n8["Reidemeister moves"]:::fully_proved
-  n9["Standard form"]:::planned
-  n10["Fraction of a rational tangle"]:::planned
-  n11["2-tangle and isotopy"]:::can_state
-  n12("Alternating rational tangles related by flypes"):::planned
-  n13("Every rational tangle isotopes to canonical form"):::planned
+  n9["Standard form"]:::fully_proved
+  n10["Fraction of a rational tangle"]:::fully_proved
+  n11["2-tangle and isotopy"]:::fully_proved
+  n12("Alternating rational tangles related by flypes"):::can_state
+  n13("Every rational tangle isotopes to canonical form"):::can_state
   n14("Classification of rational tangles"):::planned
   n15("Unique canonical continued fraction"):::can_state
-  n16("Every rational tangle has a continued fraction form"):::planned
-  n17("Flipping lemma"):::planned
-  n18("The fraction is an isotopy invariant"):::planned
+  n16("Every rational tangle has a continued fraction form"):::can_state
+  n17("Flipping lemma"):::can_state
+  n18("The fraction is an isotopy invariant"):::can_state
   n19("Same fraction implies isotopic"):::planned
-  n20("Every rational tangle has a standard form"):::planned
-  n21("Tait flyping conjecture"):::planned
+  n20("Every rational tangle has a standard form"):::can_state
+  n21("Tait flyping conjecture"):::can_state
   n1 --&gt; n13
   n1 --&gt; n19
   n3 --&gt; n10
@@ -792,28 +792,28 @@
   n20 -.-&gt; n16
   n21 -.-&gt; n12
   n0 -.-&gt; n18
-  click n0 "../scopes/rational-tangles/coloring.html" "The fraction through integral coloring — 10 items · 10 planned"
-  click n1 "../../roadmap/rational-tangles/index.html#definitions-canonical-form" "Canonical form of a rational tangle — 1 item · 1 planned"
-  click n2 "../../roadmap/rational-tangles/index.html#definitions-continued-fraction-form" "Continued fraction form — 1 item · 1 planned"
+  click n0 "../scopes/rational-tangles/coloring.html" "The fraction through integral coloring — 10 items · 4 fully proved · 6 ready to state"
+  click n1 "../../roadmap/rational-tangles/index.html#definitions-canonical-form" "Canonical form of a rational tangle — 1 item · 1 fully proved"
+  click n2 "../../roadmap/rational-tangles/index.html#definitions-continued-fraction-form" "Continued fraction form — 1 item · 1 fully proved"
   click n3 "../../roadmap/rational-tangles/index.html#definitions-continued-fraction" "Arithmetic continued fraction — 1 item · 1 fully proved"
-  click n4 "../../roadmap/rational-tangles/index.html#definitions-flip" "Flip — 1 item · 1 planned"
-  click n5 "../../roadmap/rational-tangles/index.html#definitions-flype" "Flype — 1 item · 1 planned"
-  click n6 "../../roadmap/rational-tangles/index.html#definitions-integer-tangle" "Integer and vertical tangles — 1 item · 1 planned"
-  click n7 "../../roadmap/rational-tangles/index.html#definitions-rational-tangle" "Rational tangle — 1 item · 1 planned"
+  click n4 "../../roadmap/rational-tangles/index.html#definitions-flip" "Flip — 1 item · 1 fully proved"
+  click n5 "../../roadmap/rational-tangles/index.html#definitions-flype" "Flype — 1 item · 1 fully proved"
+  click n6 "../../roadmap/rational-tangles/index.html#definitions-integer-tangle" "Integer and vertical tangles — 1 item · 1 fully proved"
+  click n7 "../../roadmap/rational-tangles/index.html#definitions-rational-tangle" "Rational tangle — 1 item · 1 fully proved"
   click n8 "../../roadmap/rational-tangles/index.html#definitions-reidemeister-moves" "Reidemeister moves — 1 item · 1 fully proved"
-  click n9 "../../roadmap/rational-tangles/index.html#definitions-standard-form" "Standard form — 1 item · 1 planned"
-  click n10 "../../roadmap/rational-tangles/index.html#definitions-tangle-fraction" "Fraction of a rational tangle — 1 item · 1 planned"
-  click n11 "../../roadmap/rational-tangles/index.html#definitions-two-tangle-isotopy" "2-tangle and isotopy — 1 item · 1 ready to state"
-  click n12 "../../roadmap/rational-tangles/index.html#theorems-alternating-flypes" "Alternating rational tangles related by flypes — 1 item · 1 planned"
-  click n13 "../../roadmap/rational-tangles/index.html#theorems-canonical-form-exists" "Every rational tangle isotopes to canonical form — 1 item · 1 planned"
+  click n9 "../../roadmap/rational-tangles/index.html#definitions-standard-form" "Standard form — 1 item · 1 fully proved"
+  click n10 "../../roadmap/rational-tangles/index.html#definitions-tangle-fraction" "Fraction of a rational tangle — 1 item · 1 fully proved"
+  click n11 "../../roadmap/rational-tangles/index.html#definitions-two-tangle-isotopy" "2-tangle and isotopy — 1 item · 1 fully proved"
+  click n12 "../../roadmap/rational-tangles/index.html#theorems-alternating-flypes" "Alternating rational tangles related by flypes — 1 item · 1 ready to state"
+  click n13 "../../roadmap/rational-tangles/index.html#theorems-canonical-form-exists" "Every rational tangle isotopes to canonical form — 1 item · 1 ready to state"
   click n14 "../../roadmap/rational-tangles/index.html#theorems-classification" "Classification of rational tangles — 1 item · 1 planned"
   click n15 "../../roadmap/rational-tangles/index.html#theorems-continued-fraction-canonical" "Unique canonical continued fraction — 1 item · 1 ready to state"
-  click n16 "../../roadmap/rational-tangles/index.html#theorems-continued-fraction-form-exists" "Every rational tangle has a continued fraction form — 1 item · 1 planned"
-  click n17 "../../roadmap/rational-tangles/index.html#theorems-flipping-lemma" "Flipping lemma — 1 item · 1 planned"
-  click n18 "../../roadmap/rational-tangles/index.html#theorems-fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 planned"
+  click n16 "../../roadmap/rational-tangles/index.html#theorems-continued-fraction-form-exists" "Every rational tangle has a continued fraction form — 1 item · 1 ready to state"
+  click n17 "../../roadmap/rational-tangles/index.html#theorems-flipping-lemma" "Flipping lemma — 1 item · 1 ready to state"
+  click n18 "../../roadmap/rational-tangles/index.html#theorems-fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 ready to state"
   click n19 "../../roadmap/rational-tangles/index.html#theorems-same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 planned"
-  click n20 "../../roadmap/rational-tangles/index.html#theorems-standard-form-exists" "Every rational tangle has a standard form — 1 item · 1 planned"
-  click n21 "../../roadmap/rational-tangles/index.html#theorems-tait-flyping" "Tait flyping conjecture — 1 item · 1 planned"</div>
+  click n20 "../../roadmap/rational-tangles/index.html#theorems-standard-form-exists" "Every rational tangle has a standard form — 1 item · 1 ready to state"
+  click n21 "../../roadmap/rational-tangles/index.html#theorems-tait-flyping" "Tait flyping conjecture — 1 item · 1 ready to state"</div>
 
 
 
