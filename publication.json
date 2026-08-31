@@ -1,0 +1,29 @@
+{
+  "complete": true,
+  "coverage": {
+    "complete": true,
+    "counts": {
+      "DECOMPOSED": 1,
+      "DEFERRED": 1,
+      "MAPPED": 0,
+      "OUT": 5
+    },
+    "schema": "autoform-coverage/v1",
+    "source_path": "coverage/README.md",
+    "source_sha256": "d0ff390087808d12e4bd4dc4a65ae27d50fc0172bc8e9c8efc984b2da01e69ad"
+  },
+  "dependencies": 79,
+  "git_ref": "c85914f8e67a13f6f5e3209ad6b0a80ca876bedb",
+  "nodes": 34,
+  "schema": "autoform-publication/v1",
+  "source": "blueprint/roadmap Markdown",
+  "source_revision": "3ef081f2801643d85db0a121a13a88934afba2df65996ccfb5d2609fbeb7f2e1",
+  "views": [
+    "book",
+    "progress",
+    "project",
+    "chapter",
+    "focus",
+    "full"
+  ]
+}

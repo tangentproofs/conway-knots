@@ -1,0 +1,1650 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/roadmap/rational-tangles/index.html">
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="coloring/index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Rational tangles - Conway knots</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#definitions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Conway knots" class="md-header__button md-logo" aria-label="Conway knots" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Conway knots
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rational tangles
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tangentproofs/conway-knots" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dependencies.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Graph
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Conway knots" class="md-nav__button md-logo" aria-label="Conway knots" data-md-component="logo">
+      
+  <img src="../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Conway knots
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tangentproofs/conway-knots" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../coverage/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--in-progress"></span>
+  
+
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rational tangles roadmap
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rational tangles roadmap
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rational tangles
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rational tangles
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="coloring/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The fraction through integral coloring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graph
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dependencies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependency maps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dependencies/full.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full theorem DAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../structure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vault structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coloring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coloring
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unused-alternate-not-on-the-classification-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unused alternate (not on the classification path)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="rational-tangles">Rational tangles</h1>
+<p>This chapter isolates the combinatorial theory of rational 2-tangles used by
+Kauffman and Lambropoulou to prove Conway's classification. It begins with
+Reidemeister moves, 2-tangles and isotopy, builds integer and rational
+tangles and the flype/flip moves, then matches continued-fraction form of a
+tangle with the arithmetic continued fraction of its fraction <span class="arithmatex">\(F(T)\)</span>. The
+execution plan for the classification is the integral-coloring argument of
+§5: a coloring fraction <span class="arithmatex">\(f\)</span> is a topological invariant and equals <span class="arithmatex">\(F\)</span>, so
+<span class="arithmatex">\(F\)</span> is an isotopy invariant (Theorem 2) without Tait. Theorem 3 (same
+fraction implies isotopic) is kept from §4. The main result is that two
+rational tangles are isotopic if and only if they have the same fraction.</p>
+<div class="bp-progress-overview"><div class="bp-progress-kicker">Formalization progress</div><div class="bp-progress-total">11 definitions · 10 results</div><div class="bp-progress-states"><span class="bp-progress-state"><span class="bp-swatch bp-swatch-can_state"></span><strong>2</strong> ready to state</span><span class="bp-progress-state"><span class="bp-swatch bp-swatch-planned"></span><strong>19</strong> planned</span></div></div>
+
+<h2 id="definitions">Definitions</h2>
+<p>A 2-tangle is an embedding of two arcs (and possibly circles) in a 3-ball with
+four endpoints on the boundary. Diagram isotopy is generated by Reidemeister
+moves in the interior of the disc. Rational tangles are those generated from
+<span class="arithmatex">\([0]\)</span> or <span class="arithmatex">\([\infty]\)</span> by consecutive twists of neighbouring endpoints. Flypes
+and flips are characteristic isotopies used to reach standard, continued-
+fraction, and canonical form. The fraction <span class="arithmatex">\(F(T)\)</span> is the arithmetical
+evaluation of the twist form.</p>
+<div class="bp-thmwrapper theorem-style-definition bp-can_state" id="definitions-reidemeister-moves">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">1</span><span class="bp-thmtitle">Reidemeister moves</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/reidemeister-moves.html" aria-label="Open local dependency context for Reidemeister moves" title="Open local dependency context for Reidemeister moves"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/reidemeister-moves.md" aria-label="Edit the Markdown source for Reidemeister moves" title="Edit the Markdown source for Reidemeister moves"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-reidemeister-moves">#</a><span class="bp-mark" title="ready to state">●<span class="bp-mark-label">ready to state</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>A <strong>Reidemeister move</strong> is one of the three local diagram changes R1, R2, R3
+on a tangle (or knot) diagram, performed in the interior of the projection
+disc and leaving the four endpoints of a 2-tangle fixed.</p>
+<ul>
+<li><strong>R1.</strong> A kink may be added to or removed from a single strand (a twist of
+  writhe <span class="arithmatex">\(\pm 1\)</span>).</li>
+<li><strong>R2.</strong> Two strands with two opposite crossings may be pulled apart, or two
+  uncrossed strands may be overlapped to create two opposite crossings.</li>
+<li><strong>R3.</strong> A strand may be slid over (or under) a crossing of two other
+  strands.</li>
+</ul>
+<p>Kauffman–Lambropoulou use these moves without listing the three pictures:
+isotopy of 2-tangle diagrams is equivalent to a finite sequence of
+Reidemeister moves in the interior of the disc (Introduction, arXiv PDF
+p. 2, citing Reidemeister [31]). Section 5 uses the same moves as the
+generators of diagram isotopy for coloring. This article spells out R1–R3
+so that those uses are formalizable leaves rather than an imported axiom.</p>
+<p>Planar isotopy of the diagram (no change of crossing data) is included with
+the Reidemeister generators.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#reidemeister-moves">Kauffman–Lambropoulou, Reidemeister moves</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-reidemeister-i">Lemma 3 (Coloring invariance under Reidemeister I)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-reidemeister-ii">Lemma 4 (Coloring invariance under Reidemeister II)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-reidemeister-iii">Lemma 5 (Coloring invariance under Reidemeister III)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-two-tangle-isotopy">Definition 2 (2-tangle and isotopy)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-two-tangle-isotopy">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">2</span><span class="bp-thmtitle">2-tangle and isotopy</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/two-tangle-isotopy.html" aria-label="Open local dependency context for 2-tangle and isotopy" title="Open local dependency context for 2-tangle and isotopy"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/two-tangle-isotopy.md" aria-label="Edit the Markdown source for 2-tangle and isotopy" title="Edit the Markdown source for 2-tangle and isotopy"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-two-tangle-isotopy">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>A <strong>2-tangle</strong> is an embedding in a 3-ball <span class="arithmatex">\(B^3\)</span> of two arcs and a finite
+number of circles, with the four endpoints of the arcs lying on <span class="arithmatex">\(\partial B^3\)</span>
+in the standard NW/NE/SW/SE positions. (Throughout, “tangle” means a tangle
+diagram, as in the paper.)</p>
+<p>Two rational tangles <span class="arithmatex">\(T,S\)</span> in <span class="arithmatex">\(B^3\)</span> are <strong>isotopic</strong>, written <span class="arithmatex">\(T\sim S\)</span>, if
+there is an orientation-preserving self-homeomorphism
+<span class="arithmatex">\(h:(B^3,T)\to(B^3,S)\)</span> that is the identity on the boundary. Equivalently,
+any two diagrams of <span class="arithmatex">\(T\)</span> and <span class="arithmatex">\(S\)</span> have identical endpoint configurations on the
+projection disc and differ by a finite sequence of Reidemeister moves in the
+interior of the disc.</p>
+<p>The class of 2-tangles is closed under addition <span class="arithmatex">\(T+S\)</span>, multiplication
+<span class="arithmatex">\(T\ast S\)</span>, mirror image <span class="arithmatex">\(-T\)</span>, rotation <span class="arithmatex">\(T^r\)</span> (counterclockwise by
+<span class="arithmatex">\(90^\circ\)</span>), and inversion <span class="arithmatex">\(T^i:=-T^r\)</span>. Numerator and denominator closures
+<span class="arithmatex">\(N(T)\)</span> and <span class="arithmatex">\(D(T)\)</span> produce knots or links; they are used later to form vertex
+closures, but are not themselves first-milestone targets.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_1">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#source-map">Kauffman–Lambropoulou, Introduction</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-can_state" href="#definitions-reidemeister-moves">Definition 1 (Reidemeister moves)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#definitions-color-matrix">Definition 4 (Color matrix)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#definitions-coloring-rule">Definition 3 (Coloring rule)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-flype-invariance">Lemma 2 (Coloring invariance under flypes)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-reidemeister-i">Lemma 3 (Coloring invariance under Reidemeister I)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-reidemeister-ii">Lemma 4 (Coloring invariance under Reidemeister II)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-reidemeister-iii">Lemma 5 (Coloring invariance under Reidemeister III)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-flip">Definition 8 (Flip)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-flype">Definition 7 (Flype)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-integer-tangle">Definition 6 (Integer and vertical tangles)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-fraction-isotopy-invariant">Theorem 7 (The fraction is an isotopy invariant)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-tait-flyping">Theorem 3 (Tait flyping conjecture)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-integer-tangle">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">6</span><span class="bp-thmtitle">Integer and vertical tangles</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/integer-tangle.html" aria-label="Open local dependency context for Integer and vertical tangles" title="Open local dependency context for Integer and vertical tangles"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/integer-tangle.md" aria-label="Edit the Markdown source for Integer and vertical tangles" title="Edit the Markdown source for Integer and vertical tangles"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-integer-tangle">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The simplest rational tangles are <span class="arithmatex">\([0]\)</span>, <span class="arithmatex">\([\infty]\)</span>, <span class="arithmatex">\([+1]\)</span> and <span class="arithmatex">\([-1]\)</span>. The
+next simplest are:</p>
+<ul>
+<li>the <strong>integer tangles</strong> <span class="arithmatex">\([n]\)</span>, made of <span class="arithmatex">\(n\)</span> horizontal twists, <span class="arithmatex">\(n\in\mathbb{Z}\)</span>;</li>
+<li>the <strong>vertical tangles</strong> <span class="arithmatex">\([n]^{-1}\)</span>, made of <span class="arithmatex">\(n\)</span> vertical twists,
+  <span class="arithmatex">\(n\in\mathbb{Z}\)</span>.</li>
+</ul>
+<p>Crossing type follows the checkerboard shading of the paper (Figure 2):
+positive type as in <span class="arithmatex">\([+1]\)</span>, negative type as in <span class="arithmatex">\([-1]\)</span>. These sign conventions
+agree with Ernst–Sumners and are the <em>opposite</em> of Conway 1970; this project
+follows Kauffman–Lambropoulou.</p>
+<p>In particular <span class="arithmatex">\([0]^r=[0]^i=[\infty]\)</span> and <span class="arithmatex">\([\infty]^r=[\infty]^i=[0]\)</span>, and
+<span class="arithmatex">\(-[n]=[-n]\)</span>.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_2">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#source-map">Kauffman–Lambropoulou §2, Figure 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-two-tangle-isotopy">Definition 2 (2-tangle and isotopy)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-fraction-properties">Theorem 2 (Coloring fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-integral-colorability">Theorem 1 (Every rational tangle is integrally colorable)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-continued-fraction-form">Definition 11 (Continued fraction form)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-flype">Definition 7 (Flype)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-rational-tangle">Definition 9 (Rational tangle)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-rational-tangle">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">9</span><span class="bp-thmtitle">Rational tangle</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/rational-tangle.html" aria-label="Open local dependency context for Rational tangle" title="Open local dependency context for Rational tangle"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/rational-tangle.md" aria-label="Edit the Markdown source for Rational tangle" title="Edit the Markdown source for Rational tangle"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-rational-tangle">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>A <strong>rational tangle in twist form</strong> is created by consecutive additions and
+multiplications by the tangles <span class="arithmatex">\([\pm 1]\)</span>, starting from <span class="arithmatex">\([0]\)</span> or <span class="arithmatex">\([\infty]\)</span>
+(Definition 1). Equivalently (Note 1), it is a proper embedding of two
+unoriented arcs <span class="arithmatex">\(\alpha_1,\alpha_2\)</span> in a 3-ball <span class="arithmatex">\(B^3\)</span> with four endpoints on
+the boundary for which there exists a homeomorphism of pairs
+$$
+h:(B^3,\alpha_1,\alpha_2)\longrightarrow(D^2\times I,{x,y}\times I)
+$$
+to a trivial tangle.</p>
+<p>Inductively, a twist-form rational tangle is obtained from a previously
+created rational tangle by adding integer tangles and multiplying by vertical
+tangles. Addition or multiplication of two non-integer rational tangles need
+not remain rational.</p>
+<p>This project takes Definition 1 as the working definition of a rational
+tangle, with the homeomorphism-of-pairs description as the intended
+topological meaning.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_3">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#definition-1">Kauffman–Lambropoulou Definition 1</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-integer-tangle">Definition 6 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-fraction-properties">Theorem 2 (Coloring fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-integral-colorability">Theorem 1 (Every rational tangle is integrally colorable)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-standard-form">Definition 10 (Standard form)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-tangle-fraction">Definition 13 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-alternating-flypes">Theorem 4 (Alternating rational tangles related by flypes)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-flipping-lemma">Lemma 6 (Flipping lemma)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-flype">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">7</span><span class="bp-thmtitle">Flype</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/flype.html" aria-label="Open local dependency context for Flype" title="Open local dependency context for Flype"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/flype.md" aria-label="Edit the Markdown source for Flype" title="Edit the Markdown source for Flype"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-flype">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>A <strong>flype</strong> is an isotopy of a 2-tangle or a knot applied on a 2-subtangle of
+the form <span class="arithmatex">\([\pm 1]+t\)</span> or <span class="arithmatex">\([\pm 1]\ast t\)</span> as in Figure 5 of the paper. It fixes
+the endpoints of the subtangle on which it is applied. A flype is <strong>rational</strong>
+if that 2-subtangle is rational.</p>
+<p>Algebraically (after the flipping lemma), a rational flype is one of
+$$
+[\pm 1]+t \;\sim\; t+[\pm 1]
+\qquad\text{or}\qquad
+[\pm 1]\ast t \;\sim\; t\ast[\pm 1].
+$$</p>
+<p>A tangle (or knot) diagram is <strong>alternating</strong> when the crossings alternate
+from under to over along every arc; equivalently, with the paper's
+checkerboard shading, when all crossings have the same type. Flypes preserve
+the alternating structure. Lemma 1 and Corollary 1 of the paper record that
+every 2-subtangle of a rational tangle in twist form is a rational truncation,
+so every flype of a rational tangle is rational.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_4">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#definition-2">Kauffman–Lambropoulou Definition 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-two-tangle-isotopy">Definition 2 (2-tangle and isotopy)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-integer-tangle">Definition 6 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-flype-invariance">Lemma 2 (Coloring invariance under flypes)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-alternating-flypes">Theorem 4 (Alternating rational tangles related by flypes)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-canonical-form-exists">Theorem 6 (Every rational tangle isotopes to canonical form)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-flipping-lemma">Lemma 6 (Flipping lemma)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-standard-form-exists">Lemma 7 (Every rational tangle has a standard form)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-tait-flyping">Theorem 3 (Tait flyping conjecture)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-flip">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">8</span><span class="bp-thmtitle">Flip</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/flip.html" aria-label="Open local dependency context for Flip" title="Open local dependency context for Flip"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/flip.md" aria-label="Edit the Markdown source for Flip" title="Edit the Markdown source for Flip"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-flip">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>A <strong>flip</strong> is a rotation in space of a 2-tangle by <span class="arithmatex">\(180^\circ\)</span>.</p>
+<ul>
+<li><span class="arithmatex">\(T^{h\mathrm{flip}}\)</span> is the <strong>horizontal flip</strong>: rotation around a
+  horizontal axis in the plane of <span class="arithmatex">\(T\)</span>.</li>
+<li><span class="arithmatex">\(T^{v\mathrm{flip}}\)</span> is the <strong>vertical flip</strong>: rotation around a vertical
+  axis in the plane of <span class="arithmatex">\(T\)</span>.</li>
+</ul>
+<p>In general a flip switches endpoints and need not be an isotopy of 2-tangles.
+For rational tangles it is, by the flipping lemma. A flype on a 2-subtangle
+<span class="arithmatex">\(t\)</span> may be written
+$$
+[\pm 1]+t \;\sim\; t^{h\mathrm{flip}}+[\pm 1]
+\qquad\text{or}\qquad
+[\pm 1]\ast t \;\sim\; t^{v\mathrm{flip}}\ast[\pm 1].
+$$</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_5">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#definition-3">Kauffman–Lambropoulou Definition 3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-two-tangle-isotopy">Definition 2 (2-tangle and isotopy)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-flype-invariance">Lemma 2 (Coloring invariance under flypes)</a> · <a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-fraction-properties">Theorem 2 (Coloring fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-alternating-flypes">Theorem 4 (Alternating rational tangles related by flypes)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-flipping-lemma">Lemma 6 (Flipping lemma)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-standard-form">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">10</span><span class="bp-thmtitle">Standard form</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/standard-form.html" aria-label="Open local dependency context for Standard form" title="Open local dependency context for Standard form"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/standard-form.md" aria-label="Edit the Markdown source for Standard form" title="Edit the Markdown source for Standard form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-standard-form">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>A rational tangle is in <strong>standard form</strong> if it is created by consecutive
+additions of <span class="arithmatex">\([\pm 1]\)</span> only on the right (or only on the left) and
+multiplications by <span class="arithmatex">\([\pm 1]\)</span> only at the bottom (or only at the top), starting
+from <span class="arithmatex">\([0]\)</span> or <span class="arithmatex">\([\infty]\)</span> (Definition 4).</p>
+<p>Inductively, from a previously created rational tangle <span class="arithmatex">\(T\)</span>, one either adds an
+integer tangle on the right, <span class="arithmatex">\(T\mapsto T+[\pm k]\)</span>, or multiplies by a vertical
+tangle at the bottom, <span class="arithmatex">\(T\mapsto T\ast[n]^{-1}\)</span>. The associated integer vector
+<span class="arithmatex">\((a_1,\ldots,a_n)\)</span> records the successive blocks of twists; <span class="arithmatex">\(n\)</span> may be taken
+odd.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_6">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#definition-4">Kauffman–Lambropoulou Definition 4</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-rational-tangle">Definition 9 (Rational tangle)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-continued-fraction-form">Definition 11 (Continued fraction form)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-standard-form-exists">Lemma 7 (Every rational tangle has a standard form)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-continued-fraction-form">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">11</span><span class="bp-thmtitle">Continued fraction form</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/continued-fraction-form.html" aria-label="Open local dependency context for Continued fraction form" title="Open local dependency context for Continued fraction form"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/continued-fraction-form.md" aria-label="Edit the Markdown source for Continued fraction form" title="Edit the Markdown source for Continued fraction form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-continued-fraction-form">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>A <strong>continued fraction in integer tangles</strong> is an algebraic description of a
+rational tangle via a continued fraction built from integer tangles
+<span class="arithmatex">\([a_1],\ldots,[a_n]\)</span> with all numerators equal to <span class="arithmatex">\(1\)</span>:
+$$
+T = [[a_1],[a_2],\ldots,[a_n]]
+:= [a_1] + \cfrac{1}{[a_2]+\cdots+\cfrac{1}{[a_n]}}
+$$
+for <span class="arithmatex">\(a_2,\ldots,a_n\in\mathbb{Z}\setminus\{0\}\)</span> and <span class="arithmatex">\(n\)</span> even or odd. The
+leading term <span class="arithmatex">\(a_1\)</span> may be zero. A rational tangle so described is in
+<strong>continued fraction form</strong>.</p>
+<p>This is the tangle-level counterpart of the arithmetic continued fraction
+<span class="arithmatex">\([a_1,\ldots,a_n]\)</span>. Lemma 5 of the paper records the effect of adding
+<span class="arithmatex">\([\pm 1]\)</span>, inverting, and mirroring on the continued-fraction vector.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_7">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#definition-5">Kauffman–Lambropoulou Definition 5</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-standard-form">Definition 10 (Standard form)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-integer-tangle">Definition 6 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-canonical-form">Definition 14 (Canonical form of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-tangle-fraction">Definition 13 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-continued-fraction-form-exists">Theorem 5 (Every rational tangle has a continued fraction form)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-canonical-form">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">14</span><span class="bp-thmtitle">Canonical form of a rational tangle</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/canonical-form.html" aria-label="Open local dependency context for Canonical form of a rational tangle" title="Open local dependency context for Canonical form of a rational tangle"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/canonical-form.md" aria-label="Edit the Markdown source for Canonical form of a rational tangle" title="Edit the Markdown source for Canonical form of a rational tangle"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-canonical-form">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>A rational tangle <span class="arithmatex">\(T=[[\beta_1],[\beta_2],\ldots,[\beta_m]]\)</span> in continued
+fraction form is in <strong>canonical form</strong> if <span class="arithmatex">\(T\)</span> is alternating (all <span class="arithmatex">\(\beta_i\)</span>
+positive, or all negative) and <span class="arithmatex">\(m\)</span> is odd (Definition 6). If <span class="arithmatex">\(T\)</span> is
+alternating and <span class="arithmatex">\(m\)</span> is even, the last term may be split by the identity
+<span class="arithmatex">\([\beta_m]=[\mathrm{sign}(\beta_m)\cdot(|\beta_m|-1)]+[\mathrm{sign}(\beta_m)\cdot 1]\)</span>
+to make the length odd.</p>
+<p><span class="arithmatex">\(T\)</span> is called positive or negative according to the sign of its terms.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_8">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#definition-6">Kauffman–Lambropoulou Definition 6</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-continued-fraction-form">Definition 11 (Continued fraction form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-canonical-form-exists">Theorem 6 (Every rational tangle isotopes to canonical form)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-same-fraction-isotopic">Theorem 9 (Same fraction implies isotopic)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-can_state" id="definitions-continued-fraction">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">12</span><span class="bp-thmtitle">Arithmetic continued fraction</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/continued-fraction.html" aria-label="Open local dependency context for Arithmetic continued fraction" title="Open local dependency context for Arithmetic continued fraction"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/continued-fraction.md" aria-label="Edit the Markdown source for Arithmetic continued fraction" title="Edit the Markdown source for Arithmetic continued fraction"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-continued-fraction">#</a><span class="bp-mark" title="ready to state">●<span class="bp-mark-label">ready to state</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every rational number may be written as a continued fraction with all
+numerators equal to <span class="arithmatex">\(1\)</span>:
+$$
+[a_1,a_2,\ldots,a_n]
+:= a_1 + \cfrac{1}{a_2+\cdots+\cfrac{1}{a_n}}
+$$
+for <span class="arithmatex">\(a_1\in\mathbb{Z}\)</span> and <span class="arithmatex">\(a_2,\ldots,a_n\in\mathbb{Z}\setminus\{0\}\)</span>. The
+leading term <span class="arithmatex">\(a_1\)</span> may be zero. The length is <span class="arithmatex">\(n\)</span> whether or not <span class="arithmatex">\(a_1=0\)</span>.</p>
+<p>A continued fraction is <strong>termwise positive</strong> (resp. negative) if every
+numerical term is positive (resp. negative). It is in <strong>canonical form</strong>
+(Definition 7) if it is termwise positive or negative and the length <span class="arithmatex">\(m\)</span> is
+odd. Even length is reduced to odd length by the last-term identities
+<span class="arithmatex">\([a_1,\ldots,a_n]=[a_1,\ldots,a_n-1,+1]\)</span> for <span class="arithmatex">\(a_n&gt;0\)</span> and
+<span class="arithmatex">\([a_1,\ldots,a_n]=[a_1,\ldots,a_n+1,-1]\)</span> for <span class="arithmatex">\(a_n&lt;0\)</span>.</p>
+<p>The value <span class="arithmatex">\(\infty\)</span> is included formally as <span class="arithmatex">\(1/0\)</span>, matching <span class="arithmatex">\(F([\infty])\)</span>.</p>
+<p>Mathlib already develops generalised, simple, and regular continued fractions
+under <code>Algebra.ContinuedFractions</code> (including <code>GenContFract.of</code> and
+termination iff rationality). That overlap is arithmetic, not a tangle
+theory; it is recorded as a candidate, not as <code>mathlib: true</code>.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_9">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#definition-7">Kauffman–Lambropoulou Definition 7</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-tangle-fraction">Definition 13 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-continued-fraction-canonical">Theorem 8 (Unique canonical continued fraction)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-planned" id="definitions-tangle-fraction">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">13</span><span class="bp-thmtitle">Fraction of a rational tangle</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/definitions/tangle-fraction.html" aria-label="Open local dependency context for Fraction of a rational tangle" title="Open local dependency context for Fraction of a rational tangle"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/definitions/tangle-fraction.md" aria-label="Edit the Markdown source for Fraction of a rational tangle" title="Edit the Markdown source for Fraction of a rational tangle"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#definitions-tangle-fraction">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Let <span class="arithmatex">\(T\)</span> be a rational tangle in twist form. The <strong>fraction</strong> <span class="arithmatex">\(F(T)\)</span> is the
+rational number (or <span class="arithmatex">\(\infty\)</span>) obtained by evaluating that expression in
+ordinary arithmetic, with the tangle product interpreted as
+$$
+x\ast y := \frac{1}{\frac{1}{x}+y},
+$$
+and with <span class="arithmatex">\(F([\infty]):=\infty=1/0\)</span> as a formal expression (Definition 8).</p>
+<p>By Remark 6, if <span class="arithmatex">\(T=[[a_1],\ldots,[a_n]]\)</span> is in continued fraction form then
+$$
+F(T)=[a_1,a_2,\ldots,a_n],
+$$
+and this evaluation may be taken as the definition of <span class="arithmatex">\(F(T)\)</span>. In particular
+<span class="arithmatex">\(F([0])=0\)</span>, <span class="arithmatex">\(F([\pm 1])=\pm 1\)</span>, <span class="arithmatex">\(F([\pm k])=\pm k\)</span>, and
+<span class="arithmatex">\(F([{\pm k}]^{-1})=1/(\pm k)\)</span>.</p>
+<p>Lemma 7 of the paper shows that the twist-form and continued-fraction-form
+evaluations agree. Lemma 8 records the calculus
+<span class="arithmatex">\(F(T+[\pm 1])=F(T)\pm 1\)</span>, <span class="arithmatex">\(F(T^{-1})=1/F(T)\)</span>, <span class="arithmatex">\(F(-T)=-F(T)\)</span>.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_10">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#definition-8">Kauffman–Lambropoulou Definition 8</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-rational-tangle">Definition 9 (Rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-continued-fraction-form">Definition 11 (Continued fraction form)</a> · <a class="bp-ref bp-ref-can_state" href="#definitions-continued-fraction">Definition 12 (Arithmetic continued fraction)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-fraction-properties">Theorem 2 (Coloring fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-fraction-isotopy-invariant">Theorem 7 (The fraction is an isotopy invariant)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-same-fraction-isotopic">Theorem 9 (Same fraction implies isotopic)</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="forms">Forms</h2>
+<p>Standard form, continued-fraction form, and canonical form are reached by
+flypes (as isotopies proved in the paper, not via Tait). The arithmetic
+continued fraction of a rational has a unique canonical form (Proposition 3),
+which is the numerical counterpart of the tangle canonical form and is used
+in Theorem 3.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-flipping-lemma">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Lemma</span><span class="bp-thmlabel">6</span><span class="bp-thmtitle">Flipping lemma</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/flipping-lemma.html" aria-label="Open local dependency context for Flipping lemma" title="Open local dependency context for Flipping lemma"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/flipping-lemma.md" aria-label="Edit the Markdown source for Flipping lemma" title="Edit the Markdown source for Flipping lemma"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-flipping-lemma">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>If <span class="arithmatex">\(T\)</span> is rational, then
+$$
+T\sim T^{h\mathrm{flip}},
+\qquad
+T\sim T^{v\mathrm{flip}},
+\qquad
+T\sim (T^i)^i=(T^r)^r.
+$$
+In particular inversion is an operation of order two on rational tangles, so
+the inverse of a rational tangle <span class="arithmatex">\(T\)</span> may be written <span class="arithmatex">\(T^{-1}\)</span>, and
+<span class="arithmatex">\(T^r=-T^{-1}\)</span>.</p>
+<p>The proof is by induction on crossings, using a flype in the product case.
+As a consequence, addition of <span class="arithmatex">\([\pm 1]\)</span> and multiplication by <span class="arithmatex">\([\pm 1]\)</span>
+commute on rational tangles, which is the algebraic form of a rational flype.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_11">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#lemma-2">Kauffman–Lambropoulou Lemma 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-rational-tangle">Definition 9 (Rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-flype">Definition 7 (Flype)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-flip">Definition 8 (Flip)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-fraction-properties">Theorem 2 (Coloring fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-alternating-flypes">Theorem 4 (Alternating rational tangles related by flypes)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-canonical-form-exists">Theorem 6 (Every rational tangle isotopes to canonical form)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-standard-form-exists">Lemma 7 (Every rational tangle has a standard form)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-standard-form-exists">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Lemma</span><span class="bp-thmlabel">7</span><span class="bp-thmtitle">Every rational tangle has a standard form</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/standard-form-exists.html" aria-label="Open local dependency context for Every rational tangle has a standard form" title="Open local dependency context for Every rational tangle has a standard form"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/standard-form-exists.md" aria-label="Edit the Markdown source for Every rational tangle has a standard form" title="Edit the Markdown source for Every rational tangle has a standard form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-standard-form-exists">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every rational tangle can be brought via isotopy to standard form.</p>
+<p>Starting from twist form, horizontal and vertical rational flypes (and the
+commutativity supplied by the flipping lemma) move all horizontal twists to
+the right and all vertical twists to the bottom.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_12">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#lemma-3">Kauffman–Lambropoulou Lemma 3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-standard-form">Definition 10 (Standard form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-flype">Definition 7 (Flype)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-flipping-lemma">Lemma 6 (Flipping lemma)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-continued-fraction-form-exists">Theorem 5 (Every rational tangle has a continued fraction form)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-continued-fraction-form-exists">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">5</span><span class="bp-thmtitle">Every rational tangle has a continued fraction form</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/continued-fraction-form-exists.html" aria-label="Open local dependency context for Every rational tangle has a continued fraction form" title="Open local dependency context for Every rational tangle has a continued fraction form"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/continued-fraction-form-exists.md" aria-label="Edit the Markdown source for Every rational tangle has a continued fraction form" title="Edit the Markdown source for Every rational tangle has a continued fraction form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-continued-fraction-form-exists">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every rational tangle can be written in continued fraction form.</p>
+<p>The argument reduces to standard form (Lemma 3) and then applies the
+isotopy identities of Lemma 4,
+$$
+T\ast[n]^{-1} \;\sim\; \bigl([n]+T^{-1}\bigr)^{-1},
+$$
+repeatedly, converting a standard-form tangle into
+<span class="arithmatex">\([[a_1],\ldots,[a_n]]\)</span>. Thus continued-fraction form and standard form are
+equivalent presentations.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_13">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#proposition-1">Kauffman–Lambropoulou Proposition 1</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-continued-fraction-form">Definition 11 (Continued fraction form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-standard-form-exists">Lemma 7 (Every rational tangle has a standard form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-canonical-form-exists">Theorem 6 (Every rational tangle isotopes to canonical form)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-canonical-form-exists">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">6</span><span class="bp-thmtitle">Every rational tangle isotopes to canonical form</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/canonical-form-exists.html" aria-label="Open local dependency context for Every rational tangle isotopes to canonical form" title="Open local dependency context for Every rational tangle isotopes to canonical form"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/canonical-form-exists.md" aria-label="Edit the Markdown source for Every rational tangle isotopes to canonical form" title="Edit the Markdown source for Every rational tangle isotopes to canonical form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-canonical-form-exists">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every rational tangle can be isotoped to canonical form: an alternating
+continued-fraction form of odd length.</p>
+<p>If a continued-fraction vector is not termwise of one sign, a transfer move
+(Figure 14) together with flypes and flips removes a mixed-sign adjacent pair
+and reduces the sum of absolute values of the entries, so induction produces
+an alternating tangle. Length is then made odd by splitting the last term as
+in Definition 6.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_14">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#proposition-2">Kauffman–Lambropoulou Proposition 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-canonical-form">Definition 14 (Canonical form of a rational tangle)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-continued-fraction-form-exists">Theorem 5 (Every rational tangle has a continued fraction form)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-flype">Definition 7 (Flype)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-flipping-lemma">Lemma 6 (Flipping lemma)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-same-fraction-isotopic">Theorem 9 (Same fraction implies isotopic)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-continued-fraction-canonical">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">8</span><span class="bp-thmtitle">Unique canonical continued fraction</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/continued-fraction-canonical.html" aria-label="Open local dependency context for Unique canonical continued fraction" title="Open local dependency context for Unique canonical continued fraction"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/continued-fraction-canonical.md" aria-label="Edit the Markdown source for Unique canonical continued fraction" title="Edit the Markdown source for Unique canonical continued fraction"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-continued-fraction-canonical">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every continued fraction <span class="arithmatex">\([a_1,a_2,\ldots,a_n]\)</span> can be transformed to a
+<strong>unique</strong> canonical form, with sign generically equal to the sign of the
+first non-zero term.</p>
+<p>The reduction copies the transfer arithmetic of Proposition 2: mixed-sign
+adjacent terms are rewritten so that the sum of absolute values of the
+entries drops by one. The remaining uniqueness is Euclid's algorithm
+(Kauffman–Lambropoulou, end of the proof of Proposition 3). Even length is
+reduced to odd length by the last-term identities of Remark 5.</p>
+<p>This is the arithmetic counterpart of the tangle canonical form, and is the
+unicity of continued-fraction form used in Theorem 3.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_15">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#proposition-3">Kauffman–Lambropoulou Proposition 3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-can_state" href="#definitions-continued-fraction">Definition 12 (Arithmetic continued fraction)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-same-fraction-isotopic">Theorem 9 (Same fraction implies isotopic)</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="coloring">Coloring</h2>
+<p>The <a href="coloring/index.html">coloring chapter</a> develops the integral coloring of
+§5, including the Reidemeister and flype coloring lemmas and Theorem 4.</p>
+<h2 id="classification">Classification</h2>
+<p>Theorem 2 follows from Theorem 4 (<span class="arithmatex">\(f\)</span> invariant and <span class="arithmatex">\(f=F\)</span>). Theorem 3 is
+unchanged from §4. Theorem 1 is their conjunction.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-fraction-isotopy-invariant">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">7</span><span class="bp-thmtitle">The fraction is an isotopy invariant</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/fraction-isotopy-invariant.html" aria-label="Open local dependency context for The fraction is an isotopy invariant" title="Open local dependency context for The fraction is an isotopy invariant"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/fraction-isotopy-invariant.md" aria-label="Edit the Markdown source for The fraction is an isotopy invariant" title="Edit the Markdown source for The fraction is an isotopy invariant"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-fraction-isotopy-invariant">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The fraction <span class="arithmatex">\(F\)</span> is an isotopy invariant of rational tangles: if <span class="arithmatex">\(T\sim S\)</span>
+are rational, then <span class="arithmatex">\(F(T)=F(S)\)</span>.</p>
+<p>This is Theorem 2. The proof used in this DAG is the coloring argument of
+§5, not the flyping argument of §4. By Theorem 4, <span class="arithmatex">\(f\)</span> is a topological
+invariant of rational tangles and <span class="arithmatex">\(f(T)=F(T)\)</span>. Therefore <span class="arithmatex">\(F\)</span> is an isotopy
+invariant.</p>
+<p>There is no appeal to the Tait flyping conjecture or to Proposition 4.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_16">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#theorem-2">Kauffman–Lambropoulou Theorem 2</a></li>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#theorem-4">Kauffman–Lambropoulou Theorem 4</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-tangle-fraction">Definition 13 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-two-tangle-isotopy">Definition 2 (2-tangle and isotopy)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="coloring/index.html#theorems-coloring-fraction-properties">Theorem 2 (Coloring fraction of a rational tangle)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-classification">Theorem 10 (Classification of rational tangles)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-same-fraction-isotopic">Theorem 9 (Same fraction implies isotopic)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-same-fraction-isotopic">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">9</span><span class="bp-thmtitle">Same fraction implies isotopic</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/same-fraction-isotopic.html" aria-label="Open local dependency context for Same fraction implies isotopic" title="Open local dependency context for Same fraction implies isotopic"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/same-fraction-isotopic.md" aria-label="Edit the Markdown source for Same fraction implies isotopic" title="Edit the Markdown source for Same fraction implies isotopic"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-same-fraction-isotopic">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Two rational tangles with the same fraction are isotopic.</p>
+<p>Let <span class="arithmatex">\(T=[[a_1],\ldots,[a_n]]\)</span> and <span class="arithmatex">\(S=[[b_1],\ldots,[b_m]]\)</span> satisfy
+<span class="arithmatex">\(F(T)=F(S)=p/q\)</span>. Bring each to canonical form <span class="arithmatex">\(T'\)</span> and <span class="arithmatex">\(S'\)</span>. Invariance of
+<span class="arithmatex">\(F\)</span> gives <span class="arithmatex">\(F(T')=F(S')=p/q\)</span>. Proposition 3 supplies a unique arithmetic
+canonical expansion <span class="arithmatex">\(p/q=[\gamma_1,\ldots,\gamma_r]\)</span>, hence a unique
+alternating rational tangle
+<span class="arithmatex">\(Q=[[\gamma_1],\ldots,[\gamma_r]]\)</span> in canonical form. If <span class="arithmatex">\(T'\neq Q\)</span> then two
+distinct canonical continued fractions would evaluate to <span class="arithmatex">\(p/q\)</span>, contradicting
+Proposition 3. Thus <span class="arithmatex">\(T'=Q=S'\)</span>, so <span class="arithmatex">\(T\sim S\)</span>.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_17">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#theorem-3">Kauffman–Lambropoulou Theorem 3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-tangle-fraction">Definition 13 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-canonical-form">Definition 14 (Canonical form of a rational tangle)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-continued-fraction-canonical">Theorem 8 (Unique canonical continued fraction)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-fraction-isotopy-invariant">Theorem 7 (The fraction is an isotopy invariant)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-canonical-form-exists">Theorem 6 (Every rational tangle isotopes to canonical form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-classification">Theorem 10 (Classification of rational tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-classification">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">10</span><span class="bp-thmtitle">Classification of rational tangles</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/classification.html" aria-label="Open local dependency context for Classification of rational tangles" title="Open local dependency context for Classification of rational tangles"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/classification.md" aria-label="Edit the Markdown source for Classification of rational tangles" title="Edit the Markdown source for Classification of rational tangles"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-classification">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Two rational tangles are isotopic if and only if they have the same fraction.</p>
+<p>This is Theorem 1 of Kauffman–Lambropoulou, attributed to Conway (1970). The
+paper states it in the Introduction. This DAG obtains it as the conjunction
+of Theorem 2 (the fraction is an isotopy invariant, via the coloring
+fraction <span class="arithmatex">\(f\)</span> of Theorem 4) and Theorem 3 (equal fractions yield isotopic
+tangles, from §4). Tait flyping and Proposition 4 are not used.</p>
+<p>Note 2 then records the bijection: if <span class="arithmatex">\(T=[[a_1],\ldots,[a_n]]\)</span> and
+<span class="arithmatex">\(p/q=[a_1,\ldots,a_n]\)</span>, one may write <span class="arithmatex">\(T=[p/q]\)</span> without ambiguity. Rational
+numbers (together with <span class="arithmatex">\(\infty\)</span>) are thus represented bijectively by rational
+tangles; negatives correspond to mirrors and inverses to inverses. That
+bijection is a corollary of this theorem, not a separate first-milestone
+target.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_18">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#theorem-1">Kauffman–Lambropoulou Theorem 1</a></li>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/conway.md">Conway 1970</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-fraction-isotopy-invariant">Theorem 7 (The fraction is an isotopy invariant)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-same-fraction-isotopic">Theorem 9 (Same fraction implies isotopic)</a></span></div>
+</div>
+</details>
+</div>
+<h2 id="unused-alternate-not-on-the-classification-path">Unused alternate (not on the classification path)</h2>
+<p>The §4 flyping proof of Theorem 2, which uses the Tait conjecture as
+background, is retained as exposition and is marked out of the coverage
+contract for this milestone. Nothing on the path to Theorem 1 depends on
+these articles.</p>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-tait-flyping">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">3</span><span class="bp-thmtitle">Tait flyping conjecture</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/tait-flyping.html" aria-label="Open local dependency context for Tait flyping conjecture" title="Open local dependency context for Tait flyping conjecture"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/tait-flyping.md" aria-label="Edit the Markdown source for Tait flyping conjecture" title="Edit the Markdown source for Tait flyping conjecture"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-tait-flyping">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Two alternating knots are isotopic if and only if any two corresponding
+diagrams on <span class="arithmatex">\(S^2\)</span> are related by a finite sequence of flypes.</p>
+<p>This is Tait's 1877 working assumption, proved by Menasco and Thistlethwaite
+in 1993. Kauffman–Lambropoulou assume the corresponding statement for vertex
+closures of alternating 2-tangles (citing Thistlethwaite) and derive from it
+the flyping statement for alternating <em>rational</em> tangles (Proposition 4).
+The result is background, not a theorem proved in the adopted paper.</p>
+<p>This article is retained as exposition of the unused §4 flyping argument.
+It is not a dependency of Theorem 1: the classification is proved via the
+coloring fraction of §5. Tait is not an axiom on the critical path.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_19">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#tait">Kauffman–Lambropoulou, Tait conjecture</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-flype">Definition 7 (Flype)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-two-tangle-isotopy">Definition 2 (2-tangle and isotopy)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-alternating-flypes">Theorem 4 (Alternating rational tangles related by flypes)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-planned" id="theorems-alternating-flypes">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">4</span><span class="bp-thmtitle">Alternating rational tangles related by flypes</span><a class="bp-context-link" href="../../dependencies/nodes/rational-tangles/theorems/alternating-flypes.html" aria-label="Open local dependency context for Alternating rational tangles related by flypes" title="Open local dependency context for Alternating rational tangles related by flypes"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/roadmap/rational-tangles/theorems/alternating-flypes.md" aria-label="Edit the Markdown source for Alternating rational tangles related by flypes" title="Edit the Markdown source for Alternating rational tangles related by flypes"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#theorems-alternating-flypes">#</a><span class="bp-mark" title="planned">●<span class="bp-mark-label">planned</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Two alternating rational tangles on <span class="arithmatex">\(S^2\)</span> are isotopic if and only if they
+differ by a finite sequence of rational flypes.</p>
+<p>The argument passes to the vertex closure <span class="arithmatex">\(V(T)\)</span> of an alternating rational
+tangle, invokes the Tait flyping theorem for that closure, and reconfigures
+any flype that involves the rigid vertex as a pancake flip plus a tangle
+flype. Pancake flips induce horizontal or vertical flips, which are isotopies
+of rational tangles by the flipping lemma; remaining tangle flypes are
+rational by Corollary 1.</p>
+<p>This article is retained as exposition of the unused §4 flyping argument.
+It is not a dependency of Theorem 1.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_20">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/c85914f8e67a13f6f5e3209ad6b0a80ca876bedb/blueprint/sources/kauffman-lambropoulou.md#proposition-4">Kauffman–Lambropoulou Proposition 4</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#definitions-flype">Definition 7 (Flype)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-rational-tangle">Definition 9 (Rational tangle)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-planned" href="#theorems-tait-flyping">Theorem 3 (Tait flyping conjecture)</a> · <a class="bp-ref bp-ref-planned" href="#theorems-flipping-lemma">Lemma 6 (Flipping lemma)</a> · <a class="bp-ref bp-ref-planned" href="#definitions-flip">Definition 8 (Flip)</a></span></div>
+</div>
+</details>
+</div>
+<nav class="bp-book-nav" aria-label="Blueprint chapters"><a class="bp-book-nav-link bp-book-nav-previous" href="../index.html"><span class="bp-book-nav-direction"><span aria-hidden="true">←</span> Previous</span><span class="bp-book-nav-title">Rational tangles roadmap</span></a><a class="bp-book-nav-link bp-book-nav-next" href="coloring/index.html"><span class="bp-book-nav-direction"><span aria-hidden="true">→</span> Next</span><span class="bp-book-nav-title">The fraction through integral coloring</span></a></nav>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/tangentproofs/conway-knots">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+      
+        <script src="../../javascripts/blueprint-mermaid.js"></script>
+      
+    
+  </body>
+</html>
