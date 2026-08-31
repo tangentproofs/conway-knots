@@ -1,6 +1,9 @@
 ---
 declaration: lemma
 origin: cited
+statement: formalized
+lean: RationalTangles.coloring_IsReidemeisterI
+proof: formalized
 ---
 
 # Coloring invariance under Reidemeister I

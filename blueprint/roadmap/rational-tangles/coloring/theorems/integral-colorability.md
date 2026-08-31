@@ -1,6 +1,9 @@
 ---
 declaration: theorem
 origin: cited
+statement: formalized
+lean: RationalTangles.integrally_colorable_from_initial RationalTangles.StandardExpr.colorFrom_isColored
+proof: formalized
 ---
 
 # Every rational tangle is integrally colorable

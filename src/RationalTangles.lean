@@ -12,6 +12,7 @@ import RationalTangles.Flip
 import RationalTangles.Flype
 import RationalTangles.Coloring
 import RationalTangles.ColoringMoves
+import RationalTangles.ColoringInvariance
 import RationalTangles.Rational
 import RationalTangles.StandardForm
 import RationalTangles.ContinuedFractionForm
