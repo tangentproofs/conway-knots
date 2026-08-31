@@ -1,6 +1,9 @@
 ---
 declaration: lemma
 origin: cited
+statement: formalized
+lean: RationalTangles.coloring_affine RationalTangles.ColorMatrix.fraction_affine
+proof: formalized
 ---
 
 # Affine freedom of coloring

@@ -1,6 +1,8 @@
 ---
 declaration: def
 origin: cited
+statement: formalized
+lean: RationalTangles.ColorMatrix.fraction
 ---
 
 # Coloring fraction

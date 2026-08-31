@@ -1,6 +1,8 @@
 ---
 declaration: def
 origin: cited
+statement: formalized
+lean: RationalTangles.TwistExpr.fraction
 ---
 
 # Fraction of a rational tangle

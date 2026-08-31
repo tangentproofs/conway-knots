@@ -1,6 +1,8 @@
 ---
 declaration: def
 origin: cited
+statement: formalized
+lean: RationalTangles.TwoTangle RationalTangles.Isotopic
 ---
 
 # 2-tangle and isotopy

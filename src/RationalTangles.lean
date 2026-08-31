@@ -6,6 +6,16 @@ Authors: Michal Wallace
 
 import RationalTangles.Reidemeister
 import RationalTangles.ContinuedFraction
+import RationalTangles.Tangle
+import RationalTangles.IntegerTangle
+import RationalTangles.Flip
+import RationalTangles.Flype
+import RationalTangles.Coloring
+import RationalTangles.Rational
+import RationalTangles.StandardForm
+import RationalTangles.ContinuedFractionForm
+import RationalTangles.CanonicalForm
+import RationalTangles.TangleFraction
 
 /-!
 # Rational tangles
@@ -14,12 +24,11 @@ Formalization of Conway's classification of rational tangles after Conway
 (1970), following the combinatorial proof of Kauffman and Lambropoulou
 (Adv. Appl. Math. 33 (2004), arXiv:math/0311499).
 
-Currently the Lean sources contain:
-
-* combinatorial 2-tangle diagrams (PD-code) and Reidemeister I–III plus
-  planar isotopy (`ReidemeisterMove`);
-* finite signed simple continued fractions with values in `ℚ ∪ {∞}`
-  (`ArithmeticCF`).
+Currently the Lean sources contain combinatorial 2-tangle diagrams, the
+Reidemeister generators, integer/vertical tangles, flypes and flips,
+twist-form rational tangles, continued-fraction and canonical form, the
+arithmetic and tangle fractions, and the integral coloring of §5
+(the coloring rule, color matrix, coloring fraction, and affine freedom).
 
 See `blueprint/` for the roadmap. The classification theorem is not yet
 stated.

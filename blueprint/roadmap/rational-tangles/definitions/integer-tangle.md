@@ -1,6 +1,8 @@
 ---
 declaration: def
 origin: cited
+statement: formalized
+lean: RationalTangles.integerTangle RationalTangles.verticalTangle
 ---
 
 # Integer and vertical tangles
