@@ -1,6 +1,9 @@
 ---
 declaration: theorem
 origin: cited
+statement: formalized
+lean: RationalTangles.continued_fraction_canonical
+proof: formalized
 ---
 
 # Unique canonical continued fraction
