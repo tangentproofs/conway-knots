@@ -84,8 +84,14 @@ canceling (`n` units of sign `s` then `n` of `s.flip`, including
 `rightBottom` twist of fraction `0`; invert-add reuses
 `coloring_invert_add_integerUnits_integerUnits` /
 `coloring_invert_add_ofInteger_integerUnits` and invert
-uniqueness, carrying `∞`. This is nested right-adds, not the
-two-block PD-sum of integer diagrams. Unrestricted
+uniqueness, carrying `∞`. This is nested right-adds. The two-block
+PD-sum `(integerTangle n).add (integerTangle (-n))` is not a
+`TwistExpr`; a coloring of that PD-code (glue of integer colorings,
+`ColorMatrix.add` / `coloring_fraction_add`) has fraction `0` when
+non-monochrome, and invert-add of the two blocks reuses
+`coloring_invert_add_two_rightBottom` when `n ≠ 0` (summands have
+finite nonzero `F`) or the `[0]` invert-add lemmas when `n = 0`.
+Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
 `ColoringIsotopy`.
@@ -99,7 +105,8 @@ invert-add when a summand is the `[0]` diagram, and along
 invert-add when a summand is the `[∞]` diagram (carried value `0`),
 and along invert-add of canceling units `[+1]+[-1]` / `[-1]+[+1]`
 (carried value `∞`), and along invert-add of nested canceling
-integer chains (carried value `∞`).
+integer chains (carried value `∞`), and along invert-add of the
+two-block PD-sum of canceling integer diagrams (carried value `∞`).
 Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
 carried value. Induction of `HasColoringFraction` along full `Isotopic`
@@ -4686,5 +4693,379 @@ theorem HasColoringFraction.invert_add_neg_integer_canceling (n : Nat) :
   obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
     coloring_invert_add_neg_integer_canceling n
   exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+
+/-! ## Two-block PD-sum of canceling integer diagrams
+
+`(integerTangle n).add (integerTangle (-n))` is a single glue of two
+integer PD-blocks, not a nested `TwistExpr`. Integer uniqueness gives
+`f([n])=n` and `f([-n])=-n` on each block; glue /
+`coloring_fraction_add` adds those values. Invert-add of the two
+blocks is `coloring_invert_add_two_rightBottom` when `n ≠ 0`, and the
+existing `[0]` invert-add lemmas when `n = 0`. Nested
+`coloring_invert_add_integer_integer` is a different PD-code and is
+not used. Not a `ColoringIsotopy`, and not unrestricted
+`flype_slide`.
+-/
+
+theorem TwistExpr.integerUnits_NW (k : Nat) (s : CrossingSign) :
+    (integerUnits k s).diagram.NW = TangleDiagram.zero.NW := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    change (integerUnits k s).diagram.NW = TangleDiagram.zero.NW
+    exact ih
+
+theorem TwistExpr.integerUnits_SW (k : Nat) (s : CrossingSign) :
+    (integerUnits k s).diagram.SW = TangleDiagram.zero.SW := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    change (integerUnits k s).diagram.SW = TangleDiagram.zero.SW
+    exact ih
+
+theorem integerTangle_NW (n : Int) :
+    (integerTangle n).NW = TangleDiagram.zero.NW := by
+  rw [← TwistExpr.ofInteger_diagram]
+  simpa only [TwistExpr.ofInteger] using TwistExpr.integerUnits_NW _ _
+
+theorem integerTangle_SW (n : Int) :
+    (integerTangle n).SW = TangleDiagram.zero.SW := by
+  rw [← TwistExpr.ofInteger_diagram]
+  simpa only [TwistExpr.ofInteger] using TwistExpr.integerUnits_SW _ _
+
+theorem integerTangle_NW_ne_SW (n : Int) :
+    (integerTangle n).NW ≠ (integerTangle n).SW := by
+  rw [integerTangle_NW, integerTangle_SW]
+  decide
+
+theorem CFValue.ofInt_ne_inf (n : Int) : CFValue.ofInt n ≠ .inf := by
+  intro h
+  cases h
+
+theorem CFValue.ofInt_eq_zero_iff (n : Int) :
+    CFValue.ofInt n = (0 : CFValue) ↔ n = 0 := by
+  constructor
+  · intro h
+    have : (n : Rat) = 0 := CFValue.ofRat_injective h
+    exact_mod_cast this
+  · intro h
+    subst h
+    rfl
+
+theorem TwistExpr.ofInteger_toStandard_fraction (n : Int) :
+    (TwistExpr.ofInteger n).toStandard.fraction = CFValue.ofInt n := by
+  rw [← TwistExpr.fraction_eq_toStandard_rightBottom _
+      (TwistExpr.ofInteger_rightBottom n), TwistExpr.ofInteger_fraction]
+
+theorem TwistExpr.ofInteger_slideReady (n : Int) :
+    (TwistExpr.ofInteger n).slideReady :=
+  TwistExpr.rightBottom_slideReady _ (TwistExpr.ofInteger_rightBottom n)
+
+/-- Any non-monochrome coloring of the integer diagram `[n]` has fraction
+    `n`. Uniqueness on `ofInteger`, not `colorFrom` of a sum. -/
+theorem coloring_fraction_integerTangle (n : Int) (col : Nat → Int)
+    (hc : (integerTangle n).IsColored col)
+    (hm : (ColorMatrix.of (integerTangle n) col).NotMono) :
+    (ColorMatrix.of (integerTangle n) col).fraction = CFValue.ofInt n := by
+  have hc' : (TwistExpr.ofInteger n).diagram.IsColored col := by
+    rwa [TwistExpr.ofInteger_diagram]
+  have hm' : (ColorMatrix.of (TwistExpr.ofInteger n).diagram col).NotMono := by
+    rwa [TwistExpr.ofInteger_diagram]
+  have hf := coloring_fraction_eq_F_rightBottom (TwistExpr.ofInteger n)
+    (TwistExpr.ofInteger_rightBottom n) col hc' hm'
+  simpa [TwistExpr.ofInteger_diagram, TwistExpr.ofInteger_fraction] using hf
+
+theorem integerTangle_diagonal (n : Int) (col : Nat → Int)
+    (hc : (integerTangle n).IsColored col) :
+    (ColorMatrix.of (integerTangle n) col).DiagonalSum := by
+  have h := twist_coloring_diagonal_rightBottom (TwistExpr.ofInteger n)
+    (TwistExpr.ofInteger_rightBottom n) col
+    (by rwa [TwistExpr.ofInteger_diagram])
+  simpa [TwistExpr.ofInteger_diagram] using h
+
+/-- Any non-monochrome coloring of the two-block PD-sum
+    `[n]+[-n]` has coloring fraction `0`. -/
+theorem coloring_fraction_integerTangle_add_neg (n : Int) (col : Nat → Int)
+    (hc : ((integerTangle n).add (integerTangle (-n))).IsColored col)
+    (hm : (ColorMatrix.of ((integerTangle n).add (integerTangle (-n)))
+      col).NotMono) :
+    (ColorMatrix.of ((integerTangle n).add (integerTangle (-n)))
+      col).fraction = (0 : CFValue) := by
+  set T := integerTangle n
+  set S := integerTangle (-n)
+  have hports : S.NW ≠ S.SW := integerTangle_NW_ne_SW (-n)
+  have hT : T.IsColored col := IsColored_add_left hc
+  have hS : S.IsColored (colorAddRight T S col) := IsColored_add_right hc
+  have hdT : (ColorMatrix.of T col).NW + (ColorMatrix.of T col).SE =
+      (ColorMatrix.of T col).NE + (ColorMatrix.of T col).SW :=
+    integerTangle_diagonal n col hT
+  have hdS : (ColorMatrix.of S (colorAddRight T S col)).NW +
+      (ColorMatrix.of S (colorAddRight T S col)).SE =
+      (ColorMatrix.of S (colorAddRight T S col)).NE +
+      (ColorMatrix.of S (colorAddRight T S col)).SW :=
+    integerTangle_diagonal (-n) (colorAddRight T S col) hS
+  have hSmat := ColorMatrix.of_add_right T S col hports
+  have hmT : (ColorMatrix.of T col).NotMono := by
+    intro hmonoT
+    have hNEeqSE : (ColorMatrix.of T col).NE = (ColorMatrix.of T col).SE :=
+      hmonoT.2
+    have hNWeqNE : (ColorMatrix.of T col).NW = (ColorMatrix.of T col).NE :=
+      hmonoT.1
+    have hNW_SW : (ColorMatrix.of S (colorAddRight T S col)).NW =
+        (ColorMatrix.of S (colorAddRight T S col)).SW := by
+      rw [hSmat]
+      simpa [ColorMatrix.of] using hNEeqSE
+    have hNEeqSE_S : (ColorMatrix.of S (colorAddRight T S col)).NE =
+        (ColorMatrix.of S (colorAddRight T S col)).SE := by
+      linarith
+    by_cases hmS : (ColorMatrix.of S (colorAddRight T S col)).NotMono
+    · have hfS := coloring_fraction_integerTangle (-n)
+        (colorAddRight T S col) hS hmS
+      have hinf : (ColorMatrix.of S (colorAddRight T S col)).fraction =
+          CFValue.inf := by
+        simp [ColorMatrix.fraction, hNEeqSE_S]
+      exact (CFValue.ofInt_ne_inf (-n)) (hfS.symm.trans hinf)
+    · have hmonoS : (ColorMatrix.of S (colorAddRight T S col)).NW =
+          (ColorMatrix.of S (colorAddRight T S col)).NE ∧
+          (ColorMatrix.of S (colorAddRight T S col)).NE =
+          (ColorMatrix.of S (colorAddRight T S col)).SE := by
+        simpa [ColorMatrix.NotMono] using hmS
+      have hNE := congrArg ColorMatrix.NE hSmat
+      have hSE := congrArg ColorMatrix.SE hSmat
+      have hNW := congrArg ColorMatrix.NW hSmat
+      simp [ColorMatrix.of] at hNE hSE hNW
+      refine hm ⟨?_, ?_⟩
+      · change col (T.add S).NW = col (T.add S).NE
+        calc
+          col (T.add S).NW = col T.NW := rfl
+          _ = col T.NE := by simpa [ColorMatrix.of] using hNWeqNE
+          _ = colorAddRight T S col S.NW := hNW.symm
+          _ = colorAddRight T S col S.NE := hmonoS.1
+          _ = col (T.add S).NE := hNE
+      · change col (T.add S).NE = col (T.add S).SE
+        calc
+          col (T.add S).NE = colorAddRight T S col S.NE := hNE.symm
+          _ = colorAddRight T S col S.SE := hmonoS.2
+          _ = col (T.add S).SE := hSE
+  have hmS : (ColorMatrix.of S (colorAddRight T S col)).NotMono := by
+    intro hmonoS
+    have hNWSW : (ColorMatrix.of S (colorAddRight T S col)).NW =
+        (ColorMatrix.of S (colorAddRight T S col)).SW := by
+      have hNE' : (ColorMatrix.of S (colorAddRight T S col)).NW =
+          (ColorMatrix.of S (colorAddRight T S col)).NE := hmonoS.1
+      have hSE' : (ColorMatrix.of S (colorAddRight T S col)).NE =
+          (ColorMatrix.of S (colorAddRight T S col)).SE := hmonoS.2
+      linarith
+    have hNEeqSE_T : col T.NE = col T.SE := by
+      have h1 := congrArg ColorMatrix.NW hSmat
+      have h2 := congrArg ColorMatrix.SW hSmat
+      simp [ColorMatrix.of] at h1 h2
+      simp [ColorMatrix.of] at hNWSW
+      rw [← h1, ← h2, hNWSW]
+    have hfT := coloring_fraction_integerTangle n col hT hmT
+    have hinf : (ColorMatrix.of T col).fraction = CFValue.inf := by
+      simp [ColorMatrix.fraction, ColorMatrix.of, hNEeqSE_T]
+    exact (CFValue.ofInt_ne_inf n) (hfT.symm.trans hinf)
+  have hfT := coloring_fraction_integerTangle n col hT hmT
+  have hfS := coloring_fraction_integerTangle (-n)
+    (colorAddRight T S col) hS hmS
+  have hadd := coloring_fraction_add T S col hports
+    (integerTangle_diagonal (-n) (colorAddRight T S col) hS)
+  rw [← hadd, hfT, hfS, CFValue.ofInt_add_neg]
+
+theorem coloring_fraction_neg_integerTangle_add (n : Int) (col : Nat → Int)
+    (hc : ((integerTangle (-n)).add (integerTangle n)).IsColored col)
+    (hm : (ColorMatrix.of ((integerTangle (-n)).add (integerTangle n))
+      col).NotMono) :
+    (ColorMatrix.of ((integerTangle (-n)).add (integerTangle n))
+      col).fraction = (0 : CFValue) := by
+  have hc' :
+      ((integerTangle (-n)).add (integerTangle (-(-n)))).IsColored col := by
+    simpa [neg_neg] using hc
+  have hm' :
+      (ColorMatrix.of ((integerTangle (-n)).add (integerTangle (-(-n))))
+        col).NotMono := by
+    simpa [neg_neg] using hm
+  simpa [neg_neg] using coloring_fraction_integerTangle_add_neg (-n) col hc' hm'
+
+/-- Glue of integer colorings of `[n]` and `[-n]` is a non-monochrome
+    coloring of the two-block PD-sum, of fraction `0`. -/
+theorem coloring_exists_integerTangle_add_neg (n : Int) :
+    ∃ col,
+      ((integerTangle n).add (integerTangle (-n))).IsColored col ∧
+      (ColorMatrix.of ((integerTangle n).add (integerTangle (-n)))
+        col).NotMono ∧
+      (ColorMatrix.of ((integerTangle n).add (integerTangle (-n)))
+        col).fraction = (0 : CFValue) := by
+  have hfin : (TwistExpr.ofInteger n).toStandard.fraction ≠ .inf := by
+    rw [TwistExpr.ofInteger_toStandard_fraction]
+    exact CFValue.ofInt_ne_inf n
+  have hfin' : (TwistExpr.ofInteger (-n)).toStandard.fraction ≠ .inf := by
+    rw [TwistExpr.ofInteger_toStandard_fraction]
+    exact CFValue.ofInt_ne_inf (-n)
+  obtain ⟨col, hc, hm, _, hf⟩ :=
+    coloring_add_two_rightBottom (TwistExpr.ofInteger n)
+      (TwistExpr.ofInteger (-n))
+      (TwistExpr.ofInteger_rightBottom n)
+      (TwistExpr.ofInteger_rightBottom (-n))
+      (TwistExpr.ofInteger_slideReady n)
+      (TwistExpr.ofInteger_slideReady (-n)) hfin hfin'
+  refine ⟨col, ?_, ?_, ?_⟩
+  · simpa [TwistExpr.ofInteger_diagram] using hc
+  · simpa [TwistExpr.ofInteger_diagram] using hm
+  · have hval := hf.trans (by
+      rw [TwistExpr.ofInteger_toStandard_fraction,
+        TwistExpr.ofInteger_toStandard_fraction, CFValue.ofInt_add_neg])
+    simpa [TwistExpr.ofInteger_diagram] using hval
+
+theorem coloring_exists_neg_integerTangle_add (n : Int) :
+    ∃ col,
+      ((integerTangle (-n)).add (integerTangle n)).IsColored col ∧
+      (ColorMatrix.of ((integerTangle (-n)).add (integerTangle n))
+        col).NotMono ∧
+      (ColorMatrix.of ((integerTangle (-n)).add (integerTangle n))
+        col).fraction = (0 : CFValue) :=
+  by simpa [neg_neg] using coloring_exists_integerTangle_add_neg (-n)
+
+theorem HasColoringFraction.integerTangle_add_neg (n : Int) :
+    HasColoringFraction ((integerTangle n).add (integerTangle (-n)))
+      (0 : CFValue) := by
+  obtain ⟨col, hc, hm, hf⟩ := coloring_exists_integerTangle_add_neg n
+  exact ⟨col, hc, hm, hf⟩
+
+theorem HasColoringFraction.neg_integerTangle_add (n : Int) :
+    HasColoringFraction ((integerTangle (-n)).add (integerTangle n))
+      (0 : CFValue) :=
+  by simpa [neg_neg] using HasColoringFraction.integerTangle_add_neg (-n)
+
+/-- Fresh colorings of `([n]+[-n])ⁱ` and of `[-n]ⁱ*[n]ⁱ`, both of
+    fraction `∞`. Two-block glue invert-add, not nested unit chains. -/
+theorem coloring_invert_add_integerTangle_add_neg (n : Int) :
+    ∃ colL colR,
+      (((integerTangle n).add (integerTangle (-n))).invert).IsColored
+        colL ∧
+      (((integerTangle (-n)).invert.mul (integerTangle n).invert)).IsColored
+        colR ∧
+      (ColorMatrix.of
+        ((integerTangle n).add (integerTangle (-n))).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        ((integerTangle (-n)).invert.mul (integerTangle n).invert)
+        colR).NotMono ∧
+      (ColorMatrix.of
+        ((integerTangle n).add (integerTangle (-n))).invert
+        colL).fraction =
+        (ColorMatrix.of
+          ((integerTangle (-n)).invert.mul (integerTangle n).invert)
+          colR).fraction ∧
+      (ColorMatrix.of
+        ((integerTangle n).add (integerTangle (-n))).invert
+        colL).fraction =
+        CFValue.inf := by
+  by_cases hn : n = 0
+  · subst hn
+    have h0 : integerTangle (0 : Int) = TangleDiagram.zero := rfl
+    have hok : TwistExpr.zero.slideReady := by simp [TwistExpr.slideReady]
+    obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+      coloring_invert_add_zero_slideReady TwistExpr.zero hok
+    have hinf :
+        (ColorMatrix.of (TangleDiagram.zero.add TangleDiagram.zero).invert
+          colL).fraction = CFValue.inf := by
+      have hfL' :
+          (ColorMatrix.of (TangleDiagram.zero.add TangleDiagram.zero).invert
+            colL).fraction =
+            ((0 : CFValue).add TwistExpr.zero.toStandard.fraction).inv := by
+        simpa [TwistExpr.diagram] using hfL
+      rw [hfL']
+      simp [TwistExpr.toStandard, StandardExpr.fraction, CFValue.add,
+        CFValue.inv]
+    refine ⟨colL, colR, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    · simpa [h0, TwistExpr.diagram] using hcL
+    · simpa [h0, TwistExpr.diagram, invert_zero] using hcR
+    · simpa [h0, TwistExpr.diagram] using hmL
+    · simpa [h0, TwistExpr.diagram, invert_zero] using hmR
+    · simpa [h0, TwistExpr.diagram, invert_zero] using hagree
+    · simpa [h0] using hinf
+  · have hnz : (TwistExpr.ofInteger n).toStandard.fraction ≠ (0 : CFValue) := by
+      rw [TwistExpr.ofInteger_toStandard_fraction]
+      intro h
+      exact hn ((CFValue.ofInt_eq_zero_iff n).1 h)
+    have hnz' : (TwistExpr.ofInteger (-n)).toStandard.fraction ≠
+        (0 : CFValue) := by
+      rw [TwistExpr.ofInteger_toStandard_fraction]
+      intro h
+      have : -n = 0 := (CFValue.ofInt_eq_zero_iff (-n)).1 h
+      exact hn (neg_eq_zero.mp this)
+    have hfin : (TwistExpr.ofInteger n).toStandard.fraction ≠ .inf := by
+      rw [TwistExpr.ofInteger_toStandard_fraction]
+      exact CFValue.ofInt_ne_inf n
+    have hfin' : (TwistExpr.ofInteger (-n)).toStandard.fraction ≠ .inf := by
+      rw [TwistExpr.ofInteger_toStandard_fraction]
+      exact CFValue.ofInt_ne_inf (-n)
+    obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+      coloring_invert_add_two_rightBottom (TwistExpr.ofInteger n)
+        (TwistExpr.ofInteger (-n))
+        (TwistExpr.ofInteger_rightBottom n)
+        (TwistExpr.ofInteger_rightBottom (-n))
+        (TwistExpr.ofInteger_slideReady n)
+        (TwistExpr.ofInteger_slideReady (-n)) hfin hfin' hnz hnz'
+    refine ⟨colL, colR, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    · simpa [TwistExpr.ofInteger_diagram] using hcL
+    · simpa [TwistExpr.ofInteger_diagram] using hcR
+    · simpa [TwistExpr.ofInteger_diagram] using hmL
+    · simpa [TwistExpr.ofInteger_diagram] using hmR
+    · simpa [TwistExpr.ofInteger_diagram] using hagree
+    · have hinf :
+          ((TwistExpr.ofInteger n).toStandard.fraction.add
+            (TwistExpr.ofInteger (-n)).toStandard.fraction).inv =
+            CFValue.inf := by
+        rw [TwistExpr.ofInteger_toStandard_fraction,
+          TwistExpr.ofInteger_toStandard_fraction, CFValue.ofInt_add_neg]
+        have h0 : (0 : CFValue) = CFValue.ofInt 0 := rfl
+        rw [h0, CFValue.inv_ofInt_zero]
+      simpa [TwistExpr.ofInteger_diagram] using hfL.trans hinf
+
+theorem coloring_invert_add_neg_integerTangle_add (n : Int) :
+    ∃ colL colR,
+      (((integerTangle (-n)).add (integerTangle n)).invert).IsColored
+        colL ∧
+      (((integerTangle n).invert.mul (integerTangle (-n)).invert)).IsColored
+        colR ∧
+      (ColorMatrix.of
+        ((integerTangle (-n)).add (integerTangle n)).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        ((integerTangle n).invert.mul (integerTangle (-n)).invert)
+        colR).NotMono ∧
+      (ColorMatrix.of
+        ((integerTangle (-n)).add (integerTangle n)).invert
+        colL).fraction =
+        (ColorMatrix.of
+          ((integerTangle n).invert.mul (integerTangle (-n)).invert)
+          colR).fraction ∧
+      (ColorMatrix.of
+        ((integerTangle (-n)).add (integerTangle n)).invert
+        colL).fraction =
+        CFValue.inf :=
+  by simpa [neg_neg] using coloring_invert_add_integerTangle_add_neg (-n)
+
+theorem HasColoringFraction.invert_add_integerTangle_add_neg (n : Int) :
+    HasColoringFraction
+        ((integerTangle n).add (integerTangle (-n))).invert CFValue.inf ∧
+      HasColoringFraction
+        ((integerTangle (-n)).invert.mul (integerTangle n).invert)
+        CFValue.inf := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_integerTangle_add_neg n
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+theorem HasColoringFraction.invert_add_neg_integerTangle_add (n : Int) :
+    HasColoringFraction
+        ((integerTangle (-n)).add (integerTangle n)).invert CFValue.inf ∧
+      HasColoringFraction
+        ((integerTangle n).invert.mul (integerTangle (-n)).invert)
+        CFValue.inf :=
+  by simpa [neg_neg] using HasColoringFraction.invert_add_integerTangle_add_neg (-n)
 
 end RationalTangles
