@@ -2059,6 +2059,198 @@ theorem coloring_invert_add_integer_one (n : Nat) :
   simpa only [integerTangle_nat_succ n] using
     coloring_invert_integer_eq_vertical (n + 1 : Nat)
 
+/-! ## Mixed-sign invert-add of an integer with a unit
+
+Matching signs grow the vertical chain (`n+1` twists). Opposite signs cancel
+one horizontal unit: `(integerUnits (n+1) s + [s.flip])ⁱ` has fraction
+`1/(ns)`, matching `colorFrom` of `verticalUnits n s`. The `n=0` seed is a
+remaining opposite unit `[s.flip]` (since `1/(±1)=±1`). Independent
+`colorFrom` colorings; not a `ColoringIsotopy`. Kinks `[∞]+[±1]` are unused.
+-/
+
+/-- Invert coloring of a right-and-bottom sum `e+[t]`, with fraction
+    `1/(F(e)+t)`. Unfolds `coloring_invert_inv_eq_F_rightBottom_colorFrom`. -/
+theorem coloring_invert_addRight_unit (e : TwistExpr) (hrb : e.rightBottom)
+    (t : CrossingSign) :
+    ∃ col',
+      ((e.diagram.add (crossingTangle t)).invert).IsColored col' ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle t)).invert col').NotMono ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle t)).invert col').fraction =
+        (e.fraction.add t.cfValue).inv :=
+  coloring_invert_inv_eq_F_rightBottom_colorFrom (.addRight e t) hrb
+
+theorem CrossingSign.toInt_flip (s : CrossingSign) :
+    s.flip.toInt = -s.toInt := by
+  cases s <;> rfl
+
+theorem TwistExpr.addRight_integerUnits_flip_fraction (n : Nat)
+    (s : CrossingSign) :
+    (addRight (integerUnits (n + 1) s) s.flip).fraction =
+      CFValue.ofInt (n * s.toInt) := by
+  simp only [TwistExpr.fraction, integerUnits_fraction,
+    CrossingSign.cfValue_eq_ofInt]
+  rw [CFValue.ofInt_add]
+  congr 1
+  cases s <;> simp [CrossingSign.flip, CrossingSign.toInt, Nat.cast_succ]
+
+theorem TwistExpr.addRight_integerUnits_zero_flip_fraction (s : CrossingSign) :
+    (addRight (integerUnits 0 s) s.flip).fraction = s.flip.cfValue := by
+  simp only [integerUnits, TwistExpr.fraction]
+  rw [show (0 : CFValue) = CFValue.ofRat 0 from rfl, CFValue.zero_add]
+
+/-- Fresh colorings of `([s]+⋯+[s]+[s.flip])ⁱ` (`n+1` copies of `[s]`, then
+    one opposite unit) and of `n` vertical twists of sign `s`. -/
+theorem coloring_invert_add_integerUnits_flip (n : Nat) (s : CrossingSign) :
+    ∃ colL colR,
+      (((TwistExpr.integerUnits (n + 1) s).diagram.add
+        (crossingTangle s.flip)).invert).IsColored colL ∧
+      (TwistExpr.verticalUnits n s).diagram.IsColored colR ∧
+      (ColorMatrix.of
+        ((TwistExpr.integerUnits (n + 1) s).diagram.add
+          (crossingTangle s.flip)).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (TwistExpr.verticalUnits n s).diagram colR).NotMono ∧
+      (ColorMatrix.of
+        ((TwistExpr.integerUnits (n + 1) s).diagram.add
+          (crossingTangle s.flip)).invert
+        colL).fraction =
+        (ColorMatrix.of (TwistExpr.verticalUnits n s).diagram
+          colR).fraction := by
+  let eL : TwistExpr := .addRight (TwistExpr.integerUnits (n + 1) s) s.flip
+  have hrbL : eL.rightBottom := TwistExpr.integerUnits_rightBottom (n + 1) s
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  let eR := TwistExpr.verticalUnits n s
+  have hrbR : eR.rightBottom := TwistExpr.verticalUnits_rightBottom n s
+  let colR := eR.colorFrom 0 1
+  have hcR := eR.colorFrom_isColored hrbR 0 1
+  have hmR := eR.colorFrom_notMono hrbR
+  have hfR := eR.colorFrom_eq_fraction hrbR
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, ?_⟩
+  have hfL' :
+      (ColorMatrix.of
+        ((TwistExpr.integerUnits (n + 1) s).diagram.add
+          (crossingTangle s.flip)).invert
+        colL).fraction = eL.fraction.inv := hfL
+  rw [hfL', hfR, TwistExpr.addRight_integerUnits_flip_fraction,
+    TwistExpr.verticalUnits_fraction]
+
+/-- The `n=0` mixed-sign seed: invert of a remaining opposite unit `[t]`
+    against that unit (`1/(±1)=±1`). -/
+theorem coloring_invert_add_integerUnits_flip_zero (s : CrossingSign) :
+    ∃ colL colR,
+      (((TwistExpr.integerUnits 0 s).diagram.add
+        (crossingTangle s.flip)).invert).IsColored colL ∧
+      (TwistExpr.ofCrossingSign s.flip).diagram.IsColored colR ∧
+      (ColorMatrix.of
+        ((TwistExpr.integerUnits 0 s).diagram.add
+          (crossingTangle s.flip)).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (TwistExpr.ofCrossingSign s.flip).diagram colR).NotMono ∧
+      (ColorMatrix.of
+        ((TwistExpr.integerUnits 0 s).diagram.add
+          (crossingTangle s.flip)).invert
+        colL).fraction =
+        (ColorMatrix.of (TwistExpr.ofCrossingSign s.flip).diagram
+          colR).fraction := by
+  let eL : TwistExpr := .addRight (TwistExpr.integerUnits 0 s) s.flip
+  have hrbL : eL.rightBottom := TwistExpr.integerUnits_rightBottom 0 s
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  let eR := TwistExpr.ofCrossingSign s.flip
+  have hrbR : eR.rightBottom := TwistExpr.ofCrossingSign_rightBottom s.flip
+  let colR := eR.colorFrom 0 1
+  have hcR := eR.colorFrom_isColored hrbR 0 1
+  have hmR := eR.colorFrom_notMono hrbR
+  have hfR := eR.colorFrom_eq_fraction hrbR
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, ?_⟩
+  have hfL' :
+      (ColorMatrix.of
+        ((TwistExpr.integerUnits 0 s).diagram.add
+          (crossingTangle s.flip)).invert
+        colL).fraction = eL.fraction.inv := hfL
+  rw [hfL', hfR, TwistExpr.addRight_integerUnits_zero_flip_fraction,
+    TwistExpr.ofCrossingSign_fraction, CrossingSign.cfValue_inv]
+
+theorem integerTangle_nat_succ_add_negOne (n : Nat) :
+    integerTangle (n + 1 : Nat) + RationalTangles.negOne =
+      (TwistExpr.integerUnits (n + 1) .pos).diagram.add
+        (crossingTangle .neg) := by
+  have hdiag : integerTangle (n + 1 : Nat) =
+      (TwistExpr.integerUnits (n + 1) .pos).diagram := by
+    rw [← TwistExpr.ofInteger_diagram (n + 1 : Nat)]
+    simp only [TwistExpr.ofInteger]
+    have h : 0 ≤ ((n + 1 : Nat) : Int) := Int.natCast_nonneg _
+    simp only [if_pos h, Int.natAbs_natCast]
+  rw [hdiag, add_eq_add, crossingTangle]
+
+theorem verticalTwists_nat (n : Nat) :
+    verticalTwists (n : Nat) = (TwistExpr.verticalUnits n .pos).diagram := by
+  rw [← TwistExpr.ofVertical_diagram (n : Nat)]
+  simp only [TwistExpr.ofVertical]
+  have h : 0 ≤ (n : Int) := Int.natCast_nonneg _
+  simp only [if_pos h, Int.natAbs_natCast]
+
+theorem integerTangle_neg_succ_add_one (n : Nat) :
+    integerTangle (-(n + 1 : Nat)) + RationalTangles.one =
+      (TwistExpr.integerUnits (n + 1) .neg).diagram.add
+        (crossingTangle .pos) := by
+  have hdiag : integerTangle (-(n + 1 : Nat)) =
+      (TwistExpr.integerUnits (n + 1) .neg).diagram := by
+    rw [← TwistExpr.ofInteger_diagram (-(n + 1 : Nat))]
+    simp only [TwistExpr.ofInteger]
+    have h : ¬ 0 ≤ (-((n + 1 : Nat) : Int)) := by omega
+    simp only [if_neg h, Int.natAbs_neg, Int.natAbs_natCast]
+  rw [hdiag, add_eq_add, crossingTangle]
+
+theorem verticalTwists_neg_ofNat (n : Nat) :
+    verticalTwists (-(n : Nat)) = (TwistExpr.verticalUnits n .neg).diagram := by
+  rw [← TwistExpr.ofVertical_diagram (-(n : Nat))]
+  simp only [TwistExpr.ofVertical]
+  by_cases h : 0 ≤ (-(n : Int))
+  · have hn : n = 0 := by omega
+    subst hn
+    rfl
+  · simp only [if_neg h, Int.natAbs_neg, Int.natAbs_natCast]
+
+/-- Fresh colorings of `(integerTangle (n+1) + [-1])ⁱ` and of
+    `verticalTwists n` (cancel one positive twist). -/
+theorem coloring_invert_add_integer_negOne (n : Nat) :
+    ∃ colL colR,
+      ((integerTangle (n + 1 : Nat) + RationalTangles.negOne).invert).IsColored
+        colL ∧
+      (verticalTwists (n : Nat)).IsColored colR ∧
+      (ColorMatrix.of
+        (integerTangle (n + 1 : Nat) + RationalTangles.negOne).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (verticalTwists (n : Nat)) colR).NotMono ∧
+      (ColorMatrix.of
+        (integerTangle (n + 1 : Nat) + RationalTangles.negOne).invert
+        colL).fraction =
+        (ColorMatrix.of (verticalTwists (n : Nat)) colR).fraction := by
+  simpa only [integerTangle_nat_succ_add_negOne n, verticalTwists_nat n,
+    CrossingSign.flip] using
+    coloring_invert_add_integerUnits_flip n .pos
+
+/-- Fresh colorings of `(integerTangle (-(n+1)) + [+1])ⁱ` and of
+    `verticalTwists (-n)` (cancel one negative twist). -/
+theorem coloring_invert_add_neg_integer_one (n : Nat) :
+    ∃ colL colR,
+      ((integerTangle (-(n + 1 : Nat)) + RationalTangles.one).invert).IsColored
+        colL ∧
+      (verticalTwists (-(n : Nat))).IsColored colR ∧
+      (ColorMatrix.of
+        (integerTangle (-(n + 1 : Nat)) + RationalTangles.one).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (verticalTwists (-(n : Nat))) colR).NotMono ∧
+      (ColorMatrix.of
+        (integerTangle (-(n + 1 : Nat)) + RationalTangles.one).invert
+        colL).fraction =
+        (ColorMatrix.of (verticalTwists (-(n : Nat))) colR).fraction := by
+  simpa only [integerTangle_neg_succ_add_one n, verticalTwists_neg_ofNat n,
+    CrossingSign.flip] using
+    coloring_invert_add_integerUnits_flip n .neg
+
 /-! ## Invert-mul dual: a vertical chain times a unit
 
 `(T*S)ⁱ` for `T` an `n`-fold vertical chain and `S` a unit, compared to the

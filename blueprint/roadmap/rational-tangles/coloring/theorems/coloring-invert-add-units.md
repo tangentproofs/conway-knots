@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.coloring_invert_add_units RationalTangles.coloring_invert_mul_units RationalTangles.coloring_invert_add_one_one RationalTangles.coloring_invert_mul_one_one RationalTangles.coloring_invert_add_zero_unit RationalTangles.coloring_invert_add_unit_zero RationalTangles.coloring_invert_mul_infinity_unit RationalTangles.coloring_invert_mul_unit_infinity RationalTangles.coloring_invert_add_zero_one RationalTangles.coloring_invert_add_one_zero RationalTangles.coloring_invert_one_add_one_eq_vertical RationalTangles.coloring_invert_one_add_one_add_one_eq_vertical RationalTangles.coloring_invert_integerUnits_eq_verticalUnits RationalTangles.coloring_invert_integer_eq_vertical RationalTangles.verticalTwists RationalTangles.coloring_invert_add_integerUnits_unit RationalTangles.coloring_invert_add_integerUnits RationalTangles.coloring_invert_add_integer_one RationalTangles.coloring_invert_mul_verticalUnits_unit RationalTangles.coloring_invert_mul_verticalUnits RationalTangles.coloring_invert_verticalUnits_eq_integerUnits RationalTangles.coloring_invert_vertical_eq_integer
+lean: RationalTangles.coloring_invert_add_units RationalTangles.coloring_invert_mul_units RationalTangles.coloring_invert_add_one_one RationalTangles.coloring_invert_mul_one_one RationalTangles.coloring_invert_add_zero_unit RationalTangles.coloring_invert_add_unit_zero RationalTangles.coloring_invert_mul_infinity_unit RationalTangles.coloring_invert_mul_unit_infinity RationalTangles.coloring_invert_add_zero_one RationalTangles.coloring_invert_add_one_zero RationalTangles.coloring_invert_one_add_one_eq_vertical RationalTangles.coloring_invert_one_add_one_add_one_eq_vertical RationalTangles.coloring_invert_integerUnits_eq_verticalUnits RationalTangles.coloring_invert_integer_eq_vertical RationalTangles.verticalTwists RationalTangles.coloring_invert_add_integerUnits_unit RationalTangles.coloring_invert_add_integerUnits RationalTangles.coloring_invert_add_integer_one RationalTangles.coloring_invert_addRight_unit RationalTangles.coloring_invert_add_integerUnits_flip RationalTangles.coloring_invert_add_integerUnits_flip_zero RationalTangles.coloring_invert_add_integer_negOne RationalTangles.coloring_invert_add_neg_integer_one RationalTangles.coloring_invert_mul_verticalUnits_unit RationalTangles.coloring_invert_mul_verticalUnits RationalTangles.coloring_invert_verticalUnits_eq_integerUnits RationalTangles.coloring_invert_vertical_eq_integer
 proof: formalized
 ---
 
@@ -45,7 +45,11 @@ The invert-add identity on an integer plus a unit is the same comparison:
 a fresh coloring of `(integerUnits n s + [t])ⁱ` has fraction `1/(ns+t)`,
 matching `colorFrom` of the vertical chain with one more bottom twist.
 Matching signs recover `n+1` vertical twists, and on `[n]+[+1]` this is
-`verticalTwists (n+1)`. The product dual inverts a vertical chain times a
+`verticalTwists (n+1)`. Opposite signs cancel one unit: invert of
+`integerUnits (n+1) s` plus the flipped unit matches `verticalUnits n s`,
+so `(integerTangle (n+1)+[-1])ⁱ` matches `verticalTwists n` and
+`(integerTangle (-(n+1))+[+1])ⁱ` matches `verticalTwists (-n)`. The
+zero-length mixed seed is a remaining opposite unit. The product dual inverts a vertical chain times a
 unit against the integer `ns+t`. This is not PD-code
 `one.invert.mul (integerTangle n).invert` (mirrors), and not a
 `ColoringIsotopy`.
