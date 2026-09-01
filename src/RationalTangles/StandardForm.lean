@@ -35,6 +35,13 @@ def diagram : StandardExpr → TangleDiagram
   | addRight e s => e.diagram + crossingTangle s
   | mulBottom e s => e.diagram * crossingTangle s
 
+/-- Switch every crossing sign: the standard-form expression for `-T`. -/
+def mirror : StandardExpr → StandardExpr
+  | zero => zero
+  | infinity => infinity
+  | addRight e s => addRight e.mirror s.flip
+  | mulBottom e s => mulBottom e.mirror s.flip
+
 end StandardExpr
 
 /-- A diagram in standard form (right-and-bottom convention). -/

@@ -25,17 +25,6 @@ theorem foldl_add_mirror (acc : TangleDiagram) :
     simp [List.foldl]
     rw [foldl_add_mirror (acc.add c), mirror_add]
 
-theorem planar_mirror_mirror (T : TangleDiagram) :
-    PlanarIsotopy T.mirror.mirror T := by
-  have hmap : T.mirror.mirror.crossings = T.crossings.map Crossing.rotate180 := by
-    simp [TangleDiagram.mirror, List.map_map, Function.comp, Crossing.switch_switch]
-  refine ⟨id, injective_id, rfl, rfl, rfl, rfl, T.crossings, ?_, List.Perm.rfl⟩
-  have hren : Crossing.rename id = id := funext rename_id
-  have : T.mirror.mirror.crossings.map (Crossing.rename id) =
-      T.crossings.map Crossing.rotate180 := by
-    simp [hmap, hren]
-  simpa [this] using pairRel_rotate180 T.crossings
-
 theorem isotopic_mirror_mirror (T : TangleDiagram) :
     Isotopic T.mirror.mirror T :=
   isotopic_planar (planar_mirror_mirror T)

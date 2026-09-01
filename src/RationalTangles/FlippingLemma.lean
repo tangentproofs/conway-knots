@@ -259,6 +259,36 @@ theorem isotopic_crossingTangle_vflip (s : CrossingSign) :
   · exact isotopic_one_vflip
   · exact isotopic_negOne_vflip
 
+theorem planar_mirror_mirror (T : TangleDiagram) :
+    PlanarIsotopy T.mirror.mirror T := by
+  have hmap :
+      T.mirror.mirror.crossings = T.crossings.map Crossing.rotate180 := by
+    simp [TangleDiagram.mirror, List.map_map, Function.comp, Crossing.switch_switch]
+  refine ⟨id, injective_id, ?_, ?_, ?_, ?_, T.crossings, ?_, List.Perm.rfl⟩
+  · simp [TangleDiagram.mirror]
+  · simp [TangleDiagram.mirror]
+  · simp [TangleDiagram.mirror]
+  · simp [TangleDiagram.mirror]
+  · have : T.mirror.mirror.crossings.map (Crossing.rename id) =
+        T.crossings.map Crossing.rotate180 := by
+      simp [hmap, rename_id]
+    simpa [this] using pairRel_rotate180 T.crossings
+
+theorem planar_mirror_mirror_rev (T : TangleDiagram) :
+    PlanarIsotopy T T.mirror.mirror := by
+  have hmap :
+      T.mirror.mirror.crossings = T.crossings.map Crossing.rotate180 := by
+    simp [TangleDiagram.mirror, List.map_map, Function.comp, Crossing.switch_switch]
+  refine ⟨id, injective_id, ?_, ?_, ?_, ?_, T.mirror.mirror.crossings, ?_, List.Perm.rfl⟩
+  · simp [TangleDiagram.mirror]
+  · simp [TangleDiagram.mirror]
+  · simp [TangleDiagram.mirror]
+  · simp [TangleDiagram.mirror]
+  · have hren : Crossing.rename id = id := funext rename_id
+    have : T.crossings.map (Crossing.rename id) = T.crossings := by
+      simp [hren]
+    simpa [this, hmap] using pairRel_same_rotate180 T.crossings
+
 theorem isotopic_hflip_involutive (T : TangleDiagram) :
     Isotopic T.hflip.hflip T :=
   isotopic_planar (planar_hflip_hflip T)
