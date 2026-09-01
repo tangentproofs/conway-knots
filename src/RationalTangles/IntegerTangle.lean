@@ -63,4 +63,12 @@ def verticalTangle (n : Int) : TangleDiagram :=
 @[simp] theorem negOne_eq_mirror_one : negOne = -one :=
   rfl
 
+/-- `+1` or `-1` as an integer. -/
+def CrossingSign.toInt : CrossingSign → Int
+  | .pos => 1
+  | .neg => -1
+
+@[simp] theorem CrossingSign.toInt_pos : CrossingSign.pos.toInt = 1 := rfl
+@[simp] theorem CrossingSign.toInt_neg : CrossingSign.neg.toInt = -1 := rfl
+
 end RationalTangles

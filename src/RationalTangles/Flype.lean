@@ -75,6 +75,22 @@ inductive Isotopic : TangleDiagram → TangleDiagram → Prop where
       Isotopic (T.add S).vflip (S.vflip.add T.vflip)
   | vflip_mul (T S : TangleDiagram) :
       Isotopic (T.mul S).vflip (T.vflip.mul S.vflip)
+  | invert_cong {T T' : TangleDiagram} :
+      Isotopic T T' → Isotopic T.invert T'.invert
+  | invert_add (T S : TangleDiagram) :
+      Isotopic (T.add S).invert (S.invert.mul T.invert)
+  | invert_mul (T S : TangleDiagram) :
+      Isotopic (T.mul S).invert (T.invert.add S.invert)
+  | add_assoc (T S R : TangleDiagram) :
+      Isotopic ((T.add S).add R) (T.add (S.add R))
+  | mul_assoc (T S R : TangleDiagram) :
+      Isotopic ((T.mul S).mul R) (T.mul (S.mul R))
+  | zero_add (T : TangleDiagram) :
+      Isotopic (TangleDiagram.zero.add T) T
+  | add_zero (T : TangleDiagram) :
+      Isotopic (T.add TangleDiagram.zero) T
+  | invert_unit (s : CrossingSign) :
+      Isotopic (crossingTangle s) (crossingTangle s).invert
 
 theorem isotopic_planar {D E : TangleDiagram} (h : PlanarIsotopy D E) :
     Isotopic D E :=

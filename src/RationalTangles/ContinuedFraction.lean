@@ -5,6 +5,7 @@ Authors: Michal Wallace
 -/
 
 import Mathlib.Data.Rat.Init
+import Mathlib.Tactic.Linarith
 
 /-!
 # Arithmetic continued fractions
@@ -76,8 +77,39 @@ theorem add_ofRat_inf (q : Rat) : (ofRat q).add inf = inf := rfl
 theorem inv_ofRat {q : Rat} (hq : q ≠ 0) : inv (ofRat q) = ofRat q⁻¹ := by
   simp [inv, hq]
 
+@[simp] theorem add_ofRat (a b : Rat) : (ofRat a).add (ofRat b) = ofRat (a + b) := rfl
+
+theorem add_assoc (x y z : CFValue) : (x.add y).add z = x.add (y.add z) := by
+  cases x <;> cases y <;> cases z <;> simp [add, Rat.add_assoc]
+
+theorem add_comm (x y : CFValue) : x.add y = y.add x := by
+  cases x <;> cases y <;> simp [add, Rat.add_comm]
+
+theorem add_zero (x : CFValue) : x.add (ofRat 0) = x := by
+  cases x <;> simp [add]
+
+theorem zero_add (x : CFValue) : (ofRat 0).add x = x := by
+  cases x <;> simp [add]
+
+@[simp] theorem inv_inv (x : CFValue) : x.inv.inv = x := by
+  cases x with
+  | inf => rfl
+  | ofRat q =>
+    by_cases h : q = 0
+    · simp [inv, h]
+    · simp [inv, h]
+
 /-- `-1/x`. -/
 def negInv (x : CFValue) : CFValue := (inv x).neg
+
+@[simp] theorem ofInt_add (a b : Int) :
+    (ofInt a).add (ofInt b) = ofInt (a + b) := by
+  simp [ofInt]
+
+theorem ofInt_zero : ofInt 0 = ofRat 0 := rfl
+
+theorem inv_ofInt_zero : (ofInt 0).inv = inf := by
+  simp [ofInt, inv]
 
 end CFValue
 
@@ -95,12 +127,12 @@ def continuants : List Int → Int × Int
       | x :: xs, A, B, Ap, Bp => go xs (x * A + Ap) (x * B + Bp) A B
     go rest a 1 1 0
 
-/-- Evaluate a (possibly empty, possibly with internal zeros) integer list as
-    a simple continued fraction, taking values in `Rat ∪ {∞}`. The empty list
-    evaluates to `∞`. -/
-def valueOfList (terms : List Int) : CFValue :=
-  let AB := continuants terms
-  if AB.2 = 0 then .inf else .ofRat (Rat.divInt AB.1 AB.2)
+/-- Evaluate a (possibly empty) integer list as a simple continued fraction,
+    taking values in `Rat ∪ {∞}`. The empty list evaluates to `∞`. This is the
+    recursive rule `[a] + 1/[tail]`. -/
+def valueOfList : List Int → CFValue
+  | [] => .inf
+  | a :: t => (CFValue.ofInt a).add (valueOfList t).inv
 
 /-- A finite simple continued fraction `[a₁, …, aₙ]` as in
     Kauffman–Lambropoulou §3: nonempty, with every term after the first

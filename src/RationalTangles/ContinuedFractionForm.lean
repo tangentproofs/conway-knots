@@ -33,4 +33,15 @@ def ArithmeticCF.tangle (cf : ArithmeticCF) : TangleDiagram :=
 def IsContinuedFractionForm (T : TangleDiagram) : Prop :=
   ∃ cf : ArithmeticCF, T = cf.tangle
 
+theorem cfTangle_nil : cfTangle [] = TangleDiagram.infinity := rfl
+
+theorem cfTangle_singleton (a : Int) : cfTangle [a] = integerTangle a := rfl
+
+theorem cfTangle_cons (a : Int) (t : List Int) :
+    cfTangle (a :: t) =
+      match t with
+      | [] => integerTangle a
+      | _ => integerTangle a + (cfTangle t).invert := by
+  cases t <;> rfl
+
 end RationalTangles

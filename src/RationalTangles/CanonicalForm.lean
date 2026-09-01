@@ -16,12 +16,14 @@ and `m` is odd (Kauffman–Lambropoulou Definition 6).
 
 namespace RationalTangles
 
-/-- An arithmetic continued fraction is in canonical form when it is
-    termwise positive or termwise negative and has odd length
-    (Definition 7, used here for the tangle vector of Definition 6). -/
+/-- An arithmetic continued fraction is in canonical form when it has odd
+    length and is termwise nonnegative or termwise nonpositive (Definition 7).
+    The leading term may be zero; later terms are already nonzero by
+    `ArithmeticCF.later_ne_zero`, so a nonzero expansion is termwise positive
+    or termwise negative after the (possible) leading zero. -/
 def ArithmeticCF.IsCanonical (cf : ArithmeticCF) : Prop :=
   cf.length % 2 = 1 ∧
-    ((∀ a ∈ cf.terms, 0 < a) ∨ (∀ a ∈ cf.terms, a < 0))
+    ((∀ a ∈ cf.terms, 0 ≤ a) ∨ (∀ a ∈ cf.terms, a ≤ 0))
 
 /-- A diagram in canonical continued-fraction form. -/
 def IsCanonicalForm (T : TangleDiagram) : Prop :=
