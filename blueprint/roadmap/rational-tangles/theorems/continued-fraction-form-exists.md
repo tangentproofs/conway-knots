@@ -1,6 +1,9 @@
 ---
 declaration: theorem
 origin: cited
+statement: formalized
+lean: RationalTangles.continued_fraction_form_exists
+proof: formalized
 ---
 
 # Every rational tangle has a continued fraction form
