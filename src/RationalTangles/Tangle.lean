@@ -193,4 +193,12 @@ theorem mul_infinity_eq (T : TangleDiagram) :
   unfold TangleDiagram.mul
   simp [TangleDiagram.infinity, TangleDiagram.rename]
 
+/-- `[∞]ⁱ` on the right of `T` is a no-op: the two horizontal strands of
+    `[∞]ⁱ` (a rename of `[0]`) are glued onto `T.NE` and `T.SE`. -/
+theorem add_infinity_invert_eq (T : TangleDiagram) :
+    T.add TangleDiagram.infinity.invert = T := by
+  unfold TangleDiagram.add
+  simp [TangleDiagram.infinity, TangleDiagram.invert, TangleDiagram.rotate,
+    TangleDiagram.mirror, TangleDiagram.rename]
+
 end RationalTangles

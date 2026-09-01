@@ -102,7 +102,9 @@ invert-add: glue of algebraic-mirror products, transport to the
 PD-mirror, rotate for `(T*S)ⁱ`, and glue of invert colorings for
 `Tⁱ+Sⁱ`. That covers invert-mul of the two vertical blocks when
 `n ≠ 0` (carried value `0`). Nested versus two-block invert-add
-remains distinguished. Invert-mul of `[∞]*[∞]` (`n = 0`) is omitted. Unrestricted
+remains distinguished. Invert-mul of `[∞]*[∞]` (`n = 0`) is a dummy
+coloring of `[∞]ⁱ` on both PD-codes (`mul_infinity_eq` /
+`add_infinity_invert_eq`), carried value `0`. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
 `ColoringIsotopy`.
@@ -121,7 +123,8 @@ two-block PD-sum of canceling integer diagrams (carried value `∞`),
 and along invert-mul of two `rightBottom`/`slideReady` diagrams with
 finite nonzero `F` (carried value `(F(T)⁻¹+F(S)⁻¹)`), including
 invert-mul of the two-block vertical product of canceling diagrams
-when `n ≠ 0` (carried value `0`).
+when `n ≠ 0` (carried value `0`), and along invert-mul of `[∞]*[∞]`
+(`n = 0`, carried value `0`).
 The two-block vertical product of canceling diagrams carries `∞` as
 a coloring fraction (not along invert-mul). Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
@@ -3574,8 +3577,9 @@ color, even when the result is not a `TwistExpr`. Unrestricted
 and `Isotopic.invert_add` at a non-`[0]` diagram of fraction `0`
 that is not `[∞]` are not included: they block induction of
 `HasColoringFraction` along `Isotopic`. None of these is added to
-`ColoringIsotopy`. Invert-add with a `[0]` or `[∞]` summand is a
-theorem on `HasColoringFraction`, not a constructor of `ColoringIsotopy`.
+`ColoringIsotopy`. Invert-add with a `[0]` or `[∞]` summand, and
+invert-mul of `[∞]*[∞]`, are theorems on `HasColoringFraction`, not
+constructors of `ColoringIsotopy`.
 -/
 
 /-- `ColoringIsotopy` preserves a carried coloring fraction. -/
@@ -3901,6 +3905,33 @@ theorem infinity_invert_SW :
 theorem infinity_invert_maxArc :
     TangleDiagram.infinity.invert.maxArc = 1 := by
   rw [maxArc_invert, infinity_maxArc]
+
+theorem infinity_invert_crossings :
+    TangleDiagram.infinity.invert.crossings = [] :=
+  rfl
+
+/-- Dummy coloring of `[∞]ⁱ`: color `1` on the NW–NE strand (arc `1`)
+    and `0` on the SW–SE strand. No crossings. -/
+theorem IsColored_colorDummy_infinity_invert :
+    TangleDiagram.infinity.invert.IsColored (colorDummy 1) := by
+  intro C hC
+  rw [infinity_invert_crossings] at hC
+  cases hC
+
+theorem coloring_fraction_infinity_invert :
+    (ColorMatrix.of TangleDiagram.infinity.invert (colorDummy 1)).fraction =
+      (0 : CFValue) ∧
+    (ColorMatrix.of TangleDiagram.infinity.invert (colorDummy 1)).NotMono := by
+  have hNW : colorDummy 1 TangleDiagram.infinity.invert.NW = 1 := by
+    rw [infinity_invert_NW, colorDummy_self]
+  have hNE : colorDummy 1 TangleDiagram.infinity.invert.NE = 1 := by
+    rw [infinity_invert_NE, colorDummy_self]
+  have hSE : colorDummy 1 TangleDiagram.infinity.invert.SE = 0 := by
+    rw [infinity_invert_SE, colorDummy_of_ne (by decide)]
+  constructor
+  · simp [ColorMatrix.of, ColorMatrix.fraction, hNW, hNE, hSE]
+    rfl
+  · simp [ColorMatrix.of, ColorMatrix.NotMono, hNW, hNE, hSE]
 
 theorem infinity_invert_mul_NW (T : TangleDiagram) :
     (TangleDiagram.infinity.invert.mul T).NW = 1 :=
@@ -5595,11 +5626,66 @@ theorem HasColoringFraction.neg_verticalTwists_mul (n : Int) :
       CFValue.inf :=
   by simpa [neg_neg] using HasColoringFraction.verticalTwists_mul_neg (-n)
 
-/-- Invert-mul of the two-block vertical product `[n]ⁱ*[-n]ⁱ` when
-    `n ≠ 0`: both the invert of the product and `[n]ⁱⁱ+[-n]ⁱⁱ` have
-    coloring fraction `0`. Dual of two-block invert-add of canceling
-    integers. -/
-theorem coloring_invert_mul_verticalTwists_mul_neg (n : Int) (hn : n ≠ 0) :
+/-- Fresh dummy colorings of `([∞]*[∞])ⁱ` and of `[∞]ⁱ+[∞]ⁱ`. Both
+    PD-codes are `[∞]ⁱ` (`mul_infinity_eq` / `add_infinity_invert_eq`).
+    Fraction `0`. Not a `ColoringIsotopy`. Covers invert-mul of
+    `[∞]*[∞]` (`n = 0`). -/
+theorem coloring_invert_mul_infinity :
+    ∃ colL colR,
+      ((TangleDiagram.infinity.mul TangleDiagram.infinity).invert).IsColored
+        colL ∧
+      ((TangleDiagram.infinity.invert.add TangleDiagram.infinity.invert)).IsColored
+        colR ∧
+      (ColorMatrix.of
+        (TangleDiagram.infinity.mul TangleDiagram.infinity).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        (TangleDiagram.infinity.invert.add TangleDiagram.infinity.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of
+        (TangleDiagram.infinity.mul TangleDiagram.infinity).invert
+        colL).fraction =
+        (ColorMatrix.of
+          (TangleDiagram.infinity.invert.add TangleDiagram.infinity.invert)
+          colR).fraction ∧
+      (ColorMatrix.of
+        (TangleDiagram.infinity.mul TangleDiagram.infinity).invert
+        colL).fraction =
+        (0 : CFValue) := by
+  have hL :
+      (TangleDiagram.infinity.mul TangleDiagram.infinity).invert =
+        TangleDiagram.infinity.invert := by
+    rw [mul_infinity_eq]
+  have hR :
+      TangleDiagram.infinity.invert.add TangleDiagram.infinity.invert =
+        TangleDiagram.infinity.invert :=
+    add_infinity_invert_eq _
+  let col := colorDummy 1
+  obtain ⟨hf, hm⟩ := coloring_fraction_infinity_invert
+  refine ⟨col, col, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · simpa [hL] using IsColored_colorDummy_infinity_invert
+  · simpa [hR] using IsColored_colorDummy_infinity_invert
+  · simpa [hL] using hm
+  · simpa [hR] using hm
+  · simp [hL, hR]
+  · simpa [hL] using hf
+
+theorem HasColoringFraction.invert_mul_infinity :
+    HasColoringFraction
+        (TangleDiagram.infinity.mul TangleDiagram.infinity).invert
+        (0 : CFValue) ∧
+      HasColoringFraction
+        (TangleDiagram.infinity.invert.add TangleDiagram.infinity.invert)
+        (0 : CFValue) := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_mul_infinity
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-- Invert-mul of the two-block vertical product `[n]ⁱ*[-n]ⁱ`: both
+    the invert of the product and `[n]ⁱⁱ+[-n]ⁱⁱ` have coloring
+    fraction `0`. Dual of two-block invert-add of canceling integers.
+    The `n = 0` case is `[∞]*[∞]`. -/
+theorem coloring_invert_mul_verticalTwists_mul_neg (n : Int) :
     ∃ colL colR,
       (((verticalTwists n).mul (verticalTwists (-n))).invert).IsColored
         colL ∧
@@ -5621,6 +5707,17 @@ theorem coloring_invert_mul_verticalTwists_mul_neg (n : Int) (hn : n ≠ 0) :
         ((verticalTwists n).mul (verticalTwists (-n))).invert
         colL).fraction =
         (0 : CFValue) := by
+  by_cases hn : n = 0
+  · subst hn
+    obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+      coloring_invert_mul_infinity
+    refine ⟨colL, colR, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    · simpa [verticalTwists_zero] using hcL
+    · simpa [verticalTwists_zero] using hcR
+    · simpa [verticalTwists_zero] using hmL
+    · simpa [verticalTwists_zero] using hmR
+    · simpa [verticalTwists_zero] using hagree
+    · simpa [verticalTwists_zero] using hfL
   have hfin : (TwistExpr.ofVertical n).toStandard.fraction ≠ .inf := by
     rw [TwistExpr.ofVertical_toStandard_fraction]
     intro h
@@ -5661,7 +5758,7 @@ theorem coloring_invert_mul_verticalTwists_mul_neg (n : Int) (hn : n ≠ 0) :
   · simpa [TwistExpr.ofVertical_diagram] using hagree
   · simpa [TwistExpr.ofVertical_diagram] using hfL.trans h0
 
-theorem coloring_invert_mul_neg_verticalTwists_mul (n : Int) (hn : n ≠ 0) :
+theorem coloring_invert_mul_neg_verticalTwists_mul (n : Int) :
     ∃ colL colR,
       (((verticalTwists (-n)).mul (verticalTwists n)).invert).IsColored
         colL ∧
@@ -5683,11 +5780,10 @@ theorem coloring_invert_mul_neg_verticalTwists_mul (n : Int) (hn : n ≠ 0) :
         ((verticalTwists (-n)).mul (verticalTwists n)).invert
         colL).fraction =
         (0 : CFValue) := by
-  have hn' : -n ≠ 0 := neg_ne_zero.mpr hn
-  simpa [neg_neg] using coloring_invert_mul_verticalTwists_mul_neg (-n) hn'
+  simpa [neg_neg] using coloring_invert_mul_verticalTwists_mul_neg (-n)
 
 theorem HasColoringFraction.invert_mul_verticalTwists_mul_neg
-    (n : Int) (hn : n ≠ 0) :
+    (n : Int) :
     HasColoringFraction
         ((verticalTwists n).mul (verticalTwists (-n))).invert
         (0 : CFValue) ∧
@@ -5695,19 +5791,18 @@ theorem HasColoringFraction.invert_mul_verticalTwists_mul_neg
         ((verticalTwists n).invert.add (verticalTwists (-n)).invert)
         (0 : CFValue) := by
   obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
-    coloring_invert_mul_verticalTwists_mul_neg n hn
+    coloring_invert_mul_verticalTwists_mul_neg n
   exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
 
 theorem HasColoringFraction.invert_mul_neg_verticalTwists_mul
-    (n : Int) (hn : n ≠ 0) :
+    (n : Int) :
     HasColoringFraction
         ((verticalTwists (-n)).mul (verticalTwists n)).invert
         (0 : CFValue) ∧
       HasColoringFraction
         ((verticalTwists (-n)).invert.add (verticalTwists n).invert)
         (0 : CFValue) := by
-  have hn' : -n ≠ 0 := neg_ne_zero.mpr hn
   simpa [neg_neg] using
-    HasColoringFraction.invert_mul_verticalTwists_mul_neg (-n) hn'
+    HasColoringFraction.invert_mul_verticalTwists_mul_neg (-n)
 
 end RationalTangles
