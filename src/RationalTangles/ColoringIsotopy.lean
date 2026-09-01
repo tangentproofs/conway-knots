@@ -390,6 +390,56 @@ theorem coloring_invert_unit (s : CrossingSign) (col : Nat → Int)
       simp [SameEndpointColors, crossingTangle, TangleDiagram.invert, TangleDiagram.rotate,
         TangleDiagram.mirror, negOne, one, colorInvertUnit]
 
+/-- Inverse cycle of `colorInvertUnit`: pull a coloring of `[±1]ⁱ` back to `[±1]`. -/
+def colorInvertUnitInv (col : Nat → Int) (a : Nat) : Int :=
+  if a = 0 then col 1
+  else if a = 1 then col 2
+  else if a = 2 then col 3
+  else if a = 3 then col 0
+  else col a
+
+theorem coloring_invert_unit_rev (s : CrossingSign) (col : Nat → Int)
+    (hc : ((crossingTangle s).invert).IsColored col) :
+    ∃ col', (crossingTangle s).IsColored col' ∧
+      SameEndpointColors (crossingTangle s).invert (crossingTangle s) col col' := by
+  refine ⟨colorInvertUnitInv col, ?_, ?_⟩
+  · cases s with
+    | pos =>
+      intro C hC
+      simp [crossingTangle, one] at hC
+      subst hC
+      have hmem : { a0 := 1, a1 := 2, a2 := 3, a3 := 0, sign := CrossingSign.neg } ∈
+          (one.invert).crossings := by
+        simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror,
+          Crossing.switch, CrossingSign.flip, one]
+      obtain ⟨hβ, hr⟩ := hc _ hmem
+      constructor
+      · simp [colorInvertUnitInv] at hβ ⊢
+        linarith
+      · simp [colorInvertUnitInv] at hr ⊢
+        linarith
+    | neg =>
+      intro C hC
+      simp [crossingTangle, negOne, one, TangleDiagram.mirror, Crossing.switch] at hC
+      subst hC
+      have hmem : { a0 := 2, a1 := 3, a2 := 0, a3 := 1, sign := CrossingSign.pos } ∈
+          (negOne.invert).crossings := by
+        simp [negOne, one, TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror,
+          Crossing.switch, CrossingSign.flip]
+      obtain ⟨hβ, hr⟩ := hc _ hmem
+      constructor
+      · simp [colorInvertUnitInv] at hβ ⊢
+        linarith
+      · simp [colorInvertUnitInv] at hr ⊢
+        linarith
+  · cases s with
+    | pos =>
+      simp [SameEndpointColors, crossingTangle, TangleDiagram.invert, TangleDiagram.rotate,
+        TangleDiagram.mirror, one, colorInvertUnitInv]
+    | neg =>
+      simp [SameEndpointColors, crossingTangle, TangleDiagram.invert, TangleDiagram.rotate,
+        TangleDiagram.mirror, negOne, one, colorInvertUnitInv]
+
 /-! ## Left-add of `[0]` as a planar reindexing -/
 
 theorem zero_maxArc : TangleDiagram.zero.maxArc = 1 := by
@@ -1001,6 +1051,78 @@ theorem coloring_add_assoc (T S R : TangleDiagram) (col : Nat → Int)
       (maxArc_ge_SW T)]
 
 
+/-! ## Associativity of `mul` as reindexing -/
+
+theorem coloring_mul_assoc (T S R : TangleDiagram) (col : Nat → Int)
+    (hc : ((T.mul S).mul R).IsColored col) :
+    ∃ col', (T.mul (S.mul R)).IsColored col' ∧
+      SameEndpointColors ((T.mul S).mul R) (T.mul (S.mul R)) col col' := by
+  set colS := colorMulBottom T S col
+  set colR := colorMulBottom (T.mul S) R col
+  have hT : T.IsColored col := IsColored_mul_top (IsColored_mul_top hc)
+  have hS : S.IsColored colS := IsColored_mul_bottom (IsColored_mul_top hc)
+  have hR : R.IsColored colR := IsColored_mul_bottom hc
+  have glueSR_NW : colS S.SW = colR R.NW := by
+    dsimp [colS, colR]
+    rw [colorMulBottom_SW, colorMulBottom_NW]
+  have glueSR_NE : colS S.SE = colR R.NE ∨ R.NW = R.NE := by
+    rcases colorMulBottom_NE (T.mul S) R col with h | h
+    · exact Or.inl ((colorMulBottom_SE T S col).trans h.symm)
+    · exact Or.inr h
+  have hSR : (S.mul R).IsColored (colorGlueMul S R colS colR) :=
+    IsColored_colorGlueMul S R colS colR hS hR glueSR_NW glueSR_NE
+  have glueT_NW : col T.SW = colorGlueMul S R colS colR (S.mul R).NW := by
+    change col T.SW = colorGlueMul S R colS colR S.NW
+    rw [colorGlueMul_of_le S R colS colR (maxArc_ge_NW S)]
+    dsimp [colS]
+    rw [colorMulBottom_NW]
+  have glueT_NE :
+      col T.SE = colorGlueMul S R colS colR (S.mul R).NE ∨
+        (S.mul R).NW = (S.mul R).NE := by
+    change col T.SE = colorGlueMul S R colS colR S.NE ∨ S.NW = S.NE
+    rw [colorGlueMul_of_le S R colS colR (maxArc_ge_NE S)]
+    rcases colorMulBottom_NE T S col with h | h
+    · exact Or.inl h.symm
+    · exact Or.inr h
+  have hE : (T.mul (S.mul R)).IsColored
+      (colorGlueMul T (S.mul R) col (colorGlueMul S R colS colR)) :=
+    IsColored_colorGlueMul T (S.mul R) col (colorGlueMul S R colS colR)
+      hT hSR glueT_NW glueT_NE
+  refine ⟨colorGlueMul T (S.mul R) col (colorGlueMul S R colS colR), hE, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · change colorGlueMul T (S.mul R) col (colorGlueMul S R colS colR) T.NW = col T.NW
+    rw [colorGlueMul_of_le T (S.mul R) col (colorGlueMul S R colS colR)
+      (maxArc_ge_NW T)]
+  · change colorGlueMul T (S.mul R) col (colorGlueMul S R colS colR) T.NE = col T.NE
+    rw [colorGlueMul_of_le T (S.mul R) col (colorGlueMul S R colS colR)
+      (maxArc_ge_NE T)]
+  · have h1 :
+        colorGlueMul T (S.mul R) col (colorGlueMul S R colS colR)
+          (T.mul (S.mul R)).SE =
+        colorGlueMul S R colS colR (S.mul R).SE := by
+      rw [mul_SE_glue T (S.mul R)]
+      exact colorGlueMul_comp_shift T (S.mul R) col (colorGlueMul S R colS colR)
+        glueT_NW glueT_NE (S.mul R).SE
+    have h2 : colorGlueMul S R colS colR (S.mul R).SE = colR R.SE := by
+      rw [mul_SE_glue S R]
+      exact colorGlueMul_comp_shift S R colS colR glueSR_NW glueSR_NE R.SE
+    rw [h1, h2]
+    dsimp [colR]
+    rw [colorMulBottom_SE]
+  · have h1 :
+        colorGlueMul T (S.mul R) col (colorGlueMul S R colS colR)
+          (T.mul (S.mul R)).SW =
+        colorGlueMul S R colS colR (S.mul R).SW := by
+      rw [mul_SW_glue T (S.mul R)]
+      exact colorGlueMul_comp_shift T (S.mul R) col (colorGlueMul S R colS colR)
+        glueT_NW glueT_NE (S.mul R).SW
+    have h2 : colorGlueMul S R colS colR (S.mul R).SW = colR R.SW := by
+      rw [mul_SW_glue S R]
+      exact colorGlueMul_comp_shift S R colS colR glueSR_NW glueSR_NE R.SW
+    rw [h1, h2]
+    dsimp [colR]
+    rw [colorMulBottom_SW]
+
 /-- Recolor after a coloring-ready isotopy so that endpoint colors (hence
     the color matrix and coloring fraction) are unchanged. -/
 theorem coloring_ColoringIsotopy {D E : TangleDiagram}
@@ -1050,8 +1172,12 @@ theorem coloring_ColoringIsotopy {D E : TangleDiagram}
     exact coloring_zero_add T col hc
   | invert_unit s =>
     exact coloring_invert_unit s col hc
+  | invert_unit_rev s =>
+    exact coloring_invert_unit_rev s col hc
   | add_assoc T S R =>
     exact coloring_add_assoc T S R col hc
+  | mul_assoc T S R =>
+    exact coloring_mul_assoc T S R col hc
 
 /-- Indexed Reidemeister III is a coloring-ready move, via the local model. -/
 theorem ColoringIsotopy.of_IsReidemeisterIII {D E : TangleDiagram}

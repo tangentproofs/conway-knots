@@ -177,10 +177,11 @@ local flype, planar isotopy, and add/mul congruence.
 This is *not* `Isotopic`: it omits the sign-preserving slide constructors
 `flype_slide_add`/`flype_slide_mul` (algebraic Figure 5 with `rot180`; coloring
 needs `DiagonalSum` and is not for every coloring), switched algebraic `Flype`,
-flip/mirror/invert congruence, `mul_assoc`, transfer, and `ColoringIsotopy.symm`.
+flip/mirror/invert congruence, transfer, and a full `ColoringIsotopy.symm`.
 Indexed R3 is included via the local model; `add_zero`, `zero_add` (planar
-reindexing of `[0]+T`), `invert_unit`, and `add_assoc` (reindexing, all
-colorings) are included. Invariance of `f` is stated for `ColoringIsotopy`
+reindexing of `[0]+T`), `invert_unit`/`invert_unit_rev`, and `add_assoc`/`mul_assoc`
+(reindexing, all colorings) are included. Partial reverse lemmas exist for
+`r1`, `r2`, `add_zero`, and `invert_unit`. Invariance of `f` is stated for `ColoringIsotopy`
 rather than for `Isotopic`.
 -/
 
@@ -219,9 +220,15 @@ inductive ColoringIsotopy : TangleDiagram → TangleDiagram → Prop where
   /-- Inversion of `[±1]` (the unit of inversion). -/
   | invert_unit (s : CrossingSign) :
       ColoringIsotopy (crossingTangle s) (crossingTangle s).invert
+  /-- Reverse inversion of `[±1]`. -/
+  | invert_unit_rev (s : CrossingSign) :
+      ColoringIsotopy (crossingTangle s).invert (crossingTangle s)
   /-- Horizontal sum is associative by PD-code reindexing. -/
   | add_assoc (T S R : TangleDiagram) :
       ColoringIsotopy ((T.add S).add R) (T.add (S.add R))
+  /-- Vertical product is associative by PD-code reindexing. -/
+  | mul_assoc (T S R : TangleDiagram) :
+      ColoringIsotopy ((T.mul S).mul R) (T.mul (S.mul R))
 
 theorem IsReidemeisterI.symm {D E : TangleDiagram} (h : IsReidemeisterI D E) :
     IsReidemeisterI E D := by
@@ -253,5 +260,9 @@ theorem ColoringIsotopy.add_zero_symm (T : TangleDiagram) :
     ColoringIsotopy T (T.add TangleDiagram.zero) :=
   (congrArg (fun X => ColoringIsotopy X (T.add TangleDiagram.zero))
     (add_zero_eq T)).mp (.refl _)
+
+theorem ColoringIsotopy.invert_unit_symm (s : CrossingSign) :
+    ColoringIsotopy (crossingTangle s).invert (crossingTangle s) :=
+  .invert_unit_rev s
 
 end RationalTangles
