@@ -73,7 +73,12 @@ with `SE` (resp. `NW` with `SW`), so the invert PD-code is not a
 reindex of `Tⁱ`. A dummy-arc coloring (constant `0` on crossings,
 `1` on the unused kink strand) is a genuine coloring of both
 `(T+[∞])ⁱ` and `[∞]ⁱ*Tⁱ`, each of fraction `0 = (F+∞)⁻¹`. Not glue
-of two general summands. Unrestricted
+of two general summands. The two-unit canceling sums `[+1]+[-1]`
+and `[-1]+[+1]` are `rightBottom` twist diagrams with coloring
+fraction `0` (`colorFrom` uniqueness / `coloring_fraction_eq_F`).
+Invert-add of that pair reuses `coloring_invert_add_units` and
+invert uniqueness on the two-unit twist (not glue of two general
+summands, so no dummy coloring), carrying `∞`. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
 `ColoringIsotopy`.
@@ -84,7 +89,9 @@ along `rot180` of any diagram whose coloring has `DiagonalSum`), along
 Figure 14 when the port hypotheses hold, along invert-add of two
 `rightBottom`/`slideReady` diagrams with finite nonzero `F`, and along
 invert-add when a summand is the `[0]` diagram, and along
-invert-add when a summand is the `[∞]` diagram (carried value `0`).
+invert-add when a summand is the `[∞]` diagram (carried value `0`),
+and along invert-add of canceling units `[+1]+[-1]` / `[-1]+[+1]`
+(carried value `∞`).
 Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
 carried value. Induction of `HasColoringFraction` along full `Isotopic`
@@ -4016,5 +4023,234 @@ theorem HasColoringFraction.invert_add_infinity_left (T : TangleDiagram) :
   obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
     coloring_invert_add_infinity_left T
   exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-! ## Canceling units `[+1]+[-1]` and `[-1]+[+1]`
+
+These are `rightBottom` two-unit twist diagrams, not the `[0]` PD-code.
+`colorFrom 0 1` is a genuine non-monochrome coloring of fraction `0`,
+and uniqueness identifies every non-monochrome coloring with that
+value. Invert-add of the pair is `coloring_invert_add_units` of
+opposite signs; invert uniqueness records the carried value `∞`.
+Not a `ColoringIsotopy`, and not glue of two general summands.
+-/
+
+theorem CFValue.one_add_ofInt_negOne :
+    (1 : CFValue).add (CFValue.ofInt (-1)) = (0 : CFValue) := by
+  simp [CFValue.ofInt, CFValue.add]
+  rfl
+
+theorem CFValue.ofInt_negOne_add_one :
+    (CFValue.ofInt (-1)).add (1 : CFValue) = (0 : CFValue) := by
+  simp [CFValue.ofInt, CFValue.add]
+  rfl
+
+theorem TwistExpr.addRight_canceling_units_fraction (s : CrossingSign) :
+    (TwistExpr.addRight (TwistExpr.ofCrossingSign s) s.flip).fraction =
+      (0 : CFValue) := by
+  cases s with
+  | pos =>
+    simp only [TwistExpr.fraction, TwistExpr.ofCrossingSign, CrossingSign.flip,
+      CrossingSign.cfValue]
+    exact CFValue.one_add_ofInt_negOne
+  | neg =>
+    simp only [TwistExpr.fraction, TwistExpr.ofCrossingSign, CrossingSign.flip,
+      CrossingSign.cfValue]
+    exact CFValue.ofInt_negOne_add_one
+
+theorem TwistExpr.addRight_canceling_units_diagram (s : CrossingSign) :
+    (TwistExpr.addRight (TwistExpr.ofCrossingSign s) s.flip).diagram =
+      (crossingTangle s).add (crossingTangle s.flip) := by
+  simp only [TwistExpr.diagram, TwistExpr.ofCrossingSign_diagram]
+  rfl
+
+/-- Any non-monochrome coloring of `[s]+[s.flip]` has fraction `0`. -/
+theorem coloring_fraction_canceling_units (s : CrossingSign)
+    (col : Nat → Int)
+    (hc : ((crossingTangle s).add (crossingTangle s.flip)).IsColored col)
+    (hm : (ColorMatrix.of ((crossingTangle s).add (crossingTangle s.flip))
+      col).NotMono) :
+    (ColorMatrix.of ((crossingTangle s).add (crossingTangle s.flip))
+      col).fraction = (0 : CFValue) := by
+  let e : TwistExpr := .addRight (.ofCrossingSign s) s.flip
+  have hrb : e.rightBottom := TwistExpr.ofCrossingSign_rightBottom s
+  have hok : e.slideReady := TwistExpr.rightBottom_slideReady e hrb
+  have hd := TwistExpr.addRight_canceling_units_diagram s
+  have hc' : e.diagram.IsColored col := by
+    rw [hd]; exact hc
+  have hm' : (ColorMatrix.of e.diagram col).NotMono := by
+    rw [hd]; exact hm
+  have hf := coloring_fraction_unique_slideReady e hok col (e.colorFrom 0 1)
+    hc' (e.colorFrom_isColored hrb 0 1) hm' (e.colorFrom_notMono hrb)
+  have hf0 := e.colorFrom_eq_fraction hrb
+  have hF : e.fraction = (0 : CFValue) :=
+    TwistExpr.addRight_canceling_units_fraction s
+  have hval :
+      (ColorMatrix.of e.diagram col).fraction = (0 : CFValue) :=
+    hf.trans (hf0.trans hF)
+  rw [← hd]; exact hval
+
+theorem coloring_fraction_one_add_negOne (col : Nat → Int)
+    (hc : (RationalTangles.one.add RationalTangles.negOne).IsColored col)
+    (hm : (ColorMatrix.of (RationalTangles.one.add RationalTangles.negOne)
+      col).NotMono) :
+    (ColorMatrix.of (RationalTangles.one.add RationalTangles.negOne)
+      col).fraction = (0 : CFValue) :=
+  coloring_fraction_canceling_units .pos col hc hm
+
+theorem coloring_fraction_negOne_add_one (col : Nat → Int)
+    (hc : (RationalTangles.negOne.add RationalTangles.one).IsColored col)
+    (hm : (ColorMatrix.of (RationalTangles.negOne.add RationalTangles.one)
+      col).NotMono) :
+    (ColorMatrix.of (RationalTangles.negOne.add RationalTangles.one)
+      col).fraction = (0 : CFValue) :=
+  coloring_fraction_canceling_units .neg col hc hm
+
+theorem HasColoringFraction.canceling_units (s : CrossingSign) :
+    HasColoringFraction ((crossingTangle s).add (crossingTangle s.flip))
+      (0 : CFValue) := by
+  let e : TwistExpr := .addRight (.ofCrossingSign s) s.flip
+  have hrb : e.rightBottom := TwistExpr.ofCrossingSign_rightBottom s
+  have hd := TwistExpr.addRight_canceling_units_diagram s
+  refine ⟨e.colorFrom 0 1, ?_, ?_, ?_⟩
+  · rw [← hd]; exact e.colorFrom_isColored hrb 0 1
+  · rw [← hd]; exact e.colorFrom_notMono hrb
+  · exact coloring_fraction_canceling_units s (e.colorFrom 0 1)
+      (by rw [← hd]; exact e.colorFrom_isColored hrb 0 1)
+      (by rw [← hd]; exact e.colorFrom_notMono hrb)
+
+theorem HasColoringFraction.one_add_negOne :
+    HasColoringFraction (RationalTangles.one.add RationalTangles.negOne)
+      (0 : CFValue) :=
+  HasColoringFraction.canceling_units .pos
+
+theorem HasColoringFraction.negOne_add_one :
+    HasColoringFraction (RationalTangles.negOne.add RationalTangles.one)
+      (0 : CFValue) :=
+  HasColoringFraction.canceling_units .neg
+
+/-- Fresh colorings of `([s]+[s.flip])ⁱ` and of `[s.flip]ⁱ*[s]ⁱ`, both
+    of fraction `∞`. Reuses `coloring_invert_add_units` and invert
+    uniqueness; not a dummy coloring and not a `ColoringIsotopy`. -/
+theorem coloring_invert_add_canceling_units (s : CrossingSign) :
+    ∃ colL colR,
+      (((crossingTangle s).add (crossingTangle s.flip)).invert).IsColored
+        colL ∧
+      (((crossingTangle s.flip).invert.mul (crossingTangle s).invert)).IsColored
+        colR ∧
+      (ColorMatrix.of
+        ((crossingTangle s).add (crossingTangle s.flip)).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        ((crossingTangle s.flip).invert.mul (crossingTangle s).invert)
+        colR).NotMono ∧
+      (ColorMatrix.of
+        ((crossingTangle s).add (crossingTangle s.flip)).invert
+        colL).fraction =
+        (ColorMatrix.of
+          ((crossingTangle s.flip).invert.mul (crossingTangle s).invert)
+          colR).fraction ∧
+      (ColorMatrix.of
+        ((crossingTangle s).add (crossingTangle s.flip)).invert
+        colL).fraction =
+        CFValue.inf := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree⟩ :=
+    coloring_invert_add_units s s.flip
+  let e : TwistExpr := .addRight (.ofCrossingSign s) s.flip
+  have hrb : e.rightBottom := TwistExpr.ofCrossingSign_rightBottom s
+  have hok : e.slideReady := TwistExpr.rightBottom_slideReady e hrb
+  have hd := TwistExpr.addRight_canceling_units_diagram s
+  obtain ⟨colI, hcI, hmI, hfI⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom e hrb
+  have hcL' : e.diagram.invert.IsColored colL := by
+    rw [hd]; exact hcL
+  have hmL' : (ColorMatrix.of e.diagram.invert colL).NotMono := by
+    rw [hd]; exact hmL
+  have huniq :=
+    coloring_fraction_unique_invert_slideReady e hok colL colI
+      hcL' hcI hmL' hmI
+  have hf0 : e.fraction.inv = CFValue.inf := by
+    rw [TwistExpr.addRight_canceling_units_fraction]
+    have h0 : (0 : CFValue) = CFValue.ofInt 0 := rfl
+    rw [h0, CFValue.inv_ofInt_zero]
+  have hval :
+      (ColorMatrix.of e.diagram.invert colL).fraction = CFValue.inf :=
+    huniq.trans (hfI.trans hf0)
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, ?_⟩
+  rw [← hd]; exact hval
+
+theorem coloring_invert_add_one_negOne :
+    ∃ colL colR,
+      ((RationalTangles.one.add RationalTangles.negOne).invert).IsColored
+        colL ∧
+      ((RationalTangles.negOne.invert.mul RationalTangles.one.invert)).IsColored
+        colR ∧
+      (ColorMatrix.of
+        (RationalTangles.one.add RationalTangles.negOne).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        (RationalTangles.negOne.invert.mul RationalTangles.one.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of
+        (RationalTangles.one.add RationalTangles.negOne).invert
+        colL).fraction =
+        (ColorMatrix.of
+          (RationalTangles.negOne.invert.mul RationalTangles.one.invert)
+          colR).fraction ∧
+      (ColorMatrix.of
+        (RationalTangles.one.add RationalTangles.negOne).invert
+        colL).fraction =
+        CFValue.inf :=
+  coloring_invert_add_canceling_units .pos
+
+theorem coloring_invert_add_negOne_one :
+    ∃ colL colR,
+      ((RationalTangles.negOne.add RationalTangles.one).invert).IsColored
+        colL ∧
+      ((RationalTangles.one.invert.mul RationalTangles.negOne.invert)).IsColored
+        colR ∧
+      (ColorMatrix.of
+        (RationalTangles.negOne.add RationalTangles.one).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        (RationalTangles.one.invert.mul RationalTangles.negOne.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of
+        (RationalTangles.negOne.add RationalTangles.one).invert
+        colL).fraction =
+        (ColorMatrix.of
+          (RationalTangles.one.invert.mul RationalTangles.negOne.invert)
+          colR).fraction ∧
+      (ColorMatrix.of
+        (RationalTangles.negOne.add RationalTangles.one).invert
+        colL).fraction =
+        CFValue.inf :=
+  coloring_invert_add_canceling_units .neg
+
+/-- Invert-add of canceling units: both `(T+S)ⁱ` and `Sⁱ*Tⁱ` carry `∞`. -/
+theorem HasColoringFraction.invert_add_canceling_units (s : CrossingSign) :
+    HasColoringFraction
+        ((crossingTangle s).add (crossingTangle s.flip)).invert CFValue.inf ∧
+      HasColoringFraction
+        ((crossingTangle s.flip).invert.mul (crossingTangle s).invert)
+        CFValue.inf := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_canceling_units s
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+theorem HasColoringFraction.invert_add_one_negOne :
+    HasColoringFraction
+        (RationalTangles.one.add RationalTangles.negOne).invert CFValue.inf ∧
+      HasColoringFraction
+        (RationalTangles.negOne.invert.mul RationalTangles.one.invert)
+        CFValue.inf :=
+  HasColoringFraction.invert_add_canceling_units .pos
+
+theorem HasColoringFraction.invert_add_negOne_one :
+    HasColoringFraction
+        (RationalTangles.negOne.add RationalTangles.one).invert CFValue.inf ∧
+      HasColoringFraction
+        (RationalTangles.one.invert.mul RationalTangles.negOne.invert)
+        CFValue.inf :=
+  HasColoringFraction.invert_add_canceling_units .neg
 
 end RationalTangles
