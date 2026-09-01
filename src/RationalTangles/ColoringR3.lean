@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Michal Wallace
 -/
 
+import Mathlib.Data.List.Perm.Basic
 import RationalTangles.ColoringInvariance
 
 /-!
@@ -487,5 +488,335 @@ theorem coloring_IsReidemeisterIIILocal (D E : TangleDiagram) (col : Nat → Int
     · rw [hNE]; exact hbnd D.NE (hNE ▸ huNE.symm) (hNE ▸ hvNE.symm) (hNE ▸ hwNE.symm)
     · rw [hSE]; exact hbnd D.SE (hSE ▸ huSE.symm) (hSE ▸ hvSE.symm) (hSE ▸ hwSE.symm)
     · rw [hSW]; exact hbnd D.SW (hSW ▸ huSW.symm) (hSW ▸ hvSW.symm) (hSW ▸ hwSW.symm)
+
+/-! ## Indexed R3 is local R3 -/
+
+theorem dropIdxs_shift {α} (i j k n : Nat) (xs : List α) :
+    dropIdxs (i + 1) (j + 1) (k + 1) (n + 1) xs = dropIdxs i j k n xs := by
+  induction xs generalizing n with
+  | nil => rfl
+  | cons x xs ih =>
+    simp only [dropIdxs]
+    by_cases h : n = i ∨ n = j ∨ n = k
+    · have h' : n + 1 = i + 1 ∨ n + 1 = j + 1 ∨ n + 1 = k + 1 := by omega
+      simp [h, h', ih]
+    · have h' : ¬ (n + 1 = i + 1 ∨ n + 1 = j + 1 ∨ n + 1 = k + 1) := by omega
+      simp [h, h', ih]
+
+theorem dropIdxs_id_of_lt {α} (i j k n : Nat) (xs : List α)
+    (hi : i < n) (hj : j < n) (hk : k < n) :
+    dropIdxs i j k n xs = xs := by
+  induction xs generalizing n with
+  | nil => rfl
+  | cons x xs ih =>
+    have hne : ¬ (n = i ∨ n = j ∨ n = k) := by omega
+    simp [dropIdxs, hne, ih (n + 1) (by omega) (by omega) (by omega)]
+
+theorem dropIdxs_irrel_lt {α} (i j k n : Nat) (xs : List α) (hi : i < n) :
+    dropIdxs i j k n xs = dropIdxs j k j n xs := by
+  induction xs generalizing n with
+  | nil => rfl
+  | cons x xs ih =>
+    simp only [dropIdxs]
+    by_cases h : n = j ∨ n = k
+    · have h₁ : n = i ∨ n = j ∨ n = k := by tauto
+      have h₂ : n = j ∨ n = k ∨ n = j := by tauto
+      rw [if_pos h₁, if_pos h₂, ih (n + 1) (Nat.lt_succ_of_lt hi)]
+    · have h₁ : ¬ (n = i ∨ n = j ∨ n = k) := by
+        have : n ≠ i := Nat.ne_of_gt hi
+        tauto
+      have h₂ : ¬ (n = j ∨ n = k ∨ n = j) := by tauto
+      rw [if_neg h₁, if_neg h₂, ih (n + 1) (Nat.lt_succ_of_lt hi)]
+
+theorem dropIdxs_eraseIdx {α} (i : Nat) (xs : List α) :
+    dropIdxs i i i 0 xs = xs.eraseIdx i := by
+  induction xs generalizing i with
+  | nil => simp [dropIdxs]
+  | cons x xs ih =>
+    cases i with
+    | zero =>
+      simp [dropIdxs]
+      exact dropIdxs_id_of_lt 0 0 0 1 xs (by omega) (by omega) (by omega)
+    | succ i =>
+      simp only [dropIdxs, List.eraseIdx_cons_succ]
+      have hne : ¬ (0 = i + 1 ∨ 0 = i + 1 ∨ 0 = i + 1) := by omega
+      rw [if_neg hne, dropIdxs_shift i i i 0 xs, ih]
+
+theorem dropIdxs_comm_swap_ij {α} (i j k n : Nat) (xs : List α) :
+    dropIdxs i j k n xs = dropIdxs j i k n xs := by
+  induction xs generalizing n with
+  | nil => rfl
+  | cons x xs ih =>
+    simp only [dropIdxs]
+    by_cases h : n = i ∨ n = j ∨ n = k
+    · have h' : n = j ∨ n = i ∨ n = k := by tauto
+      rw [if_pos h, if_pos h', ih]
+    · have h' : ¬ (n = j ∨ n = i ∨ n = k) := by tauto
+      rw [if_neg h, if_neg h']
+      simp [ih]
+
+theorem dropIdxs_comm_swap_jk {α} (i j k n : Nat) (xs : List α) :
+    dropIdxs i j k n xs = dropIdxs i k j n xs := by
+  induction xs generalizing n with
+  | nil => rfl
+  | cons x xs ih =>
+    simp only [dropIdxs]
+    by_cases h : n = i ∨ n = j ∨ n = k
+    · have h' : n = i ∨ n = k ∨ n = j := by tauto
+      rw [if_pos h, if_pos h', ih]
+    · have h' : ¬ (n = i ∨ n = k ∨ n = j) := by tauto
+      rw [if_neg h, if_neg h']
+      simp [ih]
+
+theorem dropIdxs_eraseIdx_two {α} (a b : Nat) (xs : List α)
+    (hab : a < b) (hb : b < xs.length) :
+    dropIdxs a b a 0 xs = (xs.eraseIdx b).eraseIdx a := by
+  induction xs generalizing a b with
+  | nil => cases hb
+  | cons x xs ih =>
+    cases a with
+    | zero =>
+      cases b with
+      | zero => cases hab
+      | succ b =>
+        simp only [dropIdxs, true_or, ite_true]
+        rw [dropIdxs_irrel_lt 0 (b + 1) 0 1 xs (by omega)]
+        rw [dropIdxs_comm_swap_ij]
+        rw [dropIdxs_irrel_lt 0 (b + 1) (b + 1) 1 xs (by omega)]
+        rw [dropIdxs_shift b b b 0 xs, dropIdxs_eraseIdx]
+        simp [List.eraseIdx]
+    | succ a =>
+      cases b with
+      | zero => cases hab
+      | succ b =>
+        have hab' : a < b := by omega
+        have hb' : b < xs.length := by simpa using hb
+        simp only [dropIdxs]
+        have hne : ¬ (0 = a + 1 ∨ 0 = b + 1 ∨ 0 = a + 1) := by omega
+        rw [if_neg hne, dropIdxs_shift a b a 0 xs, ih a b hab' hb']
+        simp [List.eraseIdx]
+
+theorem dropIdxs_eraseIdx_three {α} (a b c : Nat) (xs : List α)
+    (hab : a < b) (hbc : b < c) (hc : c < xs.length) :
+    dropIdxs a b c 0 xs = ((xs.eraseIdx c).eraseIdx b).eraseIdx a := by
+  induction xs generalizing a b c with
+  | nil => cases hc
+  | cons x xs ih =>
+    cases a with
+    | zero =>
+      cases b with
+      | zero => cases hab
+      | succ b =>
+        cases c with
+        | zero => cases hbc
+        | succ c =>
+          have hbc' : b < c := by omega
+          have hc' : c < xs.length := by simpa using hc
+          simp only [dropIdxs, true_or, ite_true]
+          rw [dropIdxs_irrel_lt 0 (b + 1) (c + 1) 1 xs (by omega)]
+          rw [dropIdxs_shift b c b 0 xs, dropIdxs_eraseIdx_two b c xs hbc' hc']
+          simp [List.eraseIdx]
+    | succ a =>
+      cases b with
+      | zero => cases hab
+      | succ b =>
+        cases c with
+        | zero => cases hbc
+        | succ c =>
+          have hab' : a < b := by omega
+          have hbc' : b < c := by omega
+          have hc' : c < xs.length := by simpa using hc
+          simp only [dropIdxs]
+          have hne : ¬ (0 = a + 1 ∨ 0 = b + 1 ∨ 0 = c + 1) := by omega
+          rw [if_neg hne, dropIdxs_shift a b c 0 xs, ih a b c hab' hbc' hc']
+          simp [List.eraseIdx]
+
+theorem dropIdxs_of_iff {α} (i j k i' j' k' n : Nat) (xs : List α)
+    (h : ∀ x, (x = i ∨ x = j ∨ x = k) ↔ (x = i' ∨ x = j' ∨ x = k')) :
+    dropIdxs i j k n xs = dropIdxs i' j' k' n xs := by
+  induction xs generalizing n with
+  | nil => rfl
+  | cons _ xs ih =>
+    simp only [dropIdxs]
+    have hiff : (n = i ∨ n = j ∨ n = k) ↔ (n = i' ∨ n = j' ∨ n = k') := h n
+    by_cases hn : n = i ∨ n = j ∨ n = k
+    · rw [if_pos hn, if_pos (hiff.mp hn), ih]
+    · rw [if_neg hn, if_neg (mt hiff.mpr hn), ih]
+
+theorem getElem_eraseIdx_of_lt {α} (xs : List α) {j k : Nat}
+    (hjk : j < k) (hk : k < xs.length) :
+    (xs.eraseIdx k)[j]'(by rw [List.length_eraseIdx_of_lt hk]; omega) =
+      xs[j]'(Nat.lt_trans hjk hk) := by
+  induction xs generalizing j k with
+  | nil => cases hk
+  | cons x xs ih =>
+    cases k with
+    | zero => cases hjk
+    | succ k =>
+      cases j with
+      | zero => simp [List.eraseIdx]
+      | succ j =>
+        have hjk' : j < k := by omega
+        have hk' : k < xs.length := by simpa using hk
+        simpa [List.eraseIdx] using ih hjk' hk'
+
+theorem perm_swap_heads {α} (a b : α) (l : List α) :
+    (a :: b :: l).Perm (b :: a :: l) :=
+  List.Perm.swap b a l
+
+theorem perm_triple {α} (a b c : α) (l : List α) :
+    (a :: b :: c :: l).Perm (b :: c :: a :: l) :=
+  (perm_swap_heads a b (c :: l)).trans (List.Perm.cons b (perm_swap_heads a c l))
+
+theorem perm_cons3_dropIdxs_sorted {α} (xs : List α) (i j k : Nat)
+    (hij : i < j) (hjk : j < k) (hk : k < xs.length) :
+    xs.Perm (xs[i]'(Nat.lt_trans hij (Nat.lt_trans hjk hk)) ::
+      xs[j]'(Nat.lt_trans hjk hk) :: xs[k] :: dropIdxs i j k 0 xs) := by
+  have hi : i < xs.length := Nat.lt_trans hij (Nat.lt_trans hjk hk)
+  have hj : j < xs.length := Nat.lt_trans hjk hk
+  rw [dropIdxs_eraseIdx_three i j k xs hij hjk hk]
+  have h₁ := (List.getElem_cons_eraseIdx_perm (l := xs) hk).symm
+  have hlenk : (xs.eraseIdx k).length = xs.length - 1 := List.length_eraseIdx_of_lt hk
+  have hj' : j < (xs.eraseIdx k).length := by rw [hlenk]; omega
+  have h₂ := (List.getElem_cons_eraseIdx_perm (l := xs.eraseIdx k) hj').symm
+  have hlenj : ((xs.eraseIdx k).eraseIdx j).length = (xs.eraseIdx k).length - 1 :=
+    List.length_eraseIdx_of_lt hj'
+  have hi' : i < ((xs.eraseIdx k).eraseIdx j).length := by rw [hlenj, hlenk]; omega
+  have h₃ := (List.getElem_cons_eraseIdx_perm
+    (l := (xs.eraseIdx k).eraseIdx j) hi').symm
+  have heqj : (xs.eraseIdx k)[j] = xs[j] := getElem_eraseIdx_of_lt xs hjk hk
+  have heqi₁ : ((xs.eraseIdx k).eraseIdx j)[i] = (xs.eraseIdx k)[i] :=
+    getElem_eraseIdx_of_lt (xs.eraseIdx k) hij hj'
+  have heqi₀ : (xs.eraseIdx k)[i] = xs[i] :=
+    getElem_eraseIdx_of_lt xs (Nat.lt_trans hij hjk) hk
+  let rest := ((xs.eraseIdx k).eraseIdx j).eraseIdx i
+  have h₂' : (xs.eraseIdx k).Perm (xs[j] :: (xs.eraseIdx k).eraseIdx j) := by
+    rw [heqj] at h₂; exact h₂
+  have h₃' : ((xs.eraseIdx k).eraseIdx j).Perm (xs[i] :: rest) := by
+    rw [heqi₁, heqi₀] at h₃; exact h₃
+  have hperm : xs.Perm (xs[k] :: xs[j] :: xs[i] :: rest) :=
+    h₁.trans <| List.Perm.cons _ <| h₂'.trans <| List.Perm.cons _ h₃'
+  exact hperm.trans <|
+    (perm_triple xs[k] xs[j] xs[i] rest).trans
+      (perm_swap_heads xs[j] xs[i] (xs[k] :: rest))
+
+theorem perm_cons3_dropIdxs {α} (xs : List α) (i j k : Nat)
+    (hi : i < xs.length) (hj : j < xs.length) (hk : k < xs.length)
+    (hij : i ≠ j) (hjk : j ≠ k) (hik : i ≠ k) :
+    xs.Perm (xs[i] :: xs[j] :: xs[k] :: dropIdxs i j k 0 xs) := by
+  rcases lt_trichotomy i j with (hij' : i < j) | (rfl : i = j) | (hji : j < i)
+  · rcases lt_trichotomy j k with (hjk' : j < k) | (rfl : j = k) | (hkj : k < j)
+    · exact perm_cons3_dropIdxs_sorted xs i j k hij' hjk' hk
+    · exact (hjk rfl).elim
+    · rcases lt_trichotomy i k with (hik' : i < k) | (rfl : i = k) | (hki : k < i)
+      · have h := perm_cons3_dropIdxs_sorted xs i k j hik' hkj hj
+        rw [dropIdxs_comm_swap_jk] at h
+        exact h.trans (List.Perm.cons xs[i] (perm_swap_heads xs[k] xs[j] (dropIdxs i j k 0 xs)))
+      · exact (hik rfl).elim
+      · have h := perm_cons3_dropIdxs_sorted xs k i j hki hij' hj
+        have hd : dropIdxs k i j 0 xs = dropIdxs i j k 0 xs :=
+          dropIdxs_of_iff k i j i j k 0 xs (fun x => by tauto)
+        rw [hd] at h
+        exact h.trans (perm_triple xs[k] xs[i] xs[j] (dropIdxs i j k 0 xs))
+  · exact (hij rfl).elim
+  · rcases lt_trichotomy i k with (hik' : i < k) | (rfl : i = k) | (hki : k < i)
+    · have h := perm_cons3_dropIdxs_sorted xs j i k hji hik' hk
+      rw [dropIdxs_comm_swap_ij] at h
+      exact h.trans (perm_swap_heads xs[j] xs[i] (xs[k] :: dropIdxs i j k 0 xs))
+    · exact (hik rfl).elim
+    · rcases lt_trichotomy j k with (hjk' : j < k) | (rfl : j = k) | (hkj : k < j)
+      · have h := perm_cons3_dropIdxs_sorted xs j k i hjk' hki hi
+        have hd : dropIdxs j k i 0 xs = dropIdxs i j k 0 xs :=
+          dropIdxs_of_iff j k i i j k 0 xs (fun x => by tauto)
+        rw [hd] at h
+        exact h.trans <|
+          (perm_triple xs[j] xs[k] xs[i] (dropIdxs i j k 0 xs)).trans
+            (perm_triple xs[k] xs[i] xs[j] (dropIdxs i j k 0 xs))
+      · exact (hjk rfl).elim
+      · have h := perm_cons3_dropIdxs_sorted xs k j i hkj hji hi
+        have hd : dropIdxs k j i 0 xs = dropIdxs i j k 0 xs :=
+          dropIdxs_of_iff k j i i j k 0 xs (fun x => by tauto)
+        rw [hd] at h
+        exact h.trans <|
+          (perm_triple xs[k] xs[j] xs[i] (dropIdxs i j k 0 xs)).trans
+            (perm_swap_heads xs[j] xs[i] (xs[k] :: dropIdxs i j k 0 xs))
+
+theorem IsReidemeisterIII.toLocal {D E : TangleDiagram}
+    (h : IsReidemeisterIII D E) : IsReidemeisterIIILocal D E := by
+  obtain ⟨hlen, f, i, j, k, uD, vD, wD, uE, vE, wE, hf, hij, hjk, hik,
+    hNW, hNE, hSE, hSW,
+    huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
+    hrestE, hsP, hsQ, hsR, hslide, hex⟩ := h
+  have iE : i.val < E.crossings.length := hlen ▸ i.isLt
+  have jE : j.val < E.crossings.length := hlen ▸ j.isLt
+  have kE : k.val < E.crossings.length := hlen ▸ k.isLt
+  have hijN : i.val ≠ j.val := fun h => hij (Fin.ext h)
+  have hjkN : j.val ≠ k.val := fun h => hjk (Fin.ext h)
+  have hikN : i.val ≠ k.val := fun h => hik (Fin.ext h)
+  have hpermD := perm_cons3_dropIdxs D.crossings i.val j.val k.val
+    i.isLt j.isLt k.isLt hijN hjkN hikN
+  have hpermE0 := perm_cons3_dropIdxs E.crossings i.val j.val k.val
+    iE jE kE hijN hjkN hikN
+  obtain ⟨_, _, _, _, Cs, hpair, hpermCs⟩ := hex
+  have hrestCs : ∀ C ∈ Cs, ¬ C.memArc uE ∧ ¬ C.memArc vE ∧ ¬ C.memArc wE := by
+    intro C hC
+    exact hrestE C ((List.Perm.mem_iff hpermCs).1 hC)
+  have hpermE : E.crossings.Perm
+      (E.crossings[i.val] :: E.crossings[j.val] :: E.crossings[k.val] :: Cs) :=
+    hpermE0.trans (List.Perm.cons _ (List.Perm.cons _ (List.Perm.cons _ hpermCs.symm)))
+  rcases hslide with ⟨hD, hE, hm⟩ | ⟨hD, hE, hm⟩ | ⟨hD, hE, hm⟩
+  · exact ⟨f, D.crossings[i], D.crossings[j], D.crossings[k],
+      E.crossings[i.val], E.crossings[j.val], E.crossings[k.val],
+      uD, vD, wD, uE, vE, wE,
+      dropIdxs i.val j.val k.val 0 D.crossings, Cs,
+      hf, hD, hE, hsP, hsQ, hsR, hm,
+      hNW, hNE, hSE, hSW,
+      huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
+      hrestCs, hpermD, hpermE, hpair⟩
+  · have hpermD' : D.crossings.Perm
+        (D.crossings[j] :: D.crossings[k] :: D.crossings[i] ::
+          dropIdxs i.val j.val k.val 0 D.crossings) :=
+      hpermD.trans
+        (perm_triple D.crossings[i] D.crossings[j] D.crossings[k]
+          (dropIdxs i.val j.val k.val 0 D.crossings))
+    have hpermE' : E.crossings.Perm
+        (E.crossings[j.val] :: E.crossings[k.val] :: E.crossings[i.val] :: Cs) :=
+      hpermE.trans
+        (perm_triple E.crossings[i.val] E.crossings[j.val] E.crossings[k.val] Cs)
+    exact ⟨f, D.crossings[j], D.crossings[k], D.crossings[i],
+      E.crossings[j.val], E.crossings[k.val], E.crossings[i.val],
+      uD, vD, wD, uE, vE, wE,
+      dropIdxs i.val j.val k.val 0 D.crossings, Cs,
+      hf, hD, hE, hsQ, hsR, hsP, hm,
+      hNW, hNE, hSE, hSW,
+      huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
+      hrestCs, hpermD', hpermE', hpair⟩
+  · have hpermD' : D.crossings.Perm
+        (D.crossings[k] :: D.crossings[i] :: D.crossings[j] ::
+          dropIdxs i.val j.val k.val 0 D.crossings) :=
+      hpermD.trans <|
+        (perm_triple D.crossings[i] D.crossings[j] D.crossings[k]
+          (dropIdxs i.val j.val k.val 0 D.crossings)).trans
+        (perm_triple D.crossings[j] D.crossings[k] D.crossings[i]
+          (dropIdxs i.val j.val k.val 0 D.crossings))
+    have hpermE' : E.crossings.Perm
+        (E.crossings[k.val] :: E.crossings[i.val] :: E.crossings[j.val] :: Cs) :=
+      hpermE.trans <|
+        (perm_triple E.crossings[i.val] E.crossings[j.val] E.crossings[k.val] Cs).trans
+        (perm_triple E.crossings[j.val] E.crossings[k.val] E.crossings[i.val] Cs)
+    exact ⟨f, D.crossings[k], D.crossings[i], D.crossings[j],
+      E.crossings[k.val], E.crossings[i.val], E.crossings[j.val],
+      uD, vD, wD, uE, vE, wE,
+      dropIdxs i.val j.val k.val 0 D.crossings, Cs,
+      hf, hD, hE, hsR, hsP, hsQ, hm,
+      hNW, hNE, hSE, hSW,
+      huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
+      hrestCs, hpermD', hpermE', hpair⟩
+
+/-- Indexed Reidemeister III has coloring transport, via the local model. -/
+theorem coloring_IsReidemeisterIII (D E : TangleDiagram) (col : Nat → Int)
+    (h : IsReidemeisterIII D E) (hc : D.IsColored col) :
+    ∃ col', E.IsColored col' ∧ SameEndpointColors D E col col' :=
+  coloring_IsReidemeisterIIILocal D E col h.toLocal hc
 
 end RationalTangles

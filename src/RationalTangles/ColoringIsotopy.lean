@@ -380,6 +380,11 @@ theorem coloring_ColoringIsotopy {D E : TangleDiagram}
       coloring_mul_right (IsColored_mul_top hc) (IsColored_mul_bottom hc) hS' hs hglue
     exact ⟨_, hcol, hs'⟩
 
+/-- Indexed Reidemeister III is a coloring-ready move, via the local model. -/
+theorem ColoringIsotopy.of_IsReidemeisterIII {D E : TangleDiagram}
+    (h : IsReidemeisterIII D E) : ColoringIsotopy D E :=
+  .r3Local h.toLocal
+
 /-- The color matrix (hence `f`) is unchanged along `ColoringIsotopy`. -/
 theorem coloring_fraction_ColoringIsotopy {D E : TangleDiagram}
     (h : ColoringIsotopy D E) (col : Nat → Int) (hc : D.IsColored col) :

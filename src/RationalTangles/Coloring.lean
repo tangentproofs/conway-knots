@@ -432,4 +432,36 @@ theorem vertical_reflect_matrix (T : TangleDiagram) (col : Nat → Int) :
   simp [ColorMatrix.of, ColorMatrix.hswap, Neg.neg, TangleDiagram.vflip,
     TangleDiagram.mirror]
 
+theorem SameEndpointColors.vertical_reflect {T T' : TangleDiagram}
+    {col col' : Nat → Int} (h : SameEndpointColors T T' col col') :
+    SameEndpointColors (-T).vflip (-T').vflip col col' := by
+  obtain ⟨hNW, hNE, hSE, hSW⟩ := h
+  simp [SameEndpointColors, Neg.neg, TangleDiagram.vflip, TangleDiagram.mirror]
+  exact ⟨hNE, hNW, hSW, hSE⟩
+
+/-! ## Uniqueness of `f` for a fixed elementary diagram -/
+
+/-- Any non-monochrome coloring of `[0]` has coloring fraction `0`. -/
+theorem zero_fraction_of_colored {col : Nat → Int} (h : col 0 ≠ col 1) :
+    (ColorMatrix.of TangleDiagram.zero col).fraction = (0 : CFValue) := by
+  simp [ColorMatrix.of, TangleDiagram.zero, ColorMatrix.fraction, sub_ne_zero.mpr h]
+  rfl
+
+/-- Any coloring of `[∞]` has coloring fraction `∞`. -/
+theorem infinity_fraction_of_colored (col : Nat → Int) :
+    (ColorMatrix.of TangleDiagram.infinity col).fraction = .inf := by
+  simp [ColorMatrix.of, TangleDiagram.infinity, ColorMatrix.fraction]
+
+/-- Any non-monochrome coloring of `[+1]` has coloring fraction `1`. -/
+theorem one_fraction_of_colored {col : Nat → Int} (hc : one.IsColored col)
+    (h : col 1 ≠ col 0) :
+    (ColorMatrix.of one col).fraction = (1 : CFValue) := by
+  have hC := hc ⟨0, 1, 2, 3, .pos⟩ (by simp [one])
+  have hβ : col 0 = col 2 := hC.1
+  have hmat : ColorMatrix.of one col = ColorMatrix.of one (colorOne (col 0) (col 1)) := by
+    have h3 : col 3 = 2 * col 0 - col 1 := by linarith [hC.2]
+    simp [ColorMatrix.of, one, colorOne_0, colorOne_1, colorOne_2, colorOne_3, hβ, h3]
+  rw [hmat]
+  exact one_fraction h
+
 end RationalTangles
