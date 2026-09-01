@@ -44,13 +44,19 @@ fraction. Restricted `rot180` of a `slideReady` diagram (paper: planar
 `f(Tʳ)=-1/f(T)`), Figure 14 with switched signs (`transfer_odd_neg`),
 and Figure 5 slides under `DiagonalSum` and the `hne` port hypotheses
 are included as constructors of this relation, not of `ColoringIsotopy`.
-Standard-form `F` is invariant along it when both endpoints are
+Fraction-level `rot180_add` / `rot180_mul` on a `slideReady` right-add or
+bottom-mul of a unit compares `(e.addRight s).diagram.rot180` with
+`(crossingTangle s).rot180.add e.diagram.rot180` (and the product
+analogue) at `f`, using uniqueness of `f=F` on the rotated twist
+diagram. There is no `TwistExpr` for `rot180` of a general summand, so
+this comparison is not a `SlideReadyIsotopy` constructor. Standard-form
+`F` is invariant along the relation when both endpoints are
 `slideReady` twist diagrams. This is not `Isotopic` and not Theorem 2:
 isotopy can leave the twist/`slideReady` class, and leftover generators
 `rot180_cong` / `rot180_add` / `rot180_mul` of an arbitrary isotopy,
-unrestricted `flype_slide_*` (no `DiagonalSum`/`hne`), and invert-add of
-two general summands are omitted. None of those leftover constructors is
-added to `ColoringIsotopy`.
+unrestricted `flype_slide_*` (no `DiagonalSum`/`hne`), invert-add of
+two general summands, and paths that leave twist form are omitted. None
+of those leftover constructors is added to `ColoringIsotopy`.
 -/
 
 namespace RationalTangles
@@ -1880,11 +1886,23 @@ restores disc colors, so `f` is unchanged (two 90° rotations: `(-1/f)` twice
 is `f`, not the 90° identity `f(Tʳ)=-1/f(T)`). Uniqueness of
 `f=F` on the original `slideReady` diagram identifies every non-monochrome
 coloring of `T.rot180`. Figure 5 slides reuse `coloring_flype_slide_*`.
+On a unit right-sum or bottom-product, the same uniqueness identifies
+`f` of `(T+S).rot180` with a glued coloring of `S.rot180+T.rot180`
+(and the product analogue). The rotated general summand is not a
+`TwistExpr` diagram, so this is not a `SlideReadyIsotopy` constructor.
 -/
 
 theorem ColorMatrix.of_rot180 (T : TangleDiagram) (col : Nat → Int) :
     ColorMatrix.of T.rot180 col = (ColorMatrix.of T col).rotate.rotate := by
   simp [ColorMatrix.of, ColorMatrix.rotate, TangleDiagram.rot180]
+
+theorem ColorMatrix.NotMono_of_rot180 (T : TangleDiagram) (col : Nat → Int)
+    (hd : (ColorMatrix.of T col).DiagonalSum)
+    (hm : (ColorMatrix.of T col).NotMono) :
+    (ColorMatrix.of T.rot180 col).NotMono := by
+  rw [ColorMatrix.of_rot180]
+  exact ColorMatrix.NotMono_rotate (ColorMatrix.DiagonalSum.rotate hd)
+    (ColorMatrix.NotMono_rotate hd hm)
 
 theorem CFValue.negInv_negInv (x : CFValue) : x.negInv.negInv = x := by
   simp [CFValue.negInv, CFValue.neg_inv, CFValue.inv_inv, CFValue.neg_neg]
@@ -2020,6 +2038,195 @@ theorem coloring_flype_slide_mul_slideReady (e : TwistExpr) (hok : e.slideReady)
   · simpa [hM, hLd] using hmL
   · rw [hM]
   · rw [hLd, hfL]
+
+/-- Fraction-level `rot180_add` on a `slideReady` right unit sum:
+    `(T+[±1]).rot180` and `[±1].rot180 + T.rot180` have the same `f`,
+    which equals `F`. The rotated summand is not a `TwistExpr` diagram,
+    so this is not a `SlideReadyIsotopy` constructor. -/
+theorem coloring_rot180_add_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (s : CrossingSign) :
+    ∃ colL colR,
+      (e.diagram.add (crossingTangle s)).rot180.IsColored colL ∧
+      ((crossingTangle s).rot180.add e.diagram.rot180).IsColored colR ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle s)).rot180 colL).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).rot180.add e.diagram.rot180)
+        colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle s)).rot180 colL).fraction =
+        (ColorMatrix.of ((crossingTangle s).rot180.add e.diagram.rot180)
+          colR).fraction ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle s)).rot180 colL).fraction =
+        (TwistExpr.addRight e s).toStandard.fraction := by
+  let eL : TwistExpr := .addRight e s
+  have hokL : eL.slideReady := TwistExpr.addRight_slideReady e s hok
+  let T := e.diagram
+  let U := crossingTangle s
+  let col := eL.colorFrom 0 1
+  have hc : eL.diagram.IsColored col :=
+    eL.colorFrom_isColored_slideReady hokL 0 1
+  have hm : (ColorMatrix.of eL.diagram col).NotMono :=
+    eL.colorFrom_notMono_slideReady hokL
+  have hd := eL.colorFrom_diagonal_slideReady hokL 0 1
+  have hcSum : (T.add U).IsColored col := by
+    simpa [eL, TwistExpr.diagram] using hc
+  have hcL : (T.add U).rot180.IsColored col := IsColored_rot180 _ col hcSum
+  have hmL : (ColorMatrix.of (T.add U).rot180 col).NotMono := by
+    simpa [eL, TwistExpr.diagram] using ColorMatrix.NotMono_of_rot180 eL.diagram col hd hm
+  have hfL := coloring_rot180_any_eq_F_slideReady eL hokL col
+    (by simpa [eL, TwistExpr.diagram] using hcL)
+    (by simpa [eL, TwistExpr.diagram] using hmL)
+  let colU := colorAddRight T U col
+  have hT : T.IsColored col := IsColored_add_left hcSum
+  have hU : U.IsColored colU := IsColored_add_right hcSum
+  have hT180 : T.rot180.IsColored col := IsColored_rot180 T col hT
+  have hU180 : U.rot180.IsColored colU := IsColored_rot180 U colU hU
+  have glueNE : colU U.rot180.NE = col T.rot180.NW := by
+    change colU U.SW = col T.SE
+    exact (colorAddRight_SW T U col).resolve_right (crossingTangle_NW_ne_SW s)
+  have glueSE : colU U.rot180.SE = col T.rot180.SW ∨ T.rot180.NW = T.rot180.SW := by
+    by_cases hports : T.rot180.NW = T.rot180.SW
+    · exact Or.inr hports
+    · left
+      change colU U.NW = col T.NE
+      exact colorAddRight_NW T U col
+  let colR := colorGlueAdd U.rot180 T.rot180 colU col
+  have hcR : (U.rot180.add T.rot180).IsColored colR :=
+    IsColored_colorGlueAdd U.rot180 T.rot180 colU col hU180 hT180 glueNE glueSE
+  have hNW : colR (U.rot180.add T.rot180).NW = col (T.add U).rot180.NW := by
+    change colR U.rot180.NW = col (T.add U).SE
+    dsimp [colR]
+    rw [colorGlueAdd_of_le U.rot180 T.rot180 colU col (maxArc_ge_NW U.rot180)]
+    exact colorAddRight_SE T U col
+  have hNE : colR (U.rot180.add T.rot180).NE = col (T.add U).rot180.NE := by
+    have h1 : colR (U.rot180.add T.rot180).NE = col T.rot180.NE := by
+      dsimp [colR]
+      rw [add_NE]
+      exact colorGlueAdd_comp_shift U.rot180 T.rot180 colU col glueNE glueSE
+        T.rot180.NE
+    rw [h1]
+    rfl
+  have hSW : colR (U.rot180.add T.rot180).SW = col (T.add U).rot180.SW := by
+    change colR U.rot180.SW = col (T.add U).NE
+    dsimp [colR]
+    rw [colorGlueAdd_of_le U.rot180 T.rot180 colU col (maxArc_ge_SW U.rot180)]
+    exact colorAddRight_NE T U col
+  have hSE : colR (U.rot180.add T.rot180).SE = col (T.add U).rot180.SE := by
+    have h1 : colR (U.rot180.add T.rot180).SE = col T.rot180.SE := by
+      dsimp [colR]
+      rw [add_SE]
+      exact colorGlueAdd_comp_shift U.rot180 T.rot180 colU col glueNE glueSE
+        T.rot180.SE
+    rw [h1]
+    rfl
+  have hMat :
+      ColorMatrix.of (U.rot180.add T.rot180) colR =
+        ColorMatrix.of (T.add U).rot180 col := by
+    simp [ColorMatrix.of, hNW, hNE, hSW, hSE]
+  have hmR : (ColorMatrix.of (U.rot180.add T.rot180) colR).NotMono := by
+    simpa [hMat] using hmL
+  have hfR :
+      (ColorMatrix.of (U.rot180.add T.rot180) colR).fraction =
+        eL.toStandard.fraction := by
+    rw [hMat]
+    simpa [eL, TwistExpr.diagram] using hfL
+  refine ⟨col, colR, hcL, hcR, hmL, hmR, ?_, ?_⟩
+  · simpa [eL, TwistExpr.diagram] using
+      (show (ColorMatrix.of (T.add U).rot180 col).fraction =
+          (ColorMatrix.of (U.rot180.add T.rot180) colR).fraction from
+        (hfL.trans hfR.symm))
+  · simpa [eL, TwistExpr.diagram] using hfL
+
+/-- Fraction-level `rot180_mul` on a `slideReady` bottom unit product. -/
+theorem coloring_rot180_mul_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (s : CrossingSign) :
+    ∃ colL colR,
+      (e.diagram.mul (crossingTangle s)).rot180.IsColored colL ∧
+      ((crossingTangle s).rot180.mul e.diagram.rot180).IsColored colR ∧
+      (ColorMatrix.of (e.diagram.mul (crossingTangle s)).rot180 colL).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).rot180.mul e.diagram.rot180)
+        colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.mul (crossingTangle s)).rot180 colL).fraction =
+        (ColorMatrix.of ((crossingTangle s).rot180.mul e.diagram.rot180)
+          colR).fraction ∧
+      (ColorMatrix.of (e.diagram.mul (crossingTangle s)).rot180 colL).fraction =
+        (TwistExpr.mulBottom e s).toStandard.fraction := by
+  let eL : TwistExpr := .mulBottom e s
+  have hokL : eL.slideReady := TwistExpr.mulBottom_slideReady e s hok
+  let T := e.diagram
+  let U := crossingTangle s
+  let col := eL.colorFrom 0 1
+  have hc : eL.diagram.IsColored col :=
+    eL.colorFrom_isColored_slideReady hokL 0 1
+  have hm : (ColorMatrix.of eL.diagram col).NotMono :=
+    eL.colorFrom_notMono_slideReady hokL
+  have hd := eL.colorFrom_diagonal_slideReady hokL 0 1
+  have hcProd : (T.mul U).IsColored col := by
+    simpa [eL, TwistExpr.diagram] using hc
+  have hcL : (T.mul U).rot180.IsColored col := IsColored_rot180 _ col hcProd
+  have hmL : (ColorMatrix.of (T.mul U).rot180 col).NotMono := by
+    simpa [eL, TwistExpr.diagram] using ColorMatrix.NotMono_of_rot180 eL.diagram col hd hm
+  have hfL := coloring_rot180_any_eq_F_slideReady eL hokL col
+    (by simpa [eL, TwistExpr.diagram] using hcL)
+    (by simpa [eL, TwistExpr.diagram] using hmL)
+  let colU := colorMulBottom T U col
+  have hT : T.IsColored col := IsColored_mul_top hcProd
+  have hU : U.IsColored colU := IsColored_mul_bottom hcProd
+  have hT180 : T.rot180.IsColored col := IsColored_rot180 T col hT
+  have hU180 : U.rot180.IsColored colU := IsColored_rot180 U colU hU
+  have glueNW : colU U.rot180.SW = col T.rot180.NW := by
+    change colU U.NE = col T.SE
+    exact (colorMulBottom_NE T U col).resolve_right (crossingTangle_NW_ne_NE s)
+  have glueNE : colU U.rot180.SE = col T.rot180.NE ∨ T.rot180.NW = T.rot180.NE := by
+    by_cases hports : T.rot180.NW = T.rot180.NE
+    · exact Or.inr hports
+    · left
+      change colU U.NW = col T.SW
+      exact colorMulBottom_NW T U col
+  let colR := colorGlueMul U.rot180 T.rot180 colU col
+  have hcR : (U.rot180.mul T.rot180).IsColored colR :=
+    IsColored_colorGlueMul U.rot180 T.rot180 colU col hU180 hT180 glueNW glueNE
+  have hNW : colR (U.rot180.mul T.rot180).NW = col (T.mul U).rot180.NW := by
+    change colR U.rot180.NW = col (T.mul U).SE
+    dsimp [colR]
+    rw [colorGlueMul_of_le U.rot180 T.rot180 colU col (maxArc_ge_NW U.rot180)]
+    exact colorMulBottom_SE T U col
+  have hNE : colR (U.rot180.mul T.rot180).NE = col (T.mul U).rot180.NE := by
+    change colR U.rot180.NE = col (T.mul U).SW
+    dsimp [colR]
+    rw [colorGlueMul_of_le U.rot180 T.rot180 colU col (maxArc_ge_NE U.rot180)]
+    exact colorMulBottom_SW T U col
+  have hSW : colR (U.rot180.mul T.rot180).SW = col (T.mul U).rot180.SW := by
+    have h1 : colR (U.rot180.mul T.rot180).SW = col T.rot180.SW := by
+      dsimp [colR]
+      rw [mul_SW_glue]
+      exact colorGlueMul_comp_shift U.rot180 T.rot180 colU col glueNW glueNE
+        T.rot180.SW
+    rw [h1]
+    rfl
+  have hSE : colR (U.rot180.mul T.rot180).SE = col (T.mul U).rot180.SE := by
+    have h1 : colR (U.rot180.mul T.rot180).SE = col T.rot180.SE := by
+      dsimp [colR]
+      rw [mul_SE_glue]
+      exact colorGlueMul_comp_shift U.rot180 T.rot180 colU col glueNW glueNE
+        T.rot180.SE
+    rw [h1]
+    rfl
+  have hMat :
+      ColorMatrix.of (U.rot180.mul T.rot180) colR =
+        ColorMatrix.of (T.mul U).rot180 col := by
+    simp [ColorMatrix.of, hNW, hNE, hSW, hSE]
+  have hmR : (ColorMatrix.of (U.rot180.mul T.rot180) colR).NotMono := by
+    simpa [hMat] using hmL
+  have hfR :
+      (ColorMatrix.of (U.rot180.mul T.rot180) colR).fraction =
+        eL.toStandard.fraction := by
+    rw [hMat]
+    simpa [eL, TwistExpr.diagram] using hfL
+  refine ⟨col, colR, hcL, hcR, hmL, hmR, ?_, ?_⟩
+  · simpa [eL, TwistExpr.diagram] using
+      (show (ColorMatrix.of (T.mul U).rot180 col).fraction =
+          (ColorMatrix.of (U.rot180.mul T.rot180) colR).fraction from
+        (hfL.trans hfR.symm))
+  · simpa [eL, TwistExpr.diagram] using hfL
 
 /-! ## `SlideReadyIsotopy`
 

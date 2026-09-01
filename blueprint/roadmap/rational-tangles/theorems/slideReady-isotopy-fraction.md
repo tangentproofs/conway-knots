@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.HasColoringFraction RationalTangles.SlideReadyIsotopy RationalTangles.HasColoringFraction.colorFrom_slideReady RationalTangles.SlideReadyIsotopy.has_fraction RationalTangles.TwistExpr.toStandard_fraction_SlideReadyIsotopy RationalTangles.TwistExpr.toStandard_fraction_eq_SlideReadyIsotopy_value RationalTangles.StandardExpr.fraction_SlideReadyIsotopy RationalTangles.coloring_rot180_any_eq_F_slideReady RationalTangles.coloring_rot180_slideReady RationalTangles.coloring_flype_slide_add_slideReady RationalTangles.coloring_flype_slide_mul_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady
+lean: RationalTangles.HasColoringFraction RationalTangles.SlideReadyIsotopy RationalTangles.HasColoringFraction.colorFrom_slideReady RationalTangles.SlideReadyIsotopy.has_fraction RationalTangles.TwistExpr.toStandard_fraction_SlideReadyIsotopy RationalTangles.TwistExpr.toStandard_fraction_eq_SlideReadyIsotopy_value RationalTangles.StandardExpr.fraction_SlideReadyIsotopy RationalTangles.coloring_rot180_any_eq_F_slideReady RationalTangles.coloring_rot180_slideReady RationalTangles.coloring_flype_slide_add_slideReady RationalTangles.coloring_flype_slide_mul_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady RationalTangles.coloring_rot180_add_slideReady RationalTangles.coloring_rot180_mul_slideReady
 proof: formalized
 ---
 
@@ -25,6 +25,14 @@ If both endpoints *are* `slideReady` twist diagrams, uniqueness of $f=F$
 identifies the carried value with each expression's `toStandard.fraction`,
 so those standard-form values agree. The same conclusion holds for
 standard-form expressions via `toTwist`.
+
+Fraction-level `rot180_add` / `rot180_mul` on a unit right-sum or
+bottom-product is compared on PD-codes
+(`(e.addRight s).diagram.rot180` versus
+`(crossingTangle s).rot180.add e.diagram.rot180`, and the product
+analogue) using uniqueness of $f=F$ on the rotated twist. There is no
+`TwistExpr` for `rot180` of a general summand, so those comparisons are
+not constructors of `SlideReadyIsotopy`.
 
 This is not Theorem 2 and not full `Isotopic`. Diagram isotopy can leave the
 twist/`slideReady` class; the relation still omits `rot180_cong` /
@@ -51,3 +59,4 @@ constructors is added to `ColoringIsotopy`.
 - [Coloring fraction after mirror on slide-ready diagrams](coloring-mirror-cong-slideReady.md)
 - [Figure 14 at the coloring fraction on slide-ready diagrams](coloring-transfer-odd-slideReady.md)
 - [Coloring fraction of inverted unit sums and products](../coloring/theorems/coloring-invert-add-units.md)
+- [Coloring fraction of rotated unit sums and products](coloring-rot180-add-units.md)
