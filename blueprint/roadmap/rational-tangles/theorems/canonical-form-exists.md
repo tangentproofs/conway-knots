@@ -1,6 +1,9 @@
 ---
 declaration: theorem
 origin: cited
+statement: formalized
+lean: RationalTangles.canonical_form_exists
+proof: formalized
 ---
 
 # Every rational tangle isotopes to canonical form

@@ -111,6 +111,25 @@ theorem ofInt_zero : ofInt 0 = ofRat 0 := rfl
 theorem inv_ofInt_zero : (ofInt 0).inv = inf := by
   simp [ofInt, inv]
 
+theorem ofRat_injective {p q : Rat} (h : ofRat p = ofRat q) : p = q := by
+  cases h; rfl
+
+theorem neg_add (x y : CFValue) : (x.add y).neg = x.neg.add y.neg := by
+  cases x <;> cases y <;> simp [add, neg]
+  linarith
+
+theorem neg_inv (x : CFValue) : x.inv.neg = x.neg.inv := by
+  cases x with
+  | inf => simp [inv, neg]
+  | ofRat q =>
+    by_cases hq : q = 0
+    · simp [inv, neg, hq]
+    · have hnq : -q ≠ 0 := by intro h; apply hq; linarith
+      simp [inv, neg, hq, hnq, inv_neg]
+
+@[simp] theorem ofInt_neg (n : Int) : ofInt (-n) = (ofInt n).neg := by
+  simp [ofInt, neg]
+
 end CFValue
 
 /-- Continuants `(A, B)` of a finite simple continued fraction. The empty
@@ -133,6 +152,165 @@ def continuants : List Int → Int × Int
 def valueOfList : List Int → CFValue
   | [] => .inf
   | a :: t => (CFValue.ofInt a).add (valueOfList t).inv
+
+theorem valueOfList_nil : valueOfList [] = .inf := rfl
+
+theorem valueOfList_cons (a : Int) (t : List Int) :
+    valueOfList (a :: t) = (CFValue.ofInt a).add (valueOfList t).inv := rfl
+
+theorem valueOfList_neg : ∀ t : List Int,
+    valueOfList (t.map (fun n => -n)) = (valueOfList t).neg
+  | [] => rfl
+  | a :: t => by
+    rw [List.map_cons, valueOfList_cons, valueOfList_cons, valueOfList_neg t]
+    simp [CFValue.ofInt_neg, CFValue.neg_add, CFValue.neg_inv]
+
+def absSum : List Int → Nat
+  | [] => 0
+  | a :: t => a.natAbs + absSum t
+
+theorem absSum_cons (a : Int) (t : List Int) :
+    absSum (a :: t) = a.natAbs + absSum t := rfl
+
+theorem absSum_map_neg : ∀ t : List Int, absSum (t.map (fun n => -n)) = absSum t
+  | [] => rfl
+  | a :: t => by simp [absSum, absSum_map_neg t]
+
+def IsAlternating (t : List Int) : Prop :=
+  (∀ a ∈ t, 0 ≤ a) ∨ (∀ a ∈ t, a ≤ 0)
+
+def oppSign (a b : Int) : Prop :=
+  (0 < a ∧ b < 0) ∨ (a < 0 ∧ 0 < b)
+
+theorem isAlternating_singleton (a : Int) : IsAlternating [a] := by
+  unfold IsAlternating
+  by_cases h : 0 ≤ a
+  · exact Or.inl (by intro x hx; simp at hx; subst hx; exact h)
+  · exact Or.inr (by intro x hx; simp at hx; subst hx; omega)
+
+theorem absSum_append : ∀ s t : List Int, absSum (s ++ t) = absSum s + absSum t
+  | [], t => by simp [absSum]
+  | a :: s, t => by simp [absSum, absSum_append s t, Nat.add_assoc]
+
+/-- Head transfer of a mixed-sign pair, matching Figure 14 / Proposition 3. -/
+def transferHead (a b : Int) (rest : List Int) : List Int :=
+  if 0 < a then
+    (a - 1) :: 1 :: (-(b + 1)) :: rest.map (fun n => -n)
+  else
+    (a + 1) :: (-1) :: (1 - b) :: rest.map (fun n => -n)
+
+theorem natAbs_sub_one_of_pos {a : Int} (h : 0 < a) :
+    (a - 1).natAbs = a.natAbs - 1 := by
+  have h0 : 0 ≤ a := le_of_lt h
+  have h1 : 0 ≤ a - 1 := by omega
+  have ea := Int.eq_natAbs_of_nonneg h0
+  have e1 := Int.eq_natAbs_of_nonneg h1
+  have : 1 ≤ a.natAbs := Int.natAbs_pos.mpr (ne_of_gt h)
+  exact_mod_cast (by omega : ((a - 1).natAbs : Int) = (a.natAbs : Int) - 1)
+
+theorem natAbs_add_one_of_neg {a : Int} (h : a < 0) :
+    (a + 1).natAbs = a.natAbs - 1 := by
+  have hneg : 0 ≤ -a := by omega
+  have hneg1 : 0 ≤ -(a + 1) := by omega
+  have ea : (a.natAbs : Int) = -a := by
+    have := Int.eq_natAbs_of_nonneg hneg
+    simp at this
+    omega
+  have ea1 : ((a + 1).natAbs : Int) = -(a + 1) := by
+    have := Int.eq_natAbs_of_nonneg hneg1
+    simp at this
+    omega
+  have : 1 ≤ a.natAbs := Int.natAbs_pos.mpr (ne_of_lt h)
+  exact_mod_cast (by omega : ((a + 1).natAbs : Int) = (a.natAbs : Int) - 1)
+
+theorem absSum_transferHead (a b : Int) (rest : List Int)
+    (h : oppSign a b) :
+    absSum (transferHead a b rest) < a.natAbs + b.natAbs + absSum rest := by
+  rcases h with ⟨ha, hb⟩ | ⟨ha, hb⟩
+  · have hif : 0 < a := ha
+    unfold transferHead
+    rw [if_pos hif]
+    simp only [absSum, absSum_map_neg]
+    rw [Int.natAbs_neg, natAbs_sub_one_of_pos ha, natAbs_add_one_of_neg hb]
+    have : 1 ≤ a.natAbs := Int.natAbs_pos.mpr (ne_of_gt ha)
+    have : 1 ≤ b.natAbs := Int.natAbs_pos.mpr (ne_of_lt hb)
+    omega
+  · have hif : ¬ 0 < a := by omega
+    unfold transferHead
+    rw [if_neg hif]
+    simp only [absSum, absSum_map_neg]
+    have h1 : (a + 1).natAbs = a.natAbs - 1 := natAbs_add_one_of_neg ha
+    have h2 : (1 - b).natAbs = b.natAbs - 1 := by
+      have : 1 - b = -(b - 1) := by omega
+      rw [this, Int.natAbs_neg, natAbs_sub_one_of_pos hb]
+    rw [h1, h2]
+    have : 1 ≤ a.natAbs := Int.natAbs_pos.mpr (ne_of_lt ha)
+    have : 1 ≤ b.natAbs := Int.natAbs_pos.mpr (ne_of_gt hb)
+    omega
+
+/-- Rewrite the first mixed-sign adjacent pair. -/
+def applyFirstTransfer : List Int → List Int
+  | [] => []
+  | [_a] => [_a]
+  | a :: b :: rest =>
+      if (0 < a ∧ b < 0) ∨ (a < 0 ∧ 0 < b) then
+        transferHead a b rest
+      else
+        a :: applyFirstTransfer (b :: rest)
+
+theorem applyFirstTransfer_ne : ∀ t : List Int, t ≠ [] → applyFirstTransfer t ≠ []
+  | [], h => (h rfl).elim
+  | [_a], _ => by simp [applyFirstTransfer]
+  | a :: b :: rest, _ => by
+      simp only [applyFirstTransfer]
+      split_ifs
+      · unfold transferHead; split_ifs <;> simp
+      · simp
+
+/-- Drop later zeros via `[x, 0, y, …] = [x + y, …]` and `[x, 0] = ∞`. -/
+def contract : List Int → List Int
+  | [] => []
+  | [x] => [x]
+  | _x :: 0 :: [] => []
+  | x :: 0 :: y :: ys => contract ((x + y) :: ys)
+  | x :: y :: ys =>
+      let t' := contract (y :: ys)
+      if t' = [] then [x] else x :: t'
+termination_by
+  t => t.length
+decreasing_by
+  all_goals (simp [List.length]; try omega)
+
+theorem absSum_contract (t : List Int) : absSum (contract t) ≤ absSum t := by
+  generalize hn : t.length = n
+  induction n using Nat.strongRecOn generalizing t with
+  | ind n ih =>
+    match t with
+    | [] => simp [contract, absSum]
+    | [x] => simp [contract, absSum]
+    | x :: y :: ys =>
+        by_cases hy : y = 0
+        · subst hy
+          match ys with
+          | [] => simp [contract, absSum]
+          | z :: zs =>
+              have hlen : ((x + z) :: zs).length < n := by
+                subst hn; simp
+              have ih' := ih _ hlen ((x + z) :: zs) rfl
+              have hle := Int.natAbs_add_le x z
+              simp [contract, absSum] at ih' ⊢
+              omega
+        · have hlen : (y :: ys).length < n := by
+            subst hn; simp
+          have ih' := ih _ hlen (y :: ys) rfl
+          have hc : contract (x :: y :: ys) =
+              if contract (y :: ys) = [] then [x] else x :: contract (y :: ys) := by
+            simp [contract, hy]
+          rw [hc]
+          split_ifs with hempty
+          · simp [absSum]
+          · simp [absSum] at ih' ⊢
+            omega
 
 /-- A finite simple continued fraction `[a₁, …, aₙ]` as in
     Kauffman–Lambropoulou §3: nonempty, with every term after the first

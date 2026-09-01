@@ -25,8 +25,11 @@ def ArithmeticCF.IsCanonical (cf : ArithmeticCF) : Prop :=
   cf.length % 2 = 1 ∧
     ((∀ a ∈ cf.terms, 0 ≤ a) ∨ (∀ a ∈ cf.terms, a ≤ 0))
 
-/-- A diagram in canonical continued-fraction form. -/
+/-- A diagram in canonical continued-fraction form. The tangle `[∞]` is
+    included: it is the continued-fraction value `∞ = 1/0`, which has no
+    same-sign finite expansion. -/
 def IsCanonicalForm (T : TangleDiagram) : Prop :=
-  ∃ cf : ArithmeticCF, cf.IsCanonical ∧ T = cf.tangle
+  T = TangleDiagram.infinity ∨
+    ∃ cf : ArithmeticCF, cf.IsCanonical ∧ T = cf.tangle
 
 end RationalTangles

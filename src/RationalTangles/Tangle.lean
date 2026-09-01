@@ -49,6 +49,13 @@ def switch (C : Crossing) : Crossing :=
   rcases C with ⟨a0, a1, a2, a3, s⟩
   cases s <;> rfl
 
+theorem switch_maxArc (C : Crossing) : C.switch.maxArc = C.maxArc := by
+  simp [Crossing.switch, Crossing.maxArc]
+  omega
+
+theorem switch_rename (f : Nat → Nat) (C : Crossing) :
+    (C.rename f).switch = C.switch.rename f := rfl
+
 end Crossing
 
 namespace TangleDiagram
@@ -106,6 +113,41 @@ def mul (T S : TangleDiagram) : TangleDiagram :=
     SW := S''.SW }
 
 end TangleDiagram
+
+theorem foldl_maxArc_map_switch (cs : List Crossing) (b : Nat) :
+    (cs.map Crossing.switch).foldl (fun m C => max m C.maxArc) b =
+      cs.foldl (fun m C => max m C.maxArc) b := by
+  induction cs generalizing b with
+  | nil => rfl
+  | cons C cs ih =>
+    simp [List.foldl]
+    rw [Crossing.switch_maxArc, ih]
+
+theorem maxArc_mirror (T : TangleDiagram) : T.mirror.maxArc = T.maxArc := by
+  simp [TangleDiagram.mirror, TangleDiagram.maxArc, foldl_maxArc_map_switch]
+
+theorem mirror_add (T S : TangleDiagram) :
+    (T.add S).mirror = T.mirror.add S.mirror := by
+  unfold TangleDiagram.add
+  rw [maxArc_mirror]
+  simp [TangleDiagram.mirror, TangleDiagram.rename, List.map_append, List.map_map,
+    Function.comp, Crossing.switch_rename]
+  intro _ _; rfl
+
+theorem mirror_mul (T S : TangleDiagram) :
+    (T.mul S).mirror = T.mirror.mul S.mirror := by
+  unfold TangleDiagram.mul
+  rw [maxArc_mirror]
+  simp [TangleDiagram.mirror, TangleDiagram.rename, List.map_append, List.map_map,
+    Function.comp, Crossing.switch_rename]
+  intro _ _; rfl
+
+theorem mirror_invert (T : TangleDiagram) :
+    T.invert.mirror = T.mirror.invert := by
+  simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror]
+
+@[simp] theorem mirror_zero : TangleDiagram.zero.mirror = TangleDiagram.zero := rfl
+@[simp] theorem mirror_infinity : TangleDiagram.infinity.mirror = TangleDiagram.infinity := rfl
 
 instance : Add TangleDiagram := ⟨TangleDiagram.add⟩
 instance : Mul TangleDiagram := ⟨TangleDiagram.mul⟩

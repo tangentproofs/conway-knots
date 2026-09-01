@@ -91,6 +91,15 @@ inductive Isotopic : TangleDiagram → TangleDiagram → Prop where
       Isotopic (T.add TangleDiagram.zero) T
   | invert_unit (s : CrossingSign) :
       Isotopic (crossingTangle s) (crossingTangle s).invert
+  | mirror_cong {T T' : TangleDiagram} :
+      Isotopic T T' → Isotopic T.mirror T'.mirror
+  /-- Transfer move (Figure 14, mixed pair of signs, i odd):
+      `(T + [-1]) * [+1] ∼ [+1] + (-T)⁻¹`. -/
+  | transfer_odd (T : TangleDiagram) :
+      Isotopic ((T.add negOne).mul one) (one.add T.mirror.invert)
+  /-- Transfer move with signs switched. -/
+  | transfer_odd_neg (T : TangleDiagram) :
+      Isotopic ((T.add one).mul negOne) (negOne.add T.mirror.invert)
 
 theorem isotopic_planar {D E : TangleDiagram} (h : PlanarIsotopy D E) :
     Isotopic D E :=
