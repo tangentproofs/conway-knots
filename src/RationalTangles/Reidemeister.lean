@@ -465,6 +465,28 @@ def IsReidemeisterIII (D E : TangleDiagram) : Prop :=
         ((exterior D i.val j.val k.val).rename f)
         (exterior E i.val j.val k.val)
 
+/-- Reidemeister III as a local over-slide of a triangular triple, with the
+    remaining crossings identified by list permutation rather than by
+    `dropIdxs` indices. The four endpoints stay fixed up to the arc rename
+    `f`. This is the model used for coloring transport; it does not replace
+    `IsReidemeisterIII`. -/
+def IsReidemeisterIIILocal (D E : TangleDiagram) : Prop :=
+  ∃ (f : Nat → Nat) (PD QD RD PE QE RE : Crossing)
+      (uD vD wD uE vE wE : Nat) (restD restE : List Crossing),
+    Function.Injective f ∧
+      IsR3OverSlide PD QD RD uD vD wD ∧
+      IsR3OverSlide PE QE RE uE vE wE ∧
+      PD.sign = PE.sign ∧ QD.sign = QE.sign ∧ RD.sign = RE.sign ∧
+      r3ExtMatch f PD QD RD PE QE RE uD vD wD uE vE wE ∧
+      E.NW = f D.NW ∧ E.NE = f D.NE ∧ E.SE = f D.SE ∧ E.SW = f D.SW ∧
+      uE ≠ E.NW ∧ uE ≠ E.NE ∧ uE ≠ E.SE ∧ uE ≠ E.SW ∧
+      vE ≠ E.NW ∧ vE ≠ E.NE ∧ vE ≠ E.SE ∧ vE ≠ E.SW ∧
+      wE ≠ E.NW ∧ wE ≠ E.NE ∧ wE ≠ E.SE ∧ wE ≠ E.SW ∧
+      (∀ C ∈ restE, ¬ C.memArc uE ∧ ¬ C.memArc vE ∧ ¬ C.memArc wE) ∧
+      D.crossings.Perm (PD :: QD :: RD :: restD) ∧
+      E.crossings.Perm (PE :: QE :: RE :: restE) ∧
+      pairRel Crossing.sameUpToRotation (restD.map (Crossing.rename f)) restE
+
 /-- One Reidemeister generator: R1, R2, or R3 in the interior of the disc,
     or a planar isotopy that does not change crossing data. The four
     endpoints remain fixed. -/
