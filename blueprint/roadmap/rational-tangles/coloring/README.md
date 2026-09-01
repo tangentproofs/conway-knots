@@ -29,3 +29,4 @@ axioms.
 - [Coloring invariance under Reidemeister III](theorems/coloring-reidemeister-iii.md)
 - [Coloring invariance under flypes](theorems/coloring-flype-invariance.md)
 - [Coloring fraction of a rational tangle](theorems/coloring-fraction-properties.md)
+- [Coloring fraction of inverted unit sums and products](theorems/coloring-invert-add-units.md)
