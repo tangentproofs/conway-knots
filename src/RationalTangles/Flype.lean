@@ -302,6 +302,22 @@ theorem ColoringIsotopy.invert_unit_symm (s : CrossingSign) :
     ColoringIsotopy (crossingTangle s).invert (crossingTangle s) :=
   .invert_unit_rev s
 
+/-- Reverse of one-way `add_right`, using the converse glue identification.
+    Same constructor; not `ColoringIsotopy.symm`. -/
+theorem ColoringIsotopy.add_right_rev {T S S' : TangleDiagram}
+    (h : ColoringIsotopy S' S)
+    (hglue : S'.NW = S'.SW → S.NW = S.SW) :
+    ColoringIsotopy (T.add S') (T.add S) :=
+  .add_right h hglue
+
+/-- Reverse of one-way `mul_right`, using the converse glue identification.
+    Same constructor; not `ColoringIsotopy.symm`. -/
+theorem ColoringIsotopy.mul_right_rev {T S S' : TangleDiagram}
+    (h : ColoringIsotopy S' S)
+    (hglue : S'.NW = S'.NE → S.NW = S.NE) :
+    ColoringIsotopy (T.mul S') (T.mul S) :=
+  .mul_right h hglue
+
 /-! ## Reversible coloring isotopy
 
 The generators of `ColoringIsotopy` that have reverse coloring transport

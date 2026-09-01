@@ -2139,6 +2139,17 @@ theorem ColoringIsotopy.localFlype_rev {D E : TangleDiagram}
     (h : IsLocalFlype D E) : ColoringIsotopy E D :=
   .localFlype h.symm
 
+theorem ColoringIsotopy.r3Local_rev {D E : TangleDiagram}
+    (h : IsReidemeisterIIILocal D E) : ColoringIsotopy E D :=
+  .r3Local h.symm
+
+/-- Reverse of `zero_add` when `T.NW ≠ T.SW`. Dummy-strand `NW = SW` is
+    omitted: `[0]+T` then records unused SW name `1` while the reindex
+    sends that arc to `0`. Not a fake reverse of unrestricted `zero_add`. -/
+theorem ColoringIsotopy.zero_add_rev (T : TangleDiagram) (hne : T.NW ≠ T.SW) :
+    ColoringIsotopy (TangleDiagram.zero.add T) T :=
+  .isotopy (planar_zero_add T hne).symm
+
 /-- Reverse a reversible coloring isotopy. Not `ColoringIsotopy.symm`:
     unrestricted `zero_add` (`NW = SW`) is omitted from
     `ReversibleColoringIsotopy`. `r3Local`, two-way-glue
@@ -2168,6 +2179,16 @@ theorem ReversibleColoringIsotopy.symm {D E : TangleDiagram}
   | add_assoc_rev T S R => exact .add_assoc T S R
   | mul_assoc T S R => exact .mul_assoc_rev T S R
   | mul_assoc_rev T S R => exact .mul_assoc T S R
+
+/-- Every `ColoringIsotopy` constructor has a reverse except unrestricted
+    `zero_add` when `NW = SW` (dummy strand) and one-way
+    `add_right`/`mul_right` glue without the converse identification.
+    On the two-way-glue / `NW ≠ SW` fragment this is
+    `ReversibleColoringIsotopy.symm`; a full `ColoringIsotopy.symm` by
+    induction is therefore not proved. -/
+theorem ColoringIsotopy.symm_of_reversible {D E : TangleDiagram}
+    (h : ReversibleColoringIsotopy D E) : ColoringIsotopy E D :=
+  h.symm.toColoringIsotopy
 
 theorem coloring_ReversibleColoringIsotopy {D E : TangleDiagram}
     (h : ReversibleColoringIsotopy D E) (col : Nat → Int)
