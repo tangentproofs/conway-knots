@@ -18,9 +18,10 @@ the same color matrix, hence the same fraction $F$.
 
 There is no `TwistExpr` for planar $180^\circ$ of a general summand, so
 neither comparison is a `SlideReadyIsotopy` constructor, and neither is
-added to `ColoringIsotopy`. This is not Theorem 2: arbitrary isotopy,
-`rot180_add`/`rot180_mul` of two general (non-unit) diagrams, and
-`rot180_cong` of an arbitrary isotopy remain omitted.
+added to `ColoringIsotopy`. Fraction-level `rot180_cong` on `slideReady`
+diagrams is a separate comparison (uniqueness of $f=F$ along
+`ColoringIsotopy`). Remaining omitted: invert-add of two general
+summands, unrestricted flype slides, and paths that leave twist form.
 
 ## Sources
 

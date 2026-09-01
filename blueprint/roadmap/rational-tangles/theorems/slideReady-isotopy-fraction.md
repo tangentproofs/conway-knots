@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.HasColoringFraction RationalTangles.SlideReadyIsotopy RationalTangles.HasColoringFraction.colorFrom_slideReady RationalTangles.SlideReadyIsotopy.has_fraction RationalTangles.TwistExpr.toStandard_fraction_SlideReadyIsotopy RationalTangles.TwistExpr.toStandard_fraction_eq_SlideReadyIsotopy_value RationalTangles.StandardExpr.fraction_SlideReadyIsotopy RationalTangles.coloring_rot180_any_eq_F_slideReady RationalTangles.coloring_rot180_slideReady RationalTangles.coloring_flype_slide_add_slideReady RationalTangles.coloring_flype_slide_mul_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady RationalTangles.coloring_rot180_add_slideReady RationalTangles.coloring_rot180_mul_slideReady
+lean: RationalTangles.HasColoringFraction RationalTangles.SlideReadyIsotopy RationalTangles.HasColoringFraction.colorFrom_slideReady RationalTangles.SlideReadyIsotopy.has_fraction RationalTangles.TwistExpr.toStandard_fraction_SlideReadyIsotopy RationalTangles.TwistExpr.toStandard_fraction_eq_SlideReadyIsotopy_value RationalTangles.StandardExpr.fraction_SlideReadyIsotopy RationalTangles.coloring_rot180_any_eq_F_slideReady RationalTangles.coloring_rot180_slideReady RationalTangles.coloring_flype_slide_add_slideReady RationalTangles.coloring_flype_slide_mul_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady RationalTangles.coloring_rot180_add_slideReady RationalTangles.coloring_rot180_mul_slideReady RationalTangles.coloring_rot180_cong_SlideReadyIsotopy RationalTangles.SlideReadyIsotopy.rot180_cong
 proof: formalized
 ---
 
@@ -34,12 +34,17 @@ analogue) using uniqueness of $f=F$ on the rotated twist. There is no
 `TwistExpr` for `rot180` of a general summand, so those comparisons are
 not constructors of `SlideReadyIsotopy`.
 
-This is not Theorem 2 and not full `Isotopic`. Diagram isotopy can leave the
-twist/`slideReady` class; the relation still omits `rot180_cong` /
-`rot180_add` / `rot180_mul` of an arbitrary isotopy, unrestricted
-`flype_slide_*` (no `DiagonalSum`/`hne`), invert-add of two general
-summands, and paths that exit twist form. None of those leftover
-constructors is added to `ColoringIsotopy`.
+Fraction-level `rot180_cong` on this class is a theorem
+(`coloring_rot180_cong_SlideReadyIsotopy`), not a constructor: any
+non-monochrome colorings of the two `rot180` PD-codes agree at $F$, and
+the rotated diagrams are related by composing `rot180_rev`, the given
+path, and `rot180`.
+
+This is not full `Isotopic`. Diagram isotopy can leave the
+twist/`slideReady` class; remaining omitted: invert-add of two general
+summands, unrestricted `flype_slide_*` (no `DiagonalSum`/`hne`), and
+paths that exit twist form. None of those leftover constructors is added
+to `ColoringIsotopy`.
 
 ## Sources
 
@@ -60,3 +65,4 @@ constructors is added to `ColoringIsotopy`.
 - [Figure 14 at the coloring fraction on slide-ready diagrams](coloring-transfer-odd-slideReady.md)
 - [Coloring fraction of inverted unit sums and products](../coloring/theorems/coloring-invert-add-units.md)
 - [Coloring fraction of rotated unit sums and products](coloring-rot180-add-units.md)
+- [Coloring fraction after 180° rotation on slide-ready diagrams](coloring-rot180-cong-slideReady.md)

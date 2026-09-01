@@ -55,6 +55,7 @@ in Theorem 3.
 - [Figure 14 at the coloring fraction on slide-ready diagrams](theorems/coloring-transfer-odd-slideReady.md)
 - [Standard-form $F$ along slide-ready coloring paths](theorems/slideReady-isotopy-fraction.md)
 - [Coloring fraction of rotated unit sums and products](theorems/coloring-rot180-add-units.md)
+- [Coloring fraction after 180° rotation on slide-ready diagrams](theorems/coloring-rot180-cong-slideReady.md)
 
 ## Coloring
 
