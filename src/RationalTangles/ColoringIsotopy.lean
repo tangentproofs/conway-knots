@@ -1775,6 +1775,79 @@ theorem coloring_add_assoc (T S R : TangleDiagram) (col : Nat → Int)
     rw [colorGlueAdd_of_le T (S.add R) col (colorGlueAdd S R colS colR)
       (maxArc_ge_SW T)]
 
+theorem coloring_add_assoc_rev (T S R : TangleDiagram) (col : Nat → Int)
+    (hc : (T.add (S.add R)).IsColored col) :
+    ∃ col', ((T.add S).add R).IsColored col' ∧
+      SameEndpointColors (T.add (S.add R)) ((T.add S).add R) col col' := by
+  set colSR := colorAddRight T (S.add R) col
+  set colR := colorAddRight S R colSR
+  have hT : T.IsColored col := IsColored_add_left hc
+  have hSR : (S.add R).IsColored colSR := IsColored_add_right hc
+  have hS : S.IsColored colSR := IsColored_add_left hSR
+  have hR : R.IsColored colR := IsColored_add_right hSR
+  have glueTS_NE : col T.NE = colSR S.NW := by
+    dsimp [colSR]
+    rw [show S.NW = (S.add R).NW from (add_NW S R).symm, colorAddRight_NW]
+  have glueTS_SE : col T.SE = colSR S.SW ∨ S.NW = S.SW := by
+    change col T.SE = colSR (S.add R).SW ∨ (S.add R).NW = (S.add R).SW
+    rcases colorAddRight_SW T (S.add R) col with h | h
+    · exact Or.inl h.symm
+    · exact Or.inr h
+  have hTS : (T.add S).IsColored (colorGlueAdd T S col colSR) :=
+    IsColored_colorGlueAdd T S col colSR hT hS glueTS_NE glueTS_SE
+  have glueR_NE :
+      colorGlueAdd T S col colSR (T.add S).NE = colR R.NW := by
+    have h1 : colorGlueAdd T S col colSR (T.add S).NE = colSR S.NE := by
+      rw [add_NE T S]
+      exact colorGlueAdd_comp_shift T S col colSR glueTS_NE glueTS_SE S.NE
+    rw [h1]
+    dsimp [colR]
+    rw [colorAddRight_NW]
+  have glueR_SE :
+      colorGlueAdd T S col colSR (T.add S).SE = colR R.SW ∨ R.NW = R.SW := by
+    have h1 : colorGlueAdd T S col colSR (T.add S).SE = colSR S.SE := by
+      rw [add_SE T S]
+      exact colorGlueAdd_comp_shift T S col colSR glueTS_NE glueTS_SE S.SE
+    rw [h1]
+    rcases colorAddRight_SW S R colSR with h | h
+    · exact Or.inl h.symm
+    · exact Or.inr h
+  have hE : ((T.add S).add R).IsColored
+      (colorGlueAdd (T.add S) R (colorGlueAdd T S col colSR) colR) :=
+    IsColored_colorGlueAdd (T.add S) R (colorGlueAdd T S col colSR) colR
+      hTS hR glueR_NE glueR_SE
+  refine ⟨colorGlueAdd (T.add S) R (colorGlueAdd T S col colSR) colR, hE, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · change colorGlueAdd (T.add S) R (colorGlueAdd T S col colSR) colR
+        (T.add S).NW = col T.NW
+    rw [colorGlueAdd_of_le (T.add S) R (colorGlueAdd T S col colSR) colR
+      (maxArc_ge_NW (T.add S))]
+    change colorGlueAdd T S col colSR T.NW = col T.NW
+    rw [colorGlueAdd_of_le T S col colSR (maxArc_ge_NW T)]
+  · have h1 :
+        colorGlueAdd (T.add S) R (colorGlueAdd T S col colSR) colR
+          ((T.add S).add R).NE = colR R.NE := by
+      rw [add_NE (T.add S) R]
+      exact colorGlueAdd_comp_shift (T.add S) R (colorGlueAdd T S col colSR)
+        colR glueR_NE glueR_SE R.NE
+    rw [h1]
+    dsimp [colR, colSR]
+    rw [colorAddRight_NE, colorAddRight_NE]
+  · have h1 :
+        colorGlueAdd (T.add S) R (colorGlueAdd T S col colSR) colR
+          ((T.add S).add R).SE = colR R.SE := by
+      rw [add_SE (T.add S) R]
+      exact colorGlueAdd_comp_shift (T.add S) R (colorGlueAdd T S col colSR)
+        colR glueR_NE glueR_SE R.SE
+    rw [h1]
+    dsimp [colR, colSR]
+    rw [colorAddRight_SE, colorAddRight_SE]
+  · change colorGlueAdd (T.add S) R (colorGlueAdd T S col colSR) colR
+        (T.add S).SW = col T.SW
+    rw [colorGlueAdd_of_le (T.add S) R (colorGlueAdd T S col colSR) colR
+      (maxArc_ge_SW (T.add S))]
+    change colorGlueAdd T S col colSR T.SW = col T.SW
+    rw [colorGlueAdd_of_le T S col colSR (maxArc_ge_SW T)]
 
 /-! ## Associativity of `mul` as reindexing -/
 
@@ -1848,6 +1921,82 @@ theorem coloring_mul_assoc (T S R : TangleDiagram) (col : Nat → Int)
     dsimp [colR]
     rw [colorMulBottom_SW]
 
+theorem coloring_mul_assoc_rev (T S R : TangleDiagram) (col : Nat → Int)
+    (hc : (T.mul (S.mul R)).IsColored col) :
+    ∃ col', ((T.mul S).mul R).IsColored col' ∧
+      SameEndpointColors (T.mul (S.mul R)) ((T.mul S).mul R) col col' := by
+  set colSR := colorMulBottom T (S.mul R) col
+  set colR := colorMulBottom S R colSR
+  have hT : T.IsColored col := IsColored_mul_top hc
+  have hSR : (S.mul R).IsColored colSR := IsColored_mul_bottom hc
+  have hS : S.IsColored colSR := IsColored_mul_top hSR
+  have hR : R.IsColored colR := IsColored_mul_bottom hSR
+  have glueTS_NW : col T.SW = colSR S.NW := by
+    dsimp [colSR]
+    -- `S.mul R` has the same NW as `S`.
+    change col T.SW = colorMulBottom T (S.mul R) col (S.mul R).NW
+    rw [colorMulBottom_NW]
+  have glueTS_NE : col T.SE = colSR S.NE ∨ S.NW = S.NE := by
+    change col T.SE = colSR (S.mul R).NE ∨ (S.mul R).NW = (S.mul R).NE
+    rcases colorMulBottom_NE T (S.mul R) col with h | h
+    · exact Or.inl h.symm
+    · exact Or.inr h
+  have hTS : (T.mul S).IsColored (colorGlueMul T S col colSR) :=
+    IsColored_colorGlueMul T S col colSR hT hS glueTS_NW glueTS_NE
+  have glueR_NW :
+      colorGlueMul T S col colSR (T.mul S).SW = colR R.NW := by
+    have h1 : colorGlueMul T S col colSR (T.mul S).SW = colSR S.SW := by
+      rw [mul_SW_glue T S]
+      exact colorGlueMul_comp_shift T S col colSR glueTS_NW glueTS_NE S.SW
+    rw [h1]
+    dsimp [colR]
+    rw [colorMulBottom_NW]
+  have glueR_NE :
+      colorGlueMul T S col colSR (T.mul S).SE = colR R.NE ∨ R.NW = R.NE := by
+    have h1 : colorGlueMul T S col colSR (T.mul S).SE = colSR S.SE := by
+      rw [mul_SE_glue T S]
+      exact colorGlueMul_comp_shift T S col colSR glueTS_NW glueTS_NE S.SE
+    rw [h1]
+    rcases colorMulBottom_NE S R colSR with h | h
+    · exact Or.inl h.symm
+    · exact Or.inr h
+  have hE : ((T.mul S).mul R).IsColored
+      (colorGlueMul (T.mul S) R (colorGlueMul T S col colSR) colR) :=
+    IsColored_colorGlueMul (T.mul S) R (colorGlueMul T S col colSR) colR
+      hTS hR glueR_NW glueR_NE
+  refine ⟨colorGlueMul (T.mul S) R (colorGlueMul T S col colSR) colR, hE, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · change colorGlueMul (T.mul S) R (colorGlueMul T S col colSR) colR
+        (T.mul S).NW = col T.NW
+    rw [colorGlueMul_of_le (T.mul S) R (colorGlueMul T S col colSR) colR
+      (maxArc_ge_NW (T.mul S))]
+    change colorGlueMul T S col colSR T.NW = col T.NW
+    rw [colorGlueMul_of_le T S col colSR (maxArc_ge_NW T)]
+  · change colorGlueMul (T.mul S) R (colorGlueMul T S col colSR) colR
+        (T.mul S).NE = col T.NE
+    rw [colorGlueMul_of_le (T.mul S) R (colorGlueMul T S col colSR) colR
+      (maxArc_ge_NE (T.mul S))]
+    change colorGlueMul T S col colSR T.NE = col T.NE
+    rw [colorGlueMul_of_le T S col colSR (maxArc_ge_NE T)]
+  · have h1 :
+        colorGlueMul (T.mul S) R (colorGlueMul T S col colSR) colR
+          ((T.mul S).mul R).SE = colR R.SE := by
+      rw [mul_SE_glue (T.mul S) R]
+      exact colorGlueMul_comp_shift (T.mul S) R (colorGlueMul T S col colSR)
+        colR glueR_NW glueR_NE R.SE
+    rw [h1]
+    dsimp [colR, colSR]
+    rw [colorMulBottom_SE, colorMulBottom_SE]
+  · have h1 :
+        colorGlueMul (T.mul S) R (colorGlueMul T S col colSR) colR
+          ((T.mul S).mul R).SW = colR R.SW := by
+      rw [mul_SW_glue (T.mul S) R]
+      exact colorGlueMul_comp_shift (T.mul S) R (colorGlueMul T S col colSR)
+        colR glueR_NW glueR_NE R.SW
+    rw [h1]
+    dsimp [colR, colSR]
+    rw [colorMulBottom_SW, colorMulBottom_SW]
+
 /-- Recolor after a coloring-ready isotopy so that endpoint colors (hence
     the color matrix and coloring fraction) are unchanged. -/
 theorem coloring_ColoringIsotopy {D E : TangleDiagram}
@@ -1903,6 +2052,10 @@ theorem coloring_ColoringIsotopy {D E : TangleDiagram}
     exact coloring_add_assoc T S R col hc
   | mul_assoc T S R =>
     exact coloring_mul_assoc T S R col hc
+  | add_assoc_rev T S R =>
+    exact coloring_add_assoc_rev T S R col hc
+  | mul_assoc_rev T S R =>
+    exact coloring_mul_assoc_rev T S R col hc
 
 /-- Indexed Reidemeister III is a coloring-ready move, via the local model. -/
 theorem ColoringIsotopy.of_IsReidemeisterIII {D E : TangleDiagram}
@@ -1930,5 +2083,38 @@ theorem coloring_fraction_ColoringIsotopy {D E : TangleDiagram}
   obtain ⟨col', hc', hs⟩ := coloring_ColoringIsotopy h col hc
   have hM := ColorMatrix.of_sameEndpoint hs
   exact ⟨col', hc', hM, hM ▸ rfl⟩
+
+theorem ColoringIsotopy.isotopy_symm {D E : TangleDiagram}
+    (h : PlanarIsotopy D E) : ColoringIsotopy E D :=
+  .isotopy h.symm
+
+/-- Reverse a reversible coloring isotopy. Not `ColoringIsotopy.symm`:
+    `r3Local`, `localFlype`, `add_right`/`mul_right`, and unrestricted
+    `zero_add` are omitted from `ReversibleColoringIsotopy`. -/
+theorem ReversibleColoringIsotopy.symm {D E : TangleDiagram}
+    (h : ReversibleColoringIsotopy D E) : ReversibleColoringIsotopy E D := by
+  induction h with
+  | refl D => exact .refl D
+  | trans h1 h2 ih1 ih2 => exact .trans ih2 ih1
+  | r1 h hwD hwE => exact .r1 h.symm hwE hwD
+  | r2 h hwD hwE => exact .r2 h.symm hwE hwD
+  | isotopy h => exact .isotopy h.symm
+  | add_left h ih => exact .add_left ih
+  | mul_left h ih => exact .mul_left ih
+  | add_zero T =>
+    exact (congrArg (fun X => ReversibleColoringIsotopy X
+      (T.add TangleDiagram.zero)) (add_zero_eq T)).mp (.refl _)
+  | invert_unit s => exact .invert_unit_rev s
+  | invert_unit_rev s => exact .invert_unit s
+  | add_assoc T S R => exact .add_assoc_rev T S R
+  | add_assoc_rev T S R => exact .add_assoc T S R
+  | mul_assoc T S R => exact .mul_assoc_rev T S R
+  | mul_assoc_rev T S R => exact .mul_assoc T S R
+
+theorem coloring_ReversibleColoringIsotopy {D E : TangleDiagram}
+    (h : ReversibleColoringIsotopy D E) (col : Nat → Int)
+    (hc : D.IsColored col) :
+    ∃ col', E.IsColored col' ∧ SameEndpointColors D E col col' :=
+  coloring_ColoringIsotopy h.toColoringIsotopy col hc
 
 end RationalTangles

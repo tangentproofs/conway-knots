@@ -200,10 +200,13 @@ needs `DiagonalSum` and is not for every coloring), `rot180_cong`/`rot180_add`/`
 `coloring_rot180_diagonal`, not a constructor), switched algebraic `Flype`,
 mirror/invert congruence, transfer, and a full `ColoringIsotopy.symm`.
 Indexed R3 is included via the local model; `add_zero`, `zero_add` (planar
-reindexing of `[0]+T`), `invert_unit`/`invert_unit_rev`, and `add_assoc`/`mul_assoc`
-(reindexing, all colorings) are included. Partial reverse lemmas exist for
-`r1`, `r2`, `add_zero`, and `invert_unit`. Invariance of `f` is stated for `ColoringIsotopy`
-rather than for `Isotopic`.
+reindexing of `[0]+T`), `invert_unit`/`invert_unit_rev`, and
+`add_assoc`/`add_assoc_rev`/`mul_assoc`/`mul_assoc_rev` (reindexing, all
+colorings) are included. Partial reverse lemmas exist for `r1`, `r2`,
+`add_zero`, `invert_unit`, and planar isotopy (`PlanarIsotopy.symm`).
+`ReversibleColoringIsotopy` is the symmetric fragment (omitting `r3Local`,
+`localFlype`, `add_right`/`mul_right`, unrestricted `zero_add`). Invariance
+of `f` is stated for `ColoringIsotopy` rather than for `Isotopic`.
 -/
 
 /-- Directed coloring-ready isotopy of 2-tangle diagrams. -/
@@ -250,6 +253,12 @@ inductive ColoringIsotopy : TangleDiagram → TangleDiagram → Prop where
   /-- Vertical product is associative by PD-code reindexing. -/
   | mul_assoc (T S R : TangleDiagram) :
       ColoringIsotopy ((T.mul S).mul R) (T.mul (S.mul R))
+  /-- Reverse of `add_assoc`. -/
+  | add_assoc_rev (T S R : TangleDiagram) :
+      ColoringIsotopy (T.add (S.add R)) ((T.add S).add R)
+  /-- Reverse of `mul_assoc`. -/
+  | mul_assoc_rev (T S R : TangleDiagram) :
+      ColoringIsotopy (T.mul (S.mul R)) ((T.mul S).mul R)
 
 theorem IsReidemeisterI.symm {D E : TangleDiagram} (h : IsReidemeisterI D E) :
     IsReidemeisterI E D := by
@@ -265,8 +274,10 @@ theorem IsReidemeisterII.symm {D E : TangleDiagram} (h : IsReidemeisterII D E) :
 
 /-- Reverse a coloring-ready R1, R2, `add_zero`, or `invert_unit` step.
     Local R3 and local flype need reverse witnesses (`invFun` is not a
-    globally injective arc map), so a full `ColoringIsotopy.symm` is not
-    proved here. -/
+    globally injective arc map), `add_right`/`mul_right` have one-way glue,
+    and unrestricted `zero_add` has no reverse coloring when `NW = SW`
+    (dummy strand). A full `ColoringIsotopy.symm` is not proved; see
+    `ReversibleColoringIsotopy`. -/
 theorem ColoringIsotopy.r1_symm {D E : TangleDiagram}
     (h : IsReidemeisterI D E) (hwD : D.WellFormed) (hwE : E.WellFormed) :
     ColoringIsotopy E D :=
@@ -285,5 +296,67 @@ theorem ColoringIsotopy.add_zero_symm (T : TangleDiagram) :
 theorem ColoringIsotopy.invert_unit_symm (s : CrossingSign) :
     ColoringIsotopy (crossingTangle s).invert (crossingTangle s) :=
   .invert_unit_rev s
+
+/-! ## Reversible coloring isotopy
+
+The generators of `ColoringIsotopy` that have reverse coloring transport
+(and reverse as a relation). Omits `r3Local`, `localFlype` (no reverse
+coloring; `invFun` is not a globally injective arc map), `add_right` /
+`mul_right` (one-way glue), and unrestricted `zero_add` (dummy strand
+when `NW = SW`). Does not add unrestricted `flype_slide`. This is not
+`Isotopic` and is not `ColoringIsotopy.symm`.
+-/
+
+inductive ReversibleColoringIsotopy : TangleDiagram → TangleDiagram → Prop where
+  | refl (D : TangleDiagram) : ReversibleColoringIsotopy D D
+  | trans {D E F : TangleDiagram} :
+      ReversibleColoringIsotopy D E → ReversibleColoringIsotopy E F →
+        ReversibleColoringIsotopy D F
+  | r1 {D E : TangleDiagram} :
+      IsReidemeisterI D E → D.WellFormed → E.WellFormed →
+        ReversibleColoringIsotopy D E
+  | r2 {D E : TangleDiagram} :
+      IsReidemeisterII D E → D.WellFormed → E.WellFormed →
+        ReversibleColoringIsotopy D E
+  | isotopy {D E : TangleDiagram} :
+      PlanarIsotopy D E → ReversibleColoringIsotopy D E
+  | add_left {T T' S : TangleDiagram} :
+      ReversibleColoringIsotopy T T' →
+        ReversibleColoringIsotopy (T.add S) (T'.add S)
+  | mul_left {T T' S : TangleDiagram} :
+      ReversibleColoringIsotopy T T' →
+        ReversibleColoringIsotopy (T.mul S) (T'.mul S)
+  | add_zero (T : TangleDiagram) :
+      ReversibleColoringIsotopy (T.add TangleDiagram.zero) T
+  | invert_unit (s : CrossingSign) :
+      ReversibleColoringIsotopy (crossingTangle s) (crossingTangle s).invert
+  | invert_unit_rev (s : CrossingSign) :
+      ReversibleColoringIsotopy (crossingTangle s).invert (crossingTangle s)
+  | add_assoc (T S R : TangleDiagram) :
+      ReversibleColoringIsotopy ((T.add S).add R) (T.add (S.add R))
+  | add_assoc_rev (T S R : TangleDiagram) :
+      ReversibleColoringIsotopy (T.add (S.add R)) ((T.add S).add R)
+  | mul_assoc (T S R : TangleDiagram) :
+      ReversibleColoringIsotopy ((T.mul S).mul R) (T.mul (S.mul R))
+  | mul_assoc_rev (T S R : TangleDiagram) :
+      ReversibleColoringIsotopy (T.mul (S.mul R)) ((T.mul S).mul R)
+
+theorem ReversibleColoringIsotopy.toColoringIsotopy {D E : TangleDiagram}
+    (h : ReversibleColoringIsotopy D E) : ColoringIsotopy D E := by
+  induction h with
+  | refl D => exact .refl D
+  | trans h1 h2 ih1 ih2 => exact .trans ih1 ih2
+  | r1 h hwD hwE => exact .r1 h hwD hwE
+  | r2 h hwD hwE => exact .r2 h hwD hwE
+  | isotopy h => exact .isotopy h
+  | add_left h ih => exact .add_left ih
+  | mul_left h ih => exact .mul_left ih
+  | add_zero T => exact .add_zero T
+  | invert_unit s => exact .invert_unit s
+  | invert_unit_rev s => exact .invert_unit_rev s
+  | add_assoc T S R => exact .add_assoc T S R
+  | add_assoc_rev T S R => exact .add_assoc_rev T S R
+  | mul_assoc T S R => exact .mul_assoc T S R
+  | mul_assoc_rev T S R => exact .mul_assoc_rev T S R
 
 end RationalTangles

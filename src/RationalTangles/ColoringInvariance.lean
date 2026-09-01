@@ -493,6 +493,166 @@ theorem arc_le_maxArc_of_mem (T : TangleDiagram) {C : Crossing}
   exact ⟨le_trans C.a0_le_maxArc hm, le_trans C.a1_le_maxArc hm,
     le_trans C.a2_le_maxArc hm, le_trans C.a3_le_maxArc hm⟩
 
+/-! ## Reverse planar isotopy
+
+`PlanarIsotopy` uses an injective arc rename `f`. A global left inverse of
+`f` need not be injective, so reverse uses `planarInvFun f D.maxArc`, which
+inverts `f` on `{a | a ≤ D.maxArc}` (all appearing arcs of `D`) and shifts
+the remaining names. This is not a coloring lemma: reverse coloring along
+`PlanarIsotopy` is `coloring_planar_isotopy_backward`.
+-/
+
+/-- Inverse of an injective rename on `{a | a ≤ M}`; names outside that
+    image are shifted past `M`, so the result is globally injective. -/
+def planarInvFun (f : Nat → Nat) (M b : Nat) : Nat :=
+  match (List.range (M + 1)).find? (fun a => f a == b) with
+  | some a => a
+  | none => b + M + 1
+
+theorem planarInvFun_of_le (f : Nat → Nat) (hf : Function.Injective f)
+    (M : Nat) {a : Nat} (ha : a ≤ M) :
+    planarInvFun f M (f a) = a := by
+  unfold planarInvFun
+  cases h : (List.range (M + 1)).find? (fun k => f k == f a) with
+  | none =>
+    have : a ∈ List.range (M + 1) := List.mem_range.2 (Nat.lt_succ_of_le ha)
+    have hnone := List.find?_eq_none.1 h
+    exact (hnone a this (by simp)).elim
+  | some k =>
+    have hk : f k = f a := by
+      have := List.find?_some (p := fun k => f k == f a) h
+      simpa using this
+    exact hf hk
+
+theorem mem_of_find?_eq_some {α} {p : α → Bool} {l : List α} {a : α}
+    (h : l.find? p = some a) : a ∈ l := by
+  obtain ⟨_, as, bs, rfl, _⟩ := List.find?_eq_some_iff_append.1 h
+  simp
+
+theorem planarInvFun_injective (f : Nat → Nat) (M : Nat) :
+    Function.Injective (planarInvFun f M) := by
+  intro x y hxy
+  unfold planarInvFun at hxy
+  cases hx : (List.range (M + 1)).find? (fun a => f a == x) with
+  | none =>
+    cases hy : (List.range (M + 1)).find? (fun a => f a == y) with
+    | none => simp [hx, hy] at hxy; omega
+    | some b =>
+      simp [hx, hy] at hxy
+      have : b < M + 1 := List.mem_range.1 (mem_of_find?_eq_some hy)
+      omega
+  | some a =>
+    cases hy : (List.range (M + 1)).find? (fun a => f a == y) with
+    | none =>
+      simp [hx, hy] at hxy
+      have : a < M + 1 := List.mem_range.1 (mem_of_find?_eq_some hx)
+      omega
+    | some b =>
+      simp [hx, hy] at hxy
+      have ha : f a = x := by
+        have := List.find?_some (p := fun k => f k == x) hx
+        simpa using this
+      have hb : f b = y := by
+        have := List.find?_some (p := fun k => f k == y) hy
+        simpa using this
+      exact ha.symm.trans (hxy ▸ hb)
+
+theorem pairRel_map {α β} {R : α → α → Prop} {S : β → β → Prop} (f : α → β)
+    (hRS : ∀ x y, R x y → S (f x) (f y)) :
+    ∀ {xs ys : List α}, pairRel R xs ys → pairRel S (xs.map f) (ys.map f)
+  | [], [] => id
+  | _ :: _, [] => by intro h; cases h
+  | [], _ :: _ => by intro h; cases h
+  | _ :: _, _ :: _ => by
+    intro h
+    exact ⟨hRS _ _ h.1, pairRel_map f hRS h.2⟩
+
+theorem pairRel_perm_left {α} {R : α → α → Prop}
+    {xs ys : List α} (hpair : pairRel R xs ys) {xs'} (hperm : xs.Perm xs') :
+    ∃ ys', ys.Perm ys' ∧ pairRel R xs' ys' := by
+  induction hperm generalizing ys with
+  | nil =>
+    cases ys with
+    | nil => exact ⟨[], .nil, trivial⟩
+    | cons _ _ => cases hpair
+  | cons x h ih =>
+    cases ys with
+    | nil => cases hpair
+    | cons y ys =>
+      obtain ⟨hxy, hrest⟩ := hpair
+      obtain ⟨ys', hp, hr⟩ := ih hrest
+      exact ⟨y :: ys', hp.cons y, ⟨hxy, hr⟩⟩
+  | swap x y l =>
+    cases ys with
+    | nil => cases hpair
+    | cons y0 ys =>
+      cases ys with
+      | nil => cases hpair.2
+      | cons x0 ys =>
+        obtain ⟨hy, hxrest⟩ := hpair
+        obtain ⟨hx, hrest⟩ := hxrest
+        exact ⟨x0 :: y0 :: ys, .swap x0 y0 ys, ⟨hx, hy, hrest⟩⟩
+  | trans h1 h2 ih1 ih2 =>
+    obtain ⟨ys1, hp1, hr1⟩ := ih1 hpair
+    obtain ⟨ys2, hp2, hr2⟩ := ih2 hr1
+    exact ⟨ys2, hp1.trans hp2, hr2⟩
+
+theorem Crossing.sameUpToRotation_rename (g : Nat → Nat) {C D : Crossing}
+    (h : C.sameUpToRotation D) :
+    (C.rename g).sameUpToRotation (D.rename g) := by
+  rcases h with rfl | hrot | hrev | hrr
+  · exact Or.inl rfl
+  · rw [hrot]; exact Or.inr (Or.inl rfl)
+  · rw [hrev]; exact Or.inr (Or.inr (Or.inl rfl))
+  · rw [hrr]; exact Or.inr (Or.inr (Or.inr rfl))
+
+theorem List.map_eq_of_id {α} {f : α → α} {l : List α}
+    (h : ∀ x ∈ l, f x = x) : l.map f = l := by
+  induction l with
+  | nil => rfl
+  | cons x xs ih =>
+    simp [h x (List.mem_cons.2 (Or.inl rfl)),
+      ih (fun y hy => h y (List.mem_cons.2 (Or.inr hy)))]
+
+/-- Reverse a planar isotopy by inverting the rename on appearing arcs. -/
+theorem PlanarIsotopy.symm {D E : TangleDiagram} (h : PlanarIsotopy D E) :
+    PlanarIsotopy E D := by
+  obtain ⟨f, hf, hNW, hNE, hSE, hSW, Cs, hpair, hperm⟩ := h
+  let g := planarInvFun f D.maxArc
+  have hg : Function.Injective g := planarInvFun_injective f D.maxArc
+  have hid {a : Nat} (ha : a ≤ D.maxArc) : g (f a) = a :=
+    planarInvFun_of_le f hf D.maxArc ha
+  have hrename {C : Crossing} (hC : C ∈ D.crossings) :
+      C.rename (g ∘ f) = C := by
+    have hp := arc_le_maxArc_of_mem D hC
+    cases C
+    simp [Crossing.rename, Function.comp, hid hp.1, hid hp.2.1, hid hp.2.2.1,
+      hid hp.2.2.2]
+  have hmapD :
+      D.crossings.map (Crossing.rename (g ∘ f)) = D.crossings :=
+    List.map_eq_of_id fun C hC => hrename hC
+  have hpairg :
+      pairRel Crossing.sameUpToRotation
+        (Cs.map (Crossing.rename g)) D.crossings := by
+    have h1 :=
+      pairRel_map (Crossing.rename g) (fun _ _ =>
+        Crossing.sameUpToRotation_rename g) hpair
+    have hmap :
+        (D.crossings.map (Crossing.rename f)).map (Crossing.rename g) =
+          D.crossings := by
+      rw [List.map_map]
+      exact hmapD
+    rw [hmap] at h1
+    exact pairRel_symm (fun _ _ => Crossing.sameUpToRotation.symm) h1
+  have hperm' : (Cs.map (Crossing.rename g)).Perm
+      (E.crossings.map (Crossing.rename g)) := hperm.map _
+  obtain ⟨Cs', hCs', hpair'⟩ := pairRel_perm_left hpairg hperm'
+  refine ⟨g, hg, ?_, ?_, ?_, ?_, Cs', hpair', hCs'.symm⟩
+  · simp [g, hNW, hid (maxArc_ge_NW D)]
+  · simp [g, hNE, hid (maxArc_ge_NE D)]
+  · simp [g, hSE, hid (maxArc_ge_SE D)]
+  · simp [g, hSW, hid (maxArc_ge_SW D)]
+
 /-! ## Extending colorings across `[±1]` twists -/
 
 def colorAddOne (T : TangleDiagram) (col : Nat → Int) : Nat → Int :=

@@ -111,7 +111,11 @@ coloring of `[∞]ⁱ` on both PD-codes (`mul_infinity_eq` /
 `add_infinity_invert_eq`), carried value `0`. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
-`ColoringIsotopy`.
+`ColoringIsotopy`. Full `ColoringIsotopy.symm` is omitted: `r3Local` and
+`localFlype` have no reverse coloring, `add_right`/`mul_right` have one-way
+glue, and unrestricted `zero_add` has no reverse coloring when `NW = SW`.
+`ReversibleColoringIsotopy` is the symmetric fragment (`PlanarIsotopy.symm`,
+`add_assoc_rev`/`mul_assoc_rev`); it does not add unrestricted `flype_slide`.
 
 `HasColoringFraction` is carried along `ColoringIsotopy` on arbitrary
 diagrams, along invert/mirror/`rot180` of a `slideReady` twist (and
@@ -3588,6 +3592,16 @@ theorem HasColoringFraction.of_ColoringIsotopy {D E : TangleDiagram} {v : CFValu
   obtain ⟨col', hc', hMat, hfrac'⟩ := coloring_fraction_ColoringIsotopy h col hc
   refine ⟨col', hc', ?_, hfrac'.trans hfrac⟩
   simpa [hMat] using hm
+
+theorem HasColoringFraction.of_ReversibleColoringIsotopy {D E : TangleDiagram}
+    {v : CFValue} (h : ReversibleColoringIsotopy D E)
+    (hf : HasColoringFraction D v) : HasColoringFraction E v :=
+  HasColoringFraction.of_ColoringIsotopy h.toColoringIsotopy hf
+
+theorem HasColoringFraction.of_ReversibleColoringIsotopy_symm {D E : TangleDiagram}
+    {v : CFValue} (h : ReversibleColoringIsotopy D E)
+    (hf : HasColoringFraction E v) : HasColoringFraction D v :=
+  HasColoringFraction.of_ReversibleColoringIsotopy h.symm hf
 
 /-- Planar `180°` under `DiagonalSum` preserves the coloring fraction on
     an arbitrary diagram (not necessarily twist-form). -/
