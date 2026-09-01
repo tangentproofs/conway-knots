@@ -141,13 +141,6 @@ theorem TwistExpr.toStandard_mulTop (e : TwistExpr) (s : CrossingSign) :
     (TwistExpr.mulTop e s).toStandard = (TwistExpr.mulBottom e s).toStandard :=
   rfl
 
-/-- Twist diagrams built without left-add / top-mul (so every `add`/`mul` uses
-    a unit with distinct glue ports) satisfy DiagonalSum. -/
-def TwistExpr.rightBottom : TwistExpr → Prop
-  | zero | infinity | one | negOne => True
-  | addRight e _ | mulBottom e _ => e.rightBottom
-  | addLeft _ _ | mulTop _ _ => False
-
 /-- Propagate two initial strand colors through a right-and-bottom twist
     expression (the same construction as `StandardExpr.colorFrom`, plus
     the elementary `[±1]` diagrams). Left-add / top-mul are dummy: those
@@ -392,5 +385,154 @@ theorem coloring_fraction_eq_F_cf (e : TwistExpr) (hok : e.slideReady)
     (ColorMatrix.of e.diagram col).fraction = valueOfList e.toStandard.toTerms :=
   (coloring_fraction_eq_F e hok col hc hdiag hm).trans
     (StandardExpr.fraction_eq_valueOfList e.toStandard)
+
+theorem CrossingSign.cfValue_flip (s : CrossingSign) :
+    s.flip.cfValue = s.cfValue.neg := by
+  cases s with
+  | pos =>
+    simp [CrossingSign.flip, CrossingSign.cfValue, CFValue.ofInt, CFValue.neg]
+  | neg =>
+    simp [CrossingSign.flip, CrossingSign.cfValue, CFValue.ofInt, CFValue.neg]
+    rfl
+
+theorem TwistExpr.fraction_mirror (e : TwistExpr) :
+    e.mirror.fraction = e.fraction.neg := by
+  induction e with
+  | zero =>
+    simp [TwistExpr.mirror, TwistExpr.fraction]
+    rfl
+  | infinity =>
+    simp [TwistExpr.mirror, TwistExpr.fraction]
+  | one =>
+    simp [TwistExpr.mirror, TwistExpr.fraction, CFValue.neg, CFValue.ofInt]
+  | negOne =>
+    simp [TwistExpr.mirror, TwistExpr.fraction, CFValue.neg, CFValue.ofInt]
+    rfl
+  | addRight e s ih =>
+    simp [TwistExpr.mirror, TwistExpr.fraction, CrossingSign.cfValue_flip, ih,
+      CFValue.neg_add]
+  | addLeft e s ih =>
+    simp [TwistExpr.mirror, TwistExpr.fraction, CrossingSign.cfValue_flip, ih,
+      CFValue.neg_add]
+  | mulBottom e s ih =>
+    simp [TwistExpr.mirror, TwistExpr.fraction, CrossingSign.cfValue_flip, ih,
+      CFValue.neg_inv, CFValue.neg_add]
+  | mulTop e s ih =>
+    simp [TwistExpr.mirror, TwistExpr.fraction, CrossingSign.cfValue_flip, ih,
+      CFValue.neg_inv, CFValue.neg_add]
+
+/-- On a right-and-bottom twist diagram, a non-monochrome coloring of the
+    mirror has coloring fraction `-f(T)`. Uses a fresh coloring of
+    `e.mirror` (via `colorFrom`): `SameEndpointColors` after `one.mirror`
+    is false. -/
+theorem coloring_mirror_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
+    (col col' : Nat → Int)
+    (hc : e.diagram.IsColored col)
+    (hm : (ColorMatrix.of e.diagram col).NotMono)
+    (hc' : e.diagram.mirror.IsColored col')
+    (hm' : (ColorMatrix.of e.diagram.mirror col').NotMono) :
+    (ColorMatrix.of e.diagram.mirror col').fraction =
+      (ColorMatrix.of e.diagram col).fraction.neg := by
+  obtain ⟨colM, hcM, hMat, hfrac⟩ :=
+    coloring_fraction_ColoringIsotopy (coloring_mirror_diagram_rightBottom e hrb) col' hc'
+  have hmM : (ColorMatrix.of e.mirror.diagram colM).NotMono := by
+    simpa [hMat] using hm'
+  have hfT := coloring_fraction_eq_F_rightBottom e hrb col hc hm
+  have hfM := coloring_fraction_eq_F_rightBottom e.mirror
+    (TwistExpr.rightBottom_mirror e hrb) colM hcM hmM
+  rw [hfrac.symm, hfM, TwistExpr.fraction_mirror, hfT]
+
+/-- Paper Theorem 4(4) on right-and-bottom twist form: `f(Tʳ) = -1/f(T)`.
+    Same coloring: rotation only cycles endpoints. -/
+theorem coloring_invert_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
+    (col : Nat → Int)
+    (hc : e.diagram.IsColored col)
+    (hm : (ColorMatrix.of e.diagram col).NotMono) :
+    (ColorMatrix.of e.diagram.rotate col).fraction =
+      (ColorMatrix.of e.diagram col).fraction.negInv :=
+  coloring_fraction_rotate e.diagram col
+    (twist_coloring_diagonal_rightBottom e hrb col hc) hm
+
+/-- Paper Theorem 4(6) on right-and-bottom twist form: `f(Tⁱ) = 1/f(T)`.
+    Fresh coloring of `e.mirror` via `colorFrom`, transported along
+    `coloring_mirror_diagram_rev_rightBottom` onto `e.diagram.mirror`,
+    then the same coloring of the rotate (`T.invert = T.mirror.rotate`). -/
+theorem coloring_invert_inv_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
+    (col : Nat → Int)
+    (hc : e.diagram.IsColored col)
+    (hm : (ColorMatrix.of e.diagram col).NotMono) :
+    ∃ col', e.diagram.invert.IsColored col' ∧
+      (ColorMatrix.of e.diagram.invert col').NotMono ∧
+      (ColorMatrix.of e.diagram.invert col').fraction =
+        (ColorMatrix.of e.diagram col).fraction.inv := by
+  have hrbM : e.mirror.rightBottom := TwistExpr.rightBottom_mirror e hrb
+  let colM := e.mirror.colorFrom 0 1
+  have hcM : e.mirror.diagram.IsColored colM := e.mirror.colorFrom_isColored hrbM 0 1
+  have hmM : (ColorMatrix.of e.mirror.diagram colM).NotMono :=
+    e.mirror.colorFrom_notMono hrbM
+  have hdM : (ColorMatrix.of e.mirror.diagram colM).DiagonalSum :=
+    e.mirror.colorFrom_diagonal hrbM 0 1
+  obtain ⟨col', hc', hMat, _hfrac⟩ :=
+    coloring_fraction_ColoringIsotopy
+      (coloring_mirror_diagram_rev_rightBottom e hrb) colM hcM
+  have hm' : (ColorMatrix.of e.diagram.mirror col').NotMono := by
+    simpa [hMat] using hmM
+  have hd' : (ColorMatrix.of e.diagram.mirror col').DiagonalSum := by
+    simpa [hMat] using hdM
+  have hcI : e.diagram.invert.IsColored col' := by
+    simpa [invert_eq_mirror_rotate] using coloring_rotate _ col' hc'
+  refine ⟨col', hcI, ?_, ?_⟩
+  · have hrot :
+        ColorMatrix.of e.diagram.invert col' =
+          (ColorMatrix.of e.diagram.mirror col').rotate := by
+      simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+    simpa [hrot] using ColorMatrix.NotMono_rotate hd' hm'
+  · have hrot :
+        (ColorMatrix.of e.diagram.invert col').fraction =
+          (ColorMatrix.of e.diagram.mirror col').fraction.negInv := by
+      simpa [invert_eq_mirror_rotate] using
+        coloring_fraction_rotate e.diagram.mirror col' hd' hm'
+    have hfM := coloring_mirror_rightBottom e hrb col col' hc hm hc' hm'
+    rw [hrot, hfM, CFValue.negInv, ← CFValue.neg_inv, CFValue.neg_neg]
+
+/-- Horizontal sum with a unit on the left has `DiagonalSum` when the inner
+    diagram is right-and-bottom and the glue ports are distinct (the
+    `slideReady` hypothesis of `addLeft`, not a degenerate identification). -/
+theorem twist_coloring_diagonal_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.SW)
+    (col : Nat → Int)
+    (h : (TwistExpr.addLeft e s).diagram.IsColored col) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).DiagonalSum := by
+  simp [TwistExpr.diagram] at h ⊢
+  exact ColorMatrix.DiagonalSum_of_add hne
+    (crossingTangle_diagonal_any s _ (IsColored_add_left h))
+    (twist_coloring_diagonal_rightBottom e hrb _
+      (IsColored_add_right h))
+
+theorem TwistExpr.addLeft_slideReady (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW) :
+    (TwistExpr.addLeft e s).slideReady :=
+  ⟨hne, TwistExpr.rightBottom_slideReady e hrb⟩
+
+/-- On `addLeft` of a right-and-bottom expression, with non-degenerate glue,
+    `f = F`. The coloring is transported to the common `toStandard` image of
+    `addLeft` and `addRight` (`toStandard_addLeft`); `DiagonalSum` is the
+    honest glue of a unit on the left onto an inner right-and-bottom
+    diagram, not a fake identification. -/
+theorem coloring_fraction_eq_F_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.SW)
+    (col : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).NotMono) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).fraction =
+      (TwistExpr.addLeft e s).fraction := by
+  have hok := TwistExpr.addLeft_slideReady e s hrb hne
+  have hdiag := twist_coloring_diagonal_addLeft e s hrb hne col hc
+  have hf := coloring_fraction_eq_F (TwistExpr.addLeft e s) hok col hc hdiag hm
+  have hF := TwistExpr.fraction_eq_toStandard_addLeft e s
+    (TwistExpr.fraction_eq_toStandard_rightBottom e hrb)
+  exact hf.trans hF.symm
 
 end RationalTangles

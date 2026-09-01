@@ -109,6 +109,99 @@ theorem coloring_mirror_diagram_rev (e : StandardExpr) :
         (.mul_right (coloring_crossingTangle_mirror_rev s) hglue)
     simpa [mirror_mul] using hstep
 
+/-- `e.diagram.mirror` is coloring-ready isotopic to the algebraic sign-flip
+    `e.mirror.diagram`, for right-and-bottom twist expressions. -/
+theorem coloring_mirror_diagram_rightBottom (e : TwistExpr) (hrb : e.rightBottom) :
+    ColoringIsotopy e.diagram.mirror e.mirror.diagram := by
+  induction e with
+  | zero =>
+    simp [TwistExpr.diagram, TwistExpr.mirror]
+    exact .refl _
+  | infinity =>
+    simp [TwistExpr.diagram, TwistExpr.mirror]
+    exact .refl _
+  | one =>
+    simp [TwistExpr.diagram, TwistExpr.mirror]
+    exact .refl _
+  | negOne =>
+    simp [TwistExpr.diagram, TwistExpr.mirror]
+    exact .isotopy (planar_mirror_mirror one)
+  | addRight e s ih =>
+    have hrb' : e.rightBottom := hrb
+    simp only [TwistExpr.diagram, TwistExpr.mirror]
+    have hglue : (crossingTangle s).mirror.NW = (crossingTangle s).mirror.SW →
+        (crossingTangle s.flip).NW = (crossingTangle s.flip).SW := by
+      intro h
+      have : (crossingTangle s).NW ≠ (crossingTangle s).SW :=
+        crossingTangle_NW_ne_SW s
+      simp [TangleDiagram.mirror] at h
+      exact (this h).elim
+    have hstep :=
+      ColoringIsotopy.trans (.add_left (S := (crossingTangle s).mirror) (ih hrb'))
+        (.add_right (coloring_crossingTangle_mirror s) hglue)
+    simpa [mirror_add] using hstep
+  | mulBottom e s ih =>
+    have hrb' : e.rightBottom := hrb
+    simp only [TwistExpr.diagram, TwistExpr.mirror]
+    have hglue : (crossingTangle s).mirror.NW = (crossingTangle s).mirror.NE →
+        (crossingTangle s.flip).NW = (crossingTangle s.flip).NE := by
+      intro h
+      have : (crossingTangle s).NW ≠ (crossingTangle s).NE :=
+        crossingTangle_NW_ne_NE s
+      simp [TangleDiagram.mirror] at h
+      exact (this h).elim
+    have hstep :=
+      ColoringIsotopy.trans (.mul_left (S := (crossingTangle s).mirror) (ih hrb'))
+        (.mul_right (coloring_crossingTangle_mirror s) hglue)
+    simpa [mirror_mul] using hstep
+  | addLeft e s => cases hrb
+  | mulTop e s => cases hrb
+
+theorem coloring_mirror_diagram_rev_rightBottom (e : TwistExpr)
+    (hrb : e.rightBottom) :
+    ColoringIsotopy e.mirror.diagram e.diagram.mirror := by
+  induction e with
+  | zero =>
+    simp [TwistExpr.diagram, TwistExpr.mirror]
+    exact .refl _
+  | infinity =>
+    simp [TwistExpr.diagram, TwistExpr.mirror]
+    exact .refl _
+  | one =>
+    simp [TwistExpr.diagram, TwistExpr.mirror]
+    exact .refl _
+  | negOne =>
+    simp [TwistExpr.diagram, TwistExpr.mirror]
+    exact .isotopy (planar_mirror_mirror_rev one)
+  | addRight e s ih =>
+    have hrb' : e.rightBottom := hrb
+    simp only [TwistExpr.diagram, TwistExpr.mirror]
+    have hglue : (crossingTangle s.flip).NW = (crossingTangle s.flip).SW →
+        (crossingTangle s).mirror.NW = (crossingTangle s).mirror.SW := by
+      intro h
+      have : (crossingTangle s.flip).NW ≠ (crossingTangle s.flip).SW :=
+        crossingTangle_NW_ne_SW s.flip
+      exact (this h).elim
+    have hstep :=
+      ColoringIsotopy.trans (.add_left (S := crossingTangle s.flip) (ih hrb'))
+        (.add_right (coloring_crossingTangle_mirror_rev s) hglue)
+    simpa [mirror_add] using hstep
+  | mulBottom e s ih =>
+    have hrb' : e.rightBottom := hrb
+    simp only [TwistExpr.diagram, TwistExpr.mirror]
+    have hglue : (crossingTangle s.flip).NW = (crossingTangle s.flip).NE →
+        (crossingTangle s).mirror.NW = (crossingTangle s).mirror.NE := by
+      intro h
+      have : (crossingTangle s.flip).NW ≠ (crossingTangle s.flip).NE :=
+        crossingTangle_NW_ne_NE s.flip
+      exact (this h).elim
+    have hstep :=
+      ColoringIsotopy.trans (.mul_left (S := crossingTangle s.flip) (ih hrb'))
+        (.mul_right (coloring_crossingTangle_mirror_rev s) hglue)
+    simpa [mirror_mul] using hstep
+  | addLeft e s => cases hrb
+  | mulTop e s => cases hrb
+
 theorem one_eq_ofInt_one : (1 : CFValue) = CFValue.ofInt 1 := rfl
 
 theorem StandardExpr.fraction_mirror (e : StandardExpr) :

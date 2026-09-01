@@ -48,6 +48,35 @@ def diagram : TwistExpr → TangleDiagram
   | mulBottom e s => e.diagram * crossingTangle s
   | mulTop e s => crossingTangle s * e.diagram
 
+/-- Switch every crossing sign: the twist-form expression for `-T`. -/
+def mirror : TwistExpr → TwistExpr
+  | zero => zero
+  | infinity => infinity
+  | one => negOne
+  | negOne => one
+  | addRight e s => addRight e.mirror s.flip
+  | addLeft e s => addLeft e.mirror s.flip
+  | mulBottom e s => mulBottom e.mirror s.flip
+  | mulTop e s => mulTop e.mirror s.flip
+
+/-- Twist diagrams built without left-add / top-mul (so every `add`/`mul` uses
+    a unit with distinct glue ports). -/
+def rightBottom : TwistExpr → Prop
+  | zero | infinity | one | negOne => True
+  | addRight e _ | mulBottom e _ => e.rightBottom
+  | addLeft _ _ | mulTop _ _ => False
+
+theorem rightBottom_mirror (e : TwistExpr) (h : e.rightBottom) :
+    e.mirror.rightBottom := by
+  induction e with
+  | zero | infinity | one | negOne => simp [mirror, rightBottom]
+  | addRight e s ih =>
+    simpa [mirror, rightBottom] using ih h
+  | mulBottom e s ih =>
+    simpa [mirror, rightBottom] using ih h
+  | addLeft e s => cases h
+  | mulTop e s => cases h
+
 end TwistExpr
 
 /-- A diagram created by consecutive additions and multiplications by
