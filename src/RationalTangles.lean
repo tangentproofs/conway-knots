@@ -18,6 +18,7 @@ import RationalTangles.ColoringFlype
 import RationalTangles.ColoringIsotopy
 import RationalTangles.ColoringStandard
 import RationalTangles.ColoringToStandard
+import RationalTangles.ColoringFractionEq
 import RationalTangles.ColorFraction
 import RationalTangles.Rational
 import RationalTangles.StandardForm
