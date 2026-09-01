@@ -535,4 +535,62 @@ theorem coloring_fraction_eq_F_addLeft (e : TwistExpr) (s : CrossingSign)
     (TwistExpr.fraction_eq_toStandard_rightBottom e hrb)
   exact hf.trans hF.symm
 
+/-- Vertical product with a unit on top has `DiagonalSum` when the inner
+    diagram is right-and-bottom and the glue ports are distinct (the
+    `slideReady` hypothesis of `mulTop`). -/
+theorem twist_coloring_diagonal_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.NE)
+    (col : Nat → Int)
+    (h : (TwistExpr.mulTop e s).diagram.IsColored col) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).DiagonalSum := by
+  simp [TwistExpr.diagram] at h ⊢
+  exact ColorMatrix.DiagonalSum_of_mul hne
+    (crossingTangle_diagonal_any s _ (IsColored_mul_top h))
+    (twist_coloring_diagonal_rightBottom e hrb _
+      (IsColored_mul_bottom h))
+
+theorem TwistExpr.mulTop_slideReady (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE) :
+    (TwistExpr.mulTop e s).slideReady :=
+  ⟨hne, TwistExpr.rightBottom_slideReady e hrb⟩
+
+/-- Conway product on the top is *not* the same arithmetic as bottom
+    product, so `TwistExpr.mulTop.fraction` need not equal `toStandard`.
+    The coloring fraction still matches the standard-form (right-and-bottom)
+    evaluation, i.e. `F` of the isotopic `mulBottom`. -/
+theorem TwistExpr.fraction_mulBottom_eq_toStandard_mulTop
+    (e : TwistExpr) (s : CrossingSign) (hrb : e.rightBottom) :
+    (TwistExpr.mulBottom e s).fraction =
+      (TwistExpr.mulTop e s).toStandard.fraction := by
+  rw [TwistExpr.toStandard_mulTop]
+  exact TwistExpr.fraction_eq_toStandard_rightBottom (.mulBottom e s) hrb
+
+/-- On `mulTop` of a right-and-bottom expression, with non-degenerate glue,
+    `f` equals the arithmetical fraction of `toStandard` (the same value as
+    `mulBottom`). `DiagonalSum` is the honest glue of a unit on top onto an
+    inner right-and-bottom diagram. -/
+theorem coloring_fraction_eq_F_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.NE)
+    (col : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).NotMono) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).fraction =
+      (TwistExpr.mulTop e s).toStandard.fraction := by
+  have hok := TwistExpr.mulTop_slideReady e s hrb hne
+  have hdiag := twist_coloring_diagonal_mulTop e s hrb hne col hc
+  exact coloring_fraction_eq_F (TwistExpr.mulTop e s) hok col hc hdiag hm
+
+theorem coloring_fraction_eq_F_mulTop_bottom (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.NE)
+    (col : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).NotMono) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).fraction =
+      (TwistExpr.mulBottom e s).fraction :=
+  (coloring_fraction_eq_F_mulTop e s hrb hne col hc hm).trans
+    (TwistExpr.fraction_mulBottom_eq_toStandard_mulTop e s hrb).symm
+
 end RationalTangles
