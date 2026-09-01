@@ -15,10 +15,15 @@ that the latter is the continued-fraction value of `e.toStandard.toTerms`
 (Remark 6 / Definition 8 on standard form), so `f(T) = F(T)` on that path.
 
 This does **not** identify `TwistExpr.fraction` of a `mulTop` node with the
-standard-form value: Conway product `[s]*e = 1/(1/s+F(e))` differs from
-`e*[s]` (e.g. `[1]*[∞]`), while `toStandard` sends both to the same
+standard-form value: the Conway product on the top differs from the
+right-and-bottom product, while `toStandard` sends both to the same
 right-and-bottom expression. Leftover `Isotopic` generators (`invert_cong`,
 Figure 14 transfers, unrestricted flypes) are unused.
+
+If two `slideReady` expressions denote the same PD-code and a non-monochrome
+`DiagonalSum` coloring of that code exists, they share `toStandard.fraction`
+(so that value is a function of the diagram). On `rightBottom` the coloring
+is discharged by `colorFrom`. This is not isotopy invariance of `F`.
 -/
 
 namespace RationalTangles
@@ -643,5 +648,87 @@ theorem coloring_fraction_eq_F_mulTop_bottom (e : TwistExpr) (s : CrossingSign)
       (TwistExpr.mulBottom e s).fraction :=
   (coloring_fraction_eq_F_mulTop e s hrb hne col hc hm).trans
     (TwistExpr.fraction_mulBottom_eq_toStandard_mulTop e s hrb).symm
+
+/-- Two `slideReady` twist expressions with the same PD-code have the same
+    standard-form evaluation, once a non-monochrome `DiagonalSum` coloring of
+    that code is given. Thus `toStandard.fraction` depends on the diagram, not
+    the expression tree. This is not well-definedness along an `Isotopic`
+    witness of `IsRational`. -/
+theorem TwistExpr.toStandard_fraction_eq_of_diagram_slideReady
+    {e₁ e₂ : TwistExpr}
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady)
+    (hd : e₁.diagram = e₂.diagram)
+    (col : Nat → Int)
+    (hc : e₁.diagram.IsColored col)
+    (hdiag : (ColorMatrix.of e₁.diagram col).DiagonalSum)
+    (hm : (ColorMatrix.of e₁.diagram col).NotMono) :
+    e₁.toStandard.fraction = e₂.toStandard.fraction := by
+  have hf1 := coloring_fraction_eq_F e₁ hok₁ col hc hdiag hm
+  have hc2 : e₂.diagram.IsColored col := hd ▸ hc
+  have hdiag2 : (ColorMatrix.of e₂.diagram col).DiagonalSum := hd ▸ hdiag
+  have hm2 : (ColorMatrix.of e₂.diagram col).NotMono := hd ▸ hm
+  have hf2 := coloring_fraction_eq_F e₂ hok₂ col hc2 hdiag2 hm2
+  have hM : (ColorMatrix.of e₁.diagram col).fraction =
+      (ColorMatrix.of e₂.diagram col).fraction := by rw [hd]
+  exact hf1.symm.trans (hM.trans hf2)
+
+/-- Algebraic `F` agrees on `noMulTop` parses of the same PD-code, given a
+    coloring as in `toStandard_fraction_eq_of_diagram_slideReady`. -/
+theorem TwistExpr.fraction_eq_of_diagram_noMulTop
+    {e₁ e₂ : TwistExpr}
+    (hn₁ : e₁.noMulTop) (hn₂ : e₂.noMulTop)
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady)
+    (hd : e₁.diagram = e₂.diagram)
+    (col : Nat → Int)
+    (hc : e₁.diagram.IsColored col)
+    (hdiag : (ColorMatrix.of e₁.diagram col).DiagonalSum)
+    (hm : (ColorMatrix.of e₁.diagram col).NotMono) :
+    e₁.fraction = e₂.fraction :=
+  (TwistExpr.fraction_eq_toStandard_of_noMulTop e₁ hn₁).trans
+    ((TwistExpr.toStandard_fraction_eq_of_diagram_slideReady
+        hok₁ hok₂ hd col hc hdiag hm).trans
+      (TwistExpr.fraction_eq_toStandard_of_noMulTop e₂ hn₂).symm)
+
+/-- Two right-and-bottom twist expressions with the same PD-code have the
+    same standard-form evaluation. The coloring is `colorFrom 0 1`. -/
+theorem TwistExpr.toStandard_fraction_eq_of_diagram_rightBottom
+    {e₁ e₂ : TwistExpr}
+    (hr₁ : e₁.rightBottom) (hr₂ : e₂.rightBottom)
+    (hd : e₁.diagram = e₂.diagram) :
+    e₁.toStandard.fraction = e₂.toStandard.fraction :=
+  TwistExpr.toStandard_fraction_eq_of_diagram_slideReady
+    (TwistExpr.rightBottom_slideReady e₁ hr₁)
+    (TwistExpr.rightBottom_slideReady e₂ hr₂) hd
+    (e₁.colorFrom 0 1)
+    (e₁.colorFrom_isColored hr₁ 0 1)
+    (e₁.colorFrom_diagonal hr₁ 0 1)
+    (e₁.colorFrom_notMono hr₁)
+
+/-- Algebraic `F` is likewise a function of the PD-code on right-and-bottom
+    twist expressions. -/
+theorem TwistExpr.fraction_eq_of_diagram_rightBottom
+    {e₁ e₂ : TwistExpr}
+    (hr₁ : e₁.rightBottom) (hr₂ : e₂.rightBottom)
+    (hd : e₁.diagram = e₂.diagram) :
+    e₁.fraction = e₂.fraction :=
+  (TwistExpr.fraction_eq_toStandard_rightBottom e₁ hr₁).trans
+    ((TwistExpr.toStandard_fraction_eq_of_diagram_rightBottom hr₁ hr₂ hd).trans
+      (TwistExpr.fraction_eq_toStandard_rightBottom e₂ hr₂).symm)
+
+/-- Two standard-form expressions with the same PD-code have the same
+    arithmetical fraction. -/
+theorem StandardExpr.fraction_eq_of_diagram {e₁ e₂ : StandardExpr}
+    (hd : e₁.diagram = e₂.diagram) :
+    e₁.fraction = e₂.fraction := by
+  have hf1 := StandardExpr.colorFrom_eq_fraction e₁
+  have hc : e₂.diagram.IsColored (e₁.colorFrom 0 1) := by
+    simpa [hd] using e₁.colorFrom_isColored 0 1
+  have hm : (ColorMatrix.of e₂.diagram (e₁.colorFrom 0 1)).NotMono := by
+    simpa [hd] using e₁.colorFrom_notMono
+  have hf2 := standard_fraction_any_coloring e₂ (e₁.colorFrom 0 1) hc hm
+  have hM : (ColorMatrix.of e₁.diagram (e₁.colorFrom 0 1)).fraction =
+      (ColorMatrix.of e₂.diagram (e₁.colorFrom 0 1)).fraction := by
+    simp [hd]
+  exact hf1.symm.trans (hM.trans hf2)
 
 end RationalTangles

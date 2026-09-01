@@ -48,6 +48,7 @@ in Theorem 3.
 - [Unique canonical continued fraction](theorems/continued-fraction-canonical.md)
 - [Canonical diagrams of equal fraction are equal](theorems/canonical-same-fraction.md)
 - [Twist expressions of equal fraction are isotopic](theorems/twist-same-fraction.md)
+- [Standard-form value of a twist diagram is well-defined](theorems/twist-diagram-fraction.md)
 
 ## Coloring
 

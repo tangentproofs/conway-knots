@@ -139,4 +139,38 @@ theorem twist_same_fraction_isotopic_of_rightBottom {e₁ e₂ : TwistExpr}
     (TwistExpr.noMulTop_of_rightBottom e₁ hr₁)
     (TwistExpr.noMulTop_of_rightBottom e₂ hr₂) hf
 
+/-- Two right-and-bottom parses of the same twist-form PD-code agree on the
+    standard-form value. `IsRational` witnesses an isotopy, not PD-code
+    equality, so this does not assign `F` to an arbitrary rational diagram. -/
+theorem IsTwistForm.toStandard_fraction_unique {T : TangleDiagram}
+    {e₁ e₂ : TwistExpr}
+    (hT₁ : T = e₁.diagram) (hT₂ : T = e₂.diagram)
+    (hr₁ : e₁.rightBottom) (hr₂ : e₂.rightBottom) :
+    e₁.toStandard.fraction = e₂.toStandard.fraction :=
+  TwistExpr.toStandard_fraction_eq_of_diagram_rightBottom hr₁ hr₂ (hT₁.symm.trans hT₂)
+
+/-- Same as `IsTwistForm.toStandard_fraction_unique`, for algebraic `F`. -/
+theorem IsTwistForm.fraction_unique {T : TangleDiagram}
+    {e₁ e₂ : TwistExpr}
+    (hT₁ : T = e₁.diagram) (hT₂ : T = e₂.diagram)
+    (hr₁ : e₁.rightBottom) (hr₂ : e₂.rightBottom) :
+    e₁.fraction = e₂.fraction :=
+  TwistExpr.fraction_eq_of_diagram_rightBottom hr₁ hr₂ (hT₁.symm.trans hT₂)
+
+/-- A twist-form PD-code that admits a `slideReady` parse with a
+    non-monochrome `DiagonalSum` coloring may be assigned the standard-form
+    value of any such parse. -/
+theorem IsTwistForm.toStandard_fraction_unique_slideReady {T : TangleDiagram}
+    {e₁ e₂ : TwistExpr}
+    (hT₁ : T = e₁.diagram) (hT₂ : T = e₂.diagram)
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady)
+    (col : Nat → Int)
+    (hc : T.IsColored col)
+    (hdiag : (ColorMatrix.of T col).DiagonalSum)
+    (hm : (ColorMatrix.of T col).NotMono) :
+    e₁.toStandard.fraction = e₂.toStandard.fraction := by
+  subst hT₁
+  exact TwistExpr.toStandard_fraction_eq_of_diagram_slideReady
+    hok₁ hok₂ hT₂ col hc hdiag hm
+
 end RationalTangles
