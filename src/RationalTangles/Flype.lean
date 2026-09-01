@@ -205,7 +205,8 @@ reindexing of `[0]+T`), `invert_unit`/`invert_unit_rev`, and
 colorings) are included. Partial reverse lemmas exist for `r1`, `r2`,
 `add_zero`, `invert_unit`, and planar isotopy (`PlanarIsotopy.symm`).
 `ReversibleColoringIsotopy` is the symmetric fragment (omitting `r3Local`,
-`localFlype`, `add_right`/`mul_right`, unrestricted `zero_add`). Invariance
+`add_right`/`mul_right`, unrestricted `zero_add`; `localFlype` is included
+because the distinguished legs lie on `f`). Invariance
 of `f` is stated for `ColoringIsotopy` rather than for `Isotopic`.
 -/
 
@@ -273,10 +274,11 @@ theorem IsReidemeisterII.symm {D E : TangleDiagram} (h : IsReidemeisterII D E) :
   · exact Or.inl h
 
 /-- Reverse a coloring-ready R1, R2, `add_zero`, or `invert_unit` step.
-    Local R3 and local flype need reverse witnesses (`invFun` is not a
-    globally injective arc map), `add_right`/`mul_right` have one-way glue,
-    and unrestricted `zero_add` has no reverse coloring when `NW = SW`
-    (dummy strand). A full `ColoringIsotopy.symm` is not proved; see
+    Local R3 needs a reverse witness (`invFun` is not a globally injective
+    arc map, and triangle internals are not `f`-images), `add_right`/`mul_right`
+    have one-way glue, and unrestricted `zero_add` has no reverse coloring
+    when `NW = SW` (dummy strand). Local flype *does* reverse (`IsLocalFlype.symm`).
+    A full `ColoringIsotopy.symm` is not proved; see
     `ReversibleColoringIsotopy`. -/
 theorem ColoringIsotopy.r1_symm {D E : TangleDiagram}
     (h : IsReidemeisterI D E) (hwD : D.WellFormed) (hwE : E.WellFormed) :
@@ -300,11 +302,12 @@ theorem ColoringIsotopy.invert_unit_symm (s : CrossingSign) :
 /-! ## Reversible coloring isotopy
 
 The generators of `ColoringIsotopy` that have reverse coloring transport
-(and reverse as a relation). Omits `r3Local`, `localFlype` (no reverse
-coloring; `invFun` is not a globally injective arc map), `add_right` /
+(and reverse as a relation). Omits `r3Local` (triangle internals are not
+`f`-images; `invFun` is not a globally injective arc map), `add_right` /
 `mul_right` (one-way glue), and unrestricted `zero_add` (dummy strand
-when `NW = SW`). Does not add unrestricted `flype_slide`. This is not
-`Isotopic` and is not `ColoringIsotopy.symm`.
+when `NW = SW`). Includes `localFlype` (`IsLocalFlype.symm`). Does not add
+unrestricted `flype_slide`. This is not `Isotopic` and is not
+`ColoringIsotopy.symm`.
 -/
 
 inductive ReversibleColoringIsotopy : TangleDiagram → TangleDiagram → Prop where
@@ -318,6 +321,8 @@ inductive ReversibleColoringIsotopy : TangleDiagram → TangleDiagram → Prop w
   | r2 {D E : TangleDiagram} :
       IsReidemeisterII D E → D.WellFormed → E.WellFormed →
         ReversibleColoringIsotopy D E
+  | localFlype {D E : TangleDiagram} :
+      IsLocalFlype D E → ReversibleColoringIsotopy D E
   | isotopy {D E : TangleDiagram} :
       PlanarIsotopy D E → ReversibleColoringIsotopy D E
   | add_left {T T' S : TangleDiagram} :
@@ -348,6 +353,7 @@ theorem ReversibleColoringIsotopy.toColoringIsotopy {D E : TangleDiagram}
   | trans h1 h2 ih1 ih2 => exact .trans ih1 ih2
   | r1 h hwD hwE => exact .r1 h hwD hwE
   | r2 h hwD hwE => exact .r2 h hwD hwE
+  | localFlype h => exact .localFlype h
   | isotopy h => exact .isotopy h
   | add_left h ih => exact .add_left ih
   | mul_left h ih => exact .mul_left ih

@@ -243,4 +243,226 @@ theorem coloring_IsLocalFlype (D E : TangleDiagram) (col : Nat → Int)
       by rw [hSE]; exact hbnd D.SE,
       by rw [hSW]; exact hbnd D.SW⟩
 
+/-! ## Reverse local flype
+
+The distinguished legs of a local flype are in the image of `f`
+(`uE = f uD`, `wE = f wD`), so the rename is two-sided: `planarInvFun`
+inverts `f` on appearing arcs of `D`, the 180° box reverses because
+`rotate180` is an involution, and rest/`t` disjointness pulls back along
+`f`. Local R3 is not two-sided in this way (triangle internals are not
+`f`-images).
+-/
+
+theorem pairRel_flip {α} {R S : α → α → Prop}
+    (hRS : ∀ x y, R x y → S y x) :
+    ∀ {xs ys : List α}, pairRel R xs ys → pairRel S ys xs
+  | [], [] => id
+  | _ :: _, [] => by intro h; cases h
+  | [], _ :: _ => by intro h; cases h
+  | x :: xs, y :: ys => by
+    intro h
+    exact ⟨hRS x y h.1, pairRel_flip hRS h.2⟩
+
+theorem pairRel_exists_of_mem {α} {R : α → α → Prop} :
+    ∀ {xs ys : List α}, pairRel R xs ys → ∀ x ∈ xs, ∃ y ∈ ys, R x y
+  | [], [], h, x, hx => by cases hx
+  | _ :: _, [], h, x, hx => by cases h
+  | [], _ :: _, h, x, hx => by cases h
+  | x0 :: xs, y0 :: ys, h, x, hx => by
+    obtain ⟨h0, hrest⟩ := h
+    rw [List.mem_cons] at hx
+    cases hx with
+    | inl heq => exact ⟨y0, List.mem_cons.2 (Or.inl rfl), heq ▸ h0⟩
+    | inr hx =>
+      obtain ⟨y, hy, hr⟩ := pairRel_exists_of_mem hrest x hx
+      exact ⟨y, List.mem_cons.2 (Or.inr hy), hr⟩
+
+theorem Crossing.memArc_of_rename (f : Nat → Nat) {C : Crossing} {a : Nat}
+    (h : C.memArc a) : (C.rename f).memArc (f a) := by
+  simp [Crossing.memArc, Crossing.rename] at h ⊢
+  tauto
+
+theorem Crossing.memArc_rotate180 (C : Crossing) (a : Nat) :
+    C.rotate180.memArc a ↔ C.memArc a := by
+  simp [Crossing.memArc, Crossing.rotate180]
+  tauto
+
+theorem Crossing.rotate180_rename (f : Nat → Nat) (C : Crossing) :
+    (C.rename f).rotate180 = C.rotate180.rename f :=
+  rfl
+
+theorem Crossing.sameUpToRotation_rotate180_congr {C D : Crossing}
+    (h : C.sameUpToRotation D) :
+    C.rotate180.sameUpToRotation D.rotate180 := by
+  rcases h with rfl | hrot | hrev | hrr
+  · exact Or.inl rfl
+  · have hD : D = C.rotate180 := by
+      rw [hrot, Crossing.rotate180_involutive]
+    subst hD
+    exact (Crossing.sameUpToRotation_rotate180 C).symm
+  · have hD : D = C.reverseUnders := by
+      rw [hrev, Crossing.reverseUnders_involutive]
+    subst hD
+    rw [Crossing.reverseUnders_rotate180]
+    exact Or.inr (Or.inr (Or.inl (Crossing.reverseUnders_involutive C.rotate180).symm))
+  · have hD : D = C.rotate180.reverseUnders := by
+      rw [hrr, Crossing.rotate180_involutive, Crossing.reverseUnders_involutive]
+    subst hD
+    rw [Crossing.reverseUnders_rotate180, Crossing.rotate180_involutive]
+    exact Or.inr (Or.inr (Or.inr (show C.rotate180 =
+        C.reverseUnders.reverseUnders.rotate180 by
+      rw [Crossing.reverseUnders_involutive])))
+
+theorem pairRel_flype_t_rev (f g : Nat → Nat) {tD tE : List Crossing}
+    (hpair : pairRel (fun C Y => (C.rotate180.rename f).sameUpToRotation Y)
+      tD tE)
+    (hid : ∀ C ∈ tD, C.rename (g ∘ f) = C) :
+    pairRel (fun Y C => (Y.rotate180.rename g).sameUpToRotation C) tE tD := by
+  induction tD generalizing tE with
+  | nil =>
+    cases tE with
+    | nil => trivial
+    | cons _ _ => cases hpair
+  | cons C cs ih =>
+    cases tE with
+    | nil => cases hpair
+    | cons Y ys =>
+      obtain ⟨hCY, hrest⟩ := hpair
+      constructor
+      · have hren : C.rotate180.rename (g ∘ f) = C.rotate180 := by
+          rw [← Crossing.rotate180_rename, hid C (by simp)]
+        have h1 : Y.sameUpToRotation (C.rotate180.rename f) := hCY.symm
+        have h2 :
+            (Y.rename g).sameUpToRotation ((C.rotate180.rename f).rename g) :=
+          Crossing.sameUpToRotation_rename g h1
+        have h3 : (Y.rename g).sameUpToRotation (C.rotate180.rename (g ∘ f)) :=
+          h2
+        have h4 : (Y.rename g).sameUpToRotation C.rotate180 := by
+          simpa [hren] using h3
+        have h5 :
+            (Y.rename g).rotate180.sameUpToRotation C.rotate180.rotate180 :=
+          Crossing.sameUpToRotation_rotate180_congr h4
+        simpa [Crossing.rotate180_rename, Crossing.rotate180_involutive] using h5
+      · exact ih hrest (fun W hW => hid W (by simp [hW]))
+
+/-- Reverse a local flype by inverting the rename on appearing arcs of `D`. -/
+theorem IsLocalFlype.symm {D E : TangleDiagram} (h : IsLocalFlype D E) :
+    IsLocalFlype E D := by
+  obtain ⟨f, FD, FE, tD, tE, restD, restE, uD, wD, uE, wE,
+    hf, hslide, hNW, hNE, hSE, hSW, hpermD, hpermE, hpairRest, hpairT,
+    hrestE, htE⟩ := h
+  let g := planarInvFun f D.maxArc
+  have hg : Function.Injective g := planarInvFun_injective f D.maxArc
+  have hid {a : Nat} (ha : a ≤ D.maxArc) : g (f a) = a :=
+    planarInvFun_of_le f hf D.maxArc ha
+  have memD_of {C : Crossing}
+      (hC : C = FD ∨ C ∈ tD ∨ C ∈ restD) : C ∈ D.crossings :=
+    (List.Perm.mem_iff hpermD).2 (by
+      simp [List.mem_cons, List.mem_append] at hC ⊢
+      tauto)
+  have hrename (C : Crossing) (hC : C ∈ D.crossings) :
+      C.rename (g ∘ f) = C := by
+    have hp := arc_le_maxArc_of_mem D hC
+    cases C
+    simp [Crossing.rename, Function.comp, hid hp.1, hid hp.2.1, hid hp.2.2.1,
+      hid hp.2.2.2]
+  have hpFD := arc_le_maxArc_of_mem D (memD_of (Or.inl rfl))
+  have huD_le : uD ≤ D.maxArc := by
+    rcases hslide.overD with h0 | h2
+    · exact h0 ▸ hpFD.1
+    · exact h2 ▸ hpFD.2.2.1
+  have hwD_le : wD ≤ D.maxArc := by
+    rcases hslide.underD with h1 | h3
+    · exact h1 ▸ hpFD.2.1
+    · exact h3 ▸ hpFD.2.2.2
+  have hext_le : FD.extOverArc uD ≤ D.maxArc := by
+    unfold Crossing.extOverArc
+    split_ifs
+    · exact hpFD.2.2.1
+    · exact hpFD.1
+  have hund_le : FD.otherUnderArc wD ≤ D.maxArc := by
+    unfold Crossing.otherUnderArc
+    split_ifs
+    · exact hpFD.2.2.2
+    · exact hpFD.2.1
+  have hslide' : IsFlypeCrossingSlide g FE FD uE wE uD wD :=
+    { adjD := hslide.adjE
+      adjE := hslide.adjD
+      portsD := hslide.portsE
+      portsE := hslide.portsD
+      sign := hslide.sign.symm
+      huwD := hslide.huwE
+      huwE := hslide.huwD
+      overD := hslide.overE
+      underD := hslide.underE
+      overE := hslide.overD
+      underE := hslide.underD
+      u_map := by simp [g, hslide.u_map, hid huD_le]
+      w_map := by simp [g, hslide.w_map, hid hwD_le]
+      ext_match := by simp [g, hslide.ext_match, hid hext_le]
+      und_match := by simp [g, hslide.und_match, hid hund_le] }
+  have hmap_rest : restD.map (Crossing.rename (g ∘ f)) = restD :=
+    List.map_eq_of_id fun C hC => hrename C (memD_of (Or.inr (Or.inr hC)))
+  have hpairRest' :
+      pairRel Crossing.sameUpToRotation (restE.map (Crossing.rename g)) restD := by
+    have h1 :=
+      pairRel_map (Crossing.rename g)
+        (fun _ _ => Crossing.sameUpToRotation_rename g) hpairRest
+    have hmap :
+        (restD.map (Crossing.rename f)).map (Crossing.rename g) = restD := by
+      rw [List.map_map]
+      exact hmap_rest
+    rw [hmap] at h1
+    exact pairRel_symm (fun _ _ => Crossing.sameUpToRotation.symm) h1
+  have hpairT' :
+      pairRel (fun Y C => (Y.rotate180.rename g).sameUpToRotation C) tE tD :=
+    pairRel_flype_t_rev f g hpairT fun C hC =>
+      hrename C (memD_of (Or.inr (Or.inl hC)))
+  have hrestD : ∀ C ∈ restD, ¬ C.memArc uD ∧ ¬ C.memArc wD := by
+    intro C hC
+    have hCf : C.rename f ∈ restD.map (Crossing.rename f) :=
+      List.mem_map_of_mem hC
+    obtain ⟨Y, hY, hCY⟩ := pairRel_exists_of_mem hpairRest (C.rename f) hCf
+    constructor
+    · intro hu
+      have : Y.memArc uE :=
+        (sameUpToRotation_memArc hCY).1
+          (by simpa [hslide.u_map] using Crossing.memArc_of_rename f hu)
+      exact (hrestE Y hY).1 this
+    · intro hw
+      have : Y.memArc wE :=
+        (sameUpToRotation_memArc hCY).1
+          (by simpa [hslide.w_map] using Crossing.memArc_of_rename f hw)
+      exact (hrestE Y hY).2 this
+  have htD : ∀ C ∈ tD, ¬ C.memArc uD ∧ ¬ C.memArc wD := by
+    intro C hC
+    obtain ⟨Y, hY, hCY⟩ := pairRel_exists_of_mem hpairT C hC
+    constructor
+    · intro hu
+      have : Y.memArc uE :=
+        (sameUpToRotation_memArc hCY).1 (by
+          simpa [hslide.u_map, Crossing.memArc_rotate180] using
+            Crossing.memArc_of_rename f ((Crossing.memArc_rotate180 C uD).2 hu))
+      exact (htE Y hY).1 this
+    · intro hw
+      have : Y.memArc wE :=
+        (sameUpToRotation_memArc hCY).1 (by
+          simpa [hslide.w_map, Crossing.memArc_rotate180] using
+            Crossing.memArc_of_rename f ((Crossing.memArc_rotate180 C wD).2 hw))
+      exact (htE Y hY).2 this
+  refine ⟨g, FE, FD, tE, tD, restE, restD, uE, wE, uD, wD,
+    hg, hslide', ?_, ?_, ?_, ?_, hpermE, hpermD, hpairRest', hpairT',
+    hrestD, htD⟩
+  · simp [g, hNW, hid (maxArc_ge_NW D)]
+  · simp [g, hNE, hid (maxArc_ge_NE D)]
+  · simp [g, hSE, hid (maxArc_ge_SE D)]
+  · simp [g, hSW, hid (maxArc_ge_SW D)]
+
+/-- Reverse coloring along a local flype: distinguished legs lie on `f`,
+    so the reverse move is again a local flype. -/
+theorem coloring_IsLocalFlype_rev (D E : TangleDiagram) (col : Nat → Int)
+    (h : IsLocalFlype D E) (hc : E.IsColored col) :
+    ∃ col', D.IsColored col' ∧ SameEndpointColors E D col col' :=
+  coloring_IsLocalFlype E D col h.symm hc
+
 end RationalTangles

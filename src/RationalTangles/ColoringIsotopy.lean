@@ -1304,10 +1304,6 @@ theorem flypeSlideAddFun_comp_glue (s : CrossingSign) (t : TangleDiagram)
       have : ¬ t.maxArc < a := Nat.not_lt.mpr hle
       simp [hNW, hSW, this]
 
-theorem Crossing.rotate180_rename (f : Nat → Nat) (C : Crossing) :
-    (C.rename f).rotate180 = C.rotate180.rename f :=
-  rfl
-
 theorem flypeSlideAdd_map_t (s : CrossingSign) (t : TangleDiagram)
     {C : Crossing} (hC : C ∈ t.crossings) :
     (C.rename (addGlue (crossingTangle s) t ∘ addShift (crossingTangle s))).rotate180.rename
@@ -2088,9 +2084,13 @@ theorem ColoringIsotopy.isotopy_symm {D E : TangleDiagram}
     (h : PlanarIsotopy D E) : ColoringIsotopy E D :=
   .isotopy h.symm
 
+theorem ColoringIsotopy.localFlype_rev {D E : TangleDiagram}
+    (h : IsLocalFlype D E) : ColoringIsotopy E D :=
+  .localFlype h.symm
+
 /-- Reverse a reversible coloring isotopy. Not `ColoringIsotopy.symm`:
-    `r3Local`, `localFlype`, `add_right`/`mul_right`, and unrestricted
-    `zero_add` are omitted from `ReversibleColoringIsotopy`. -/
+    `r3Local`, `add_right`/`mul_right`, and unrestricted `zero_add` are
+    omitted from `ReversibleColoringIsotopy`. Local flype is included. -/
 theorem ReversibleColoringIsotopy.symm {D E : TangleDiagram}
     (h : ReversibleColoringIsotopy D E) : ReversibleColoringIsotopy E D := by
   induction h with
@@ -2098,6 +2098,7 @@ theorem ReversibleColoringIsotopy.symm {D E : TangleDiagram}
   | trans h1 h2 ih1 ih2 => exact .trans ih2 ih1
   | r1 h hwD hwE => exact .r1 h.symm hwE hwD
   | r2 h hwD hwE => exact .r2 h.symm hwE hwD
+  | localFlype h => exact .localFlype h.symm
   | isotopy h => exact .isotopy h.symm
   | add_left h ih => exact .add_left ih
   | mul_left h ih => exact .mul_left ih
