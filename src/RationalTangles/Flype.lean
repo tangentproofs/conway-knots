@@ -204,12 +204,13 @@ reindexing of `[0]+T`), `invert_unit`/`invert_unit_rev`, and
 `add_assoc`/`add_assoc_rev`/`mul_assoc`/`mul_assoc_rev` (reindexing, all
 colorings) are included. Partial reverse lemmas exist for `r1`, `r2`,
 `add_zero`, `invert_unit`, and planar isotopy (`PlanarIsotopy.symm`).
-`ReversibleColoringIsotopy` is the symmetric fragment (omitting `r3Local`
-and unrestricted `zero_add` when `NW = SW`; `add_right`/`mul_right` are
-included when glue identifications are two-way, and `zero_add` when
-`NW ≠ SW`; `localFlype` is included because the distinguished legs lie
-on `f`). Invariance of `f` is stated for `ColoringIsotopy` rather than
-for `Isotopic`.
+`ReversibleColoringIsotopy` is the symmetric fragment (omitting unrestricted
+`zero_add` when `NW = SW`; `add_right`/`mul_right` are included when glue
+identifications are two-way, and `zero_add` when `NW ≠ SW`; `localFlype`
+is included because the distinguished legs lie on `f`; `r3Local` is
+included because rest/boundary constraints are two-sided and reverse
+uses `planarInvFun`). Invariance of `f` is stated for `ColoringIsotopy`
+rather than for `Isotopic`.
 -/
 
 /-- Directed coloring-ready isotopy of 2-tangle diagrams. -/
@@ -276,8 +277,7 @@ theorem IsReidemeisterII.symm {D E : TangleDiagram} (h : IsReidemeisterII D E) :
   · exact Or.inl h
 
 /-- Reverse a coloring-ready R1, R2, `add_zero`, or `invert_unit` step.
-    Local R3 needs a reverse witness (`invFun` is not a globally injective
-    arc map, and triangle internals are not `f`-images). One-way
+    Local R3 reverses (`IsReidemeisterIIILocal.symm`). One-way
     `add_right`/`mul_right` reverse when the glue identification is two-way.
     Unrestricted `zero_add` has no reverse coloring when `NW = SW` (dummy
     strand); the `NW ≠ SW` case reverses. Local flype *does* reverse
@@ -305,12 +305,11 @@ theorem ColoringIsotopy.invert_unit_symm (s : CrossingSign) :
 /-! ## Reversible coloring isotopy
 
 The generators of `ColoringIsotopy` that have reverse coloring transport
-(and reverse as a relation). Omits `r3Local` (triangle internals are not
-`f`-images; `invFun` is not a globally injective arc map) and unrestricted
-`zero_add` (dummy strand when `NW = SW`). Includes two-way-glue
-`add_right`/`mul_right`, `zero_add` when `NW ≠ SW`, and `localFlype`
-(`IsLocalFlype.symm`). Does not add unrestricted `flype_slide`. This is
-not `Isotopic` and is not `ColoringIsotopy.symm`.
+(and reverse as a relation). Omits unrestricted `zero_add` (dummy strand
+when `NW = SW`). Includes `r3Local` (`IsReidemeisterIIILocal.symm`),
+two-way-glue `add_right`/`mul_right`, `zero_add` when `NW ≠ SW`, and
+`localFlype` (`IsLocalFlype.symm`). Does not add unrestricted
+`flype_slide`. This is not `Isotopic` and is not `ColoringIsotopy.symm`.
 -/
 
 inductive ReversibleColoringIsotopy : TangleDiagram → TangleDiagram → Prop where
@@ -324,6 +323,8 @@ inductive ReversibleColoringIsotopy : TangleDiagram → TangleDiagram → Prop w
   | r2 {D E : TangleDiagram} :
       IsReidemeisterII D E → D.WellFormed → E.WellFormed →
         ReversibleColoringIsotopy D E
+  | r3Local {D E : TangleDiagram} :
+      IsReidemeisterIIILocal D E → ReversibleColoringIsotopy D E
   | localFlype {D E : TangleDiagram} :
       IsLocalFlype D E → ReversibleColoringIsotopy D E
   | isotopy {D E : TangleDiagram} :
@@ -367,6 +368,7 @@ theorem ReversibleColoringIsotopy.toColoringIsotopy {D E : TangleDiagram}
   | trans h1 h2 ih1 ih2 => exact .trans ih1 ih2
   | r1 h hwD hwE => exact .r1 h hwD hwE
   | r2 h hwD hwE => exact .r2 h hwD hwE
+  | r3Local h => exact .r3Local h
   | localFlype h => exact .localFlype h
   | isotopy h => exact .isotopy h
   | add_left h ih => exact .add_left ih

@@ -2140,9 +2140,10 @@ theorem ColoringIsotopy.localFlype_rev {D E : TangleDiagram}
   .localFlype h.symm
 
 /-- Reverse a reversible coloring isotopy. Not `ColoringIsotopy.symm`:
-    `r3Local` and unrestricted `zero_add` (`NW = SW`) are omitted from
-    `ReversibleColoringIsotopy`. Two-way-glue `add_right`/`mul_right`,
-    `zero_add` when `NW ≠ SW`, and local flype are included. -/
+    unrestricted `zero_add` (`NW = SW`) is omitted from
+    `ReversibleColoringIsotopy`. `r3Local`, two-way-glue
+    `add_right`/`mul_right`, `zero_add` when `NW ≠ SW`, and local flype
+    are included. -/
 theorem ReversibleColoringIsotopy.symm {D E : TangleDiagram}
     (h : ReversibleColoringIsotopy D E) : ReversibleColoringIsotopy E D := by
   induction h with
@@ -2150,6 +2151,7 @@ theorem ReversibleColoringIsotopy.symm {D E : TangleDiagram}
   | trans h1 h2 ih1 ih2 => exact .trans ih2 ih1
   | r1 h hwD hwE => exact .r1 h.symm hwE hwD
   | r2 h hwD hwE => exact .r2 h.symm hwE hwD
+  | r3Local h => exact .r3Local h.symm
   | localFlype h => exact .localFlype h.symm
   | isotopy h => exact .isotopy h.symm
   | add_left h ih => exact .add_left ih

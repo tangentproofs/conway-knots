@@ -12,8 +12,10 @@ import RationalTangles.ColoringInvariance
 
 `IsReidemeisterIIILocal` replaces a triangular triple by another over-slide
 triple with matching external legs, identifying the rest of the diagram by
-permutation (no `dropIdxs`). Recoloring keeps the six external-leg colors
-and copies the three internal colors onto the new internal arcs.
+permutation (no `dropIdxs`). Rest and boundary constraints hold on both
+diagrams. Recoloring keeps the six external-leg colors and copies the three
+internal colors onto the new internal arcs. Reverse uses `planarInvFun` on
+appearing arcs of `D` (`IsReidemeisterIIILocal.symm`).
 -/
 
 namespace RationalTangles
@@ -457,7 +459,8 @@ theorem coloring_IsReidemeisterIIILocal (D E : TangleDiagram) (col : Nat → Int
   obtain ⟨f, PD, QD, RD, PE, QE, RE, uD, vD, wD, uE, vE, wE, restD, restE,
     hf, hD, hE, _sP, _sQ, _sR, hm, hNW, hNE, hSE, hSW,
     huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
-    hrestE, hpermD, hpermE, hpair⟩ := h
+    hrestE, _huDNW, _huDNE, _huDSE, _huDSW, _hvDNW, _hvDNE, _hvDSE, _hvDSW,
+    _hwDNW, _hwDNE, _hwDSE, _hwDSW, _hrestD, hpermD, hpermE, hpair⟩ := h
   let col' := colorR3 f uD vD wD uE vE wE col
   have hPD : ColoringRule PD col := hc PD ((List.Perm.mem_iff hpermD).2 (by simp))
   have hQD : ColoringRule QD col := hc QD ((List.Perm.mem_iff hpermD).2 (by simp))
@@ -488,6 +491,109 @@ theorem coloring_IsReidemeisterIIILocal (D E : TangleDiagram) (col : Nat → Int
     · rw [hNE]; exact hbnd D.NE (hNE ▸ huNE.symm) (hNE ▸ hvNE.symm) (hNE ▸ hwNE.symm)
     · rw [hSE]; exact hbnd D.SE (hSE ▸ huSE.symm) (hSE ▸ hvSE.symm) (hSE ▸ hwSE.symm)
     · rw [hSW]; exact hbnd D.SW (hSW ▸ huSW.symm) (hSW ▸ hvSW.symm) (hSW ▸ hwSW.symm)
+
+/-! ## Reverse local R3
+
+Triangle internals are not `f`-images, so reverse uses `planarInvFun` on
+appearing arcs of `D` for the six external legs and the endpoints. Rest
+and boundary constraints are two-sided on `IsReidemeisterIIILocal`, so the
+reverse witness is again a local over-slide.
+-/
+
+theorem Crossing.extOverArc_le {C : Crossing} {u M : Nat}
+    (h0 : C.a0 ≤ M) (h2 : C.a2 ≤ M) : C.extOverArc u ≤ M := by
+  unfold Crossing.extOverArc
+  split_ifs <;> assumption
+
+theorem Crossing.otherUnderArc_le {C : Crossing} {w M : Nat}
+    (h1 : C.a1 ≤ M) (h3 : C.a3 ≤ M) : C.otherUnderArc w ≤ M := by
+  unfold Crossing.otherUnderArc
+  split_ifs <;> assumption
+
+theorem r3ExtMatch_planarInvFun {f : Nat → Nat} {M : Nat}
+    {PD QD RD PE QE RE : Crossing} {uD vD wD uE vE wE : Nat}
+    (hf : Function.Injective f)
+    (hP0 : PD.a0 ≤ M) (hP1 : PD.a1 ≤ M) (hP2 : PD.a2 ≤ M) (hP3 : PD.a3 ≤ M)
+    (hQ0 : QD.a0 ≤ M) (hQ1 : QD.a1 ≤ M) (hQ2 : QD.a2 ≤ M) (hQ3 : QD.a3 ≤ M)
+    (hR0 : RD.a0 ≤ M) (hR1 : RD.a1 ≤ M) (hR2 : RD.a2 ≤ M) (hR3 : RD.a3 ≤ M)
+    (hm : r3ExtMatch f PD QD RD PE QE RE uD vD wD uE vE wE) :
+    r3ExtMatch (planarInvFun f M) PE QE RE PD QD RD uE vE wE uD vD wD := by
+  have hPext := Crossing.extOverArc_le (u := uD) hP0 hP2
+  have hQext := Crossing.extOverArc_le (u := uD) hQ0 hQ2
+  have hRext := Crossing.extOverArc_le (u := vD) hR0 hR2
+  have hPund := Crossing.otherUnderArc_le (w := wD) hP1 hP3
+  have hQund := Crossing.otherUnderArc_le (w := vD) hQ1 hQ3
+  have hRund := Crossing.otherUnderArc_le (w := wD) hR1 hR3
+  obtain ⟨h1, h2, h3, h4, h5, h6⟩ := hm
+  exact ⟨by simp [h1, planarInvFun_of_le f hf M hPext],
+    by simp [h2, planarInvFun_of_le f hf M hQext],
+    by simp [h3, planarInvFun_of_le f hf M hPund],
+    by simp [h4, planarInvFun_of_le f hf M hQund],
+    by simp [h5, planarInvFun_of_le f hf M hRext],
+    by simp [h6, planarInvFun_of_le f hf M hRund]⟩
+
+theorem IsReidemeisterIIILocal.symm {D E : TangleDiagram}
+    (h : IsReidemeisterIIILocal D E) : IsReidemeisterIIILocal E D := by
+  obtain ⟨f, PD, QD, RD, PE, QE, RE, uD, vD, wD, uE, vE, wE, restD, restE,
+    hf, hD, hE, sP, sQ, sR, hm, hNW, hNE, hSE, hSW,
+    huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
+    hrestE, huDNW, huDNE, huDSE, huDSW, hvDNW, hvDNE, hvDSE, hvDSW,
+    hwDNW, hwDNE, hwDSE, hwDSW, hrestD, hpermD, hpermE, hpair⟩ := h
+  let g := planarInvFun f D.maxArc
+  have hg : Function.Injective g := planarInvFun_injective f D.maxArc
+  have hid {a : Nat} (ha : a ≤ D.maxArc) : g (f a) = a :=
+    planarInvFun_of_le f hf D.maxArc ha
+  have memD_of {C : Crossing}
+      (hC : C = PD ∨ C = QD ∨ C = RD ∨ C ∈ restD) : C ∈ D.crossings :=
+    (List.Perm.mem_iff hpermD).2 (by
+      simp [List.mem_cons] at hC ⊢
+      tauto)
+  have hrename (C : Crossing) (hC : C ∈ D.crossings) :
+      C.rename (g ∘ f) = C := by
+    have hp := arc_le_maxArc_of_mem D hC
+    cases C
+    simp [Crossing.rename, Function.comp, hid hp.1, hid hp.2.1, hid hp.2.2.1,
+      hid hp.2.2.2]
+  have hpP := arc_le_maxArc_of_mem D (memD_of (Or.inl rfl))
+  have hpQ := arc_le_maxArc_of_mem D (memD_of (Or.inr (Or.inl rfl)))
+  have hpR := arc_le_maxArc_of_mem D (memD_of (Or.inr (Or.inr (Or.inl rfl))))
+  have hm' :=
+    r3ExtMatch_planarInvFun hf hpP.1 hpP.2.1 hpP.2.2.1 hpP.2.2.2
+      hpQ.1 hpQ.2.1 hpQ.2.2.1 hpQ.2.2.2
+      hpR.1 hpR.2.1 hpR.2.2.1 hpR.2.2.2 hm
+  have hmap_rest : restD.map (Crossing.rename (g ∘ f)) = restD :=
+    List.map_eq_of_id fun C hC =>
+      hrename C (memD_of (Or.inr (Or.inr (Or.inr hC))))
+  have hpair' :
+      pairRel Crossing.sameUpToRotation (restE.map (Crossing.rename g)) restD := by
+    have h1 :=
+      pairRel_map (Crossing.rename g)
+        (fun _ _ => Crossing.sameUpToRotation_rename g) hpair
+    have hmap :
+        (restD.map (Crossing.rename f)).map (Crossing.rename g) = restD := by
+      rw [List.map_map]
+      exact hmap_rest
+    rw [hmap] at h1
+    exact pairRel_symm (fun _ _ => Crossing.sameUpToRotation.symm) h1
+  refine ⟨g, PE, QE, RE, PD, QD, RD, uE, vE, wE, uD, vD, wD, restE, restD,
+    hg, hE, hD, sP.symm, sQ.symm, sR.symm, hm', ?_, ?_, ?_, ?_,
+    huDNW, huDNE, huDSE, huDSW, hvDNW, hvDNE, hvDSE, hvDSW,
+    hwDNW, hwDNE, hwDSE, hwDSW, hrestD,
+    huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
+    hrestE, hpermE, hpermD, hpair'⟩
+  · simp [g, hNW, hid (maxArc_ge_NW D)]
+  · simp [g, hNE, hid (maxArc_ge_NE D)]
+  · simp [g, hSE, hid (maxArc_ge_SE D)]
+  · simp [g, hSW, hid (maxArc_ge_SW D)]
+
+/-- Reverse coloring along a local R3 over-slide: rest and boundary
+    constraints are two-sided, and `planarInvFun` inverts `f` on appearing
+    arcs of `D`. -/
+theorem coloring_IsReidemeisterIIILocal_rev (D E : TangleDiagram)
+    (col : Nat → Int) (h : IsReidemeisterIIILocal D E)
+    (hc : E.IsColored col) :
+    ∃ col', D.IsColored col' ∧ SameEndpointColors E D col col' :=
+  coloring_IsReidemeisterIIILocal E D col h.symm hc
 
 /-! ## Indexed R3 is local R3 -/
 
@@ -746,7 +852,8 @@ theorem IsReidemeisterIII.toLocal {D E : TangleDiagram}
   obtain ⟨hlen, f, i, j, k, uD, vD, wD, uE, vE, wE, hf, hij, hjk, hik,
     hNW, hNE, hSE, hSW,
     huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
-    hrestE, hsP, hsQ, hsR, hslide, hex⟩ := h
+    hrestE, huDNW, huDNE, huDSE, huDSW, hvDNW, hvDNE, hvDSE, hvDSW,
+    hwDNW, hwDNE, hwDSE, hwDSW, hrestD, hsP, hsQ, hsR, hslide, hex⟩ := h
   have iE : i.val < E.crossings.length := hlen ▸ i.isLt
   have jE : j.val < E.crossings.length := hlen ▸ j.isLt
   have kE : k.val < E.crossings.length := hlen ▸ k.isLt
@@ -772,7 +879,8 @@ theorem IsReidemeisterIII.toLocal {D E : TangleDiagram}
       hf, hD, hE, hsP, hsQ, hsR, hm,
       hNW, hNE, hSE, hSW,
       huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
-      hrestCs, hpermD, hpermE, hpair⟩
+      hrestCs, huDNW, huDNE, huDSE, huDSW, hvDNW, hvDNE, hvDSE, hvDSW,
+      hwDNW, hwDNE, hwDSE, hwDSW, hrestD, hpermD, hpermE, hpair⟩
   · have hpermD' : D.crossings.Perm
         (D.crossings[j] :: D.crossings[k] :: D.crossings[i] ::
           dropIdxs i.val j.val k.val 0 D.crossings) :=
@@ -790,7 +898,8 @@ theorem IsReidemeisterIII.toLocal {D E : TangleDiagram}
       hf, hD, hE, hsQ, hsR, hsP, hm,
       hNW, hNE, hSE, hSW,
       huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
-      hrestCs, hpermD', hpermE', hpair⟩
+      hrestCs, huDNW, huDNE, huDSE, huDSW, hvDNW, hvDNE, hvDSE, hvDSW,
+      hwDNW, hwDNE, hwDSE, hwDSW, hrestD, hpermD', hpermE', hpair⟩
   · have hpermD' : D.crossings.Perm
         (D.crossings[k] :: D.crossings[i] :: D.crossings[j] ::
           dropIdxs i.val j.val k.val 0 D.crossings) :=
@@ -811,7 +920,8 @@ theorem IsReidemeisterIII.toLocal {D E : TangleDiagram}
       hf, hD, hE, hsR, hsP, hsQ, hm,
       hNW, hNE, hSE, hSW,
       huNW, huNE, huSE, huSW, hvNW, hvNE, hvSE, hvSW, hwNW, hwNE, hwSE, hwSW,
-      hrestCs, hpermD', hpermE', hpair⟩
+      hrestCs, huDNW, huDNE, huDSE, huDSW, hvDNW, hvDNE, hvDSE, hvDSW,
+      hwDNW, hwDNE, hwDSE, hwDSW, hrestD, hpermD', hpermE', hpair⟩
 
 /-- Indexed Reidemeister III has coloring transport, via the local model. -/
 theorem coloring_IsReidemeisterIII (D E : TangleDiagram) (col : Nat → Int)

@@ -434,6 +434,11 @@ def IsReidemeisterIII (D E : TangleDiagram) : Prop :=
       wE ≠ E.NW ∧ wE ≠ E.NE ∧ wE ≠ E.SE ∧ wE ≠ E.SW ∧
       (∀ C ∈ (exterior E i.val j.val k.val).crossings,
         ¬ C.memArc uE ∧ ¬ C.memArc vE ∧ ¬ C.memArc wE) ∧
+      uD ≠ D.NW ∧ uD ≠ D.NE ∧ uD ≠ D.SE ∧ uD ≠ D.SW ∧
+      vD ≠ D.NW ∧ vD ≠ D.NE ∧ vD ≠ D.SE ∧ vD ≠ D.SW ∧
+      wD ≠ D.NW ∧ wD ≠ D.NE ∧ wD ≠ D.SE ∧ wD ≠ D.SW ∧
+      (∀ C ∈ (exterior D i.val j.val k.val).crossings,
+        ¬ C.memArc uD ∧ ¬ C.memArc vD ∧ ¬ C.memArc wD) ∧
       D.crossings[i].sign = (E.crossings[i.val]'(hlen ▸ i.isLt)).sign ∧
       D.crossings[j].sign = (E.crossings[j.val]'(hlen ▸ j.isLt)).sign ∧
       D.crossings[k].sign = (E.crossings[k.val]'(hlen ▸ k.isLt)).sign ∧
@@ -468,7 +473,9 @@ def IsReidemeisterIII (D E : TangleDiagram) : Prop :=
 /-- Reidemeister III as a local over-slide of a triangular triple, with the
     remaining crossings identified by list permutation rather than by
     `dropIdxs` indices. The four endpoints stay fixed up to the arc rename
-    `f`. This is the model used for coloring transport; it does not replace
+    `f`. Triangle internals are not boundary arcs and do not meet the rest
+    of either diagram (same constraints with `D`/`E` swapped). This is the
+    model used for coloring transport; it does not replace
     `IsReidemeisterIII`. -/
 def IsReidemeisterIIILocal (D E : TangleDiagram) : Prop :=
   ∃ (f : Nat → Nat) (PD QD RD PE QE RE : Crossing)
@@ -483,6 +490,10 @@ def IsReidemeisterIIILocal (D E : TangleDiagram) : Prop :=
       vE ≠ E.NW ∧ vE ≠ E.NE ∧ vE ≠ E.SE ∧ vE ≠ E.SW ∧
       wE ≠ E.NW ∧ wE ≠ E.NE ∧ wE ≠ E.SE ∧ wE ≠ E.SW ∧
       (∀ C ∈ restE, ¬ C.memArc uE ∧ ¬ C.memArc vE ∧ ¬ C.memArc wE) ∧
+      uD ≠ D.NW ∧ uD ≠ D.NE ∧ uD ≠ D.SE ∧ uD ≠ D.SW ∧
+      vD ≠ D.NW ∧ vD ≠ D.NE ∧ vD ≠ D.SE ∧ vD ≠ D.SW ∧
+      wD ≠ D.NW ∧ wD ≠ D.NE ∧ wD ≠ D.SE ∧ wD ≠ D.SW ∧
+      (∀ C ∈ restD, ¬ C.memArc uD ∧ ¬ C.memArc vD ∧ ¬ C.memArc wD) ∧
       D.crossings.Perm (PD :: QD :: RD :: restD) ∧
       E.crossings.Perm (PE :: QE :: RE :: restE) ∧
       pairRel Crossing.sameUpToRotation (restD.map (Crossing.rename f)) restE

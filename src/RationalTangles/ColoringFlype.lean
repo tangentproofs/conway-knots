@@ -249,8 +249,9 @@ The distinguished legs of a local flype are in the image of `f`
 (`uE = f uD`, `wE = f wD`), so the rename is two-sided: `planarInvFun`
 inverts `f` on appearing arcs of `D`, the 180° box reverses because
 `rotate180` is an involution, and rest/`t` disjointness pulls back along
-`f`. Local R3 is not two-sided in this way (triangle internals are not
-`f`-images).
+`f`. Local R3 internals are not `f`-images either; reverse there uses the
+two-sided rest/boundary fields of `IsReidemeisterIIILocal` together with
+`planarInvFun` on the external legs.
 -/
 
 theorem pairRel_flip {α} {R S : α → α → Prop}
