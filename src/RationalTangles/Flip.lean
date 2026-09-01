@@ -39,6 +39,16 @@ def vflip (T : TangleDiagram) : TangleDiagram :=
   let T' := T.mirror
   { T' with NW := T'.NE, NE := T'.NW, SE := T'.SW, SW := T'.SE }
 
+/-- Planar 180° rotation of the diagram: each crossing is rotated in the
+    plane (signs preserved) and the endpoints cycle `NW↔SE`, `NE↔SW`.
+    This is `hflip.vflip` (two spatial flips restore crossing signs). -/
+def rot180 (T : TangleDiagram) : TangleDiagram where
+  crossings := T.crossings.map Crossing.rotate180
+  NW := T.SE
+  NE := T.SW
+  SE := T.NW
+  SW := T.NE
+
 end TangleDiagram
 
 theorem max_four_comm (w x y z : Nat) :
@@ -54,6 +64,26 @@ theorem maxArc_vflip (T : TangleDiagram) : T.vflip.maxArc = T.maxArc := by
   unfold TangleDiagram.vflip TangleDiagram.mirror TangleDiagram.maxArc
   simp [foldl_maxArc_map_switch]
   ac_rfl
+
+theorem rot180_eq_hflip_vflip (T : TangleDiagram) : T.rot180 = T.hflip.vflip := by
+  cases T
+  simp [TangleDiagram.rot180, TangleDiagram.hflip, TangleDiagram.vflip,
+    TangleDiagram.mirror, List.map_map, Function.comp, Crossing.switch_switch]
+
+theorem rot180_eq_vflip_hflip (T : TangleDiagram) : T.rot180 = T.vflip.hflip := by
+  cases T
+  simp [TangleDiagram.rot180, TangleDiagram.hflip, TangleDiagram.vflip,
+    TangleDiagram.mirror, List.map_map, Function.comp, Crossing.switch_switch]
+
+theorem TangleDiagram.rot180_NW (T : TangleDiagram) : T.rot180.NW = T.SE := rfl
+theorem TangleDiagram.rot180_NE (T : TangleDiagram) : T.rot180.NE = T.SW := rfl
+theorem TangleDiagram.rot180_SE (T : TangleDiagram) : T.rot180.SE = T.NW := rfl
+theorem TangleDiagram.rot180_SW (T : TangleDiagram) : T.rot180.SW = T.NE := rfl
+
+theorem TangleDiagram.vflip_NW (T : TangleDiagram) : T.vflip.NW = T.NE := rfl
+theorem TangleDiagram.vflip_NE (T : TangleDiagram) : T.vflip.NE = T.NW := rfl
+theorem TangleDiagram.vflip_SE (T : TangleDiagram) : T.vflip.SE = T.SW := rfl
+theorem TangleDiagram.vflip_SW (T : TangleDiagram) : T.vflip.SW = T.SE := rfl
 
 /-- The two `add` glue maps that appear in `hflip_add_eq` agree when `S`
     has distinct left ports. -/

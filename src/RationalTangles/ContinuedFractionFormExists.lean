@@ -72,7 +72,8 @@ theorem isotopic_one_add_negOne_zero :
 theorem isotopic_negOne_add_one_zero :
     Isotopic (negOne.add one) TangleDiagram.zero :=
   .trans (flype_add .neg one) <|
-    .trans (.add_left isotopic_one_hflip.symm) isotopic_one_add_negOne_zero
+    .trans (.add_left (isotopic_rot180_of_flips isotopic_one_hflip isotopic_one_vflip))
+      isotopic_one_add_negOne_zero
 
 /-! ## Inversion of twist-form expressions -/
 
@@ -159,10 +160,11 @@ theorem lemma4_unit (T : TangleDiagram) (h : IsRational T) (s : CrossingSign) :
       (T.invert.add (crossingTangle s)).invert :=
     .invert_cong (.add_right (Isotopic.invert_unit s).symm)
   have hTinv : IsRational T.invert := isRational_invert ⟨e, he⟩
-  obtain ⟨hTh, _, _, _⟩ := flipping_lemma T.invert hTinv
+  obtain ⟨hTh, hTv, _, _⟩ := flipping_lemma T.invert hTinv
   have hcomm : Isotopic (T.invert.add (crossingTangle s))
       ((crossingTangle s).add T.invert) :=
-    .trans (.add_left hTh) (.symm (flype_add s T.invert))
+    .trans (.add_left (isotopic_rot180_of_flips hTh hTv).symm)
+      (.symm (flype_add s T.invert))
   exact .trans hii <| .trans hstep <| .trans hunit (.invert_cong hcomm)
 
 theorem isotopic_crossing_integer (s : CrossingSign) :
@@ -277,8 +279,9 @@ theorem isRational_integer (n : Int) : IsRational (integerTangle n) :=
 theorem isotopic_add_crossing_comm {T : TangleDiagram} (h : IsRational T)
     (s : CrossingSign) :
     Isotopic (T.add (crossingTangle s)) ((crossingTangle s).add T) := by
-  obtain ⟨hTh, _, _, _⟩ := flipping_lemma T h
-  exact .trans (.add_left hTh) (.symm (flype_add s T))
+  obtain ⟨hTh, hTv, _, _⟩ := flipping_lemma T h
+  exact .trans (.add_left (isotopic_rot180_of_flips hTh hTv).symm)
+    (.symm (flype_add s T))
 
 theorem isotopic_add_crossing_right_assoc (T U : TangleDiagram) (s : CrossingSign)
     (hU : IsRational U) :

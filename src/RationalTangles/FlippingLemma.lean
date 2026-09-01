@@ -267,19 +267,46 @@ theorem isotopic_vflip_involutive (T : TangleDiagram) :
     Isotopic T.vflip.vflip T :=
   isotopic_planar (planar_vflip_vflip T)
 
+theorem planar_hflip_rot180_vflip (T : TangleDiagram) :
+    PlanarIsotopy T.hflip.rot180 T.vflip := by
+  refine ⟨id, injective_id, rfl, rfl, rfl, rfl, T.vflip.crossings, ?_, List.Perm.rfl⟩
+  have hmap :
+      T.hflip.rot180.crossings.map (Crossing.rename id) =
+        T.vflip.crossings.map Crossing.rotate180 := by
+    simp [TangleDiagram.hflip, TangleDiagram.vflip, TangleDiagram.rot180,
+      TangleDiagram.mirror, List.map_map, Function.comp, Crossing.switch_switch,
+      rename_id]
+  simpa [hmap] using pairRel_rotate180 T.vflip.crossings
+
+theorem planar_vflip_rot180_hflip (T : TangleDiagram) :
+    PlanarIsotopy T.vflip.rot180 T.hflip := by
+  refine ⟨id, injective_id, rfl, rfl, rfl, rfl, T.hflip.crossings, ?_, List.Perm.rfl⟩
+  have hmap :
+      T.vflip.rot180.crossings.map (Crossing.rename id) =
+        T.hflip.crossings.map Crossing.rotate180 := by
+    simp [TangleDiagram.hflip, TangleDiagram.vflip, TangleDiagram.rot180,
+      TangleDiagram.mirror, List.map_map, Function.comp, Crossing.switch_switch,
+      rename_id]
+  simpa [hmap] using pairRel_rotate180 T.hflip.crossings
+
+theorem isotopic_rot180_of_flips {T : TangleDiagram}
+    (hh : Isotopic T T.hflip) (hv : Isotopic T T.vflip) :
+    Isotopic T.rot180 T := by
+  rw [rot180_eq_hflip_vflip]
+  exact .trans (.vflip_cong hh.symm) hv.symm
+
 /-! ## Lemma 2 on twist-form expressions -/
 
+/-- Sign-preserving Figure 5 slide: `[±1]+t ∼ t.rot180+[±1]`.
+    Not the switched algebraic `Flype` (`t.hflip`). -/
 theorem flype_add (s : CrossingSign) (t : TangleDiagram) :
-    Isotopic (crossingTangle s + t) (t.hflip + crossingTangle s) := by
-  cases s <;> simp [crossingTangle]
-  · exact .flype (Or.inl (.add_pos t))
-  · exact .flype (Or.inl (.add_neg t))
+    Isotopic (crossingTangle s + t) (t.rot180 + crossingTangle s) :=
+  .flype_slide_add s t
 
+/-- Sign-preserving Figure 5 slide: `[±1]*t ∼ t.rot180*[±1]`. -/
 theorem flype_mul (s : CrossingSign) (t : TangleDiagram) :
-    Isotopic (crossingTangle s * t) (t.vflip * crossingTangle s) := by
-  cases s <;> simp [crossingTangle]
-  · exact .flype (Or.inl (.mul_pos t))
-  · exact .flype (Or.inl (.mul_neg t))
+    Isotopic (crossingTangle s * t) (t.rot180 * crossingTangle s) :=
+  .flype_slide_mul s t
 
 theorem TwistExpr.isotopic_flips (e : TwistExpr) :
     Isotopic e.diagram e.diagram.hflip ∧ Isotopic e.diagram e.diagram.vflip := by
@@ -294,21 +321,29 @@ theorem TwistExpr.isotopic_flips (e : TwistExpr) :
     constructor
     · refine .trans ?_ (.symm (.hflip_add e.diagram (crossingTangle s)))
       exact .trans (.add_left ihh) (.add_right (isotopic_crossingTangle_hflip s))
-    · have hST : Isotopic (crossingTangle s + e.diagram)
+    · have hslide :
+          Isotopic (crossingTangle s + e.diagram.vflip)
+            (e.diagram.vflip.rot180 + crossingTangle s) :=
+        flype_add s e.diagram.vflip
+      have hrot : Isotopic e.diagram.vflip.rot180 e.diagram.hflip :=
+        isotopic_planar (planar_vflip_rot180_hflip e.diagram)
+      have hcomm : Isotopic (crossingTangle s + e.diagram.vflip)
           (e.diagram + crossingTangle s) :=
-        .trans (flype_add s e.diagram) (.add_left ihh.symm)
-      refine .trans hST.symm ?_
+        .trans hslide (.trans (.add_left hrot) (.add_left ihh.symm))
+      refine .trans hcomm.symm ?_
       refine .trans ?_ (.symm (.vflip_add e.diagram (crossingTangle s)))
-      exact .trans (.add_left (isotopic_crossingTangle_vflip s)) (.add_right ihv)
+      exact .add_left (isotopic_crossingTangle_vflip s)
   | addLeft e s ih =>
     obtain ⟨ihh, ihv⟩ := ih
     simp only [TwistExpr.diagram, add_eq_add]
     constructor
     · refine .trans ?_ (.symm (.hflip_add (crossingTangle s) e.diagram))
       exact .trans (.add_left (isotopic_crossingTangle_hflip s)) (.add_right ihh)
-    · have hST : Isotopic (crossingTangle s + e.diagram)
+    · have hrot : Isotopic e.diagram.rot180 e.diagram :=
+        isotopic_rot180_of_flips ihh ihv
+      have hST : Isotopic (crossingTangle s + e.diagram)
           (e.diagram + crossingTangle s) :=
-        .trans (flype_add s e.diagram) (.add_left ihh.symm)
+        .trans (flype_add s e.diagram) (.add_left hrot)
       refine .trans hST ?_
       refine .trans ?_ (.symm (.vflip_add (crossingTangle s) e.diagram))
       exact .trans (.add_left ihv) (.add_right (isotopic_crossingTangle_vflip s))
@@ -320,7 +355,8 @@ theorem TwistExpr.isotopic_flips (e : TwistExpr) :
       refine .trans (.hflip_mul e.diagram (crossingTangle s)) ?_
       refine .trans (.mul_left (isotopic_crossingTangle_hflip s).symm) ?_
       refine .trans (flype_mul s e.diagram.hflip) ?_
-      refine .trans (.mul_left (.vflip_cong ihh.symm)) ?_
+      refine .trans
+        (.mul_left (isotopic_planar (planar_hflip_rot180_vflip e.diagram))) ?_
       exact .mul_left ihv.symm
     · refine .trans ?_ (.symm (.vflip_mul e.diagram (crossingTangle s)))
       exact .trans (.mul_left ihv) (.mul_right (isotopic_crossingTangle_vflip s))
@@ -330,7 +366,7 @@ theorem TwistExpr.isotopic_flips (e : TwistExpr) :
     constructor
     · refine .trans ?_ (.symm (.hflip_mul (crossingTangle s) e.diagram))
       refine .trans (flype_mul s e.diagram) ?_
-      refine .trans (.mul_left ihv.symm) ?_
+      refine .trans (.mul_left (isotopic_rot180_of_flips ihh ihv)) ?_
       refine .trans (.mul_left ihh) ?_
       exact .mul_right (isotopic_crossingTangle_hflip s)
     · refine .trans ?_ (.symm (.vflip_mul (crossingTangle s) e.diagram))
@@ -409,7 +445,7 @@ theorem TwistExpr.toStandard_isotopic (e : TwistExpr) :
     have hflyp : Isotopic (crossingTangle s + e.diagram)
         (e.diagram + crossingTangle s) :=
       .trans (flype_add s e.diagram)
-        (.add_left (e.isotopic_flips.1).symm)
+        (.add_left (isotopic_rot180_of_flips e.isotopic_flips.1 e.isotopic_flips.2))
     refine .trans hflyp ?_
     simpa [TwistExpr.diagram, TwistExpr.toStandard, StandardExpr.diagram, add_eq_add] using
       Isotopic.add_left ih
@@ -417,7 +453,7 @@ theorem TwistExpr.toStandard_isotopic (e : TwistExpr) :
     have hflyp : Isotopic (crossingTangle s * e.diagram)
         (e.diagram * crossingTangle s) :=
       .trans (flype_mul s e.diagram)
-        (.mul_left (e.isotopic_flips.2).symm)
+        (.mul_left (isotopic_rot180_of_flips e.isotopic_flips.1 e.isotopic_flips.2))
     refine .trans hflyp ?_
     simpa [TwistExpr.diagram, TwistExpr.toStandard, StandardExpr.diagram, mul_eq_mul] using
       Isotopic.mul_left ih
