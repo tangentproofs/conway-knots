@@ -338,6 +338,58 @@ theorem coloring_mul_right {T S S' : TangleDiagram} {col colS' : Nat → Int}
       exact colorGlueMul_comp_shift T S' col colS' glueNW glueNE S'.SW
     rw [h1, hSW, colorMulBottom_SW]
 
+/-- Recolor `[±1]` after inversion so endpoint colors (as a 2-tangle) agree. -/
+def colorInvertUnit (col : Nat → Int) (a : Nat) : Int :=
+  if a = 0 then col 3
+  else if a = 1 then col 0
+  else if a = 2 then col 1
+  else if a = 3 then col 2
+  else col a
+
+theorem colorInvertUnit_vals (col : Nat → Int) :
+    colorInvertUnit col 0 = col 3 ∧
+    colorInvertUnit col 1 = col 0 ∧
+    colorInvertUnit col 2 = col 1 ∧
+    colorInvertUnit col 3 = col 2 := by
+  simp [colorInvertUnit]
+
+theorem coloring_invert_unit (s : CrossingSign) (col : Nat → Int)
+    (hc : (crossingTangle s).IsColored col) :
+    ∃ col', ((crossingTangle s).invert).IsColored col' ∧
+      SameEndpointColors (crossingTangle s) (crossingTangle s).invert col col' := by
+  refine ⟨colorInvertUnit col, ?_, ?_⟩
+  · cases s with
+    | pos =>
+      intro C hC
+      simp [crossingTangle, TangleDiagram.invert, TangleDiagram.rotate,
+        TangleDiagram.mirror, Crossing.switch, one] at hC
+      subst hC
+      obtain ⟨hβ, hr⟩ := hc ⟨0, 1, 2, 3, CrossingSign.pos⟩ (by simp [one, crossingTangle])
+      constructor
+      · simp [Crossing.switch, colorInvertUnit, hβ]
+      · simp [Crossing.switch, colorInvertUnit]; linarith
+    | neg =>
+      intro C hC
+      simp [crossingTangle, TangleDiagram.invert, TangleDiagram.rotate,
+        TangleDiagram.mirror, Crossing.switch, one, negOne] at hC
+      subst hC
+      have hmem : { a0 := 1, a1 := 2, a2 := 3, a3 := 0, sign := CrossingSign.neg } ∈
+          negOne.crossings := by
+        simp [negOne, one, TangleDiagram.mirror, Crossing.switch, CrossingSign.flip]
+      obtain ⟨hβ, hr⟩ := hc _ hmem
+      constructor
+      · simp [Crossing.switch, colorInvertUnit] at hβ ⊢
+        linarith
+      · simp [Crossing.switch, colorInvertUnit] at hr ⊢
+        linarith
+  · cases s with
+    | pos =>
+      simp [SameEndpointColors, crossingTangle, TangleDiagram.invert, TangleDiagram.rotate,
+        TangleDiagram.mirror, one, colorInvertUnit]
+    | neg =>
+      simp [SameEndpointColors, crossingTangle, TangleDiagram.invert, TangleDiagram.rotate,
+        TangleDiagram.mirror, negOne, one, colorInvertUnit]
+
 /-- Recolor after a coloring-ready isotopy so that endpoint colors (hence
     the color matrix and coloring fraction) are unchanged. -/
 theorem coloring_ColoringIsotopy {D E : TangleDiagram}
@@ -379,6 +431,12 @@ theorem coloring_ColoringIsotopy {D E : TangleDiagram}
     obtain ⟨hcol, hs'⟩ :=
       coloring_mul_right (IsColored_mul_top hc) (IsColored_mul_bottom hc) hS' hs hglue
     exact ⟨_, hcol, hs'⟩
+  | add_zero T =>
+    refine ⟨col, ?_, ?_⟩
+    · simpa [add_zero_eq] using hc
+    · simp [add_zero_eq, SameEndpointColors]
+  | invert_unit s =>
+    exact coloring_invert_unit s col hc
 
 /-- Indexed Reidemeister III is a coloring-ready move, via the local model. -/
 theorem ColoringIsotopy.of_IsReidemeisterIII {D E : TangleDiagram}

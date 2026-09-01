@@ -153,6 +153,13 @@ instance : Add TangleDiagram := ⟨TangleDiagram.add⟩
 instance : Mul TangleDiagram := ⟨TangleDiagram.mul⟩
 instance : Neg TangleDiagram := ⟨TangleDiagram.mirror⟩
 
+/-- `[0]` on the right of `T` is a no-op: the two horizontal strands of `[0]`
+    are glued onto `T.NE` and `T.SE`, which already occupy those boundary
+    ports. -/
+theorem add_zero_eq (T : TangleDiagram) : T.add TangleDiagram.zero = T := by
+  unfold TangleDiagram.add
+  simp [TangleDiagram.zero, TangleDiagram.rename]
+
 /-- `[0]ʳ = [∞]`. -/
 theorem rotate_zero :
     TangleDiagram.zero.rotate = TangleDiagram.infinity :=
