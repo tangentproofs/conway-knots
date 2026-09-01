@@ -1115,6 +1115,26 @@ theorem planar_foldAddUnits_integerBlock_invert (T : TangleDiagram) (n : Nat)
   exact planar_invert_of_rename (addZeroBlockReindex_injective T)
     hNW hNE hSE hSW hcs
 
+/-- Invert of `[0]+T` is the invert of `T` after `zeroAddReindex`.
+    Same port hypothesis as `planar_zero_add`. Not `invert_cong`. -/
+theorem planar_zero_add_invert (T : TangleDiagram) (h : T.NW ≠ T.SW) :
+    PlanarIsotopy T.invert (TangleDiagram.zero.add T).invert :=
+  planar_invert_of_rename (zeroAddReindex_injective T)
+    (by simp [TangleDiagram.add, TangleDiagram.zero, zeroAddReindex])
+    (zero_add_NE_reindex T) (zero_add_SE_reindex T)
+    (by simp [TangleDiagram.add, TangleDiagram.zero, zeroAddReindex, h.symm])
+    (zero_add_crossings_reindex T)
+
+/-- Invert of `[∞]*T` is the invert of `T` after `infinityMulReindex`.
+    Same port hypothesis as `planar_infinity_mul`. Not `invert_cong`. -/
+theorem planar_infinity_mul_invert (T : TangleDiagram) (h : T.NW ≠ T.NE) :
+    PlanarIsotopy T.invert (TangleDiagram.infinity.mul T).invert :=
+  planar_invert_of_rename (infinityMulReindex_injective T)
+    (by simp [TangleDiagram.mul, TangleDiagram.infinity, infinityMulReindex])
+    (by simp [TangleDiagram.mul, TangleDiagram.infinity, infinityMulReindex, h.symm])
+    (infinity_mul_SE_reindex T) (infinity_mul_SW_reindex T)
+    (infinity_mul_crossings_reindex T)
+
 
 /-! ## Sign-preserving `[±1]` slide (algebraic Figure 5)
 

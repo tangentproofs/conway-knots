@@ -104,8 +104,9 @@ PD-mirror, rotate for `(T*S)ⁱ`, and glue of invert colorings for
 `n ≠ 0` (carried value `0`). Nested versus two-block uninverted
 PD-sums are `ColoringIsotopy` by `add_zero`/`add_assoc` reindexing
 (`coloringIsotopy_nested_canceling`), so `HasColoringFraction`
-transfers; their inverts are not a `ColoringIsotopy` (`invert_cong`
-is omitted). Invert-mul of `[∞]*[∞]` (`n = 0`) is a dummy
+transfers; their inverts are the same `addZeroBlockReindex` after
+`Crossing.switch` (`planar_invert_of_rename`), hence `ColoringIsotopy`
+without `invert_cong`. Invert-mul of `[∞]*[∞]` (`n = 0`) is a dummy
 coloring of `[∞]ⁱ` on both PD-codes (`mul_infinity_eq` /
 `add_infinity_invert_eq`), carried value `0`. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
@@ -127,7 +128,13 @@ and along invert-mul of two `rightBottom`/`slideReady` diagrams with
 finite nonzero `F` (carried value `(F(T)⁻¹+F(S)⁻¹)`), including
 invert-mul of the two-block vertical product of canceling diagrams
 when `n ≠ 0` (carried value `0`), and along invert-mul of `[∞]*[∞]`
-(`n = 0`, carried value `0`).
+(`n = 0`, carried value `0`), and along `invert_cong`/`invert_add` of
+a unit/`invert_mul` of a unit/`mirror_cong` on `slideReady` diagrams
+(fraction-level; not constructors of `ColoringIsotopy`), and along
+`rot180_add`/`rot180_mul` of a `slideReady` unit sum or product, and
+along invert-add of a `[0]` summand on an arbitrary diagram given a
+coloring of `Tⁱ`, and along invert-mul of a `[∞]` factor on an
+arbitrary diagram given a coloring of `Tⁱ`.
 The two-block vertical product of canceling diagrams carries `∞` as
 a coloring fraction (not along invert-mul). Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
@@ -3677,6 +3684,75 @@ theorem HasColoringFraction.transfer_odd_neg_slideReady (e : TwistExpr)
   SlideReadyIsotopy.has_fraction
     (SlideReadyIsotopy.transfer_odd_neg e hok hports hne)
 
+/-- Fraction-level `Isotopic.invert_cong` on `slideReady` diagrams.
+    Not a `ColoringIsotopy` constructor. -/
+theorem HasColoringFraction.invert_cong_slideReady {e e' : TwistExpr}
+    (hok : e.slideReady) (hok' : e'.slideReady)
+    (h : ColoringIsotopy e.diagram e'.diagram) :
+    HasColoringFraction e.diagram.invert e.toStandard.fraction.inv ∧
+      HasColoringFraction e'.diagram.invert e.toStandard.fraction.inv :=
+  SlideReadyIsotopy.has_fraction
+    (SlideReadyIsotopy.invert_cong e e' hok hok' h)
+
+/-- Invert-add of a `slideReady` diagram with a right unit. Not a
+    `ColoringIsotopy`. -/
+theorem HasColoringFraction.invert_add_slideReady (e : TwistExpr)
+    (hok : e.slideReady) (s : CrossingSign)
+    (hne : e.diagram.NE ≠ e.diagram.SE) :
+    HasColoringFraction (e.diagram.add (crossingTangle s)).invert
+        (TwistExpr.addRight e s).toStandard.fraction.inv ∧
+      HasColoringFraction ((crossingTangle s).invert.mul e.diagram.invert)
+        (TwistExpr.addRight e s).toStandard.fraction.inv :=
+  SlideReadyIsotopy.has_fraction
+    (SlideReadyIsotopy.invert_add e hok s hne)
+
+/-- Invert-mul of a `slideReady` diagram with a bottom unit. Not a
+    `ColoringIsotopy`. -/
+theorem HasColoringFraction.invert_mul_slideReady (e : TwistExpr)
+    (hok : e.slideReady) (s : CrossingSign) :
+    HasColoringFraction (e.diagram.mul (crossingTangle s)).invert
+        (TwistExpr.mulBottom e s).toStandard.fraction.inv ∧
+      HasColoringFraction (e.diagram.invert.add (crossingTangle s).invert)
+        (TwistExpr.mulBottom e s).toStandard.fraction.inv :=
+  SlideReadyIsotopy.has_fraction
+    (SlideReadyIsotopy.invert_mul e hok s)
+
+/-- Fraction-level `Isotopic.mirror_cong` on `slideReady` diagrams.
+    Not a `ColoringIsotopy` constructor. -/
+theorem HasColoringFraction.mirror_cong_slideReady {e e' : TwistExpr}
+    (hok : e.slideReady) (hok' : e'.slideReady)
+    (h : ColoringIsotopy e.diagram e'.diagram) :
+    HasColoringFraction e.diagram.mirror e.toStandard.fraction.neg ∧
+      HasColoringFraction e'.diagram.mirror e.toStandard.fraction.neg :=
+  SlideReadyIsotopy.has_fraction
+    (SlideReadyIsotopy.mirror_cong e e' hok hok' h)
+
+/-- Fraction-level `rot180_add` on a `slideReady` right unit sum.
+    Not a `ColoringIsotopy`. -/
+theorem HasColoringFraction.rot180_add_slideReady (e : TwistExpr)
+    (hok : e.slideReady) (s : CrossingSign) :
+    HasColoringFraction (e.diagram.add (crossingTangle s)).rot180
+        (TwistExpr.addRight e s).toStandard.fraction ∧
+      HasColoringFraction
+        ((crossingTangle s).rot180.add e.diagram.rot180)
+        (TwistExpr.addRight e s).toStandard.fraction := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_rot180_add_slideReady e hok s
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-- Fraction-level `rot180_mul` on a `slideReady` bottom unit product.
+    Not a `ColoringIsotopy`. -/
+theorem HasColoringFraction.rot180_mul_slideReady (e : TwistExpr)
+    (hok : e.slideReady) (s : CrossingSign) :
+    HasColoringFraction (e.diagram.mul (crossingTangle s)).rot180
+        (TwistExpr.mulBottom e s).toStandard.fraction ∧
+      HasColoringFraction
+        ((crossingTangle s).rot180.mul e.diagram.rot180)
+        (TwistExpr.mulBottom e s).toStandard.fraction := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_rot180_mul_slideReady e hok s
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
 /-- Invert-add of two `rightBottom`/`slideReady` diagrams with finite
     nonzero `F`: both `(T+S)ⁱ` and `Sⁱ*Tⁱ` carry
     `(F(T)+F(S))⁻¹`. Skip `0`/`∞`. Not a `TwistExpr`, so not a
@@ -5834,5 +5910,117 @@ theorem HasColoringFraction.invert_mul_neg_verticalTwists_mul
         (0 : CFValue) := by
   simpa [neg_neg] using
     HasColoringFraction.invert_mul_verticalTwists_mul_neg (-n)
+
+/-! ## Invert-add of `[0]` and invert-mul of `[∞]` on arbitrary diagrams
+
+Given a coloring of `Tⁱ`, both sides of `Isotopic.invert_add` with a
+`[0]` summand, and both sides of `Isotopic.invert_mul` with a `[∞]`
+factor, carry the same fraction. The dummy reindex `colorInfinityMul`
+is reused on invert (dual to `coloring_fraction_invert_zero_add`).
+Not a `ColoringIsotopy` (`invert_add`/`invert_mul` switch crossings).
+-/
+
+theorem invert_infinity_mul_crossings (T : TangleDiagram) :
+    (TangleDiagram.infinity.mul T).invert.crossings =
+      T.invert.crossings.map (Crossing.rename (infinityMulReindex T)) := by
+  simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror,
+    infinity_mul_crossings_reindex, List.map_map, Function.comp,
+    Crossing.switch_rename]
+
+theorem IsColored_colorInfinityMul_invert (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.invert.IsColored col) :
+    (TangleDiagram.infinity.mul T).invert.IsColored
+      (colorInfinityMul T col) := by
+  intro C hC
+  rw [invert_infinity_mul_crossings] at hC
+  obtain ⟨C0, hC0, rfl⟩ := List.mem_map.1 hC
+  rw [ColoringRule_rename]
+  have hfun : colorInfinityMul T col ∘ infinityMulReindex T = col :=
+    funext (colorInfinityMul_reindex T col)
+  simpa [hfun] using hc C0 hC0
+
+theorem coloring_invert_infinity_mul (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.invert.IsColored col) :
+    ∃ col', (TangleDiagram.infinity.mul T).invert.IsColored col' ∧
+      SameEndpointColors T.invert (TangleDiagram.infinity.mul T).invert
+        col col' := by
+  refine ⟨colorInfinityMul T col, IsColored_colorInfinityMul_invert T col hc,
+    ?_⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [TangleDiagram.invert_NW, TangleDiagram.invert_NW]
+    simp [colorInfinityMul, TangleDiagram.mul, TangleDiagram.infinity]
+  · rw [TangleDiagram.invert_NE, TangleDiagram.invert_NE,
+      infinity_mul_SE_reindex, colorInfinityMul_reindex]
+  · rw [TangleDiagram.invert_SE, TangleDiagram.invert_SE,
+      infinity_mul_SW_reindex, colorInfinityMul_reindex]
+  · rw [TangleDiagram.invert_SW, TangleDiagram.invert_SW]
+    simp [colorInfinityMul, TangleDiagram.mul, TangleDiagram.infinity]
+
+theorem coloring_fraction_invert_infinity_mul (T : TangleDiagram)
+    (col : Nat → Int) (hc : T.invert.IsColored col) :
+    ∃ col', (TangleDiagram.infinity.mul T).invert.IsColored col' ∧
+      ColorMatrix.of (TangleDiagram.infinity.mul T).invert col' =
+        ColorMatrix.of T.invert col ∧
+      (ColorMatrix.of (TangleDiagram.infinity.mul T).invert col').fraction =
+        (ColorMatrix.of T.invert col).fraction := by
+  obtain ⟨col', hc', hs⟩ := coloring_invert_infinity_mul T col hc
+  have hM := ColorMatrix.of_sameEndpoint hs
+  exact ⟨col', hc', hM, hM ▸ rfl⟩
+
+/-- Invert-add with right summand `[0]`, from a coloring of `Tⁱ`.
+    `(T+[0])ⁱ` is `Tⁱ`; `[0]ⁱ*Tⁱ` is `[∞]*Tⁱ`. -/
+theorem HasColoringFraction.invert_add_right_zero {T : TangleDiagram}
+    {v : CFValue} (h : HasColoringFraction T.invert v) :
+    HasColoringFraction (T.add TangleDiagram.zero).invert v ∧
+      HasColoringFraction (TangleDiagram.zero.invert.mul T.invert) v := by
+  have hL : HasColoringFraction (T.add TangleDiagram.zero).invert v := by
+    simpa [add_zero_eq] using h
+  obtain ⟨col, hc, hm, hf⟩ := h
+  obtain ⟨colR, hcR, hM, hfrac⟩ :=
+    coloring_fraction_infinity_mul T.invert col hc
+  refine ⟨hL, ⟨colR, ?_, ?_, hfrac.trans hf⟩⟩
+  · simpa [invert_zero] using hcR
+  · simpa [invert_zero, hM] using hm
+
+/-- Invert-add with left summand `[0]`, from a coloring of `Tⁱ`. -/
+theorem HasColoringFraction.invert_add_left_zero {T : TangleDiagram}
+    {v : CFValue} (h : HasColoringFraction T.invert v) :
+    HasColoringFraction (TangleDiagram.zero.add T).invert v ∧
+      HasColoringFraction (T.invert.mul TangleDiagram.zero.invert) v := by
+  have hR : HasColoringFraction (T.invert.mul TangleDiagram.zero.invert) v := by
+    simpa [invert_zero, mul_infinity_eq] using h
+  obtain ⟨col, hc, hm, hf⟩ := h
+  obtain ⟨colL, hcL, hM, hfrac⟩ :=
+    coloring_fraction_invert_zero_add T col hc
+  refine ⟨⟨colL, hcL, ?_, hfrac.trans hf⟩, hR⟩
+  simpa [hM] using hm
+
+/-- Invert-mul with right factor `[∞]`: both PD-codes equal `Tⁱ`. -/
+theorem HasColoringFraction.invert_mul_right_infinity {T : TangleDiagram}
+    {v : CFValue} (h : HasColoringFraction T.invert v) :
+    HasColoringFraction (T.mul TangleDiagram.infinity).invert v ∧
+      HasColoringFraction (T.invert.add TangleDiagram.infinity.invert) v := by
+  constructor
+  · simpa [mul_infinity_eq] using h
+  · simpa [add_infinity_invert_eq] using h
+
+theorem coloringIsotopy_infinity_invert_add (T : TangleDiagram) :
+    ColoringIsotopy T (TangleDiagram.infinity.invert.add T) :=
+  ColoringIsotopy.trans (ColoringIsotopy.zero_add T)
+    (ColoringIsotopy.add_left (.isotopy planar_zero_infinity_invert))
+
+/-- Invert-mul with left factor `[∞]`, from a coloring of `Tⁱ`.
+    `[∞]*T` is a reindex of `T`; `[∞]ⁱ+Tⁱ` is coloring-isotopic to `Tⁱ`. -/
+theorem HasColoringFraction.invert_mul_left_infinity {T : TangleDiagram}
+    {v : CFValue} (h : HasColoringFraction T.invert v) :
+    HasColoringFraction (TangleDiagram.infinity.mul T).invert v ∧
+      HasColoringFraction (TangleDiagram.infinity.invert.add T.invert) v := by
+  have hR := HasColoringFraction.of_ColoringIsotopy
+    (coloringIsotopy_infinity_invert_add T.invert) h
+  obtain ⟨col, hc, hm, hf⟩ := h
+  obtain ⟨colL, hcL, hM, hfrac⟩ :=
+    coloring_fraction_invert_infinity_mul T col hc
+  refine ⟨⟨colL, hcL, ?_, hfrac.trans hf⟩, hR⟩
+  simpa [hM] using hm
 
 end RationalTangles
