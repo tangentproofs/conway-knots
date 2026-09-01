@@ -16,7 +16,10 @@ On `addLeft`/`mulTop` of a `rightBottom` inner expression the same
 uniqueness holds under the glue-port hypotheses used to color those
 constructors (`NW ≠ SW` / `NW ≠ NE`): `DiagonalSum` is the honest glue,
 not a fake identification, and unrestricted uniqueness without those
-ports is not claimed. Affine uniqueness of `colorFrom` (`colorFrom_affine`,
+ports is not claimed. Fresh invert (resp. PD-mirror) colorings of those
+diagrams then have fraction `1/F` (resp. `-F`), dual to
+`coloring_invert_inv_slideReady` / `coloring_mirror_slideReady`;
+colorings are not reused across `Crossing.switch`. Affine uniqueness of `colorFrom` (`colorFrom_affine`,
 `colorFrom_eq_affine_01`) extends to `addLeft`/`mulTop` constructors, so
 the `colorFrom` family has a common fraction; arbitrary colorings still
 use `coloring_fraction_eq_F_addLeft` / `_mulTop`. If a diagram is related
@@ -153,7 +156,9 @@ and along invert-mul of two `rightBottom`/`slideReady` diagrams with
 finite nonzero `F` (carried value `(F(T)⁻¹+F(S)⁻¹)`), including
 invert-mul of the two-block vertical product of canceling diagrams
 when `n ≠ 0` (carried value `0`), and along invert-mul of `[∞]*[∞]`
-(`n = 0`, carried value `0`), and along `invert_cong`/`invert_add` of
+(`n = 0`, carried value `0`), and along invert/mirror of `addLeft`/`mulTop`
+of a `rightBottom` inner expression (port hypotheses as in uniqueness),
+and along `invert_cong`/`invert_add` of
 a unit/`invert_mul` of a unit/`mirror_cong` on `slideReady` diagrams
 (fraction-level; not constructors of `ColoringIsotopy`), and along
 `rot180_add`/`rot180_mul` of a `slideReady` unit sum or product, and
@@ -1913,6 +1918,232 @@ theorem coloring_mirror_cong_slideReady {e e' : TwistExpr}
   have hf := coloring_mirror_any_eq_neg_F_slideReady e hok colM hcM hmM
   have hf' := coloring_mirror_any_eq_neg_F_slideReady e' hok' colM' hcM' hmM'
   rw [hf, hf', TwistExpr.toStandard_fraction_ColoringIsotopy_colorFrom hok hok' h]
+
+/-! ## Invert and mirror on `addLeft` / `mulTop`
+
+The uniqueness theorems `coloring_fraction_unique_addLeft` /
+`coloring_fraction_unique_mulTop` identify `f` on those diagrams. A
+*fresh* coloring of the inverted (resp. PD-mirror) diagram, dual to
+`coloring_invert_inv_slideReady` / `coloring_mirror_slideReady`, then
+has fraction `1/F` (resp. `-F`). Colorings are not reused across
+`Crossing.switch`, and `invert_cong` is not added to `ColoringIsotopy`.
+Port hypotheses are those used to color the constructors; invert
+coloring of `addLeft`/`mulTop` without them is not claimed.
+-/
+
+/-- Dual of `coloring_mirror_slideReady` on `addLeft` of a right-and-bottom
+    inner expression. Fresh coloring of the PD-mirror; uniqueness of `f`
+    on the constructor identifies `-f`. -/
+theorem coloring_mirror_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW)
+    (col col' : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).NotMono)
+    (hc' : (TwistExpr.addLeft e s).diagram.mirror.IsColored col')
+    (hm' : (ColorMatrix.of (TwistExpr.addLeft e s).diagram.mirror col').NotMono) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram.mirror col').fraction =
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).fraction.neg :=
+  coloring_mirror_slideReady (TwistExpr.addLeft e s)
+    (TwistExpr.addLeft_slideReady e s hrb hne) col col' hc hm hc' hm'
+
+/-- Dual of `coloring_invert_inv_slideReady` on `addLeft`. Fresh coloring of
+    the inverted PD-code (algebraic mirror, then rotate); not transport of
+    `col` across `Crossing.switch`. -/
+theorem coloring_invert_inv_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW)
+    (col : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).NotMono) :
+    ∃ col', (TwistExpr.addLeft e s).diagram.invert.IsColored col' ∧
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col').NotMono ∧
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col').fraction =
+        (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).fraction.inv :=
+  coloring_invert_inv_slideReady (TwistExpr.addLeft e s)
+    (TwistExpr.addLeft_slideReady e s hrb hne) col hc hm
+
+/-- Fresh invert coloring of an `addLeft` diagram has fraction `1/F`,
+    composing invert-uniqueness with `coloring_fraction_eq_F_addLeft`. -/
+theorem coloring_invert_inv_eq_F_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW)
+    (col : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).NotMono) :
+    ∃ col', (TwistExpr.addLeft e s).diagram.invert.IsColored col' ∧
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col').NotMono ∧
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col').fraction =
+        (TwistExpr.addLeft e s).fraction.inv := by
+  obtain ⟨col', hc', hm', hf⟩ :=
+    coloring_invert_inv_addLeft e s hrb hne col hc hm
+  refine ⟨col', hc', hm', hf.trans (congrArg CFValue.inv ?_)⟩
+  exact coloring_fraction_eq_F_addLeft e s hrb hne col hc hm
+
+theorem coloring_invert_inv_eq_F_addLeft_colorFrom (e : TwistExpr)
+    (s : CrossingSign) (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.SW) :
+    ∃ col', (TwistExpr.addLeft e s).diagram.invert.IsColored col' ∧
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col').NotMono ∧
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col').fraction =
+        (TwistExpr.addLeft e s).fraction.inv :=
+  coloring_invert_inv_eq_F_addLeft e s hrb hne
+    ((TwistExpr.addLeft e s).colorFrom 0 1)
+    (e.colorFrom_isColored_addLeft s hrb hne 0 1)
+    (e.colorFrom_notMono_addLeft s hrb hne)
+
+/-- Every non-monochrome coloring of the inverted `addLeft` PD-code has
+    fraction `1/F`. Uniqueness of `f` after invert on this `slideReady`
+    constructor, rewritten with algebraic `F`. -/
+theorem coloring_invert_inv_any_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW)
+    (col : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.invert.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col).NotMono) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col).fraction =
+      (TwistExpr.addLeft e s).fraction.inv := by
+  have hf := coloring_invert_inv_any_slideReady (TwistExpr.addLeft e s)
+    (TwistExpr.addLeft_slideReady e s hrb hne) col hc hm
+  exact hf.trans (congrArg CFValue.inv
+    (TwistExpr.fraction_eq_toStandard_addLeft e s
+      (TwistExpr.fraction_eq_toStandard_rightBottom e hrb)).symm)
+
+theorem coloring_fraction_unique_invert_addLeft (e : TwistExpr)
+    (s : CrossingSign) (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.SW) (col col' : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.invert.IsColored col)
+    (hc' : (TwistExpr.addLeft e s).diagram.invert.IsColored col')
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col).NotMono)
+    (hm' : (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col').NotMono) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col).fraction =
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram.invert col').fraction :=
+  (coloring_invert_inv_any_addLeft e s hrb hne col hc hm).trans
+    (coloring_invert_inv_any_addLeft e s hrb hne col' hc' hm').symm
+
+/-- Any non-monochrome coloring of the PD-mirror of an `addLeft` diagram
+    has fraction `-F`. -/
+theorem coloring_mirror_any_eq_neg_F_addLeft (e : TwistExpr)
+    (s : CrossingSign) (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.SW) (col : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.mirror.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram.mirror col).NotMono) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram.mirror col).fraction =
+      (TwistExpr.addLeft e s).fraction.neg := by
+  have hf := coloring_mirror_any_eq_neg_F_slideReady (TwistExpr.addLeft e s)
+    (TwistExpr.addLeft_slideReady e s hrb hne) col hc hm
+  exact hf.trans (congrArg CFValue.neg
+    (TwistExpr.fraction_eq_toStandard_addLeft e s
+      (TwistExpr.fraction_eq_toStandard_rightBottom e hrb)).symm)
+
+theorem coloring_fraction_unique_mirror_addLeft (e : TwistExpr)
+    (s : CrossingSign) (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.SW) (col col' : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.mirror.IsColored col)
+    (hc' : (TwistExpr.addLeft e s).diagram.mirror.IsColored col')
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram.mirror col).NotMono)
+    (hm' : (ColorMatrix.of (TwistExpr.addLeft e s).diagram.mirror col').NotMono) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram.mirror col).fraction =
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram.mirror col').fraction :=
+  (coloring_mirror_any_eq_neg_F_addLeft e s hrb hne col hc hm).trans
+    (coloring_mirror_any_eq_neg_F_addLeft e s hrb hne col' hc' hm').symm
+
+/-- Dual of `coloring_mirror_slideReady` on `mulTop`. Carried value is
+    `toStandard.fraction` (top product need not equal algebraic
+    `mulTop.fraction`). -/
+theorem coloring_mirror_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE)
+    (col col' : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).NotMono)
+    (hc' : (TwistExpr.mulTop e s).diagram.mirror.IsColored col')
+    (hm' : (ColorMatrix.of (TwistExpr.mulTop e s).diagram.mirror col').NotMono) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram.mirror col').fraction =
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).fraction.neg :=
+  coloring_mirror_slideReady (TwistExpr.mulTop e s)
+    (TwistExpr.mulTop_slideReady e s hrb hne) col col' hc hm hc' hm'
+
+/-- Dual of `coloring_invert_inv_slideReady` on `mulTop`. Fresh coloring of
+    the inverted PD-code. -/
+theorem coloring_invert_inv_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE)
+    (col : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).NotMono) :
+    ∃ col', (TwistExpr.mulTop e s).diagram.invert.IsColored col' ∧
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col').NotMono ∧
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col').fraction =
+        (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).fraction.inv :=
+  coloring_invert_inv_slideReady (TwistExpr.mulTop e s)
+    (TwistExpr.mulTop_slideReady e s hrb hne) col hc hm
+
+/-- Fresh invert coloring of a `mulTop` diagram has fraction `1/F` of
+    `toStandard`. -/
+theorem coloring_invert_inv_eq_F_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE)
+    (col : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).NotMono) :
+    ∃ col', (TwistExpr.mulTop e s).diagram.invert.IsColored col' ∧
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col').NotMono ∧
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col').fraction =
+        (TwistExpr.mulTop e s).toStandard.fraction.inv := by
+  obtain ⟨col', hc', hm', hf⟩ :=
+    coloring_invert_inv_mulTop e s hrb hne col hc hm
+  refine ⟨col', hc', hm', hf.trans (congrArg CFValue.inv ?_)⟩
+  exact coloring_fraction_eq_F_mulTop e s hrb hne col hc hm
+
+theorem coloring_invert_inv_eq_F_mulTop_colorFrom (e : TwistExpr)
+    (s : CrossingSign) (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.NE) :
+    ∃ col', (TwistExpr.mulTop e s).diagram.invert.IsColored col' ∧
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col').NotMono ∧
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col').fraction =
+        (TwistExpr.mulTop e s).toStandard.fraction.inv :=
+  coloring_invert_inv_eq_F_mulTop e s hrb hne
+    ((TwistExpr.mulTop e s).colorFrom 0 1)
+    (e.colorFrom_isColored_mulTop s hrb hne 0 1)
+    (e.colorFrom_notMono_mulTop s hrb hne)
+
+theorem coloring_invert_inv_any_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE)
+    (col : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.invert.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col).NotMono) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col).fraction =
+      (TwistExpr.mulTop e s).toStandard.fraction.inv :=
+  coloring_invert_inv_any_slideReady (TwistExpr.mulTop e s)
+    (TwistExpr.mulTop_slideReady e s hrb hne) col hc hm
+
+theorem coloring_fraction_unique_invert_mulTop (e : TwistExpr)
+    (s : CrossingSign) (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.NE) (col col' : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.invert.IsColored col)
+    (hc' : (TwistExpr.mulTop e s).diagram.invert.IsColored col')
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col).NotMono)
+    (hm' : (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col').NotMono) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col).fraction =
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram.invert col').fraction :=
+  (coloring_invert_inv_any_mulTop e s hrb hne col hc hm).trans
+    (coloring_invert_inv_any_mulTop e s hrb hne col' hc' hm').symm
+
+theorem coloring_mirror_any_eq_neg_F_mulTop (e : TwistExpr)
+    (s : CrossingSign) (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.NE) (col : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.mirror.IsColored col)
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram.mirror col).NotMono) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram.mirror col).fraction =
+      (TwistExpr.mulTop e s).toStandard.fraction.neg :=
+  coloring_mirror_any_eq_neg_F_slideReady (TwistExpr.mulTop e s)
+    (TwistExpr.mulTop_slideReady e s hrb hne) col hc hm
+
+theorem coloring_fraction_unique_mirror_mulTop (e : TwistExpr)
+    (s : CrossingSign) (hrb : e.rightBottom)
+    (hne : e.diagram.NW ≠ e.diagram.NE) (col col' : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.mirror.IsColored col)
+    (hc' : (TwistExpr.mulTop e s).diagram.mirror.IsColored col')
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram.mirror col).NotMono)
+    (hm' : (ColorMatrix.of (TwistExpr.mulTop e s).diagram.mirror col').NotMono) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram.mirror col).fraction =
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram.mirror col').fraction :=
+  (coloring_mirror_any_eq_neg_F_mulTop e s hrb hne col hc hm).trans
+    (coloring_mirror_any_eq_neg_F_mulTop e s hrb hne col' hc' hm').symm
 
 theorem TwistExpr.toStandard_transfer_odd (e : TwistExpr) :
     (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).toStandard.fraction =
@@ -3834,6 +4065,46 @@ theorem HasColoringFraction.mirror_slideReady (e : TwistExpr)
     HasColoringFraction e.diagram.mirror e.toStandard.fraction.neg := by
   obtain ⟨col, hc, hm, _hd, hf⟩ := coloring_pd_mirror_of_colorFrom e hok
   exact ⟨col, hc, hm, hf⟩
+
+/-- Invert of `addLeft` of a right-and-bottom expression, under the same
+    port hypothesis used to color that constructor. -/
+theorem HasColoringFraction.invert_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW) :
+    HasColoringFraction (TwistExpr.addLeft e s).diagram.invert
+      (TwistExpr.addLeft e s).fraction.inv := by
+  obtain ⟨col', hc', hm', hf'⟩ :=
+    coloring_invert_inv_eq_F_addLeft_colorFrom e s hrb hne
+  exact ⟨col', hc', hm', hf'⟩
+
+/-- PD-mirror of `addLeft` of a right-and-bottom expression. -/
+theorem HasColoringFraction.mirror_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW) :
+    HasColoringFraction (TwistExpr.addLeft e s).diagram.mirror
+      (TwistExpr.addLeft e s).fraction.neg := by
+  have hok := TwistExpr.addLeft_slideReady e s hrb hne
+  obtain ⟨col, hc, hm, _hd, hf⟩ :=
+    coloring_pd_mirror_of_colorFrom (TwistExpr.addLeft e s) hok
+  refine ⟨col, hc, hm, hf.trans (congrArg CFValue.neg ?_)⟩
+  exact (TwistExpr.fraction_eq_toStandard_addLeft e s
+    (TwistExpr.fraction_eq_toStandard_rightBottom e hrb)).symm
+
+/-- Invert of `mulTop` of a right-and-bottom expression; carried value is
+    `toStandard.fraction.inv`. -/
+theorem HasColoringFraction.invert_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE) :
+    HasColoringFraction (TwistExpr.mulTop e s).diagram.invert
+      (TwistExpr.mulTop e s).toStandard.fraction.inv := by
+  obtain ⟨col', hc', hm', hf'⟩ :=
+    coloring_invert_inv_eq_F_mulTop_colorFrom e s hrb hne
+  exact ⟨col', hc', hm', hf'⟩
+
+/-- PD-mirror of `mulTop` of a right-and-bottom expression. -/
+theorem HasColoringFraction.mirror_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE) :
+    HasColoringFraction (TwistExpr.mulTop e s).diagram.mirror
+      (TwistExpr.mulTop e s).toStandard.fraction.neg :=
+  HasColoringFraction.mirror_slideReady (TwistExpr.mulTop e s)
+    (TwistExpr.mulTop_slideReady e s hrb hne)
 
 /-- Planar `180°` of a `slideReady` twist is colored with fraction `F`. -/
 theorem HasColoringFraction.rot180_slideReady (e : TwistExpr)

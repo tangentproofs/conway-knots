@@ -52,6 +52,7 @@ in Theorem 3.
 - [Standard-form $F$ along coloring isotopy](theorems/twist-coloring-isotopy-fraction.md)
 - [Uniqueness of the coloring fraction on larger honest classes](theorems/coloring-fraction-unique.md)
 - [Coloring fraction after invert on slide-ready diagrams](theorems/coloring-invert-cong-slideReady.md)
+- [Coloring fraction after invert on addLeft and mulTop](theorems/coloring-invert-addLeft-mulTop.md)
 - [Invert-add with a trivial horizontal summand](theorems/coloring-invert-add-zero.md)
 - [Invert-mul of two right-and-bottom diagrams](theorems/coloring-invert-mul-two-rightBottom.md)
 - [Coloring fraction after mirror on slide-ready diagrams](theorems/coloring-mirror-cong-slideReady.md)
