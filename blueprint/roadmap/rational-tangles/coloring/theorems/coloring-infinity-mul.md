@@ -2,7 +2,7 @@
 declaration: lemma
 origin: bridged
 statement: formalized
-lean: RationalTangles.planar_infinity_mul RationalTangles.coloring_infinity_mul RationalTangles.coloring_fraction_infinity_mul
+lean: RationalTangles.planar_infinity_mul RationalTangles.coloring_infinity_mul RationalTangles.coloring_fraction_infinity_mul RationalTangles.planar_infinity_mul_invert
 proof: formalized
 ---
 
@@ -15,6 +15,9 @@ the diagrams are planar isotopic. An integral coloring of `T` transports to
 the product with unchanged endpoint colors, hence the same color matrix and
 coloring fraction, even if $T.\mathrm{NW}=T.\mathrm{NE}$ (the product then records an unused
 NE name).
+
+The inverted diagrams are the same rename after `Crossing.switch` (not
+`invert_cong` on `ColoringIsotopy`).
 
 This is the degenerate flype-slide case in which the sliding "crossing" is
 absent. It is not unrestricted algebraic Figure 5, and it is not a new

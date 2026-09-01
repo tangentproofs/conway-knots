@@ -29,5 +29,7 @@ axioms.
 - [Coloring invariance under Reidemeister III](theorems/coloring-reidemeister-iii.md)
 - [Coloring invariance under flypes](theorems/coloring-flype-invariance.md)
 - [Left product by the vertical trivial tangle is planar reindexing](theorems/coloring-infinity-mul.md)
+- [Nested unit chains versus two-block PD-sums](theorems/nested-two-block-reindex.md)
+- [Reversible fragment of coloring isotopy](theorems/reversible-coloring-isotopy.md)
 - [Coloring fraction of a rational tangle](theorems/coloring-fraction-properties.md)
 - [Coloring fraction of inverted unit sums and products](theorems/coloring-invert-add-units.md)
