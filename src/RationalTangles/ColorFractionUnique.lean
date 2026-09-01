@@ -12,14 +12,21 @@ Any two non-monochrome integral colorings of a `slideReady` twist-form
 diagram have the same coloring fraction `f`, because each equals
 `e.toStandard.fraction` (`coloring_fraction_eq_F`). On `rightBottom` the
 same uniqueness holds with value `e.fraction` (diagonal sum discharged).
-If a diagram is related by `ColoringIsotopy` *to* a `slideReady` twist
-(the twist is the target), transport preserves the color matrix, so `f`
-equals that standard-form value; the reverse one-way direction is not
-claimed. On a two-block integer PD-sum, restriction plus additivity
-gives `f = n+m`. Affine identities for `colorFrom` are recorded here
-but uniqueness does not need them. This is not uniqueness on an
-arbitrary diagram: unrestricted `flype_slide` is omitted, and a
-`TwistExpr` that is not `slideReady` is omitted.
+On `addLeft`/`mulTop` of a `rightBottom` inner expression the same
+uniqueness holds under the glue-port hypotheses used to color those
+constructors (`NW ≠ SW` / `NW ≠ NE`): `DiagonalSum` is the honest glue,
+not a fake identification, and unrestricted uniqueness without those
+ports is not claimed. Affine uniqueness of `colorFrom` (`colorFrom_affine`,
+`colorFrom_eq_affine_01`) extends to `addLeft`/`mulTop` constructors, so
+the `colorFrom` family has a common fraction; arbitrary colorings still
+use `coloring_fraction_eq_F_addLeft` / `_mulTop`. If a diagram is related
+by `ColoringIsotopy` *to* a `slideReady` twist (the twist is the target),
+transport preserves the color matrix, so `f` equals that standard-form
+value; the reverse one-way direction is not claimed. On a two-block
+integer PD-sum, restriction plus additivity gives `f = n+m`. This is not
+uniqueness on an arbitrary diagram: unrestricted `flype_slide` is omitted,
+and a `TwistExpr` that is not `slideReady` (including `addLeft`/`mulTop`
+without port hypotheses) is omitted.
 This is not Theorem 2: it is uniqueness on these classes, not along
 arbitrary `Isotopic` generators.
 
@@ -341,6 +348,40 @@ theorem coloring_fraction_unique_rightBottom (e : TwistExpr) (hrb : e.rightBotto
   (coloring_fraction_eq_F_rightBottom e hrb col hc hm).trans
     (coloring_fraction_eq_F_rightBottom e hrb col' hc' hm').symm
 
+/-- Uniqueness of `f` on `addLeft` of a right-and-bottom expression, with
+    the same non-degenerate glue `NW ≠ SW` used to color that constructor
+    (`colorFrom_isColored_addLeft`, `coloring_fraction_eq_F_addLeft`).
+    Without that port hypothesis `slideReady`/`DiagonalSum` fail, and
+    uniqueness of arbitrary colorings is not claimed. -/
+theorem coloring_fraction_unique_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW)
+    (col col' : Nat → Int)
+    (hc : (TwistExpr.addLeft e s).diagram.IsColored col)
+    (hc' : (TwistExpr.addLeft e s).diagram.IsColored col')
+    (hm : (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).NotMono)
+    (hm' : (ColorMatrix.of (TwistExpr.addLeft e s).diagram col').NotMono) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram col).fraction =
+      (ColorMatrix.of (TwistExpr.addLeft e s).diagram col').fraction :=
+  (coloring_fraction_eq_F_addLeft e s hrb hne col hc hm).trans
+    (coloring_fraction_eq_F_addLeft e s hrb hne col' hc' hm').symm
+
+/-- Uniqueness of `f` on `mulTop` of a right-and-bottom expression, with
+    the same non-degenerate glue `NW ≠ NE` used to color that constructor.
+    The common value is `toStandard.fraction` (top Conway product need not
+    equal algebraic `mulTop.fraction`). Without the port hypothesis
+    uniqueness of arbitrary colorings is not claimed. -/
+theorem coloring_fraction_unique_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE)
+    (col col' : Nat → Int)
+    (hc : (TwistExpr.mulTop e s).diagram.IsColored col)
+    (hc' : (TwistExpr.mulTop e s).diagram.IsColored col')
+    (hm : (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).NotMono)
+    (hm' : (ColorMatrix.of (TwistExpr.mulTop e s).diagram col').NotMono) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram col).fraction =
+      (ColorMatrix.of (TwistExpr.mulTop e s).diagram col').fraction :=
+  (coloring_fraction_eq_F_mulTop e s hrb hne col hc hm).trans
+    (coloring_fraction_eq_F_mulTop e s hrb hne col' hc' hm').symm
+
 /-- A non-monochrome coloring of a diagram `ColoringIsotopic` to a
     `slideReady` twist has `f` equal to the twist's standard-form value.
     Transport preserves the color matrix. The reverse one-way direction
@@ -433,6 +474,41 @@ theorem ColorMatrix.of_colorFrom_affine_01 (e : TwistExpr) (a c : Int) :
     _ = (ColorMatrix.of e.diagram (e.colorFrom 0 1)).affine (c - a) a :=
           ColorMatrix.of_affineMap _ _ _ _
 
+/-- Affine uniqueness of `f` on the `colorFrom` family, including
+    `addLeft`/`mulTop` constructors (`colorFrom_affine` already covers
+    them). This does not identify arbitrary colorings: `n = 0` is
+    monochrome, and diagrams that are not `slideReady` are omitted. -/
+theorem TwistExpr.colorFrom_fraction_eq (e : TwistExpr) (a c : Int)
+    (hca : c ≠ a) :
+    (ColorMatrix.of e.diagram (e.colorFrom a c)).fraction =
+      (ColorMatrix.of e.diagram (e.colorFrom 0 1)).fraction := by
+  have hn : c - a ≠ 0 := sub_ne_zero.mpr hca
+  rw [ColorMatrix.of_colorFrom_affine_01]
+  exact ColorMatrix.fraction_affine _ (c - a) a hn
+
+/-- `colorFrom a c` of an `addLeft` node has fraction `F` under the same
+    port hypotheses used to color that constructor. -/
+theorem TwistExpr.colorFrom_eq_fraction_addLeft_affine
+    (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW)
+    (a c : Int) (hca : c ≠ a) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram
+      ((TwistExpr.addLeft e s).colorFrom a c)).fraction =
+      (TwistExpr.addLeft e s).fraction :=
+  ((TwistExpr.addLeft e s).colorFrom_fraction_eq a c hca).trans
+    (e.colorFrom_eq_fraction_addLeft s hrb hne)
+
+/-- `colorFrom a c` of a `mulTop` node has fraction `toStandard.fraction`
+    under the same port hypotheses used to color that constructor. -/
+theorem TwistExpr.colorFrom_eq_fraction_mulTop_affine
+    (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE)
+    (a c : Int) (hca : c ≠ a) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram
+      ((TwistExpr.mulTop e s).colorFrom a c)).fraction =
+      (TwistExpr.mulTop e s).toStandard.fraction :=
+  ((TwistExpr.mulTop e s).colorFrom_fraction_eq a c hca).trans
+    (e.colorFrom_eq_fraction_mulTop s hrb hne)
 
 /-! ## Appearing arcs and algebraic-mirror PD-codes -/
 
@@ -3484,6 +3560,29 @@ theorem HasColoringFraction.colorFrom_slideReady (e : TwistExpr)
     (e.colorFrom_isColored_slideReady hok 0 1)
     (e.colorFrom_diagonal_slideReady hok 0 1)
     (e.colorFrom_notMono_slideReady hok)
+
+/-- Existence on `addLeft` of a right-and-bottom expression, with the
+    same glue-port hypothesis used to color that constructor. -/
+theorem HasColoringFraction.addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW) :
+    HasColoringFraction (TwistExpr.addLeft e s).diagram
+      (TwistExpr.addLeft e s).fraction :=
+  ⟨(TwistExpr.addLeft e s).colorFrom 0 1,
+    e.colorFrom_isColored_addLeft s hrb hne 0 1,
+    e.colorFrom_notMono_addLeft s hrb hne,
+    e.colorFrom_eq_fraction_addLeft s hrb hne⟩
+
+/-- Existence on `mulTop` of a right-and-bottom expression, with the
+    same glue-port hypothesis used to color that constructor. The
+    carried value is `toStandard.fraction`. -/
+theorem HasColoringFraction.mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE) :
+    HasColoringFraction (TwistExpr.mulTop e s).diagram
+      (TwistExpr.mulTop e s).toStandard.fraction :=
+  ⟨(TwistExpr.mulTop e s).colorFrom 0 1,
+    e.colorFrom_isColored_mulTop s hrb hne 0 1,
+    e.colorFrom_notMono_mulTop s hrb hne,
+    e.colorFrom_eq_fraction_mulTop s hrb hne⟩
 
 theorem SlideReadyIsotopy.has_fraction {D E : TangleDiagram} {v : CFValue}
     (h : SlideReadyIsotopy D E v) :

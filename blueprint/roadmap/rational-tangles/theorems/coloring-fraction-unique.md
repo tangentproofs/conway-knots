@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.coloring_fraction_unique_slideReady RationalTangles.coloring_fraction_unique_rightBottom RationalTangles.coloring_fraction_eq_F_of_ColoringIsotopy_slideReady RationalTangles.coloring_fraction_unique_ColoringIsotopy_slideReady RationalTangles.coloring_fraction_eq_F_of_ReversibleColoringIsotopy_slideReady RationalTangles.coloring_fraction_eq_F_of_ReversibleColoringIsotopy_slideReady_symm RationalTangles.coloring_fraction_unique_ReversibleColoringIsotopy_slideReady RationalTangles.coloring_fraction_unique_ReversibleColoringIsotopy_slideReady_symm RationalTangles.coloring_fraction_integerTangle_add RationalTangles.coloring_fraction_unique_integerTangle_add RationalTangles.coloring_exists_integerTangle_add RationalTangles.HasColoringFraction.integerTangle_add
+lean: RationalTangles.coloring_fraction_unique_slideReady RationalTangles.coloring_fraction_unique_rightBottom RationalTangles.coloring_fraction_unique_addLeft RationalTangles.coloring_fraction_unique_mulTop RationalTangles.TwistExpr.colorFrom_fraction_eq RationalTangles.TwistExpr.colorFrom_eq_fraction_addLeft_affine RationalTangles.TwistExpr.colorFrom_eq_fraction_mulTop_affine RationalTangles.HasColoringFraction.addLeft RationalTangles.HasColoringFraction.mulTop RationalTangles.coloring_fraction_eq_F_of_ColoringIsotopy_slideReady RationalTangles.coloring_fraction_unique_ColoringIsotopy_slideReady RationalTangles.coloring_fraction_eq_F_of_ReversibleColoringIsotopy_slideReady RationalTangles.coloring_fraction_eq_F_of_ReversibleColoringIsotopy_slideReady_symm RationalTangles.coloring_fraction_unique_ReversibleColoringIsotopy_slideReady RationalTangles.coloring_fraction_unique_ReversibleColoringIsotopy_slideReady_symm RationalTangles.coloring_fraction_integerTangle_add RationalTangles.coloring_fraction_unique_integerTangle_add RationalTangles.coloring_exists_integerTangle_add RationalTangles.HasColoringFraction.integerTangle_add
 proof: formalized
 ---
 
@@ -13,6 +13,16 @@ coloring fraction equal to the standard-form value, so any two agree. On a
 right-and-bottom twist the same uniqueness holds with value equal to the
 arithmetical fraction of the expression (the diagonal-sum rule is
 discharged).
+
+On `addLeft` (resp. `mulTop`) of a right-and-bottom inner expression, with
+the same non-degenerate glue used to color those constructors
+($NW \neq SW$ / $NW \neq NE$), every non-monochrome coloring has
+fraction equal to the arithmetical value (resp. the standard-form value:
+top Conway product need not equal algebraic `mulTop.fraction`). Affine
+uniqueness of `colorFrom` extends to those constructors, so the
+`colorFrom` family shares that value. Uniqueness of arbitrary colorings
+without the port hypotheses is not claimed: `DiagonalSum`/`slideReady`
+need distinct glue ports.
 
 If a diagram is related by `ColoringIsotopy` *to* a `slideReady` twist
 (the twist is the target), transport preserves the color matrix, hence the
@@ -28,8 +38,9 @@ infinite integer fraction). Additivity of the coloring fraction then gives
 the value $n+m$.
 
 This is not uniqueness on an arbitrary diagram. A `TwistExpr` that is not
-`slideReady` is omitted. Unrestricted flype-slides (no diagonal-sum or
-port hypotheses) are omitted, and are not added to `ColoringIsotopy`.
+`slideReady` (including `addLeft`/`mulTop` without port hypotheses) is
+omitted. Unrestricted flype-slides (no diagonal-sum or port hypotheses)
+are omitted, and are not added to `ColoringIsotopy`.
 This article does not claim isotopy invariance of the arithmetical
 fraction.
 
