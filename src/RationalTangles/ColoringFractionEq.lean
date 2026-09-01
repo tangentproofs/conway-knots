@@ -21,8 +21,8 @@ right-and-bottom expression. Unrestricted Figure 14 transfers and flypes are
 not `ColoringIsotopy` constructors. On `[±1]`, Figure 14 (`transfer_odd`) is colored with independent
 colorings of each side (the coloring of `T.mirror.invert` reuses the arc
 map of `T` because double mirror is `rotate180`; `SameEndpointColors`
-after `one.mirror` remains false). Integer `[n]` and `[0]` are not
-colored here.
+after `one.mirror` remains false). Integer `[n]` is colored by comparing
+a fresh invert coloring to `colorFrom` of the matching vertical twists.
 
 If two `slideReady` expressions denote the same PD-code and a non-monochrome
 `DiagonalSum` coloring of that code exists, they share `toStandard.fraction`
@@ -1791,5 +1791,167 @@ theorem coloring_invert_one_add_one_add_one_eq_vertical :
   rw [hfL', hfR']
   simp [eL, eR, TwistExpr.fraction, CrossingSign.cfValue, CFValue.inv_inf]
   rw [show (0 : CFValue) = CFValue.ofRat 0 from rfl, CFValue.zero_add]
+
+/-! ## Fresh coloring of inverted integer tangles vs vertical twists
+
+`[n]ⁱ = 1/[n]` as a right-and-bottom vertical chain: `|n|` copies of `[±1]`
+stacked below `[∞]`. The PD-code `(integerTangle n).invert` mirrors crossings,
+so this is not `verticalTangle` and not a `ColoringIsotopy`. The `natAbs`
+induction is on the twist-form builders; the coloring itself is `colorFrom`
+on each finished diagram (the `[+1]+[+1]` step is `addRight` / `mulBottom`).
+-/
+
+def TwistExpr.integerUnits : Nat → CrossingSign → TwistExpr
+  | 0, _ => .zero
+  | n + 1, s => .addRight (integerUnits n s) s
+
+def TwistExpr.verticalUnits : Nat → CrossingSign → TwistExpr
+  | 0, _ => .infinity
+  | n + 1, s => .mulBottom (verticalUnits n s) s
+
+def TwistExpr.ofInteger (n : Int) : TwistExpr :=
+  integerUnits n.natAbs (if 0 ≤ n then .pos else .neg)
+
+def TwistExpr.ofVertical (n : Int) : TwistExpr :=
+  verticalUnits n.natAbs (if 0 ≤ n then .pos else .neg)
+
+theorem TwistExpr.integerUnits_rightBottom (n : Nat) (s : CrossingSign) :
+    (integerUnits n s).rightBottom := by
+  induction n with
+  | zero => trivial
+  | succ n ih => exact ih
+
+theorem TwistExpr.verticalUnits_rightBottom (n : Nat) (s : CrossingSign) :
+    (verticalUnits n s).rightBottom := by
+  induction n with
+  | zero => trivial
+  | succ n ih => exact ih
+
+theorem TwistExpr.ofInteger_rightBottom (n : Int) :
+    (ofInteger n).rightBottom :=
+  integerUnits_rightBottom _ _
+
+theorem TwistExpr.ofVertical_rightBottom (n : Int) :
+    (ofVertical n).rightBottom :=
+  verticalUnits_rightBottom _ _
+
+theorem TwistExpr.integerUnits_diagram (n : Nat) (s : CrossingSign) :
+    (integerUnits n s).diagram =
+      (List.replicate n (crossingTangle s)).foldl TangleDiagram.add
+        TangleDiagram.zero := by
+  induction n with
+  | zero => rfl
+  | succ n ih =>
+    simp only [integerUnits, TwistExpr.diagram]
+    rw [replicate_succ_snoc, List.foldl_append, ih]
+    simp [List.foldl]
+
+theorem TwistExpr.verticalUnits_diagram (n : Nat) (s : CrossingSign) :
+    (verticalUnits n s).diagram =
+      (List.replicate n (crossingTangle s)).foldl TangleDiagram.mul
+        TangleDiagram.infinity := by
+  induction n with
+  | zero => rfl
+  | succ n ih =>
+    simp only [verticalUnits, TwistExpr.diagram]
+    rw [replicate_succ_snoc, List.foldl_append, ih]
+    simp [List.foldl]
+
+theorem TwistExpr.ofInteger_diagram (n : Int) :
+    (ofInteger n).diagram = integerTangle n := by
+  simp only [ofInteger, integerTangle, integerUnits_diagram]
+  split_ifs <;> simp [crossingTangle]
+
+theorem TwistExpr.ofVertical_diagram (n : Int) :
+    (ofVertical n).diagram = verticalTwists n := by
+  simp only [ofVertical, verticalTwists, verticalUnits_diagram]
+  split_ifs <;> simp [crossingTangle]
+
+theorem TwistExpr.integerUnits_fraction (n : Nat) (s : CrossingSign) :
+    (integerUnits n s).fraction = CFValue.ofInt (n * s.toInt) := by
+  induction n with
+  | zero =>
+    simp only [integerUnits, TwistExpr.fraction]
+    simp [CFValue.ofInt_zero]
+    rw [show (0 : CFValue) = CFValue.ofRat 0 from rfl]
+  | succ n ih =>
+    simp only [integerUnits, TwistExpr.fraction, ih,
+      CrossingSign.cfValue_eq_ofInt]
+    rw [CFValue.ofInt_add]
+    congr 1
+    cases s <;> simp [CrossingSign.toInt, Nat.cast_succ, Int.add_comm]
+
+theorem TwistExpr.verticalUnits_fraction (n : Nat) (s : CrossingSign) :
+    (verticalUnits n s).fraction = (CFValue.ofInt (n * s.toInt)).inv := by
+  induction n with
+  | zero =>
+    simp only [verticalUnits, TwistExpr.fraction]
+    simp [CFValue.inv_ofInt_zero]
+  | succ n ih =>
+    simp only [verticalUnits, TwistExpr.fraction, ih,
+      CrossingSign.cfValue_eq_ofInt]
+    rw [CFValue.inv_inv, CFValue.ofInt_add]
+    cases s <;> simp [CrossingSign.toInt, Nat.cast_succ, Int.add_comm]
+
+theorem TwistExpr.ofInteger_fraction (n : Int) :
+    (ofInteger n).fraction = CFValue.ofInt n := by
+  simp only [ofInteger]
+  split_ifs with h
+  · have hn : n = n.natAbs := Int.eq_natAbs_of_nonneg h
+    rw [integerUnits_fraction, CrossingSign.toInt_pos, Int.mul_one, ← hn]
+  · have hn : n = - (n.natAbs : Int) := by omega
+    rw [integerUnits_fraction, CrossingSign.toInt_neg, Int.mul_neg, Int.mul_one, ← hn]
+
+theorem TwistExpr.ofVertical_fraction (n : Int) :
+    (ofVertical n).fraction = (CFValue.ofInt n).inv := by
+  simp only [ofVertical]
+  split_ifs with h
+  · have hn : n = n.natAbs := Int.eq_natAbs_of_nonneg h
+    rw [verticalUnits_fraction, CrossingSign.toInt_pos, Int.mul_one, ← hn]
+  · have hn : n = - (n.natAbs : Int) := by omega
+    rw [verticalUnits_fraction, CrossingSign.toInt_neg, Int.mul_neg, Int.mul_one, ← hn]
+
+/-- Fresh colorings of `([s]+⋯+[s])ⁱ` (`n` units) and of `[∞]*[s]*⋯*[s]`.
+    Inductive on `n` via `integerUnits` / `verticalUnits`; the successor
+    step is the `[+1]+[+1]` (or `[±1]`) adjoining used above. -/
+theorem coloring_invert_integerUnits_eq_verticalUnits (n : Nat)
+    (s : CrossingSign) :
+    ∃ colL colR,
+      ((TwistExpr.integerUnits n s).diagram.invert).IsColored colL ∧
+      (TwistExpr.verticalUnits n s).diagram.IsColored colR ∧
+      (ColorMatrix.of (TwistExpr.integerUnits n s).diagram.invert
+        colL).NotMono ∧
+      (ColorMatrix.of (TwistExpr.verticalUnits n s).diagram colR).NotMono ∧
+      (ColorMatrix.of (TwistExpr.integerUnits n s).diagram.invert
+        colL).fraction =
+        (ColorMatrix.of (TwistExpr.verticalUnits n s).diagram
+          colR).fraction := by
+  let eL := TwistExpr.integerUnits n s
+  let eR := TwistExpr.verticalUnits n s
+  have hrbL : eL.rightBottom := TwistExpr.integerUnits_rightBottom n s
+  have hrbR : eR.rightBottom := TwistExpr.verticalUnits_rightBottom n s
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  let colR := eR.colorFrom 0 1
+  have hcR := eR.colorFrom_isColored hrbR 0 1
+  have hmR := eR.colorFrom_notMono hrbR
+  have hfR := eR.colorFrom_eq_fraction hrbR
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, ?_⟩
+  rw [hfL, hfR, TwistExpr.integerUnits_fraction, TwistExpr.verticalUnits_fraction]
+
+/-- Fresh colorings of `(integerTangle n)ⁱ` and of `verticalTwists n`
+    (Conway `[n]ⁱ = 1/[n]` as vertical twists of the sign of `n`). -/
+theorem coloring_invert_integer_eq_vertical (n : Int) :
+    ∃ colL colR,
+      ((integerTangle n).invert).IsColored colL ∧
+      (verticalTwists n).IsColored colR ∧
+      (ColorMatrix.of (integerTangle n).invert colL).NotMono ∧
+      (ColorMatrix.of (verticalTwists n) colR).NotMono ∧
+      (ColorMatrix.of (integerTangle n).invert colL).fraction =
+        (ColorMatrix.of (verticalTwists n) colR).fraction := by
+  simpa only [← TwistExpr.ofInteger_diagram n, ← TwistExpr.ofVertical_diagram n,
+    TwistExpr.ofInteger, TwistExpr.ofVertical] using
+    coloring_invert_integerUnits_eq_verticalUnits n.natAbs
+      (if 0 ≤ n then CrossingSign.pos else CrossingSign.neg)
 
 end RationalTangles

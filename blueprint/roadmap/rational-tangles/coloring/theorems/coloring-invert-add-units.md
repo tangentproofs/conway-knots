@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.coloring_invert_add_units RationalTangles.coloring_invert_mul_units RationalTangles.coloring_invert_add_one_one RationalTangles.coloring_invert_mul_one_one RationalTangles.coloring_invert_add_zero_unit RationalTangles.coloring_invert_add_unit_zero RationalTangles.coloring_invert_mul_infinity_unit RationalTangles.coloring_invert_mul_unit_infinity RationalTangles.coloring_invert_add_zero_one RationalTangles.coloring_invert_add_one_zero RationalTangles.coloring_invert_one_add_one_eq_vertical RationalTangles.coloring_invert_one_add_one_add_one_eq_vertical
+lean: RationalTangles.coloring_invert_add_units RationalTangles.coloring_invert_mul_units RationalTangles.coloring_invert_add_one_one RationalTangles.coloring_invert_mul_one_one RationalTangles.coloring_invert_add_zero_unit RationalTangles.coloring_invert_add_unit_zero RationalTangles.coloring_invert_mul_infinity_unit RationalTangles.coloring_invert_mul_unit_infinity RationalTangles.coloring_invert_add_zero_one RationalTangles.coloring_invert_add_one_zero RationalTangles.coloring_invert_one_add_one_eq_vertical RationalTangles.coloring_invert_one_add_one_add_one_eq_vertical RationalTangles.coloring_invert_integerUnits_eq_verticalUnits RationalTangles.coloring_invert_integer_eq_vertical RationalTangles.verticalTwists
 proof: formalized
 ---
 
@@ -33,6 +33,13 @@ fresh invert coloring has the same fraction as `colorFrom` of the
 vertical chain `[∞]*[+1]*[+1]` (resp. `[∞]*[+1]*[+1]*[+1]`). That is
 the invert identity `f(Tⁱ)=1/F(T)` on these diagrams, not a
 `ColoringIsotopy` between them.
+
+The same comparison holds for every integer tangle `[n]`: a fresh
+coloring of `(integerTangle n)ⁱ` has fraction `1/n`, matching
+`colorFrom` of `|n|` vertical twists of the sign of `n` below `[∞]`.
+The twist-form builders are inductive on `natAbs`; adjoining `[±1]`
+is the `[+1]+[+1]` step. This is not the PD-code
+`(integerTangle n).invert` as `verticalTangle`, which mirrors.
 
 This is not a `ColoringIsotopy` constructor, and it is not Theorem 2,
 Theorem 3, or Theorem 4. Kinks `[∞]+[±1]` (both right ports of `[∞]` are

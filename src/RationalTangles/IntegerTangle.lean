@@ -50,6 +50,13 @@ def integerTangle (n : Int) : TangleDiagram :=
 def verticalTangle (n : Int) : TangleDiagram :=
   (integerTangle n).invert
 
+/-- `|n|` vertical twists of the sign of `n`, stacked below `[∞]`. This is
+    the right-and-bottom picture of Conway `[n]ⁱ = 1/[n]`. It is not the
+    PD-code `(integerTangle n).invert`, which mirrors every crossing. -/
+def verticalTwists (n : Int) : TangleDiagram :=
+  let unit := if 0 ≤ n then one else negOne
+  (List.replicate n.natAbs unit).foldl TangleDiagram.mul TangleDiagram.infinity
+
 @[simp] theorem integerTangle_zero : integerTangle 0 = TangleDiagram.zero :=
   rfl
 
@@ -58,6 +65,18 @@ def verticalTangle (n : Int) : TangleDiagram :=
 
 @[simp] theorem integerTangle_negOne :
     integerTangle (-1) = TangleDiagram.zero + negOne :=
+  rfl
+
+@[simp] theorem verticalTwists_zero :
+    verticalTwists 0 = TangleDiagram.infinity :=
+  rfl
+
+@[simp] theorem verticalTwists_one :
+    verticalTwists 1 = TangleDiagram.infinity * one :=
+  rfl
+
+@[simp] theorem verticalTwists_negOne :
+    verticalTwists (-1) = TangleDiagram.infinity * negOne :=
   rfl
 
 @[simp] theorem negOne_eq_mirror_one : negOne = -one :=

@@ -2,7 +2,7 @@
 declaration: def
 origin: cited
 statement: formalized
-lean: RationalTangles.integerTangle RationalTangles.verticalTangle
+lean: RationalTangles.integerTangle RationalTangles.verticalTangle RationalTangles.verticalTwists
 ---
 
 # Integer and vertical tangles
@@ -21,6 +21,10 @@ follows Kauffman–Lambropoulou.
 
 In particular $[0]^r=[0]^i=[\infty]$ and $[\infty]^r=[\infty]^i=[0]$, and
 $-[n]=[-n]$.
+
+The stacked diagram of $|n|$ vertical twists below $[\infty]$ is the
+right-and-bottom picture of Conway $[n]^i=1/[n]$. It is not the PD-code
+of inverting $[n]$, which mirrors every crossing.
 
 ## Sources
 
