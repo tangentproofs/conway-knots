@@ -96,11 +96,13 @@ is likewise not a `TwistExpr`; a coloring of that PD-code (glue of
 vertical colorings, `coloring_fraction_mul`) has fraction `∞` when
 non-monochrome. Existence reuses `coloring_mul_two_rightBottom` when
 `n ≠ 0` (factors have finite nonzero `F`) or the `[∞]*T` reindex when
-`n = 0`. Invert-mul of those two vertical blocks is not covered:
-existing `coloring_invert_mul_*` compare a unit or a `slideReady`
-diagram times a unit, not two general vertical PD-blocks, and there
-is no `coloring_invert_mul_two_rightBottom`. Nested versus two-block
-invert-add remains distinguished. Unrestricted
+`n = 0`. Invert-mul of two `rightBottom`/`slideReady` diagrams with
+finite nonzero `F` is `coloring_invert_mul_two_rightBottom`, dual to
+invert-add: glue of algebraic-mirror products, transport to the
+PD-mirror, rotate for `(T*S)ⁱ`, and glue of invert colorings for
+`Tⁱ+Sⁱ`. That covers invert-mul of the two vertical blocks when
+`n ≠ 0` (carried value `0`). Nested versus two-block invert-add
+remains distinguished. Invert-mul of `[∞]*[∞]` (`n = 0`) is omitted. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
 `ColoringIsotopy`.
@@ -115,7 +117,11 @@ invert-add when a summand is the `[∞]` diagram (carried value `0`),
 and along invert-add of canceling units `[+1]+[-1]` / `[-1]+[+1]`
 (carried value `∞`), and along invert-add of nested canceling
 integer chains (carried value `∞`), and along invert-add of the
-two-block PD-sum of canceling integer diagrams (carried value `∞`).
+two-block PD-sum of canceling integer diagrams (carried value `∞`),
+and along invert-mul of two `rightBottom`/`slideReady` diagrams with
+finite nonzero `F` (carried value `(F(T)⁻¹+F(S)⁻¹)`), including
+invert-mul of the two-block vertical product of canceling diagrams
+when `n ≠ 0` (carried value `0`).
 The two-block vertical product of canceling diagrams carries `∞` as
 a coloring fraction (not along invert-mul). Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
@@ -2582,6 +2588,27 @@ theorem CFValue.inv_eq_inf_iff (x : CFValue) : x.inv = .inf ↔ x = 0 := by
 theorem CFValue.neg_eq_inf_iff (x : CFValue) : x.neg = .inf ↔ x = .inf := by
   cases x <;> simp [CFValue.neg]
 
+theorem CFValue.neg_eq_zero_iff (x : CFValue) :
+    x.neg = (0 : CFValue) ↔ x = (0 : CFValue) := by
+  cases x with
+  | inf =>
+    constructor
+    · intro h
+      cases h
+    · intro h
+      cases h
+  | ofRat q =>
+    constructor
+    · intro h
+      have hq : -q = 0 := CFValue.ofRat_injective h
+      have hz : q = 0 := neg_eq_zero.mp hq
+      subst hz
+      rfl
+    · intro h
+      have hz : q = 0 := CFValue.ofRat_injective h
+      subst hz
+      rfl
+
 /-- Glue affine-matched finite colorings along an `add` seam, identifying
     `colorAddRight` with the affine right-hand coloring. -/
 theorem coloring_glue_add_finite (T S : TangleDiagram) (colT colS : Nat → Int)
@@ -2969,6 +2996,127 @@ theorem coloring_invert_add_two_rightBottom (e f : TwistExpr)
       (ColorMatrix.of (f.diagram.invert.mul e.diagram.invert) colR).fraction =
         (e.toStandard.fraction.add f.toStandard.fraction).inv := by
     rw [hfR, hfSinv, hfTinv, CFValue.inv_inv, CFValue.inv_inv, CFValue.add_comm]
+  refine ⟨colMirr, colR, hcL, hcR, hmL, hmR, ?_, hfL⟩
+  exact hfL.trans hfR'.symm
+
+/-- `ColoringIsotopy` from the algebraic-mirror product to the PD-mirror
+    of the product (existing `mul_left`/`mul_right`, not a leftover
+    generator). Dual of `coloring_mirror_add_two`. -/
+theorem coloring_mirror_mul_two (e f : TwistExpr)
+    (hok : e.slideReady) (hok' : f.slideReady) :
+    ColoringIsotopy (e.mirror.diagram.mul f.mirror.diagram)
+      (e.diagram.mirror.mul f.diagram.mirror) := by
+  have hglue : f.mirror.diagram.NW = f.mirror.diagram.NE →
+      f.diagram.mirror.NW = f.diagram.mirror.NE := by
+    intro h
+    simpa [TangleDiagram.mirror, TwistExpr.mirror_NW, TwistExpr.mirror_NE] using h
+  exact ColoringIsotopy.trans
+    (.mul_left (S := f.mirror.diagram) (coloring_mirror_diagram_rev_slideReady e hok))
+    (.mul_right (coloring_mirror_diagram_rev_slideReady f hok') hglue)
+
+/-- Fresh colorings of `(T*S)ⁱ` and of `Tⁱ + Sⁱ` for two `rightBottom` /
+    `slideReady` diagrams with finite nonzero `F`. Dual of
+    `coloring_invert_add_two_rightBottom`. Not a `ColoringIsotopy`,
+    not unrestricted `flype_slide`, and not a `SlideReadyIsotopy`
+    constructor (`T.mul S` is not a `TwistExpr`). -/
+theorem coloring_invert_mul_two_rightBottom (e f : TwistExpr)
+    (hrb : e.rightBottom) (hrb' : f.rightBottom)
+    (hok : e.slideReady) (hok' : f.slideReady)
+    (hfin : e.toStandard.fraction ≠ .inf)
+    (hfin' : f.toStandard.fraction ≠ .inf)
+    (hnz : e.toStandard.fraction ≠ (0 : CFValue))
+    (hnz' : f.toStandard.fraction ≠ (0 : CFValue)) :
+    ∃ colL colR,
+      ((e.diagram.mul f.diagram).invert).IsColored colL ∧
+      ((e.diagram.invert.add f.diagram.invert)).IsColored colR ∧
+      (ColorMatrix.of (e.diagram.mul f.diagram).invert colL).NotMono ∧
+      (ColorMatrix.of (e.diagram.invert.add f.diagram.invert) colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.mul f.diagram).invert colL).fraction =
+        (ColorMatrix.of (e.diagram.invert.add f.diagram.invert) colR).fraction ∧
+      (ColorMatrix.of (e.diagram.mul f.diagram).invert colL).fraction =
+        (e.toStandard.fraction.inv.add f.toStandard.fraction.inv) := by
+  have hokMe : e.mirror.slideReady := TwistExpr.slideReady_mirror e hok
+  have hokMf : f.mirror.slideReady := TwistExpr.slideReady_mirror f hok'
+  have hrbMe : e.mirror.rightBottom := TwistExpr.rightBottom_mirror e hrb
+  have hrbMf : f.mirror.rightBottom := TwistExpr.rightBottom_mirror f hrb'
+  have hfinMe : e.mirror.toStandard.fraction ≠ .inf := by
+    rw [TwistExpr.toStandard_mirror, StandardExpr.fraction_mirror]
+    intro h
+    exact hfin ((CFValue.neg_eq_inf_iff _).1 h)
+  have hfinMf : f.mirror.toStandard.fraction ≠ .inf := by
+    rw [TwistExpr.toStandard_mirror, StandardExpr.fraction_mirror]
+    intro h
+    exact hfin' ((CFValue.neg_eq_inf_iff _).1 h)
+  have hnzMe : e.mirror.toStandard.fraction ≠ (0 : CFValue) := by
+    rw [TwistExpr.toStandard_mirror, StandardExpr.fraction_mirror]
+    intro h
+    exact hnz ((CFValue.neg_eq_zero_iff _).1 h)
+  have hnzMf : f.mirror.toStandard.fraction ≠ (0 : CFValue) := by
+    rw [TwistExpr.toStandard_mirror, StandardExpr.fraction_mirror]
+    intro h
+    exact hnz' ((CFValue.neg_eq_zero_iff _).1 h)
+  obtain ⟨colProdM, hcProdM, hmProdM, hdProdM, hfProdM⟩ :=
+    coloring_mul_two_rightBottom e.mirror f.mirror hrbMe hrbMf hokMe hokMf
+      hfinMe hfinMf hnzMe hnzMf
+  obtain ⟨colMirr, hcMirr, hMatMirr, hfracMirr⟩ :=
+    coloring_fraction_ColoringIsotopy (coloring_mirror_mul_two e f hok hok')
+      colProdM hcProdM
+  have hcMirr' : (e.diagram.mul f.diagram).mirror.IsColored colMirr := by
+    simpa [mirror_mul] using hcMirr
+  have hMatMirr' :
+      ColorMatrix.of (e.diagram.mul f.diagram).mirror colMirr =
+        ColorMatrix.of (e.mirror.diagram.mul f.mirror.diagram) colProdM := by
+    simpa [mirror_mul] using hMatMirr
+  have hcL : (e.diagram.mul f.diagram).invert.IsColored colMirr := by
+    simpa [invert_eq_mirror_rotate] using coloring_rotate _ colMirr hcMirr'
+  have hdMirr : (ColorMatrix.of (e.diagram.mul f.diagram).mirror colMirr).DiagonalSum := by
+    simpa [hMatMirr'] using hdProdM
+  have hmMirr : (ColorMatrix.of (e.diagram.mul f.diagram).mirror colMirr).NotMono := by
+    simpa [hMatMirr'] using hmProdM
+  have hmL : (ColorMatrix.of (e.diagram.mul f.diagram).invert colMirr).NotMono := by
+    have hrot :
+        ColorMatrix.of (e.diagram.mul f.diagram).invert colMirr =
+          (ColorMatrix.of (e.diagram.mul f.diagram).mirror colMirr).rotate := by
+      simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+    simpa [hrot] using ColorMatrix.NotMono_rotate hdMirr hmMirr
+  have hfL :
+      (ColorMatrix.of (e.diagram.mul f.diagram).invert colMirr).fraction =
+        (e.toStandard.fraction.inv.add f.toStandard.fraction.inv) := by
+    have hrot :
+        (ColorMatrix.of (e.diagram.mul f.diagram).invert colMirr).fraction =
+          (ColorMatrix.of (e.diagram.mul f.diagram).mirror colMirr).fraction.negInv :=
+      coloring_fraction_rotate _ colMirr hdMirr hmMirr
+    have hfM :
+        (ColorMatrix.of (e.diagram.mul f.diagram).mirror colMirr).fraction =
+          ((e.mirror.toStandard.fraction.inv.add
+            f.mirror.toStandard.fraction.inv).inv) := by
+      rw [hMatMirr', hfProdM]
+    rw [hrot, hfM, TwistExpr.toStandard_mirror, TwistExpr.toStandard_mirror,
+      StandardExpr.fraction_mirror, StandardExpr.fraction_mirror]
+    rw [CFValue.negInv, CFValue.inv_inv, ← CFValue.neg_inv, ← CFValue.neg_inv,
+      ← CFValue.neg_add, CFValue.neg_neg]
+  obtain ⟨colTinv, hcTinv, hmTinv, hfTinv⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e hok
+  obtain ⟨colSinv, hcSinv, hmSinv, hfSinv⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom f hok'
+  have hdTinv := twist_coloring_diagonal_invert_slideReady e hok colTinv hcTinv
+  have hdSinv := twist_coloring_diagonal_invert_slideReady f hok' colSinv hcSinv
+  have hfinTinv : (ColorMatrix.of e.diagram.invert colTinv).fraction ≠ .inf := by
+    rw [hfTinv]
+    intro h
+    exact hnz ((CFValue.inv_eq_inf_iff _).1 h)
+  have hfinSinv : (ColorMatrix.of f.diagram.invert colSinv).fraction ≠ .inf := by
+    rw [hfSinv]
+    intro h
+    exact hnz' ((CFValue.inv_eq_inf_iff _).1 h)
+  obtain ⟨colR, _, hcR, _, _, _, _, _, hmR, hfR⟩ :=
+    coloring_glue_add_finite e.diagram.invert f.diagram.invert
+      colTinv colSinv hcTinv hcSinv hdTinv hdSinv hmTinv hmSinv
+      hfinTinv hfinSinv
+  have hfR' :
+      (ColorMatrix.of (e.diagram.invert.add f.diagram.invert) colR).fraction =
+        (e.toStandard.fraction.inv.add f.toStandard.fraction.inv) := by
+    rw [hfR, hfTinv, hfSinv]
   refine ⟨colMirr, colR, hcL, hcR, hmL, hmR, ?_, hfL⟩
   exact hfL.trans hfR'.symm
 
@@ -3551,6 +3699,25 @@ theorem HasColoringFraction.invert_add_two_rightBottom (e f : TwistExpr)
         (e.toStandard.fraction.add f.toStandard.fraction).inv := by
   obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
     coloring_invert_add_two_rightBottom e f hrb hrb' hok hok' hfin hfin' hnz hnz'
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-- Invert-mul of two `rightBottom`/`slideReady` diagrams with finite
+    nonzero `F`: both `(T*S)ⁱ` and `Tⁱ+Sⁱ` carry
+    `F(T)⁻¹+F(S)⁻¹`. Skip `0`/`∞`. Not a `TwistExpr`, so not a
+    `SlideReadyIsotopy` constructor, and not unrestricted `flype_slide`. -/
+theorem HasColoringFraction.invert_mul_two_rightBottom (e f : TwistExpr)
+    (hrb : e.rightBottom) (hrb' : f.rightBottom)
+    (hok : e.slideReady) (hok' : f.slideReady)
+    (hfin : e.toStandard.fraction ≠ .inf)
+    (hfin' : f.toStandard.fraction ≠ .inf)
+    (hnz : e.toStandard.fraction ≠ (0 : CFValue))
+    (hnz' : f.toStandard.fraction ≠ (0 : CFValue)) :
+    HasColoringFraction (e.diagram.mul f.diagram).invert
+        (e.toStandard.fraction.inv.add f.toStandard.fraction.inv) ∧
+      HasColoringFraction (e.diagram.invert.add f.diagram.invert)
+        (e.toStandard.fraction.inv.add f.toStandard.fraction.inv) := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_mul_two_rightBottom e f hrb hrb' hok hok' hfin hfin' hnz hnz'
   exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
 
 /-- Invert-add with right summand `[0]`: both `(T+[0])ⁱ` and `[0]ⁱ*Tⁱ`
@@ -5127,9 +5294,11 @@ vertical PD-blocks, not a nested `TwistExpr`. Vertical uniqueness gives
 `f([n]ⁱ)=1/n` and `f([-n]ⁱ)=-1/n` on each block; glue /
 `coloring_fraction_mul` takes the parallel combination, which is `∞`.
 Existence is `coloring_mul_two_rightBottom` when `n ≠ 0`, and the
-`[∞]*T` reindex when `n = 0`. Invert-mul of the two blocks is not
-claimed: existing `coloring_invert_mul_*` need a unit factor.
-Not a `ColoringIsotopy`, and not unrestricted `flype_slide`.
+`[∞]*T` reindex when `n = 0`. Invert-mul of the two blocks when
+`n ≠ 0` reuses `coloring_invert_mul_two_rightBottom` (factors have
+finite nonzero `F`), carrying `0`. The `n = 0` invert-mul
+(`[∞]*[∞]`) is omitted. Not a `ColoringIsotopy`, and not
+unrestricted `flype_slide`.
 -/
 
 theorem TwistExpr.verticalUnits_NW (k : Nat) (s : CrossingSign) :
@@ -5425,5 +5594,120 @@ theorem HasColoringFraction.neg_verticalTwists_mul (n : Int) :
     HasColoringFraction ((verticalTwists (-n)).mul (verticalTwists n))
       CFValue.inf :=
   by simpa [neg_neg] using HasColoringFraction.verticalTwists_mul_neg (-n)
+
+/-- Invert-mul of the two-block vertical product `[n]ⁱ*[-n]ⁱ` when
+    `n ≠ 0`: both the invert of the product and `[n]ⁱⁱ+[-n]ⁱⁱ` have
+    coloring fraction `0`. Dual of two-block invert-add of canceling
+    integers. -/
+theorem coloring_invert_mul_verticalTwists_mul_neg (n : Int) (hn : n ≠ 0) :
+    ∃ colL colR,
+      (((verticalTwists n).mul (verticalTwists (-n))).invert).IsColored
+        colL ∧
+      (((verticalTwists n).invert.add (verticalTwists (-n)).invert)).IsColored
+        colR ∧
+      (ColorMatrix.of
+        ((verticalTwists n).mul (verticalTwists (-n))).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        ((verticalTwists n).invert.add (verticalTwists (-n)).invert)
+        colR).NotMono ∧
+      (ColorMatrix.of
+        ((verticalTwists n).mul (verticalTwists (-n))).invert
+        colL).fraction =
+        (ColorMatrix.of
+          ((verticalTwists n).invert.add (verticalTwists (-n)).invert)
+          colR).fraction ∧
+      (ColorMatrix.of
+        ((verticalTwists n).mul (verticalTwists (-n))).invert
+        colL).fraction =
+        (0 : CFValue) := by
+  have hfin : (TwistExpr.ofVertical n).toStandard.fraction ≠ .inf := by
+    rw [TwistExpr.ofVertical_toStandard_fraction]
+    intro h
+    exact hn ((CFValue.inv_ofInt_eq_inf_iff n).1 h)
+  have hfin' : (TwistExpr.ofVertical (-n)).toStandard.fraction ≠ .inf := by
+    rw [TwistExpr.ofVertical_toStandard_fraction]
+    intro h
+    have : -n = 0 := (CFValue.inv_ofInt_eq_inf_iff (-n)).1 h
+    exact hn (neg_eq_zero.mp this)
+  have hnz : (TwistExpr.ofVertical n).toStandard.fraction ≠
+      (0 : CFValue) := by
+    rw [TwistExpr.ofVertical_toStandard_fraction]
+    exact CFValue.inv_ofInt_ne_zero n
+  have hnz' : (TwistExpr.ofVertical (-n)).toStandard.fraction ≠
+      (0 : CFValue) := by
+    rw [TwistExpr.ofVertical_toStandard_fraction]
+    exact CFValue.inv_ofInt_ne_zero (-n)
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_mul_two_rightBottom (TwistExpr.ofVertical n)
+      (TwistExpr.ofVertical (-n))
+      (TwistExpr.ofVertical_rightBottom n)
+      (TwistExpr.ofVertical_rightBottom (-n))
+      (TwistExpr.ofVertical_slideReady n)
+      (TwistExpr.ofVertical_slideReady (-n)) hfin hfin' hnz hnz'
+  have h0 :
+      ((TwistExpr.ofVertical n).toStandard.fraction.inv.add
+        (TwistExpr.ofVertical (-n)).toStandard.fraction.inv) =
+        (0 : CFValue) := by
+    rw [TwistExpr.ofVertical_toStandard_fraction,
+      TwistExpr.ofVertical_toStandard_fraction, CFValue.inv_inv,
+      CFValue.inv_inv, CFValue.ofInt_add_neg]
+      -- `ofInt 0` is definitionally `0`
+  refine ⟨colL, colR, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · simpa [TwistExpr.ofVertical_diagram] using hcL
+  · simpa [TwistExpr.ofVertical_diagram] using hcR
+  · simpa [TwistExpr.ofVertical_diagram] using hmL
+  · simpa [TwistExpr.ofVertical_diagram] using hmR
+  · simpa [TwistExpr.ofVertical_diagram] using hagree
+  · simpa [TwistExpr.ofVertical_diagram] using hfL.trans h0
+
+theorem coloring_invert_mul_neg_verticalTwists_mul (n : Int) (hn : n ≠ 0) :
+    ∃ colL colR,
+      (((verticalTwists (-n)).mul (verticalTwists n)).invert).IsColored
+        colL ∧
+      (((verticalTwists (-n)).invert.add (verticalTwists n).invert)).IsColored
+        colR ∧
+      (ColorMatrix.of
+        ((verticalTwists (-n)).mul (verticalTwists n)).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        ((verticalTwists (-n)).invert.add (verticalTwists n).invert)
+        colR).NotMono ∧
+      (ColorMatrix.of
+        ((verticalTwists (-n)).mul (verticalTwists n)).invert
+        colL).fraction =
+        (ColorMatrix.of
+          ((verticalTwists (-n)).invert.add (verticalTwists n).invert)
+          colR).fraction ∧
+      (ColorMatrix.of
+        ((verticalTwists (-n)).mul (verticalTwists n)).invert
+        colL).fraction =
+        (0 : CFValue) := by
+  have hn' : -n ≠ 0 := neg_ne_zero.mpr hn
+  simpa [neg_neg] using coloring_invert_mul_verticalTwists_mul_neg (-n) hn'
+
+theorem HasColoringFraction.invert_mul_verticalTwists_mul_neg
+    (n : Int) (hn : n ≠ 0) :
+    HasColoringFraction
+        ((verticalTwists n).mul (verticalTwists (-n))).invert
+        (0 : CFValue) ∧
+      HasColoringFraction
+        ((verticalTwists n).invert.add (verticalTwists (-n)).invert)
+        (0 : CFValue) := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_mul_verticalTwists_mul_neg n hn
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+theorem HasColoringFraction.invert_mul_neg_verticalTwists_mul
+    (n : Int) (hn : n ≠ 0) :
+    HasColoringFraction
+        ((verticalTwists (-n)).mul (verticalTwists n)).invert
+        (0 : CFValue) ∧
+      HasColoringFraction
+        ((verticalTwists (-n)).invert.add (verticalTwists n).invert)
+        (0 : CFValue) := by
+  have hn' : -n ≠ 0 := neg_ne_zero.mpr hn
+  simpa [neg_neg] using
+    HasColoringFraction.invert_mul_verticalTwists_mul_neg (-n) hn'
 
 end RationalTangles
