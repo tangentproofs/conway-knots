@@ -24,6 +24,15 @@ If two `slideReady` expressions denote the same PD-code and a non-monochrome
 `DiagonalSum` coloring of that code exists, they share `toStandard.fraction`
 (so that value is a function of the diagram). On `rightBottom` the coloring
 is discharged by `colorFrom`. This is not isotopy invariance of `F`.
+
+Along `ColoringIsotopy` (not leftover `Isotopic.invert_cong` / transfer /
+unrestricted flype), the same identification `f = toStandard.fraction` shows
+that standard-form `F` is unchanged. For right-and-bottom diagrams, a *fresh*
+coloring of the inverted PD-code (via `coloring_invert_inv_rightBottom`) has
+fraction `1/F(T)`; if two such diagrams are related by `ColoringIsotopy`,
+those inverted fractions agree. That is fraction-level functoriality of invert
+on this class, not a `ColoringIsotopy` constructor and not transport of every
+coloring across `Crossing.switch`.
 -/
 
 namespace RationalTangles
@@ -730,5 +739,109 @@ theorem StandardExpr.fraction_eq_of_diagram {e₁ e₂ : StandardExpr}
       (ColorMatrix.of e₂.diagram (e₁.colorFrom 0 1)).fraction := by
     simp [hd]
   exact hf1.symm.trans (hM.trans hf2)
+
+
+/-- A fresh coloring of the inverted PD-code of a right-and-bottom twist
+    diagram has coloring fraction `1/F(T)`. Composes
+    `coloring_invert_inv_rightBottom` with `f = F`. Not a coloring of
+    `Isotopic.invert_cong` (that constructor switches every crossing). -/
+theorem coloring_invert_inv_eq_F_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
+    (col : Nat → Int)
+    (hc : e.diagram.IsColored col)
+    (hm : (ColorMatrix.of e.diagram col).NotMono) :
+    ∃ col', e.diagram.invert.IsColored col' ∧
+      (ColorMatrix.of e.diagram.invert col').NotMono ∧
+      (ColorMatrix.of e.diagram.invert col').fraction = e.fraction.inv := by
+  obtain ⟨col', hc', hm', hf⟩ := coloring_invert_inv_rightBottom e hrb col hc hm
+  refine ⟨col', hc', hm', hf.trans (congrArg CFValue.inv ?_)⟩
+  exact coloring_fraction_eq_F_rightBottom e hrb col hc hm
+
+/-- Same as `coloring_invert_inv_eq_F_rightBottom`, discharging the coloring
+    by `colorFrom 0 1`. -/
+theorem coloring_invert_inv_eq_F_rightBottom_colorFrom (e : TwistExpr)
+    (hrb : e.rightBottom) :
+    ∃ col', e.diagram.invert.IsColored col' ∧
+      (ColorMatrix.of e.diagram.invert col').NotMono ∧
+      (ColorMatrix.of e.diagram.invert col').fraction = e.fraction.inv :=
+  coloring_invert_inv_eq_F_rightBottom e hrb (e.colorFrom 0 1)
+    (e.colorFrom_isColored hrb 0 1) (e.colorFrom_notMono hrb)
+
+/-- Standard-form `F` of a `slideReady` twist expression is unchanged along
+    `ColoringIsotopy`, once a non-monochrome `DiagonalSum` coloring of the
+    source is given (so `f = toStandard.fraction` applies on both sides).
+    This is `f`-invariance of `coloring_fraction_ColoringIsotopy` lifted to
+    `F` on `slideReady` diagrams. It is not Theorem 2 for arbitrary
+    `Isotopic` witnesses. -/
+theorem TwistExpr.toStandard_fraction_ColoringIsotopy {e₁ e₂ : TwistExpr}
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady)
+    (h : ColoringIsotopy e₁.diagram e₂.diagram)
+    (col : Nat → Int)
+    (hc : e₁.diagram.IsColored col)
+    (hdiag : (ColorMatrix.of e₁.diagram col).DiagonalSum)
+    (hm : (ColorMatrix.of e₁.diagram col).NotMono) :
+    e₁.toStandard.fraction = e₂.toStandard.fraction := by
+  have hf1 := coloring_fraction_eq_F e₁ hok₁ col hc hdiag hm
+  obtain ⟨col', hc', hMat, hfrac⟩ := coloring_fraction_ColoringIsotopy h col hc
+  have hdiag' : (ColorMatrix.of e₂.diagram col').DiagonalSum := by
+    simpa [hMat] using hdiag
+  have hm' : (ColorMatrix.of e₂.diagram col').NotMono := by
+    simpa [hMat] using hm
+  have hf2 := coloring_fraction_eq_F e₂ hok₂ col' hc' hdiag' hm'
+  exact hf1.symm.trans (hfrac.symm.trans hf2)
+
+/-- Algebraic `F` is likewise unchanged along `ColoringIsotopy` for
+    `noMulTop` `slideReady` expressions, given a coloring as in
+    `toStandard_fraction_ColoringIsotopy`. -/
+theorem TwistExpr.fraction_ColoringIsotopy_noMulTop {e₁ e₂ : TwistExpr}
+    (hn₁ : e₁.noMulTop) (hn₂ : e₂.noMulTop)
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady)
+    (h : ColoringIsotopy e₁.diagram e₂.diagram)
+    (col : Nat → Int)
+    (hc : e₁.diagram.IsColored col)
+    (hdiag : (ColorMatrix.of e₁.diagram col).DiagonalSum)
+    (hm : (ColorMatrix.of e₁.diagram col).NotMono) :
+    e₁.fraction = e₂.fraction :=
+  (TwistExpr.fraction_eq_toStandard_of_noMulTop e₁ hn₁).trans
+    ((TwistExpr.toStandard_fraction_ColoringIsotopy
+        hok₁ hok₂ h col hc hdiag hm).trans
+      (TwistExpr.fraction_eq_toStandard_of_noMulTop e₂ hn₂).symm)
+
+/-- Algebraic `F` of a right-and-bottom twist expression is unchanged along
+    `ColoringIsotopy`. The coloring is `colorFrom 0 1`. -/
+theorem TwistExpr.fraction_ColoringIsotopy_rightBottom {e₁ e₂ : TwistExpr}
+    (hr₁ : e₁.rightBottom) (hr₂ : e₂.rightBottom)
+    (h : ColoringIsotopy e₁.diagram e₂.diagram) :
+    e₁.fraction = e₂.fraction :=
+  TwistExpr.fraction_ColoringIsotopy_noMulTop
+    (TwistExpr.noMulTop_of_rightBottom e₁ hr₁)
+    (TwistExpr.noMulTop_of_rightBottom e₂ hr₂)
+    (TwistExpr.rightBottom_slideReady e₁ hr₁)
+    (TwistExpr.rightBottom_slideReady e₂ hr₂) h
+    (e₁.colorFrom 0 1)
+    (e₁.colorFrom_isColored hr₁ 0 1)
+    (e₁.colorFrom_diagonal hr₁ 0 1)
+    (e₁.colorFrom_notMono hr₁)
+
+/-- If two right-and-bottom twist diagrams are related by `ColoringIsotopy`,
+    then *fresh* colorings of their inverted PD-codes have the same coloring
+    fraction `1/F(T)`. This is the fraction-level content of
+    `Isotopic.invert_cong` on this class. It does not add `invert_cong` to
+    `ColoringIsotopy` (colorings are not transported across `switch`). -/
+theorem coloring_invert_cong_rightBottom {e e' : TwistExpr}
+    (hrb : e.rightBottom) (hrb' : e'.rightBottom)
+    (h : ColoringIsotopy e.diagram e'.diagram) :
+    ∃ colI colI',
+      e.diagram.invert.IsColored colI ∧
+      e'.diagram.invert.IsColored colI' ∧
+      (ColorMatrix.of e.diagram.invert colI).NotMono ∧
+      (ColorMatrix.of e'.diagram.invert colI').NotMono ∧
+      (ColorMatrix.of e.diagram.invert colI).fraction =
+        (ColorMatrix.of e'.diagram.invert colI').fraction := by
+  obtain ⟨colI, hcI, hmI, hfI⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom e hrb
+  obtain ⟨colI', hcI', hmI', hfI'⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom e' hrb'
+  refine ⟨colI, colI', hcI, hcI', hmI, hmI', ?_⟩
+  rw [hfI, hfI', TwistExpr.fraction_ColoringIsotopy_rightBottom hrb hrb' h]
 
 end RationalTangles
