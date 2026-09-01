@@ -562,6 +562,124 @@ theorem coloring_zero_add (T : TangleDiagram) (col : Nat → Int)
   · rw [zero_add_SE_reindex, colorZeroAdd_reindex]
   · simp [colorZeroAdd, TangleDiagram.add, TangleDiagram.zero]
 
+/-! ## Left-mul of infinity as a planar reindexing
+
+Degenerate flype-slide case (b): left-multiply by the vertical trivial
+tangle. This is `T` with arcs renamed. When `T.NW ≠ T.NE` the four
+endpoints match this reindexing (planar isotopy). If `T.NW = T.NE` then
+the product records an unused NE name `1` while the reindex sends that
+arc to `0`; coloring still transports.
+-/
+
+theorem infinity_maxArc : TangleDiagram.infinity.maxArc = 1 := by
+  unfold TangleDiagram.maxArc TangleDiagram.infinity
+  simp
+
+/-- Arc map sending `T` onto the PD-code of `infinity.mul T`. Glues `T.NW`
+    to the left strand `0` and `T.NE` to the right strand `1`. -/
+def infinityMulReindex (T : TangleDiagram) (a : Nat) : Nat :=
+  if a = T.NW then 0
+  else if a = T.NE then 1
+  else a + 2
+
+theorem infinityMulReindex_eq_glue (T : TangleDiagram) (a : Nat) :
+    mulGlue TangleDiagram.infinity T
+      (a + (TangleDiagram.infinity.maxArc + 1)) =
+      infinityMulReindex T a := by
+  rw [mulGlue_shift_eq, infinity_maxArc]
+  simp [TangleDiagram.infinity, infinityMulReindex]
+
+theorem infinityMulReindex_injective (T : TangleDiagram) :
+    Function.Injective (infinityMulReindex T) := by
+  intro a b h
+  unfold infinityMulReindex at h
+  split_ifs at h <;> omega
+
+theorem infinity_mul_crossings_reindex (T : TangleDiagram) :
+    (TangleDiagram.infinity.mul T).crossings =
+      T.crossings.map (Crossing.rename (infinityMulReindex T)) := by
+  have hfun :
+      mulGlue TangleDiagram.infinity T ∘ addShift TangleDiagram.infinity =
+        infinityMulReindex T := by
+    funext a
+    simpa [addShift, infinity_maxArc] using infinityMulReindex_eq_glue T a
+  rw [mul_crossings_append, hfun]
+  simp [TangleDiagram.infinity]
+
+theorem infinity_mul_SE_reindex (T : TangleDiagram) :
+    (TangleDiagram.infinity.mul T).SE = infinityMulReindex T T.SE := by
+  rw [mul_SE_glue, infinity_maxArc]
+  exact infinityMulReindex_eq_glue T T.SE
+
+theorem infinity_mul_SW_reindex (T : TangleDiagram) :
+    (TangleDiagram.infinity.mul T).SW = infinityMulReindex T T.SW := by
+  rw [mul_SW_glue, infinity_maxArc]
+  exact infinityMulReindex_eq_glue T T.SW
+
+/-- `infinity.mul T` is `T` with arcs renamed by `infinityMulReindex`. When
+    `T.NW ≠ T.NE` the four endpoints match this reindexing, so the diagrams
+    are planar isotopic. -/
+theorem planar_infinity_mul (T : TangleDiagram) (h : T.NW ≠ T.NE) :
+    PlanarIsotopy T (TangleDiagram.infinity.mul T) := by
+  refine ⟨infinityMulReindex T, infinityMulReindex_injective T, ?_, ?_, ?_, ?_,
+    (TangleDiagram.infinity.mul T).crossings, ?_, List.Perm.rfl⟩
+  · simp [TangleDiagram.mul, TangleDiagram.infinity, infinityMulReindex]
+  · simp [TangleDiagram.mul, TangleDiagram.infinity, infinityMulReindex, h.symm]
+  · exact infinity_mul_SE_reindex T
+  · exact infinity_mul_SW_reindex T
+  · rw [infinity_mul_crossings_reindex]
+    exact pairRel_sameUpToRotation_rfl _
+
+/-- Recolor after left-mul by `infinity`: pull colors back along the
+    reindex, sending the dummy right strand `1` to `T.NE`. -/
+def colorInfinityMul (T : TangleDiagram) (col : Nat → Int) (b : Nat) : Int :=
+  if b = 0 then col T.NW
+  else if b = 1 then col T.NE
+  else col (b - 2)
+
+theorem colorInfinityMul_reindex (T : TangleDiagram) (col : Nat → Int) (a : Nat) :
+    colorInfinityMul T col (infinityMulReindex T a) = col a := by
+  unfold infinityMulReindex
+  split_ifs with hNW hNE
+  · simp [colorInfinityMul, hNW]
+  · simp [colorInfinityMul, hNE]
+  · have hne1 : a + 2 ≠ 1 := by omega
+    simp [colorInfinityMul, hne1]
+
+theorem IsColored_colorInfinityMul (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.IsColored col) :
+    (TangleDiagram.infinity.mul T).IsColored (colorInfinityMul T col) := by
+  intro C hC
+  rw [infinity_mul_crossings_reindex] at hC
+  obtain ⟨C0, hC0, rfl⟩ := List.mem_map.1 hC
+  rw [ColoringRule_rename]
+  have hfun : colorInfinityMul T col ∘ infinityMulReindex T = col :=
+    funext (colorInfinityMul_reindex T col)
+  simpa [hfun] using hc C0 hC0
+
+theorem coloring_infinity_mul (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.IsColored col) :
+    ∃ col', (TangleDiagram.infinity.mul T).IsColored col' ∧
+      SameEndpointColors T (TangleDiagram.infinity.mul T) col col' := by
+  refine ⟨colorInfinityMul T col, IsColored_colorInfinityMul T col hc, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · simp [colorInfinityMul, TangleDiagram.mul, TangleDiagram.infinity]
+  · simp [colorInfinityMul, TangleDiagram.mul, TangleDiagram.infinity]
+  · rw [infinity_mul_SE_reindex, colorInfinityMul_reindex]
+  · rw [infinity_mul_SW_reindex, colorInfinityMul_reindex]
+
+theorem coloring_fraction_infinity_mul (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.IsColored col) :
+    ∃ col', (TangleDiagram.infinity.mul T).IsColored col' ∧
+      ColorMatrix.of (TangleDiagram.infinity.mul T) col' =
+        ColorMatrix.of T col ∧
+      (ColorMatrix.of (TangleDiagram.infinity.mul T) col').fraction =
+        (ColorMatrix.of T col).fraction := by
+  obtain ⟨col', hc', hs⟩ := coloring_infinity_mul T col hc
+  have hM := ColorMatrix.of_sameEndpoint hs
+  exact ⟨col', hc', hM, hM ▸ rfl⟩
+
+
 /-! ## Sign-preserving `[±1]` slide (algebraic Figure 5)
 
 `t.rot180` cycles the box endpoints (`NW = t.SE`), so `colorAddRight` on
