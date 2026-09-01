@@ -53,6 +53,7 @@ in Theorem 3.
 - [Coloring fraction after invert on slide-ready diagrams](theorems/coloring-invert-cong-slideReady.md)
 - [Coloring fraction after mirror on slide-ready diagrams](theorems/coloring-mirror-cong-slideReady.md)
 - [Figure 14 at the coloring fraction on slide-ready diagrams](theorems/coloring-transfer-odd-slideReady.md)
+- [Standard-form $F$ along slide-ready coloring paths](theorems/slideReady-isotopy-fraction.md)
 
 ## Coloring
 
