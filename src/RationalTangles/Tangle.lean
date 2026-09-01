@@ -56,6 +56,11 @@ theorem switch_maxArc (C : Crossing) : C.switch.maxArc = C.maxArc := by
 theorem switch_rename (f : Nat → Nat) (C : Crossing) :
     (C.rename f).switch = C.switch.rename f := rfl
 
+/-- The largest incident identifier is one of the four ports. -/
+theorem maxArc_memArc (C : Crossing) : C.memArc C.maxArc := by
+  unfold Crossing.maxArc Crossing.memArc
+  omega
+
 end Crossing
 
 namespace TangleDiagram
@@ -65,6 +70,11 @@ namespace TangleDiagram
 def maxArc (D : TangleDiagram) : Nat :=
   let b := max D.NW (max D.NE (max D.SE D.SW))
   D.crossings.foldl (fun m C => max m C.maxArc) b
+
+/-- Arc `a` is a boundary port or is incident to some crossing. -/
+def appears (T : TangleDiagram) (a : Nat) : Prop :=
+  a = T.NW ∨ a = T.NE ∨ a = T.SE ∨ a = T.SW ∨
+    ∃ C ∈ T.crossings, C.memArc a
 
 /-- Mirror image `-T`: switch over and under at every crossing. Endpoints
     stay put. In particular `-[n] = [-n]`. -/
