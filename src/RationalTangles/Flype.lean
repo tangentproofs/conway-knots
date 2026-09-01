@@ -175,12 +175,13 @@ transport: Reidemeister I–II (on well-formed diagrams), local R3 over-slide,
 local flype, planar isotopy, and add/mul congruence.
 
 This is *not* `Isotopic`: it omits the sign-preserving slide constructors
-`flype_slide_add`/`flype_slide_mul` (algebraic Figure 5 with `rot180`, not yet
-colored), switched algebraic `Flype`, flip/mirror/invert congruence,
-associativity, transfer, and `ColoringIsotopy.symm`. Indexed R3 is included
-via the local model; `add_zero`, `zero_add` (planar reindexing of `[0]+T`),
-and `invert_unit` are included. Invariance of `f` is stated for
-`ColoringIsotopy` rather than for `Isotopic`.
+`flype_slide_add`/`flype_slide_mul` (algebraic Figure 5 with `rot180`; coloring
+needs `DiagonalSum` and is not for every coloring), switched algebraic `Flype`,
+flip/mirror/invert congruence, `mul_assoc`, transfer, and `ColoringIsotopy.symm`.
+Indexed R3 is included via the local model; `add_zero`, `zero_add` (planar
+reindexing of `[0]+T`), `invert_unit`, and `add_assoc` (reindexing, all
+colorings) are included. Invariance of `f` is stated for `ColoringIsotopy`
+rather than for `Isotopic`.
 -/
 
 /-- Directed coloring-ready isotopy of 2-tangle diagrams. -/
@@ -218,6 +219,9 @@ inductive ColoringIsotopy : TangleDiagram → TangleDiagram → Prop where
   /-- Inversion of `[±1]` (the unit of inversion). -/
   | invert_unit (s : CrossingSign) :
       ColoringIsotopy (crossingTangle s) (crossingTangle s).invert
+  /-- Horizontal sum is associative by PD-code reindexing. -/
+  | add_assoc (T S R : TangleDiagram) :
+      ColoringIsotopy ((T.add S).add R) (T.add (S.add R))
 
 theorem IsReidemeisterI.symm {D E : TangleDiagram} (h : IsReidemeisterI D E) :
     IsReidemeisterI E D := by
