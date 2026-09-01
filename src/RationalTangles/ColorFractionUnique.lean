@@ -39,11 +39,17 @@ uniqueness after mirror rather than `SameEndpointColors` after
 
 `SlideReadyIsotopy` packages those comparisons (plus `ColoringIsotopy` on
 `slideReady` diagrams) as a relation that carries a common coloring
-fraction. Standard-form `F` is invariant along it when both endpoints are
+fraction. Restricted `rot180` of a `slideReady` diagram (paper: planar
+180° preserves the tangle, so `f` is unchanged — not the 90° identity
+`f(Tʳ)=-1/f(T)`), Figure 14 with switched signs (`transfer_odd_neg`),
+and Figure 5 slides under `DiagonalSum` and the `hne` port hypotheses
+are included as constructors of this relation, not of `ColoringIsotopy`.
+Standard-form `F` is invariant along it when both endpoints are
 `slideReady` twist diagrams. This is not `Isotopic` and not Theorem 2:
 isotopy can leave the twist/`slideReady` class, and leftover generators
-`flype_slide_*`, `rot180_*`, `transfer_odd_neg`, and invert-add of two
-general summands are omitted. None of those leftover constructors is
+`rot180_cong` / `rot180_add` / `rot180_mul` of an arbitrary isotopy,
+unrestricted `flype_slide_*` (no `DiagonalSum`/`hne`), and invert-add of
+two general summands are omitted. None of those leftover constructors is
 added to `ColoringIsotopy`.
 -/
 
@@ -1778,6 +1784,242 @@ theorem coloring_transfer_odd_slideReady (e : TwistExpr) (hok : e.slideReady)
     rw [hLd, hfL, hfR, hfI, TwistExpr.toStandard_transfer_odd]
     simp [CFValue.negInv, CFValue.neg_inv]
 
+theorem TwistExpr.toStandard_transfer_odd_neg (e : TwistExpr) :
+    (TwistExpr.mulBottom (TwistExpr.addRight e .pos) .neg).toStandard.fraction =
+      (CFValue.ofInt (-1)).add e.toStandard.fraction.neg.inv := by
+  simp [TwistExpr.toStandard, StandardExpr.addRight_fraction,
+    StandardExpr.mulBottom_fraction, CrossingSign.cfValue]
+  simpa [one_eq_ofInt_one] using
+    CFValue.transfer_odd_neg_value e.toStandard.fraction
+
+/-- Switched Figure 14 at the fraction level on a `slideReady` diagram
+    with distinct `NW`/`NE`. Independent colorings of `(T+[+1])*[-1]`
+    and `[-1]+(-T)ⁱ`; uniqueness after mirror supplies `f((-T)ⁱ)=-1/F`.
+    Not a `ColoringIsotopy`. -/
+theorem coloring_transfer_odd_neg_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (hports : e.diagram.NW ≠ e.diagram.NE)
+    (hne : (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NW ≠
+      (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NE) :
+    ∃ colL colR,
+      ((e.diagram.add RationalTangles.one).mul RationalTangles.negOne).IsColored
+        colL ∧
+      (RationalTangles.negOne.add e.diagram.mirror.invert).IsColored colR ∧
+      (ColorMatrix.of ((e.diagram.add RationalTangles.one).mul
+        RationalTangles.negOne) colL).NotMono ∧
+      (ColorMatrix.of (RationalTangles.negOne.add e.diagram.mirror.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of ((e.diagram.add RationalTangles.one).mul
+        RationalTangles.negOne) colL).fraction =
+        (ColorMatrix.of (RationalTangles.negOne.add e.diagram.mirror.invert)
+          colR).fraction := by
+  let eL : TwistExpr := .mulBottom (.addRight e .pos) .neg
+  have hokL : eL.slideReady :=
+    TwistExpr.mulBottom_slideReady _ _ (TwistExpr.addRight_slideReady e .pos hok)
+  let colL := eL.colorFrom 0 1
+  have hcL : eL.diagram.IsColored colL :=
+    eL.colorFrom_isColored_slideReady hokL 0 1
+  have hmL : (ColorMatrix.of eL.diagram colL).NotMono :=
+    eL.colorFrom_notMono_slideReady hokL
+  have hfL := coloring_fraction_eq_F eL hokL colL hcL
+    (eL.colorFrom_diagonal_slideReady hokL 0 1) hmL
+  let colT := e.colorFrom 0 1
+  have hcT : e.diagram.IsColored colT := e.colorFrom_isColored_slideReady hok 0 1
+  have hmT : (ColorMatrix.of e.diagram colT).NotMono :=
+    e.colorFrom_notMono_slideReady hok
+  have hdT := e.colorFrom_diagonal_slideReady hok 0 1
+  obtain ⟨colMM, hcMM, hMatMM, _⟩ :=
+    coloring_fraction_ColoringIsotopy
+      (.isotopy (planar_mirror_mirror_rev e.diagram)) colT hcT
+  have hcI : e.diagram.mirror.invert.IsColored colMM := by
+    simpa [invert_eq_mirror_rotate] using coloring_rotate _ colMM hcMM
+  have hdMM : (ColorMatrix.of e.diagram.mirror.mirror colMM).DiagonalSum := by
+    simpa [hMatMM] using hdT
+  have hmMM : (ColorMatrix.of e.diagram.mirror.mirror colMM).NotMono := by
+    simpa [hMatMM] using hmT
+  have hrot :
+      ColorMatrix.of e.diagram.mirror.invert colMM =
+        (ColorMatrix.of e.diagram.mirror.mirror colMM).rotate := by
+    simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+  have hmI : (ColorMatrix.of e.diagram.mirror.invert colMM).NotMono := by
+    simpa [hrot] using ColorMatrix.NotMono_rotate hdMM hmMM
+  have hneS : e.diagram.mirror.invert.NW ≠ e.diagram.mirror.invert.SW := by
+    rw [TangleDiagram.mirror_invert_NW, TangleDiagram.mirror_invert_SW]
+    exact hports.symm
+  have hdiagS : (ColorMatrix.of e.diagram.mirror.invert colMM).DiagonalSum := by
+    simpa [hrot] using ColorMatrix.DiagonalSum.rotate hdMM
+  have hcolS : colMM e.diagram.mirror.invert.NW ≠
+      colMM e.diagram.mirror.invert.SW := by
+    rw [TangleDiagram.mirror_invert_NW, TangleDiagram.mirror_invert_SW]
+    change (ColorMatrix.of e.diagram.mirror.mirror colMM).NE ≠
+      (ColorMatrix.of e.diagram.mirror.mirror colMM).NW
+    have hNE := congrArg ColorMatrix.NE hMatMM
+    have hNW := congrArg ColorMatrix.NW hMatMM
+    have hne' :
+        (ColorMatrix.of e.diagram colT).NE ≠
+          (ColorMatrix.of e.diagram colT).NW := hne.symm
+    exact hNE.trans_ne (hne'.trans_eq hNW.symm)
+  obtain ⟨colR, hcR, hmR, hfR⟩ :=
+    coloring_fraction_negOne_add e.diagram.mirror.invert colMM hcI hneS hdiagS hcolS
+  have hfI :=
+    coloring_mirror_invert_any_eq_negInv_F_slideReady e hok colMM hcI hmI
+  refine ⟨colL, colR, ?_, hcR, ?_, hmR, ?_⟩
+  · simpa [eL, TwistExpr.diagram, crossingTangle] using hcL
+  · simpa [eL, TwistExpr.diagram, crossingTangle] using hmL
+  · have hLd :
+        ColorMatrix.of ((e.diagram.add RationalTangles.one).mul
+          RationalTangles.negOne) colL =
+          ColorMatrix.of eL.diagram colL := by
+      simp [eL, TwistExpr.diagram, crossingTangle]
+    rw [hLd, hfL, hfR, hfI, TwistExpr.toStandard_transfer_odd_neg]
+    simp [CFValue.negInv, CFValue.neg_inv]
+
+/-! ## Restricted `rot180` and Figure 5 slides
+
+Planar 180° cycles endpoints. Under `DiagonalSum`, `coloring_rot180_diagonal`
+restores disc colors, so `f` is unchanged (two 90° rotations: `(-1/f)` twice
+is `f`, not the 90° identity `f(Tʳ)=-1/f(T)`). Uniqueness of
+`f=F` on the original `slideReady` diagram identifies every non-monochrome
+coloring of `T.rot180`. Figure 5 slides reuse `coloring_flype_slide_*`.
+-/
+
+theorem ColorMatrix.of_rot180 (T : TangleDiagram) (col : Nat → Int) :
+    ColorMatrix.of T.rot180 col = (ColorMatrix.of T col).rotate.rotate := by
+  simp [ColorMatrix.of, ColorMatrix.rotate, TangleDiagram.rot180]
+
+theorem CFValue.negInv_negInv (x : CFValue) : x.negInv.negInv = x := by
+  simp [CFValue.negInv, CFValue.neg_inv, CFValue.inv_inv, CFValue.neg_neg]
+
+/-- Any non-monochrome coloring of `T.rot180` on a `slideReady` diagram has
+    fraction `F(T)`. Disc colors need not match those of `T`; uniqueness of
+    `f` on `T` after `coloring_rot180_diagonal` identifies the value. -/
+theorem coloring_rot180_any_eq_F_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (col : Nat → Int)
+    (hc : e.diagram.rot180.IsColored col)
+    (hm : (ColorMatrix.of e.diagram.rot180 col).NotMono) :
+    (ColorMatrix.of e.diagram.rot180 col).fraction = e.toStandard.fraction := by
+  have hcT : e.diagram.IsColored col := by
+    simpa [rot180_rot180] using IsColored_rot180 e.diagram.rot180 col hc
+  have hdT := twist_coloring_diagonal_slideReady e hok col hcT
+  have hdiag : (ColorMatrix.of e.diagram.rot180 col).DiagonalSum :=
+    ColorMatrix.DiagonalSum_of_rot180 e.diagram col hdT
+  obtain ⟨col', hc', hs⟩ :=
+    coloring_rot180_diagonal e.diagram.rot180 col hc hdiag
+  have hc'T : e.diagram.IsColored col' := by
+    simpa [rot180_rot180] using hc'
+  have hM : ColorMatrix.of e.diagram col' = ColorMatrix.of e.diagram.rot180 col :=
+    ColorMatrix.of_sameEndpoint (by simpa [rot180_rot180] using hs)
+  have hmT : (ColorMatrix.of e.diagram col').NotMono := by
+    simpa [hM] using hm
+  have hd' : (ColorMatrix.of e.diagram col').DiagonalSum := by
+    simpa [hM] using hdiag
+  have hf := coloring_fraction_eq_F e hok col' hc'T hd' hmT
+  exact (congrArg ColorMatrix.fraction hM.symm).trans hf
+
+/-- Same statement on `rightBottom`, written with algebraic `F`. -/
+theorem coloring_rot180_any_eq_F_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
+    (col : Nat → Int)
+    (hc : e.diagram.rot180.IsColored col)
+    (hm : (ColorMatrix.of e.diagram.rot180 col).NotMono) :
+    (ColorMatrix.of e.diagram.rot180 col).fraction = e.fraction := by
+  have hok := TwistExpr.rightBottom_slideReady e hrb
+  have hf := coloring_rot180_any_eq_F_slideReady e hok col hc hm
+  exact hf.trans (TwistExpr.fraction_eq_toStandard_rightBottom e hrb).symm
+
+/-- A coloring of `T.rot180` with the same color matrix (hence `f=F`) as a
+    `slideReady` coloring of `T`. -/
+theorem coloring_rot180_slideReady (e : TwistExpr) (hok : e.slideReady) :
+    ∃ col col',
+      e.diagram.IsColored col ∧ e.diagram.rot180.IsColored col' ∧
+      (ColorMatrix.of e.diagram col).NotMono ∧
+      (ColorMatrix.of e.diagram.rot180 col').NotMono ∧
+      ColorMatrix.of e.diagram.rot180 col' = ColorMatrix.of e.diagram col ∧
+      (ColorMatrix.of e.diagram.rot180 col').fraction =
+        e.toStandard.fraction := by
+  let col := e.colorFrom 0 1
+  have hc : e.diagram.IsColored col := e.colorFrom_isColored_slideReady hok 0 1
+  have hm : (ColorMatrix.of e.diagram col).NotMono :=
+    e.colorFrom_notMono_slideReady hok
+  have hd := e.colorFrom_diagonal_slideReady hok 0 1
+  have hf := coloring_fraction_eq_F e hok col hc hd hm
+  obtain ⟨col', hc', hM, hfrac⟩ :=
+    coloring_fraction_rot180_diagonal e.diagram col hc hd
+  exact ⟨col, col', hc, hc', hm, hM ▸ hm, hM, hfrac.trans hf⟩
+
+/-- Restricted Figure 5 slide on a `slideReady` summand. -/
+theorem coloring_flype_slide_add_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (s : CrossingSign) (hne : e.diagram.NW ≠ e.diagram.SW) :
+    ∃ colL colR,
+      ((crossingTangle s).add e.diagram).IsColored colL ∧
+      (e.diagram.rot180.add (crossingTangle s)).IsColored colR ∧
+      (ColorMatrix.of ((crossingTangle s).add e.diagram) colL).NotMono ∧
+      (ColorMatrix.of (e.diagram.rot180.add (crossingTangle s)) colR).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).add e.diagram) colL).fraction =
+        (ColorMatrix.of (e.diagram.rot180.add (crossingTangle s)) colR).fraction ∧
+      (ColorMatrix.of ((crossingTangle s).add e.diagram) colL).fraction =
+        (TwistExpr.addLeft e s).toStandard.fraction := by
+  let eL : TwistExpr := .addLeft e s
+  have hokL : eL.slideReady := ⟨hne, hok⟩
+  let colL := eL.colorFrom 0 1
+  have hcL : eL.diagram.IsColored colL :=
+    eL.colorFrom_isColored_slideReady hokL 0 1
+  have hmL : (ColorMatrix.of eL.diagram colL).NotMono :=
+    eL.colorFrom_notMono_slideReady hokL
+  have hdL := eL.colorFrom_diagonal_slideReady hokL 0 1
+  have hfL := coloring_fraction_eq_F eL hokL colL hcL hdL hmL
+  have hcL' : ((crossingTangle s).add e.diagram).IsColored colL := by
+    simpa [eL, TwistExpr.diagram] using hcL
+  have hdL' : (ColorMatrix.of ((crossingTangle s).add e.diagram) colL).DiagonalSum := by
+    simpa [eL, TwistExpr.diagram] using hdL
+  obtain ⟨colR, hcR, hs⟩ :=
+    coloring_flype_slide_add s e.diagram colL hcL' hne hdL'
+  have hM := ColorMatrix.of_sameEndpoint hs
+  have hLd :
+      ColorMatrix.of ((crossingTangle s).add e.diagram) colL =
+        ColorMatrix.of eL.diagram colL := by
+    simp [eL, TwistExpr.diagram]
+  refine ⟨colL, colR, hcL', hcR, ?_, ?_, ?_, ?_⟩
+  · simpa [hLd] using hmL
+  · simpa [hM, hLd] using hmL
+  · rw [hM]
+  · rw [hLd, hfL]
+
+/-- Restricted Figure 5 slide on a `slideReady` factor. -/
+theorem coloring_flype_slide_mul_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (s : CrossingSign) (hne : e.diagram.NW ≠ e.diagram.NE) :
+    ∃ colL colR,
+      ((crossingTangle s).mul e.diagram).IsColored colL ∧
+      (e.diagram.rot180.mul (crossingTangle s)).IsColored colR ∧
+      (ColorMatrix.of ((crossingTangle s).mul e.diagram) colL).NotMono ∧
+      (ColorMatrix.of (e.diagram.rot180.mul (crossingTangle s)) colR).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).mul e.diagram) colL).fraction =
+        (ColorMatrix.of (e.diagram.rot180.mul (crossingTangle s)) colR).fraction ∧
+      (ColorMatrix.of ((crossingTangle s).mul e.diagram) colL).fraction =
+        (TwistExpr.mulTop e s).toStandard.fraction := by
+  let eL : TwistExpr := .mulTop e s
+  have hokL : eL.slideReady := ⟨hne, hok⟩
+  let colL := eL.colorFrom 0 1
+  have hcL : eL.diagram.IsColored colL :=
+    eL.colorFrom_isColored_slideReady hokL 0 1
+  have hmL : (ColorMatrix.of eL.diagram colL).NotMono :=
+    eL.colorFrom_notMono_slideReady hokL
+  have hdL := eL.colorFrom_diagonal_slideReady hokL 0 1
+  have hfL := coloring_fraction_eq_F eL hokL colL hcL hdL hmL
+  have hcL' : ((crossingTangle s).mul e.diagram).IsColored colL := by
+    simpa [eL, TwistExpr.diagram] using hcL
+  have hdL' : (ColorMatrix.of ((crossingTangle s).mul e.diagram) colL).DiagonalSum := by
+    simpa [eL, TwistExpr.diagram] using hdL
+  obtain ⟨colR, hcR, hs⟩ :=
+    coloring_flype_slide_mul s e.diagram colL hcL' hne hdL'
+  have hM := ColorMatrix.of_sameEndpoint hs
+  have hLd :
+      ColorMatrix.of ((crossingTangle s).mul e.diagram) colL =
+        ColorMatrix.of eL.diagram colL := by
+    simp [eL, TwistExpr.diagram]
+  refine ⟨colL, colR, hcL', hcR, ?_, ?_, ?_, ?_⟩
+  · simpa [hLd] using hmL
+  · simpa [hM, hLd] using hmL
+  · rw [hM]
+  · rw [hLd, hfL]
 
 /-! ## `SlideReadyIsotopy`
 
@@ -1798,10 +2040,11 @@ def HasColoringFraction (D : TangleDiagram) (v : CFValue) : Prop :=
     twist diagrams. The third argument is a coloring fraction of both
     endpoints. Intermediates need not be twist-form.
 
-    This is not `Isotopic`: it omits `flype_slide_add` / `flype_slide_mul`,
-    `rot180_cong` / `rot180_add` / `rot180_mul`, `transfer_odd_neg`, and
-    invert-add of two general (non-unit) summands. Constructors are not
-    added to `ColoringIsotopy`. -/
+    This is not `Isotopic`: it omits `rot180_cong` / `rot180_add` /
+    `rot180_mul` of an arbitrary isotopy, unrestricted `flype_slide_*`
+    (without `DiagonalSum` and the port hypotheses), and invert-add of two
+    general (non-unit) summands. Constructors are not added to
+    `ColoringIsotopy`. -/
 inductive SlideReadyIsotopy : TangleDiagram → TangleDiagram → CFValue → Prop where
   | refl (e : TwistExpr) (hok : e.slideReady) :
       SlideReadyIsotopy e.diagram e.diagram e.toStandard.fraction
@@ -1837,6 +2080,30 @@ inductive SlideReadyIsotopy : TangleDiagram → TangleDiagram → CFValue → Pr
         ((e.diagram.add RationalTangles.negOne).mul RationalTangles.one)
         (RationalTangles.one.add e.diagram.mirror.invert)
         (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).toStandard.fraction
+  | transfer_odd_neg (e : TwistExpr) (hok : e.slideReady)
+      (hports : e.diagram.NW ≠ e.diagram.NE)
+      (hne : (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NW ≠
+        (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NE) :
+      SlideReadyIsotopy
+        ((e.diagram.add RationalTangles.one).mul RationalTangles.negOne)
+        (RationalTangles.negOne.add e.diagram.mirror.invert)
+        (TwistExpr.mulBottom (TwistExpr.addRight e .pos) .neg).toStandard.fraction
+  | rot180 (e : TwistExpr) (hok : e.slideReady) :
+      SlideReadyIsotopy e.diagram e.diagram.rot180 e.toStandard.fraction
+  | rot180_rev (e : TwistExpr) (hok : e.slideReady) :
+      SlideReadyIsotopy e.diagram.rot180 e.diagram e.toStandard.fraction
+  | flype_slide_add (e : TwistExpr) (hok : e.slideReady) (s : CrossingSign)
+      (hne : e.diagram.NW ≠ e.diagram.SW) :
+      SlideReadyIsotopy
+        ((crossingTangle s).add e.diagram)
+        (e.diagram.rot180.add (crossingTangle s))
+        (TwistExpr.addLeft e s).toStandard.fraction
+  | flype_slide_mul (e : TwistExpr) (hok : e.slideReady) (s : CrossingSign)
+      (hne : e.diagram.NW ≠ e.diagram.NE) :
+      SlideReadyIsotopy
+        ((crossingTangle s).mul e.diagram)
+        (e.diagram.rot180.mul (crossingTangle s))
+        (TwistExpr.mulTop e s).toStandard.fraction
 
 theorem HasColoringFraction.colorFrom_slideReady (e : TwistExpr)
     (hok : e.slideReady) :
@@ -1916,6 +2183,47 @@ theorem SlideReadyIsotopy.has_fraction {D E : TangleDiagram} {v : CFValue}
     refine ⟨⟨colL, hcL, hmL, ?_⟩, ⟨colR, hcR, hmR, ?_⟩⟩
     · rw [hLd, hfL]
     · rw [hagree.symm, hLd, hfL]
+  | transfer_odd_neg e hok hports hne =>
+    obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree⟩ :=
+      coloring_transfer_odd_neg_slideReady e hok hports hne
+    let eL : TwistExpr := .mulBottom (.addRight e .pos) .neg
+    have hokL : eL.slideReady :=
+      TwistExpr.mulBottom_slideReady _ _
+        (TwistExpr.addRight_slideReady e .pos hok)
+    have hcL' : eL.diagram.IsColored colL := by
+      simpa [eL, TwistExpr.diagram, crossingTangle] using hcL
+    have hmL' : (ColorMatrix.of eL.diagram colL).NotMono := by
+      simpa [eL, TwistExpr.diagram, crossingTangle] using hmL
+    have hfL := coloring_fraction_eq_F eL hokL colL hcL'
+      (twist_coloring_diagonal_slideReady eL hokL colL hcL') hmL'
+    have hLd :
+        ColorMatrix.of ((e.diagram.add RationalTangles.one).mul
+          RationalTangles.negOne) colL =
+          ColorMatrix.of eL.diagram colL := by
+      simp [eL, TwistExpr.diagram, crossingTangle]
+    refine ⟨⟨colL, hcL, hmL, ?_⟩, ⟨colR, hcR, hmR, ?_⟩⟩
+    · rw [hLd, hfL]
+    · rw [hagree.symm, hLd, hfL]
+  | rot180 e hok =>
+    obtain ⟨col, col', hc, hc', hm, hm', _hM, hf'⟩ :=
+      coloring_rot180_slideReady e hok
+    exact ⟨⟨col, hc, hm, coloring_fraction_eq_F e hok col hc
+        (twist_coloring_diagonal_slideReady e hok col hc) hm⟩,
+      ⟨col', hc', hm', hf'⟩⟩
+  | rot180_rev e hok =>
+    obtain ⟨col, col', hc, hc', hm, hm', _hM, hf'⟩ :=
+      coloring_rot180_slideReady e hok
+    exact ⟨⟨col', hc', hm', hf'⟩,
+      ⟨col, hc, hm, coloring_fraction_eq_F e hok col hc
+        (twist_coloring_diagonal_slideReady e hok col hc) hm⟩⟩
+  | flype_slide_add e hok s hne =>
+    obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+      coloring_flype_slide_add_slideReady e hok s hne
+    exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+  | flype_slide_mul e hok s hne =>
+    obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+      coloring_flype_slide_mul_slideReady e hok s hne
+    exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
 
 /-- Standard-form `F` of `slideReady` twist expressions is unchanged along
     `SlideReadyIsotopy`. Both endpoints must themselves be `slideReady`

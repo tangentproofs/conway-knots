@@ -1419,6 +1419,53 @@ theorem TwistExpr.fraction_transfer_odd (e : TwistExpr) :
   simpa [TwistExpr.fraction, CrossingSign.cfValue, one_eq_ofInt_one] using
     CFValue.transfer_odd_value e.fraction
 
+/-- Arithmetic identity for the switched Figure 14 pair:
+    `((F+1)⁻¹ + (-1))⁻¹ = -1 + (-1/F)`. -/
+theorem CFValue.transfer_odd_neg_value (x : CFValue) :
+    ((x.add (ofInt 1)).inv.add (ofInt (-1))).inv =
+      (ofInt (-1)).add (x.neg.inv) := by
+  cases x with
+  | inf =>
+    simp [ofInt, add, neg, inv]
+  | ofRat q =>
+    have hsum : (ofRat q).add (ofInt 1) = ofRat (q + 1) := by
+      simp [ofInt, add]
+    rw [hsum]
+    by_cases h1 : q + 1 = 0
+    · have hq : q = -1 := by linarith
+      subst hq
+      simp [ofInt, add, neg, inv]
+    · have hq1 : (q + 1 : Rat) ≠ 0 := by exact_mod_cast h1
+      rw [inv_ofRat hq1]
+      have hadd :
+          (ofRat (q + 1)⁻¹).add (ofInt (-1)) = ofRat ((q + 1)⁻¹ + -1) := by
+        simp [ofInt, add]
+      rw [hadd]
+      have hval : ((q + 1)⁻¹ + -1 : Rat) = -q / (q + 1) := by
+        field_simp [hq1]
+        ring
+      rw [hval]
+      by_cases hq0 : q = 0
+      · subst hq0
+        simp [inv, add, ofInt]
+      · have hfrac : -q / (q + 1) ≠ 0 :=
+          div_ne_zero (neg_ne_zero.mpr hq0) hq1
+        rw [inv_ofRat hfrac]
+        have hnq : -q ≠ 0 := by intro h; exact hq0 (neg_eq_zero.mp h)
+        have hR : (ofInt (-1)).add (ofRat q).neg.inv =
+            ofRat (-1 + (-q)⁻¹) := by
+          simp [ofInt, add, neg, inv, hnq]
+        rw [hR]
+        congr 1
+        field_simp [hq0, hq1]
+        ring
+
+theorem TwistExpr.fraction_transfer_odd_neg (e : TwistExpr) :
+    (TwistExpr.mulBottom (TwistExpr.addRight e .pos) .neg).fraction =
+      (CFValue.ofInt (-1)).add (e.fraction.neg.inv) := by
+  simpa [TwistExpr.fraction, CrossingSign.cfValue, one_eq_ofInt_one] using
+    CFValue.transfer_odd_neg_value e.fraction
+
 theorem TwistExpr.transferOdd_rightBottom (e : TwistExpr) (h : e.rightBottom) :
     (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).rightBottom :=
   h
@@ -1496,6 +1543,45 @@ theorem coloring_fraction_one_add (S : TangleDiagram) (colS : Nat → Int)
           (2 * colS S.SW - colS S.NW) (colS S.SW)).fraction = (1 : CFValue) :=
       one_fraction (β := colS S.SW) (α := colS S.NW) hcol
     rw [hMat, ← hglue, hone]
+
+/-- Glue `[-1]` on the left of a colored diagram with distinct left ports. -/
+theorem coloring_fraction_negOne_add (S : TangleDiagram) (colS : Nat → Int)
+    (hcS : S.IsColored colS) (_hne : S.NW ≠ S.SW)
+    (hdiagS : (ColorMatrix.of S colS).DiagonalSum)
+    (hcol : colS S.NW ≠ colS S.SW) :
+    ∃ colG, (RationalTangles.negOne.add S).IsColored colG ∧
+      (ColorMatrix.of (RationalTangles.negOne.add S) colG).NotMono ∧
+      (ColorMatrix.of (RationalTangles.negOne.add S) colG).fraction =
+        (CFValue.ofInt (-1)).add (ColorMatrix.of S colS).fraction := by
+  refine ⟨colorAddLeftNegOne S colS, IsColored_colorAddLeftNegOne S colS hcS, ?_, ?_⟩
+  · rw [ColorMatrix.of_colorAddLeftNegOne]
+    dsimp [ColorMatrix.NotMono]
+    intro h
+    simp [ColorMatrix.DiagonalSum, ColorMatrix.of] at hdiagS
+    exact hcol (by omega)
+  · have hglue :
+        (ColorMatrix.mk (2 * colS S.NW - colS S.SW) (colS S.NW)
+            (colS S.NW) (colS S.SW)).fraction.add
+          (ColorMatrix.of S colS).fraction =
+        (ColorMatrix.mk (2 * colS S.NW - colS S.SW) (colS S.NE)
+            (colS S.NW) (colS S.SE)).fraction := by
+      have hd : colS S.NW - colS S.SW = colS S.NE - colS S.SE := by
+        simp [ColorMatrix.DiagonalSum, ColorMatrix.of] at hdiagS
+        omega
+      simpa [ColorMatrix.of] using
+        ColorMatrix.fraction_add_glue (2 * colS S.NW - colS S.SW) (colS S.NW)
+          (colS S.NW) (colS S.SW) (colS S.NE) (colS S.SE) hd
+    have hneg :
+        (ColorMatrix.mk (2 * colS S.NW - colS S.SW) (colS S.NW)
+          (colS S.NW) (colS S.SW)).fraction = CFValue.ofInt (-1) := by
+      have hαβ : (2 * colS S.NW - colS S.SW) ≠ colS S.NW := by
+        intro h; exact hcol (by omega)
+      have hunit :=
+        negOne_fraction (β := colS S.NW) (α := 2 * colS S.NW - colS S.SW) hαβ
+      rw [negOne_matrix] at hunit
+      convert hunit
+      ring
+    rw [ColorMatrix.of_colorAddLeftNegOne, ← hglue, hneg]
 
 /-- Color both sides of Figure 14 on a right-and-bottom twist diagram
     whose `colorFrom 0 1` has distinct `NW`/`NE`. The left-hand side is

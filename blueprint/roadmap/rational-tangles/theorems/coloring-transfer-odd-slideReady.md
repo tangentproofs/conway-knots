@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.TwistExpr.toStandard_transfer_odd RationalTangles.coloring_mirror_invert_any_eq_negInv_F_slideReady RationalTangles.coloring_transfer_odd_slideReady
+lean: RationalTangles.TwistExpr.toStandard_transfer_odd RationalTangles.TwistExpr.toStandard_transfer_odd_neg RationalTangles.coloring_mirror_invert_any_eq_negInv_F_slideReady RationalTangles.coloring_transfer_odd_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady
 proof: formalized
 ---
 
@@ -19,7 +19,9 @@ coloring fraction. The left-hand side is itself `slideReady`, so
 $f=F$ of the corresponding twist. Uniqueness after mirror identifies
 $f(-T)=-F$, hence $f((-T)^{i})=-1/F$; gluing `[+1]` on the left yields
 $1-1/F$, matching the arithmetical Figure 14 identity on
-`toStandard.fraction`.
+`toStandard.fraction`. The switched pair
+$(T+[+1])*[-1]\sim[-1]+(-T)^{i}$ is the same comparison with
+$f= -1 - 1/F$.
 
 This is not Theorem 2, Theorem 3, or Theorem 4. Kinks are excluded.
 
