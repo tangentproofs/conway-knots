@@ -226,6 +226,57 @@ theorem TwistExpr.fraction_eq_toStandard_addLeft (e : TwistExpr) (s : CrossingSi
   simp only [TwistExpr.fraction, TwistExpr.toStandard]
   cases s <;> simp [StandardExpr.fraction, CrossingSign.cfValue, CFValue.add_comm, ih]
 
+theorem TwistExpr.fraction_eq_toStandard_addRight (e : TwistExpr) (s : CrossingSign)
+    (ih : e.fraction = e.toStandard.fraction) :
+    (TwistExpr.addRight e s).fraction =
+      (TwistExpr.addRight e s).toStandard.fraction := by
+  simp only [TwistExpr.fraction, TwistExpr.toStandard]
+  cases s <;> simp [StandardExpr.fraction, CrossingSign.cfValue, ih]
+
+theorem TwistExpr.fraction_eq_toStandard_mulBottom (e : TwistExpr) (s : CrossingSign)
+    (ih : e.fraction = e.toStandard.fraction) :
+    (TwistExpr.mulBottom e s).fraction =
+      (TwistExpr.mulBottom e s).toStandard.fraction := by
+  simp only [TwistExpr.fraction, TwistExpr.toStandard]
+  cases s <;> simp [StandardExpr.fraction, CrossingSign.cfValue, ih]
+
+/-- Conway product is not commutative, so `mulTop` agrees with `toStandard`
+    only when the two products evaluate equally. -/
+theorem TwistExpr.fraction_eq_toStandard_mulTop (e : TwistExpr) (s : CrossingSign)
+    (ih : e.fraction = e.toStandard.fraction)
+    (hc : (s.cfValue.inv.add e.fraction).inv =
+            (e.fraction.inv.add s.cfValue).inv) :
+    (TwistExpr.mulTop e s).fraction =
+      (TwistExpr.mulTop e s).toStandard.fraction := by
+  calc
+    (TwistExpr.mulTop e s).fraction
+        = (s.cfValue.inv.add e.fraction).inv := rfl
+    _ = (e.fraction.inv.add s.cfValue).inv := hc
+    _ = (e.toStandard.fraction.inv.add s.cfValue).inv := by rw [ih]
+    _ = (TwistExpr.mulTop e s).toStandard.fraction := by
+        simp only [TwistExpr.toStandard]
+        cases s <;> simp [StandardExpr.fraction, CrossingSign.cfValue]
+
+/-- Algebraic `F` equals the standard-form evaluation of `toStandard` on every
+    twist expression that never uses a top product (left addition is allowed). -/
+theorem TwistExpr.fraction_eq_toStandard_of_noMulTop (e : TwistExpr)
+    (h : e.noMulTop) :
+    e.fraction = e.toStandard.fraction := by
+  induction e with
+  | zero | infinity | one | negOne =>
+    exact TwistExpr.fraction_eq_toStandard_rightBottom _ trivial
+  | addRight e s ih =>
+    have h' : e.noMulTop := h
+    exact TwistExpr.fraction_eq_toStandard_addRight e s (ih h')
+  | addLeft e s ih =>
+    have h' : e.noMulTop := h
+    exact TwistExpr.fraction_eq_toStandard_addLeft e s (ih h')
+  | mulBottom e s ih =>
+    have h' : e.noMulTop := h
+    exact TwistExpr.fraction_eq_toStandard_mulBottom e s (ih h')
+  | mulTop e s =>
+    cases h
+
 /-- On a `slideReady` twist-form diagram, `f = F` where `F` is the arithmetical
     fraction of `toStandard` (and hence of its continued-fraction term list).
     The `DiagonalSum` hypothesis is discharged for right-and-bottom expressions

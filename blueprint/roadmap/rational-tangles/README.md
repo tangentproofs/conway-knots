@@ -47,6 +47,7 @@ in Theorem 3.
 - [Every rational tangle isotopes to canonical form](theorems/canonical-form-exists.md)
 - [Unique canonical continued fraction](theorems/continued-fraction-canonical.md)
 - [Canonical diagrams of equal fraction are equal](theorems/canonical-same-fraction.md)
+- [Twist expressions of equal fraction are isotopic](theorems/twist-same-fraction.md)
 
 ## Coloring
 

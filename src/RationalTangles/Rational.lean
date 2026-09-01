@@ -77,6 +77,25 @@ theorem rightBottom_mirror (e : TwistExpr) (h : e.rightBottom) :
   | addLeft e s => cases h
   | mulTop e s => cases h
 
+/-- Twist expressions that never use a top product. Algebraic `F` agrees with
+    the right-and-bottom evaluation of `toStandard` on this class, because
+    addition is commutative while the Conway product is not. -/
+def noMulTop : TwistExpr → Prop
+  | zero | infinity | one | negOne => True
+  | addRight e _ | addLeft e _ | mulBottom e _ => e.noMulTop
+  | mulTop _ _ => False
+
+theorem noMulTop_of_rightBottom (e : TwistExpr) (h : e.rightBottom) :
+    e.noMulTop := by
+  induction e with
+  | zero | infinity | one | negOne => simp [noMulTop]
+  | addRight e s ih =>
+    simpa [noMulTop] using ih h
+  | mulBottom e s ih =>
+    simpa [noMulTop] using ih h
+  | addLeft e s => cases h
+  | mulTop e s => cases h
+
 end TwistExpr
 
 /-- A diagram created by consecutive additions and multiplications by
