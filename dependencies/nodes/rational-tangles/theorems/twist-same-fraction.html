@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/definitions/tangle-fraction.html">
+        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/twist-same-fraction.html">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Fraction of a rational tangle: local context - Conway knots</title>
+        <title>Twist expressions of equal fraction are isotopic: local context - Conway knots</title>
       
     
     
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Fraction of a rational tangle: local context
+              Twist expressions of equal fraction are isotopic: local context
             
           </span>
         </div>
@@ -779,51 +779,32 @@
   
 
 
-<h1 id="fraction-of-a-rational-tangle-local-context">Fraction of a rational tangle: local context</h1>
-<p><a href="../../../../dependencies.html">Project map</a> · <a href="../../../chapters/rational-tangles.html">Chapter map</a> · <a href="../../../full.html">Full theorem DAG</a> · <a href="../../../../roadmap/rational-tangles/index.html#definitions-tangle-fraction">Open textbook statement</a></p>
-<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">4</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">4</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">3</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<h1 id="twist-expressions-of-equal-fraction-are-isotopic-local-context">Twist expressions of equal fraction are isotopic: local context</h1>
+<p><a href="../../../../dependencies.html">Project map</a> · <a href="../../../chapters/rational-tangles.html">Chapter map</a> · <a href="../../../full.html">Full theorem DAG</a> · <a href="../../../../roadmap/rational-tangles/index.html#theorems-twist-same-fraction">Open textbook statement</a></p>
+<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">3</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">3</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span></div></span></span></p>
 <div class="mermaid">graph LR
-  n0["Rational tangle"]:::fully_proved
-  n1["Continued fraction form"]:::fully_proved
-  n2["Arithmetic continued fraction"]:::fully_proved
-  n3["Fraction of a rational tangle"]:::fully_proved
-  n4("Coloring fraction of a rational tangle"):::can_state
-  n5("Canonical diagrams of equal fraction are equal"):::proved
-  n6("The fraction is an isotopy invariant"):::can_state
-  n7("Same fraction implies isotopic"):::can_state
-  n8("Standard-form value of a twist diagram is well-defined"):::proved
-  n9("Standard-form $F$ along coloring isotopy"):::proved
-  n10("Twist expressions of equal fraction are isotopic"):::proved
-  n4 -.-&gt; n6
-  n4 -.-&gt; n9
-  n4 -.-&gt; n8
-  n2 --&gt; n3
-  n1 --&gt; n3
+  n0["Standard form"]:::fully_proved
+  n1["Fraction of a rational tangle"]:::fully_proved
+  n2["Canonical form of a rational tangle"]:::fully_proved
+  n3("Every rational tangle has a standard form"):::proved
+  n4("Canonical diagrams of equal fraction are equal"):::proved
+  n5("Twist expressions of equal fraction are isotopic"):::proved
+  n2 --&gt; n4
+  n2 --&gt; n5
   n0 --&gt; n4
   n0 --&gt; n3
-  n0 --&gt; n8
-  n3 --&gt; n4
-  n3 --&gt; n5
-  n3 --&gt; n6
-  n3 --&gt; n7
-  n3 --&gt; n9
-  n3 --&gt; n8
-  n3 --&gt; n10
-  n5 -.-&gt; n10
-  n6 -.-&gt; n7
-  n8 -.-&gt; n9
-  click n0 "../../../../roadmap/rational-tangles/index.html#definitions-rational-tangle" "Rational tangle — 1 item · 1 fully proved"
-  click n1 "../../../../roadmap/rational-tangles/index.html#definitions-continued-fraction-form" "Continued fraction form — 1 item · 1 fully proved"
-  click n2 "../../../../roadmap/rational-tangles/index.html#definitions-continued-fraction" "Arithmetic continued fraction — 1 item · 1 fully proved"
-  class n3 focus
-  click n3 "../../../../roadmap/rational-tangles/index.html#definitions-tangle-fraction" "Fraction of a rational tangle — 1 item · 1 fully proved"
-  click n4 "../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"
-  click n5 "../../../../roadmap/rational-tangles/index.html#theorems-canonical-same-fraction" "Canonical diagrams of equal fraction are equal — 1 item · 1 proved"
-  click n6 "../../../../roadmap/rational-tangles/index.html#theorems-fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 ready to state"
-  click n7 "../../../../roadmap/rational-tangles/index.html#theorems-same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 ready to state"
-  click n8 "../../../../roadmap/rational-tangles/index.html#theorems-twist-diagram-fraction" "Standard-form value of a twist diagram is well-defined — 1 item · 1 proved"
-  click n9 "../../../../roadmap/rational-tangles/index.html#theorems-twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 proved"
-  click n10 "../../../../roadmap/rational-tangles/index.html#theorems-twist-same-fraction" "Twist expressions of equal fraction are isotopic — 1 item · 1 proved"</div>
+  n0 --&gt; n5
+  n1 --&gt; n4
+  n1 --&gt; n5
+  n4 -.-&gt; n5
+  n3 -.-&gt; n5
+  click n0 "../../../../roadmap/rational-tangles/index.html#definitions-standard-form" "Standard form — 1 item · 1 fully proved"
+  click n1 "../../../../roadmap/rational-tangles/index.html#definitions-tangle-fraction" "Fraction of a rational tangle — 1 item · 1 fully proved"
+  click n2 "../../../../roadmap/rational-tangles/index.html#definitions-canonical-form" "Canonical form of a rational tangle — 1 item · 1 fully proved"
+  click n3 "../../../../roadmap/rational-tangles/index.html#theorems-standard-form-exists" "Every rational tangle has a standard form — 1 item · 1 proved"
+  click n4 "../../../../roadmap/rational-tangles/index.html#theorems-canonical-same-fraction" "Canonical diagrams of equal fraction are equal — 1 item · 1 proved"
+  class n5 focus
+  click n5 "../../../../roadmap/rational-tangles/index.html#theorems-twist-same-fraction" "Twist expressions of equal fraction are isotopic — 1 item · 1 proved"</div>
 
 
 

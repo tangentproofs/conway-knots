@@ -781,18 +781,26 @@
 
 <h1 id="coloring-fraction-local-context">Coloring fraction: local context</h1>
 <p><a href="../../../../../dependencies.html">Project map</a> · <a href="../../../../scopes/rational-tangles/coloring.html">Chapter map</a> · <a href="../../../../full.html">Full theorem DAG</a> · <a href="../../../../../roadmap/rational-tangles/coloring/index.html#definitions-coloring-fraction">Open textbook statement</a></p>
-<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0["Color matrix"]:::fully_proved
   n1["Coloring fraction"]:::fully_proved
   n2("Coloring fraction of a rational tangle"):::can_state
+  n3("Coloring fraction of inverted unit sums and products"):::proved
+  n4("Standard-form $F$ along coloring isotopy"):::proved
   n0 --&gt; n1
   n0 --&gt; n2
   n1 --&gt; n2
+  n1 --&gt; n3
+  n1 --&gt; n4
+  n2 -.-&gt; n3
+  n2 -.-&gt; n4
   click n0 "../../../../../roadmap/rational-tangles/coloring/index.html#definitions-color-matrix" "Color matrix — 1 item · 1 fully proved"
   class n1 focus
   click n1 "../../../../../roadmap/rational-tangles/coloring/index.html#definitions-coloring-fraction" "Coloring fraction — 1 item · 1 fully proved"
-  click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"</div>
+  click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"
+  click n3 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-invert-add-units" "Coloring fraction of inverted unit sums and products — 1 item · 1 proved"
+  click n4 "../../../../../roadmap/rational-tangles/index.html#theorems-twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 proved"</div>
 
 
 

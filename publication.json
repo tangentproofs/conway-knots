@@ -12,12 +12,12 @@
     "source_path": "coverage/README.md",
     "source_sha256": "d0ff390087808d12e4bd4dc4a65ae27d50fc0172bc8e9c8efc984b2da01e69ad"
   },
-  "dependencies": 79,
+  "dependencies": 103,
   "git_ref": "main",
-  "nodes": 34,
+  "nodes": 39,
   "schema": "autoform-publication/v1",
   "source": "blueprint/roadmap Markdown",
-  "source_revision": "b5805268dca33ae3b013098f275063ee7bfcd3344f5aa25c05d6a47a0e408eb2",
+  "source_revision": "7f6e82078979f0c672493e154dfa5701747f1d1975e189daa9e3fd5caf23759f",
   "views": [
     "book",
     "progress",

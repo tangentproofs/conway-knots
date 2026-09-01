@@ -781,7 +781,7 @@
 
 <h1 id="coloring-fraction-of-a-rational-tangle-local-context">Coloring fraction of a rational tangle: local context</h1>
 <p><a href="../../../../../dependencies.html">Project map</a> · <a href="../../../../scopes/rational-tangles/coloring.html">Chapter map</a> · <a href="../../../../full.html">Full theorem DAG</a> · <a href="../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties">Open textbook statement</a></p>
-<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">12</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">12</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">3</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0["Color matrix"]:::fully_proved
   n1["Coloring fraction"]:::fully_proved
@@ -797,15 +797,23 @@
   n11("Coloring invariance under Reidemeister III"):::fully_proved
   n12("Flipping lemma"):::can_prove
   n13("Coloring fraction of a rational tangle"):::can_state
-  n14("The fraction is an isotopy invariant"):::can_state
+  n14("Coloring fraction of inverted unit sums and products"):::proved
+  n15("The fraction is an isotopy invariant"):::can_state
+  n16("Standard-form value of a twist diagram is well-defined"):::proved
+  n17("Standard-form $F$ along coloring isotopy"):::proved
   n0 --&gt; n1
   n0 --&gt; n2
   n0 -.-&gt; n5
   n0 --&gt; n13
   n1 --&gt; n13
+  n1 --&gt; n14
+  n1 --&gt; n17
   n2 -.-&gt; n13
   n5 -.-&gt; n13
   n13 -.-&gt; n14
+  n13 -.-&gt; n15
+  n13 -.-&gt; n17
+  n13 -.-&gt; n16
   n9 -.-&gt; n13
   n10 -.-&gt; n13
   n11 -.-&gt; n13
@@ -814,15 +822,20 @@
   n4 -.-&gt; n13
   n4 --&gt; n12
   n3 -.-&gt; n13
+  n3 --&gt; n14
   n3 -.-&gt; n8
   n3 --&gt; n6
   n6 --&gt; n13
   n6 --&gt; n8
   n6 --&gt; n7
   n6 --&gt; n12
+  n6 --&gt; n16
   n7 --&gt; n13
-  n7 --&gt; n14
+  n7 --&gt; n15
+  n7 --&gt; n17
+  n7 --&gt; n16
   n12 -.-&gt; n13
+  n16 -.-&gt; n17
   click n0 "../../../../../roadmap/rational-tangles/coloring/index.html#definitions-color-matrix" "Color matrix — 1 item · 1 fully proved"
   click n1 "../../../../../roadmap/rational-tangles/coloring/index.html#definitions-coloring-fraction" "Coloring fraction — 1 item · 1 fully proved"
   click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-affine" "Affine freedom of coloring — 1 item · 1 fully proved"
@@ -838,7 +851,10 @@
   click n12 "../../../../../roadmap/rational-tangles/index.html#theorems-flipping-lemma" "Flipping lemma — 1 item · 1 ready to prove"
   class n13 focus
   click n13 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"
-  click n14 "../../../../../roadmap/rational-tangles/index.html#theorems-fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 ready to state"</div>
+  click n14 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-invert-add-units" "Coloring fraction of inverted unit sums and products — 1 item · 1 proved"
+  click n15 "../../../../../roadmap/rational-tangles/index.html#theorems-fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 ready to state"
+  click n16 "../../../../../roadmap/rational-tangles/index.html#theorems-twist-diagram-fraction" "Standard-form value of a twist diagram is well-defined — 1 item · 1 proved"
+  click n17 "../../../../../roadmap/rational-tangles/index.html#theorems-twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 proved"</div>
 
 
 
