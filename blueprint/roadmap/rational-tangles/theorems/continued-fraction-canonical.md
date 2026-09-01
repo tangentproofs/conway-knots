@@ -2,7 +2,7 @@
 declaration: theorem
 origin: cited
 statement: formalized
-lean: RationalTangles.continued_fraction_canonical
+lean: RationalTangles.continued_fraction_canonical RationalTangles.continued_fraction_canonical_unique RationalTangles.canonicalCF_unique
 proof: formalized
 ---
 

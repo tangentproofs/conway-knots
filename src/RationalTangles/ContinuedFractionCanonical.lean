@@ -450,16 +450,16 @@ theorem canonicalCF_value (q : Rat) : (canonicalCF q).value = CFValue.ofRat q :=
   · rw [oddify_euclid_value _ _ hd]
     have hnn : 0 ≤ q := le_of_not_gt hq
     have hn0 : 0 ≤ q.num := Rat.num_nonneg.mpr hnn
-    have habs : (q.num.natAbs : Int) = q.num := (Int.eq_natAbs_of_nonneg hn0).symm
+    have habs : (q.num.natAbs : Int) = q.num := Int.natAbs_of_nonneg hn0
     have hcast : (q.num.natAbs : Rat) = (q.num : Rat) :=
       congrArg (fun k : Int => (k : Rat)) habs
     have : (q.num.natAbs : Rat) / (q.den : Rat) = q := by
       rw [hcast, num_div_den_eq]
     simpa [this]
 
-/-- Proposition 3. Every continued fraction of finite value has a canonical
-    form (Euclid + Remark 5). The constructed form of a rational `q` is
-    `canonicalCF q`. -/
+/-- Proposition 3, existence. Every continued fraction of finite value has a
+    canonical form (Euclid + Remark 5). The constructed form of a rational `q`
+    is `canonicalCF q`. Uniqueness is `continued_fraction_canonical_unique`. -/
 theorem continued_fraction_canonical (cf : ArithmeticCF) :
     (∃ cf' : ArithmeticCF, cf'.IsCanonical ∧ cf'.value = cf.value) ∨
       cf.value = CFValue.inf := by
@@ -468,5 +468,426 @@ theorem continued_fraction_canonical (cf : ArithmeticCF) :
   | ofRat q =>
       refine Or.inl ⟨canonicalCF q, canonicalCF_isCanonical q, ?_⟩
       rw [canonicalCF_value]
+
+
+theorem valueOfList_cons_ofRat {a : Int} {t : List Int} {r : Rat}
+    (hv : valueOfList t = CFValue.ofRat r) (hr : r ≠ 0) :
+    valueOfList (a :: t) = CFValue.ofRat ((a : Rat) + r⁻¹) := by
+  rw [valueOfList_cons, hv, CFValue.inv_ofRat hr, CFValue.ofInt, CFValue.add_ofRat]
+
+theorem exists_valueOfList_all_pos :
+    ∀ t : List Int, t ≠ [] → (∀ a ∈ t, 0 < a) →
+      ∃ q : Rat, 1 ≤ q ∧ valueOfList t = CFValue.ofRat q ∧ (q = 1 ↔ t = [1])
+  | [], hne, _ => (hne rfl).elim
+  | [a], _, hpos => by
+      have ha : 0 < a := hpos a (by simp)
+      have ha1 : 1 ≤ a := by omega
+      refine ⟨(a : Rat), Int.cast_le.mpr ha1, ?_, ?_⟩
+      · simp [value_singleton, CFValue.ofInt]
+      · constructor
+        · intro hq
+          have : a = 1 := by exact_mod_cast hq
+          simp [this]
+        · intro ht
+          simp at ht
+          simp [ht]
+  | a :: b :: rest, _, hpos => by
+      have hposr : ∀ x ∈ b :: rest, 0 < x := fun x hx => hpos x (by simp [hx])
+      obtain ⟨r, hr1, hv, _⟩ :=
+        exists_valueOfList_all_pos (b :: rest) (by simp) hposr
+      have hr0 : r ≠ 0 := ne_of_gt (lt_of_lt_of_le (by norm_num : (0 : Rat) < 1) hr1)
+      have ha1 : 1 ≤ a := by
+        have : 0 < a := hpos a (by simp)
+        omega
+      refine ⟨(a : Rat) + r⁻¹, ?_, valueOfList_cons_ofRat hv hr0, ?_⟩
+      · have : (1 : Rat) ≤ a := Int.cast_le.mpr ha1
+        have : 0 < r⁻¹ := inv_pos.mpr (lt_of_lt_of_le (by norm_num : (0 : Rat) < 1) hr1)
+        linarith
+      · constructor
+        · intro hq
+          have : (1 : Rat) ≤ a := Int.cast_le.mpr ha1
+          have : 0 < r⁻¹ := inv_pos.mpr (lt_of_lt_of_le (by norm_num : (0 : Rat) < 1) hr1)
+          linarith
+        · intro ht
+          simp at ht
+
+theorem exists_valueOfList_nonneg :
+    ∀ t : List Int, t ≠ [] → (∀ a ∈ t, 0 ≤ a) → (∀ a ∈ t.tail, 0 < a) →
+      ∃ q : Rat, 0 ≤ q ∧ valueOfList t = CFValue.ofRat q
+  | [], hne, _, _ => (hne rfl).elim
+  | [a], _, hnn, _ => by
+      have ha : 0 ≤ a := hnn a (by simp)
+      exact ⟨(a : Rat), by exact_mod_cast ha, by simp [value_singleton, CFValue.ofInt]⟩
+  | a :: b :: rest, _, hnn, hpos => by
+      have hposr : ∀ x ∈ b :: rest, 0 < x := fun x hx => hpos x (by simp [hx])
+      obtain ⟨r, hr1, hv, _⟩ :=
+        exists_valueOfList_all_pos (b :: rest) (by simp) hposr
+      have hr0 : r ≠ 0 := ne_of_gt (lt_of_lt_of_le (by norm_num : (0 : Rat) < 1) hr1)
+      have ha : 0 ≤ a := hnn a (by simp)
+      refine ⟨(a : Rat) + r⁻¹, ?_, valueOfList_cons_ofRat hv hr0⟩
+      have : 0 ≤ (a : Rat) := by exact_mod_cast ha
+      have : 0 < r⁻¹ := inv_pos.mpr (lt_of_lt_of_le (by norm_num : (0 : Rat) < 1) hr1)
+      linarith
+
+theorem later_pos_of_nonneg {t : List Int}
+    (hnn : ∀ a ∈ t, 0 ≤ a) (hne0 : ∀ a ∈ t.tail, a ≠ 0) :
+    ∀ a ∈ t.tail, 0 < a := by
+  intro a ha
+  exact lt_of_le_of_ne (hnn a (List.mem_of_mem_tail ha)) (hne0 a ha).symm
+
+theorem isStandard_cons_tail {a : Int} {rest : List Int}
+    (hs : IsStandard (a :: rest)) (hrest : rest ≠ []) : IsStandard rest := by
+  rcases hs with ⟨_, _hnn, hpos, hlast⟩
+  refine ⟨hrest, ?_, ?_, Or.inr ?_⟩
+  · intro x hx
+    exact le_of_lt (hpos x (by simp [hx]))
+  · intro x hx
+    exact hpos x (List.mem_of_mem_tail hx)
+  · have hlen : ¬ (a :: rest).length = 1 := by simp [hrest]
+    have hge : 2 ≤ (a :: rest).getLastD 0 := by
+      cases hlast with
+      | inl h => exact (hlen h).elim
+      | inr h => exact h
+    have : (a :: rest).getLastD 0 = rest.getLastD 0 := by
+      cases rest with
+      | nil => exact (hrest rfl).elim
+      | cons _ _ => simp [List.getLastD]
+    omega
+
+theorem isStandard_eq_euclidPos (d : Nat) (hd : d ≠ 0) :
+    ∀ n : Nat, ∀ t : List Int, IsStandard t →
+      valueOfList t = CFValue.ofRat ((n : Rat) / (d : Rat)) →
+      t = euclidPos n d := by
+  induction d using Nat.strongRecOn with
+  | ind d ih =>
+    intro n t hs hv
+    rcases hs with ⟨hne, hnn, hpos, hlast⟩
+    match t with
+    | [] => exact (hne rfl).elim
+    | a :: rest =>
+        have hd0 : (d : Rat) ≠ 0 := Nat.cast_ne_zero.mpr hd
+        have ha0 : 0 ≤ a := hnn a (by simp)
+        cases rest with
+        | nil =>
+            have hq : (a : Rat) = (n : Rat) / d := by
+              simpa [value_singleton, CFValue.ofInt] using hv
+            have hmul : (n : Rat) = a * (d : Rat) := by
+              have hq' := hq.symm
+              exact (div_eq_iff hd0).mp hq'
+            have hndi : (n : Int) = a * (d : Int) := by exact_mod_cast hmul
+            have habs : (a.natAbs : Int) = a := Int.natAbs_of_nonneg ha0
+            have hnN : n = a.natAbs * d := by
+              have : (n : Int) = (a.natAbs : Int) * (d : Int) := by
+                rw [habs]; exact hndi
+              exact_mod_cast this
+            have hmod : n % d = 0 := by
+              rw [hnN, Nat.mul_comm]
+              exact Nat.mul_mod_right d a.natAbs
+            have hdiv : n / d = a.natAbs := by
+              rw [hnN, Nat.mul_comm, Nat.mul_div_right _ (Nat.pos_of_ne_zero hd)]
+            rw [euclidPos_eq n d hd, if_pos hmod, hdiv]
+            simp [abs_of_nonneg ha0]
+        | cons b rs =>
+            obtain ⟨r, hr1, hvrest, hriff⟩ :=
+              exists_valueOfList_all_pos (b :: rs) (by simp)
+                (fun x hx => hpos x (by simp [hx]))
+            have hrpos : 0 < r := lt_of_lt_of_le (by norm_num : (0 : Rat) < 1) hr1
+            have hr0 : r ≠ 0 := ne_of_gt hrpos
+            have hlast2 : 2 ≤ (a :: b :: rs).getLastD 0 := by
+              have hlen : ¬ (a :: b :: rs).length = 1 := by simp
+              cases hlast with
+              | inl h => exact (hlen h).elim
+              | inr h => exact h
+            have hne1 : b :: rs ≠ [1] := by
+              intro h1
+              have : (a :: b :: rs).getLastD 0 = 1 := by simp [h1]
+              omega
+            have rne : r ≠ 1 := fun h => hne1 (hriff.mp h)
+            have rgt : 1 < r := lt_of_le_of_ne hr1 (Ne.symm rne)
+            have hvt : valueOfList (a :: b :: rs) =
+                CFValue.ofRat ((a : Rat) + r⁻¹) :=
+              valueOfList_cons_ofRat hvrest hr0
+            have hq : (n : Rat) / d = (a : Rat) + r⁻¹ :=
+              CFValue.ofRat_injective (hv.symm.trans hvt)
+            have hinvpos : 0 < r⁻¹ := inv_pos.mpr hrpos
+            have hinvlt : r⁻¹ < 1 := (inv_lt_one₀ hrpos).mpr rgt
+            have hfloor : ⌊(n : Rat) / d⌋ = a := by
+              rw [Int.floor_eq_iff]
+              constructor <;> linarith
+            have haeq : a = ((n / d : Nat) : Int) := by
+              rw [← hfloor]
+              exact Rat.floor_natCast_div_natCast n d
+            have hnmod : n % d ≠ 0 := by
+              intro hz
+              have hdiv := nat_rat_div_mod n d hd
+              have hint : (n : Rat) / d = ((n / d : Nat) : Rat) := by simpa [hz] using hdiv
+              have : r⁻¹ = 0 := by
+                have ha' : (a : Rat) = ((n / d : Nat) : Rat) := by
+                  rw [haeq]
+                  exact Int.cast_natCast (n / d)
+                linarith [hq, hint, ha']
+              exact (ne_of_gt hinvpos this).elim
+            have hsub : r⁻¹ = (n % d : Rat) / d := by
+              have hfrac := nat_rat_div_mod n d hd
+              have hq' := hq
+              rw [hfrac, haeq] at hq'
+              exact (add_left_cancel hq').symm
+            have hrval : r = (d : Rat) / (n % d : Rat) := by
+              rw [← inv_inv r, hsub, inv_div]
+            have hvrest' : valueOfList (b :: rs) =
+                CFValue.ofRat ((d : Rat) / (n % d : Rat)) := by
+              rw [hvrest, hrval]
+            have hsrest : IsStandard (b :: rs) :=
+              isStandard_cons_tail ⟨hne, hnn, hpos, hlast⟩ (by simp)
+            have hrestEq :=
+              ih (n % d) (Nat.mod_lt n (Nat.pos_of_ne_zero hd)) hnmod d
+                (b :: rs) hsrest hvrest'
+            rw [euclidPos_eq n d hd, if_neg hnmod, haeq, hrestEq]
+
+
+theorem eq_append_last {t : List Int} (hne : t ≠ []) :
+    ∃ pref a, t = pref ++ [a] :=
+  ⟨t.dropLast, t.getLast hne, (List.dropLast_concat_getLast hne).symm⟩
+
+theorem eq_append_two {t : List Int} (h : 2 ≤ t.length) :
+    ∃ pref b c, t = pref ++ [b, c] := by
+  have hne : t ≠ [] := List.ne_nil_of_length_pos (by omega)
+  obtain ⟨pref1, c, hc⟩ := eq_append_last hne
+  have hpref : pref1 ≠ [] := by
+    intro hp
+    subst hp
+    simp [hc] at h
+  obtain ⟨pref, b, hb⟩ := eq_append_last hpref
+  refine ⟨pref, b, c, ?_⟩
+  rw [hc, hb]
+  simp
+
+theorem getLast?_append_singleton (pref : List Int) (a : Int) :
+    (pref ++ [a]).getLast? = some a := by
+  simp
+
+theorem isStandard_singleton_nonneg {a : Int} (ha : 0 ≤ a) : IsStandard [a] :=
+  ⟨by simp, by intro x hx; simp at hx; subst hx; exact ha, by simp, Or.inl rfl⟩
+
+theorem isStandard_append_ge_two {pref : List Int} {b : Int}
+    (hnn : ∀ x ∈ pref ++ [b], 0 ≤ x) (hpos : ∀ x ∈ (pref ++ [b]).tail, 0 < x)
+    (hb : 2 ≤ b) : IsStandard (pref ++ [b]) := by
+  refine ⟨by simp, hnn, hpos, Or.inr ?_⟩
+  simp
+  -- getLastD (pref ++ [b]) = b
+  have : (pref ++ [b]).getLastD 0 = b := by simp
+  omega
+
+theorem oddify_append_succ {pref : List Int} {b : Int}
+    (heven : (pref ++ [b]).length % 2 = 0) :
+    oddify (pref ++ [b]) = pref ++ [b - 1, 1] := by
+  have hodd : ¬ (pref ++ [b]).length % 2 = 1 := by omega
+  unfold oddify
+  rw [if_neg hodd]
+  have hdrop : (pref ++ [b]).dropLast = pref := by simp
+  have hlast : (pref ++ [b]).getLastD 0 = b := by simp
+  simp [hdrop]
+
+theorem value_nonneg_of_nonneg_terms {t : List Int} {q : Rat}
+    (hne : t ≠ []) (hnn : ∀ a ∈ t, 0 ≤ a) (hpos : ∀ a ∈ t.tail, 0 < a)
+    (hv : valueOfList t = CFValue.ofRat q) : 0 ≤ q := by
+  obtain ⟨q', hq', hv'⟩ := exists_valueOfList_nonneg t hne hnn hpos
+  have : q = q' := CFValue.ofRat_injective (hv.symm.trans hv')
+  linarith
+
+theorem nonneg_eq_num_div_den {q : Rat} (h : 0 ≤ q) :
+    (q.num.natAbs : Rat) / (q.den : Rat) = q := by
+  have hn0 : 0 ≤ q.num := Rat.num_nonneg.mpr h
+  have habs : (q.num.natAbs : Int) = q.num := Int.natAbs_of_nonneg hn0
+  have hcast : (q.num.natAbs : Rat) = (q.num : Rat) :=
+    congrArg (fun k : Int => (k : Rat)) habs
+  rw [hcast, num_div_den_eq]
+
+/-- Nonnegative odd-length one-sign expansions are `canonicalTerms q`. -/
+theorem nonneg_odd_eq_canonicalTerms {t : List Int} (hne : t ≠ [])
+    (hodd : t.length % 2 = 1) (hnn : ∀ a ∈ t, 0 ≤ a)
+    (hpos : ∀ a ∈ t.tail, 0 < a) {q : Rat}
+    (hv : valueOfList t = CFValue.ofRat q) :
+    t = canonicalTerms q := by
+  have hq : 0 ≤ q := value_nonneg_of_nonneg_terms hne hnn hpos hv
+  have hcan : canonicalTerms q = oddify (euclidPos q.num.natAbs q.den) := by
+    unfold canonicalTerms
+    simp [not_lt.mpr hq]
+  by_cases hlen : t.length = 1
+  · obtain ⟨a, ha⟩ : ∃ a, t = [a] := by
+      cases t with
+      | nil => exact (hne rfl).elim
+      | cons a rest =>
+          cases rest with
+          | nil => exact ⟨a, rfl⟩
+          | cons _ _ => simp at hlen
+    subst ha
+    have hs : IsStandard [a] := isStandard_singleton_nonneg (hnn a (by simp))
+    have hv' : valueOfList [a] = CFValue.ofRat ((q.num.natAbs : Rat) / q.den) := by
+      rw [hv, nonneg_eq_num_div_den hq]
+    have heq : [a] = euclidPos q.num.natAbs q.den :=
+      isStandard_eq_euclidPos q.den q.den_nz q.num.natAbs [a] hs hv'
+    have hodd1 : ([a] : List Int).length % 2 = 1 := by simp
+    rw [hcan, ← heq, oddify_of_odd hodd1]
+  · have hge : 3 ≤ t.length := by omega
+    obtain ⟨pref, b, c, ht⟩ := eq_append_two (by omega : 2 ≤ t.length)
+    have hpref_ne : pref ≠ [] := by
+      intro hp; subst hp; simp [ht] at hge
+    subst ht
+    have hcpos : 0 < c := by
+      have : c ∈ (pref ++ [b, c]).tail := by
+        cases pref with
+        | nil => exact (hpref_ne rfl).elim
+        | cons _ _ => simp
+      exact hpos c this
+    have hbpos : 0 < b := by
+      have : b ∈ (pref ++ [b, c]).tail := by
+        cases pref with
+        | nil => exact (hpref_ne rfl).elim
+        | cons _ _ => simp
+      exact hpos b this
+    by_cases hc1 : c = 1
+    · subst hc1
+      have hval : valueOfList (pref ++ [b + 1]) = CFValue.ofRat q := by
+        rw [← valueOfList_concat_one, hv]
+      have hb1 : 2 ≤ b + 1 := by omega
+      have hnn' : ∀ x ∈ pref ++ [b + 1], 0 ≤ x := by
+        intro x hx
+        simp [List.mem_append, List.mem_cons] at hx
+        rcases hx with hmem | rfl
+        · exact hnn x (by simp [hmem])
+        · omega
+      have hpos' : ∀ x ∈ (pref ++ [b + 1]).tail, 0 < x := by
+        intro x hx
+        cases pref with
+        | nil => exact (hpref_ne rfl).elim
+        | cons p ps =>
+            simp [List.mem_append, List.mem_cons] at hx
+            rcases hx with hmem | rfl
+            · exact hpos x (by simp [hmem])
+            · omega
+      have hs : IsStandard (pref ++ [b + 1]) :=
+        isStandard_append_ge_two hnn' hpos' hb1
+      have hv' : valueOfList (pref ++ [b + 1]) =
+          CFValue.ofRat ((q.num.natAbs : Rat) / q.den) := by
+        rw [hval, nonneg_eq_num_div_den hq]
+      have heq : pref ++ [b + 1] = euclidPos q.num.natAbs q.den :=
+        isStandard_eq_euclidPos q.den q.den_nz q.num.natAbs _ hs hv'
+      have heven : (pref ++ [b + 1]).length % 2 = 0 := by
+        have : (pref ++ [b, 1]).length % 2 = 1 := hodd
+        simp at this ⊢
+        omega
+      rw [hcan, ← heq, oddify_append_succ heven]
+      simp
+    · have hcge : 2 ≤ c := by omega
+      have hs : IsStandard (pref ++ [b, c]) := by
+        refine ⟨by simp, hnn, hpos, Or.inr ?_⟩
+        have : (pref ++ [b, c]).getLastD 0 = c := by simp
+        omega
+      have hv' : valueOfList (pref ++ [b, c]) =
+          CFValue.ofRat ((q.num.natAbs : Rat) / q.den) := by
+        rw [hv, nonneg_eq_num_div_den hq]
+      have heq : pref ++ [b, c] = euclidPos q.num.natAbs q.den :=
+        isStandard_eq_euclidPos q.den q.den_nz q.num.natAbs _ hs hv'
+      rw [hcan, ← heq]
+      exact (oddify_of_odd hodd).symm
+
+theorem map_neg_map_neg (t : List Int) :
+    (t.map fun n => -n).map (fun n => -n) = t := by
+  simp [List.map_map]
+
+theorem canonicalTerms_neg {q : Rat} (hq : q < 0) :
+    canonicalTerms q = (canonicalTerms (-q)).map fun n => -n := by
+  have hnn : ¬ (-q) < 0 := by linarith
+  have hnum : (-q).num.natAbs = q.num.natAbs := by
+    rw [Rat.num_neg_eq_neg_num, Int.natAbs_neg]
+  have hden : (-q).den = q.den := Rat.den_neg_eq_den q
+  unfold canonicalTerms
+  rw [if_pos hq, if_neg hnn, hnum, hden]
+
+/-- Any odd-length one-sign expansion of a rational equals `canonicalTerms q`. -/
+theorem canonicalTerms_unique {t : List Int} (hne : t ≠ [])
+    (hodd : t.length % 2 = 1) (hlt : ∀ a ∈ t.tail, a ≠ 0)
+    (halt : (∀ a ∈ t, 0 ≤ a) ∨ (∀ a ∈ t, a ≤ 0)) {q : Rat}
+    (hv : valueOfList t = CFValue.ofRat q) : t = canonicalTerms q := by
+  rcases halt with hnn | hnp
+  · exact nonneg_odd_eq_canonicalTerms hne hodd hnn
+      (later_pos_of_nonneg hnn hlt) hv
+  · set t' := t.map fun n => -n
+    have hne' : t' ≠ [] := by simp [t', hne]
+    have hodd' : t'.length % 2 = 1 := by simp [t', hodd]
+    have hnn' : ∀ a ∈ t', 0 ≤ a := by
+      intro a ha
+      rcases List.mem_map.mp ha with ⟨b, hb, rfl⟩
+      have := hnp b hb
+      omega
+    have hpos' : ∀ a ∈ t'.tail, 0 < a := by
+      intro a ha
+      have hne0 := later_map_neg hlt a ha
+      have : 0 ≤ a := hnn' a (List.mem_of_mem_tail ha)
+      omega
+    have hv' : valueOfList t' = CFValue.ofRat (-q) := by
+      rw [valueOfList_neg, hv, CFValue.neg_ofRat]
+    have ht' : t' = canonicalTerms (-q) :=
+      nonneg_odd_eq_canonicalTerms hne' hodd' hnn' hpos' hv'
+    have hqle : q ≤ 0 := by
+      have : 0 ≤ -q := value_nonneg_of_nonneg_terms hne' hnn' hpos' hv'
+      linarith
+    by_cases hneg : q < 0
+    · rw [canonicalTerms_neg hneg, ← ht', map_neg_map_neg]
+    · have hq0 : q = 0 := le_antisymm hqle (le_of_not_gt hneg)
+      subst hq0
+      have htneg : t = t'.map fun n => -n := (map_neg_map_neg t).symm
+      rw [htneg, ht']
+      have heu : euclidPos 0 1 = [0] := by
+        rw [euclidPos_eq 0 1 (by decide)]
+        simp
+      simp [canonicalTerms, heu, oddify]
+
+/-- A canonical expansion of `q` is definitionally `canonicalCF q`. -/
+theorem canonicalCF_unique {cf : ArithmeticCF} (hc : cf.IsCanonical) {q : Rat}
+    (hv : cf.value = CFValue.ofRat q) : cf = canonicalCF q :=
+  ArithmeticCF.ext <|
+    canonicalTerms_unique cf.terms_ne hc.1 cf.later_ne_zero hc.2 hv
+
+theorem isCanonical_value_ne_inf {cf : ArithmeticCF} (hc : cf.IsCanonical) :
+    cf.value ≠ CFValue.inf := by
+  rcases hc with ⟨_hodd, hsign⟩
+  rcases hsign with hnn | hnp
+  · obtain ⟨q, _, hv⟩ :=
+      exists_valueOfList_nonneg cf.terms cf.terms_ne hnn
+        (later_pos_of_nonneg hnn cf.later_ne_zero)
+    simp [ArithmeticCF.value, hv]
+  · set t' := cf.terms.map fun n => -n
+    have hnn' : ∀ a ∈ t', 0 ≤ a := by
+      intro a ha
+      rcases List.mem_map.mp ha with ⟨b, hb, rfl⟩
+      have := hnp b hb
+      omega
+    have hpos' : ∀ a ∈ t'.tail, 0 < a := by
+      intro a ha
+      have hne0 := later_map_neg cf.later_ne_zero a ha
+      have : 0 ≤ a := hnn' a (List.mem_of_mem_tail ha)
+      omega
+    obtain ⟨q, _, hv⟩ :=
+      exists_valueOfList_nonneg t' (by simp [t', cf.terms_ne]) hnn' hpos'
+    have hneg : (valueOfList cf.terms).neg = CFValue.ofRat q := by
+      rw [← valueOfList_neg, hv]
+    intro hinf
+    have hinf' : valueOfList cf.terms = CFValue.inf := hinf
+    rw [hinf', CFValue.neg_inf] at hneg
+    cases hneg
+
+/-- Proposition 3, uniqueness: a finite continued-fraction value has at most
+    one odd-length one-sign expansion. The infinity value has none. -/
+theorem continued_fraction_canonical_unique {cf₁ cf₂ : ArithmeticCF}
+    (h₁ : cf₁.IsCanonical) (h₂ : cf₂.IsCanonical)
+    (hv : cf₁.value = cf₂.value) : cf₁ = cf₂ := by
+  cases hv₁ : cf₁.value with
+  | inf => exact (isCanonical_value_ne_inf h₁ hv₁).elim
+  | ofRat q =>
+      have e1 : cf₁ = canonicalCF q := canonicalCF_unique h₁ hv₁
+      have e2 : cf₂ = canonicalCF q := canonicalCF_unique h₂ (hv.symm.trans hv₁)
+      exact e1.trans e2.symm
 
 end RationalTangles
