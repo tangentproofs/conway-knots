@@ -144,6 +144,25 @@ theorem ColoringRule_switch_recolor (C : Crossing) (col : Nat → Int)
   · simp [Crossing.switch, recolorSwitch]
   · simp [Crossing.switch, recolorSwitch]; ring
 
+/-- Recolor `C.switch` by swapping each over-arc with the adjacent under-arc
+    (`a0↔a1`, `a2↔a3`). Locally the new overstrand is monochrome with the old
+    over-color, so `ColoringRule` holds. This is not a global map on a whole
+    diagram: shared arcs of adjacent crossings need not agree. -/
+def colorSwitchPorts (C : Crossing) (col : Nat → Int) (a : Nat) : Int :=
+  if a = C.a0 then col C.a1
+  else if a = C.a1 then col C.a0
+  else if a = C.a2 then col C.a3
+  else if a = C.a3 then col C.a2
+  else col a
+
+/-- Port permutation `0↔1`, `2↔3` used to color `[±1]` after a switch. -/
+def colorMirrorUnit (col : Nat → Int) (a : Nat) : Int :=
+  if a = 0 then col 1
+  else if a = 1 then col 0
+  else if a = 2 then col 3
+  else if a = 3 then col 2
+  else col a
+
 theorem ColoringRule_rotate180 (C : Crossing) (col : Nat → Int)
     (h : ColoringRule C col) : ColoringRule C.rotate180 col := by
   obtain ⟨hβ, hr⟩ := h
@@ -408,6 +427,94 @@ theorem negOne_fraction {β α : Int} (h : α ≠ β) :
   have hz : (α : Rat) - β ≠ 0 := by exact_mod_cast hne
   field_simp
   ring
+
+/-! ## Mirror of elementary diagrams
+
+`SameEndpointColors` after `T.mirror` is false for a non-monochrome `[+1]`:
+the four endpoints are the four arcs, and `ColoringRule` on the switched
+crossing with those colors forces the two under-colors to agree. The working
+transport is `colorMirrorUnit`, whose color matrix is `hswap` of the original
+(so `f(-T)=-f(T)` under `DiagonalSum`). -/
+
+theorem coloring_mirror_one_sameEndpoint_mono (col col' : Nat → Int)
+    (hc : one.IsColored col) (hc' : one.mirror.IsColored col')
+    (hs : SameEndpointColors one one.mirror col col') :
+    col 0 = col 1 := by
+  obtain ⟨hNW, hNE, hSE, hSW⟩ := hs
+  have hmem :
+      { a0 := 1, a1 := 2, a2 := 3, a3 := 0, sign := CrossingSign.neg } ∈
+        one.mirror.crossings := by
+    simp [one, TangleDiagram.mirror, Crossing.switch, CrossingSign.flip]
+  obtain ⟨hβ, _hr⟩ := hc' _ hmem
+  have hC := hc ⟨0, 1, 2, 3, CrossingSign.pos⟩ (by simp [one])
+  simp [SameEndpointColors, one, TangleDiagram.mirror] at hNW hNE hSE hSW
+  have h13 : col 1 = col 3 := by
+    simp [Crossing.switch] at hβ
+    linarith
+  linarith [hC.2]
+
+theorem coloring_mirror_one (col : Nat → Int) (hc : one.IsColored col) :
+    one.mirror.IsColored (colorMirrorUnit col) ∧
+      ColorMatrix.of one.mirror (colorMirrorUnit col) =
+        (ColorMatrix.of one col).hswap := by
+  constructor
+  · intro C hC
+    simp [one, TangleDiagram.mirror, Crossing.switch] at hC
+    subst hC
+    obtain ⟨hβ, hr⟩ := hc ⟨0, 1, 2, 3, CrossingSign.pos⟩ (by simp [one])
+    constructor
+    · simp [Crossing.switch, colorMirrorUnit, hβ]
+    · simp [Crossing.switch, colorMirrorUnit]; linarith
+  · simp [ColorMatrix.of, ColorMatrix.hswap, one, TangleDiagram.mirror,
+      colorMirrorUnit]
+
+theorem coloring_mirror_negOne (col : Nat → Int) (hc : negOne.IsColored col) :
+    negOne.mirror.IsColored (colorMirrorUnit col) ∧
+      ColorMatrix.of negOne.mirror (colorMirrorUnit col) =
+        (ColorMatrix.of negOne col).hswap := by
+  have hmem :
+      { a0 := 1, a1 := 2, a2 := 3, a3 := 0, sign := CrossingSign.neg } ∈
+        negOne.crossings := by
+    simp [negOne, one, TangleDiagram.mirror, Crossing.switch, CrossingSign.flip]
+  obtain ⟨hβ, hr⟩ := hc _ hmem
+  constructor
+  · intro C hC
+    simp [negOne, one, TangleDiagram.mirror, List.map_map, Function.comp,
+      Crossing.switch, Crossing.switch_switch] at hC
+    subst hC
+    constructor
+    · simp [colorMirrorUnit] at hβ ⊢
+      linarith
+    · simp [colorMirrorUnit] at hr ⊢
+      linarith
+  · simp [ColorMatrix.of, ColorMatrix.hswap, negOne, one, TangleDiagram.mirror,
+      colorMirrorUnit]
+
+theorem coloring_mirror_zero (col : Nat → Int) :
+    TangleDiagram.zero.mirror.IsColored col ∧
+      ColorMatrix.of TangleDiagram.zero.mirror col =
+        (ColorMatrix.of TangleDiagram.zero col).hswap := by
+  constructor
+  · intro C hC; cases hC
+  · simp [ColorMatrix.of, ColorMatrix.hswap, TangleDiagram.zero, TangleDiagram.mirror]
+
+theorem coloring_mirror_infinity (col : Nat → Int) :
+    TangleDiagram.infinity.mirror.IsColored (colorMirrorUnit col) ∧
+      ColorMatrix.of TangleDiagram.infinity.mirror (colorMirrorUnit col) =
+        (ColorMatrix.of TangleDiagram.infinity col).hswap := by
+  constructor
+  · intro C hC; cases hC
+  · simp [ColorMatrix.of, ColorMatrix.hswap, TangleDiagram.infinity,
+      TangleDiagram.mirror, colorMirrorUnit]
+
+theorem coloring_mirror_crossingTangle (s : CrossingSign) (col : Nat → Int)
+    (hc : (crossingTangle s).IsColored col) :
+    (crossingTangle s).mirror.IsColored (colorMirrorUnit col) ∧
+      ColorMatrix.of (crossingTangle s).mirror (colorMirrorUnit col) =
+        (ColorMatrix.of (crossingTangle s) col).hswap := by
+  cases s with
+  | pos => simpa [crossingTangle] using coloring_mirror_one col hc
+  | neg => simpa [crossingTangle] using coloring_mirror_negOne col hc
 
 /-! ## Vertical reflect -/
 
