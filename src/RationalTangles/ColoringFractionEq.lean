@@ -17,8 +17,12 @@ that the latter is the continued-fraction value of `e.toStandard.toTerms`
 This does **not** identify `TwistExpr.fraction` of a `mulTop` node with the
 standard-form value: the Conway product on the top differs from the
 right-and-bottom product, while `toStandard` sends both to the same
-right-and-bottom expression. Leftover `Isotopic` generators (`invert_cong`,
-Figure 14 transfers, unrestricted flypes) are unused.
+right-and-bottom expression. Unrestricted Figure 14 transfers and flypes are
+not `ColoringIsotopy` constructors. On `[±1]`, Figure 14 (`transfer_odd`) is colored with independent
+colorings of each side (the coloring of `T.mirror.invert` reuses the arc
+map of `T` because double mirror is `rotate180`; `SameEndpointColors`
+after `one.mirror` remains false). Integer `[n]` and `[0]` are not
+colored here.
 
 If two `slideReady` expressions denote the same PD-code and a non-monochrome
 `DiagonalSum` coloring of that code exists, they share `toStandard.fraction`
@@ -843,5 +847,290 @@ theorem coloring_invert_cong_rightBottom {e e' : TwistExpr}
     coloring_invert_inv_eq_F_rightBottom_colorFrom e' hrb'
   refine ⟨colI, colI', hcI, hcI', hmI, hmI', ?_⟩
   rw [hfI, hfI', TwistExpr.fraction_ColoringIsotopy_rightBottom hrb hrb' h]
+
+
+/-! ## Figure 14 (`transfer_odd`) on units and integer tangles
+
+`Isotopic.transfer_odd` is `(T+[-1])*[+1] ∼ [+1]+(-T)ⁱ`. The right-hand
+side applies `Crossing.switch` to `T`, so this is not a `ColoringIsotopy`
+constructor. Double mirror is `rotate180`, so the *same* arc coloring of
+`T` colors `T.mirror.invert = T.mirror.mirror.rotate`; that is not
+`SameEndpointColors` after `one.mirror`.
+-/
+
+theorem IsColored_mirror_mirror (T : TangleDiagram) (col : Nat → Int)
+    (h : T.IsColored col) : T.mirror.mirror.IsColored col := by
+  intro C hC
+  have hmap :
+      T.mirror.mirror.crossings = T.crossings.map Crossing.rotate180 := by
+    simp [TangleDiagram.mirror, List.map_map, Function.comp, Crossing.switch_switch]
+  rw [hmap, List.mem_map] at hC
+  obtain ⟨C0, hC0, rfl⟩ := hC
+  exact ColoringRule_rotate180 C0 col (h C0 hC0)
+
+theorem IsColored_mirror_invert (T : TangleDiagram) (col : Nat → Int)
+    (h : T.IsColored col) : T.mirror.invert.IsColored col := by
+  simpa [invert_eq_mirror_rotate] using
+    coloring_rotate T.mirror.mirror col (IsColored_mirror_mirror T col h)
+
+theorem ColorMatrix.of_mirror_mirror (T : TangleDiagram) (col : Nat → Int) :
+    ColorMatrix.of T.mirror.mirror col = ColorMatrix.of T col := by
+  simp [ColorMatrix.of, TangleDiagram.mirror]
+
+theorem ColorMatrix.of_mirror_invert (T : TangleDiagram) (col : Nat → Int) :
+    ColorMatrix.of T.mirror.invert col = (ColorMatrix.of T col).rotate := by
+  rw [invert_eq_mirror_rotate, ColorMatrix.of_rotate, ColorMatrix.of_mirror_mirror]
+
+theorem coloring_fraction_mirror_invert (T : TangleDiagram) (col : Nat → Int)
+    (hdiag : (ColorMatrix.of T col).DiagonalSum)
+    (hm : (ColorMatrix.of T col).NotMono) :
+    (ColorMatrix.of T.mirror.invert col).fraction =
+      (ColorMatrix.of T col).fraction.negInv := by
+  rw [ColorMatrix.of_mirror_invert]
+  exact ColorMatrix.fraction_rotate hdiag hm
+
+theorem TangleDiagram.mirror_invert_NW (T : TangleDiagram) :
+    T.mirror.invert.NW = T.NE := by
+  simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
+
+theorem TangleDiagram.mirror_invert_NE (T : TangleDiagram) :
+    T.mirror.invert.NE = T.SE := by
+  simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
+
+theorem TangleDiagram.mirror_invert_SE (T : TangleDiagram) :
+    T.mirror.invert.SE = T.SW := by
+  simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
+
+theorem TangleDiagram.mirror_invert_SW (T : TangleDiagram) :
+    T.mirror.invert.SW = T.NW := by
+  simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
+
+theorem CFValue.transfer_odd_value (x : CFValue) :
+    ((x.add (ofInt (-1))).inv.add (ofInt 1)).inv =
+      (ofInt 1).add (x.neg.inv) := by
+  cases x with
+  | inf =>
+    simp [ofInt, add, neg, inv]
+  | ofRat q =>
+    have hsum : (ofRat q).add (ofInt (-1)) = ofRat (q - 1) := by
+      simp [ofInt, add, sub_eq_add_neg]
+    rw [hsum]
+    by_cases h1 : q - 1 = 0
+    · have hq : q = 1 := by linarith
+      subst hq
+      simp [ofInt, add, neg, inv]
+    · have hq1 : (q - 1 : Rat) ≠ 0 := by exact_mod_cast h1
+      rw [inv_ofRat hq1]
+      have hadd :
+          (ofRat (q - 1)⁻¹).add (ofInt 1) = ofRat ((q - 1)⁻¹ + 1) := by
+        simp [ofInt, add]
+      rw [hadd]
+      have hval : ((q - 1)⁻¹ + 1 : Rat) = q / (q - 1) := by
+        field_simp [hq1]
+        ring
+      rw [hval]
+      by_cases hq0 : q = 0
+      · subst hq0
+        simp [inv, add, ofInt]
+      · have hfrac : q / (q - 1) ≠ 0 := div_ne_zero hq0 hq1
+        rw [inv_ofRat hfrac]
+        have hnq : -q ≠ 0 := by intro h; exact hq0 (neg_eq_zero.mp h)
+        have hR : (ofInt 1).add (ofRat q).neg.inv =
+            ofRat (1 + (-q)⁻¹) := by
+          simp [ofInt, add, neg, inv, hq0, hnq]
+        rw [hR]
+        congr 1
+        field_simp [hq0, hq1]
+        ring
+
+theorem TwistExpr.fraction_transfer_odd (e : TwistExpr) :
+    (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).fraction =
+      (1 : CFValue).add (e.fraction.neg.inv) := by
+  simpa [TwistExpr.fraction, CrossingSign.cfValue, one_eq_ofInt_one] using
+    CFValue.transfer_odd_value e.fraction
+
+theorem TwistExpr.transferOdd_rightBottom (e : TwistExpr) (h : e.rightBottom) :
+    (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).rightBottom :=
+  h
+
+
+theorem TwistExpr.transferOdd_diagram (e : TwistExpr) :
+    (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).diagram =
+      (e.diagram.add RationalTangles.negOne).mul RationalTangles.one :=
+  rfl
+
+theorem ColorMatrix.ext {M N : ColorMatrix}
+    (hNW : M.NW = N.NW) (hNE : M.NE = N.NE)
+    (hSW : M.SW = N.SW) (hSE : M.SE = N.SE) : M = N := by
+  cases M; cases N; congr
+
+/-- Glue `[+1]` on the left of a colored diagram with distinct left ports. -/
+theorem coloring_one_add (S : TangleDiagram) (colS : Nat → Int)
+    (hcS : S.IsColored colS) (hne : S.NW ≠ S.SW) :
+    ∃ colG, (RationalTangles.one.add S).IsColored colG ∧
+      ColorMatrix.of (RationalTangles.one.add S) colG =
+        { NW := colS S.SW
+          NE := colS S.NE
+          SW := 2 * colS S.SW - colS S.NW
+          SE := colS S.SE } := by
+  let U := RationalTangles.one
+  let colU := colorOne (colS S.SW) (colS S.NW)
+  let colG := colorGlueAdd U S colU colS
+  have glueNE : colU U.NE = colS S.NW := by
+    simp [colU, colorOne_1, U, RationalTangles.one]
+  have glueSE : colU U.SE = colS S.SW ∨ S.NW = S.SW := by
+    left
+    simp [colU, colorOne_2, U, RationalTangles.one]
+  refine ⟨colG,
+    IsColored_colorGlueAdd U S colU colS (one_isColored _ _) hcS glueNE glueSE, ?_⟩
+  have hNW : colG (U.add S).NW = colU U.NW :=
+    colorGlueAdd_of_le U S colU colS (maxArc_ge_NW U)
+  have hSW : colG (U.add S).SW = colU U.SW :=
+    colorGlueAdd_of_le U S colU colS (maxArc_ge_SW U)
+  have hNE : colG (U.add S).NE = colS S.NE := by
+    rw [add_NE U S]
+    exact colorGlueAdd_comp_shift U S colU colS glueNE glueSE S.NE
+  have hSE : colG (U.add S).SE = colS S.SE := by
+    rw [add_SE U S]
+    exact colorGlueAdd_comp_shift U S colU colS glueNE glueSE S.SE
+  apply ColorMatrix.ext
+  · simpa [ColorMatrix.of, colU, colorOne_0, U, RationalTangles.one] using hNW
+  · simpa [ColorMatrix.of] using hNE
+  · simpa [ColorMatrix.of, colU, colorOne_3, U, RationalTangles.one] using hSW
+  · simpa [ColorMatrix.of] using hSE
+
+theorem coloring_fraction_one_add (S : TangleDiagram) (colS : Nat → Int)
+    (hcS : S.IsColored colS) (hne : S.NW ≠ S.SW)
+    (hdiagS : (ColorMatrix.of S colS).DiagonalSum)
+    (hcol : colS S.NW ≠ colS S.SW) :
+    ∃ colG, (RationalTangles.one.add S).IsColored colG ∧
+      (ColorMatrix.of (RationalTangles.one.add S) colG).NotMono ∧
+      (ColorMatrix.of (RationalTangles.one.add S) colG).fraction =
+        (1 : CFValue).add (ColorMatrix.of S colS).fraction := by
+  obtain ⟨colG, hcG, hMat⟩ := coloring_one_add S colS hcS hne
+  refine ⟨colG, hcG, ?_, ?_⟩
+  · rw [hMat]
+    dsimp [ColorMatrix.NotMono]
+    intro h
+    simp [ColorMatrix.DiagonalSum, ColorMatrix.of] at hdiagS
+    exact hcol (by omega)
+  · have hglue :
+        (ColorMatrix.mk (colS S.SW) (colS S.NW)
+            (2 * colS S.SW - colS S.NW) (colS S.SW)).fraction.add
+          (ColorMatrix.of S colS).fraction =
+        (ColorMatrix.mk (colS S.SW) (colS S.NE)
+            (2 * colS S.SW - colS S.NW) (colS S.SE)).fraction := by
+      have hd : colS S.NW - colS S.SW = colS S.NE - colS S.SE := by
+        simp [ColorMatrix.DiagonalSum, ColorMatrix.of] at hdiagS
+        omega
+      simpa [ColorMatrix.of] using
+        ColorMatrix.fraction_add_glue (colS S.SW) (colS S.NW)
+          (2 * colS S.SW - colS S.NW) (colS S.SW) (colS S.NE) (colS S.SE) hd
+    have hone :
+        (ColorMatrix.mk (colS S.SW) (colS S.NW)
+          (2 * colS S.SW - colS S.NW) (colS S.SW)).fraction = (1 : CFValue) :=
+      one_fraction (β := colS S.SW) (α := colS S.NW) hcol
+    rw [hMat, ← hglue, hone]
+
+/-- Color both sides of Figure 14 on a right-and-bottom twist diagram
+    whose `colorFrom 0 1` has distinct `NW`/`NE`. The left-hand side is
+    colored by `colorFrom`; the right-hand side reuses that coloring on
+    `T.mirror.invert` (double mirror is `rotate180`) and glues `[+1]`. -/
+theorem coloring_transfer_odd_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
+    (hports : e.diagram.NW ≠ e.diagram.NE)
+    (hne : (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NW ≠
+      (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NE) :
+    ∃ colL colR,
+      ((e.diagram.add RationalTangles.negOne).mul RationalTangles.one).IsColored
+        colL ∧
+      (RationalTangles.one.add e.diagram.mirror.invert).IsColored colR ∧
+      (ColorMatrix.of ((e.diagram.add RationalTangles.negOne).mul
+        RationalTangles.one) colL).NotMono ∧
+      (ColorMatrix.of (RationalTangles.one.add e.diagram.mirror.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of ((e.diagram.add RationalTangles.negOne).mul
+        RationalTangles.one) colL).fraction =
+        (ColorMatrix.of (RationalTangles.one.add e.diagram.mirror.invert)
+          colR).fraction := by
+  let eL : TwistExpr := .mulBottom (.addRight e .neg) .pos
+  have hrbL : eL.rightBottom := hrb
+  let colT := e.colorFrom 0 1
+  let colL := eL.colorFrom 0 1
+  have hcT := e.colorFrom_isColored hrb 0 1
+  have hdiagT := e.colorFrom_diagonal hrb 0 1
+  have hmT := e.colorFrom_notMono hrb
+  have hcS : e.diagram.mirror.invert.IsColored colT :=
+    IsColored_mirror_invert e.diagram colT hcT
+  have hneS : e.diagram.mirror.invert.NW ≠ e.diagram.mirror.invert.SW := by
+    rw [TangleDiagram.mirror_invert_NW, TangleDiagram.mirror_invert_SW]
+    exact hports.symm
+  have hdiagS : (ColorMatrix.of e.diagram.mirror.invert colT).DiagonalSum := by
+    rw [ColorMatrix.of_mirror_invert]
+    exact ColorMatrix.DiagonalSum.rotate hdiagT
+  have hcolS : colT e.diagram.mirror.invert.NW ≠
+      colT e.diagram.mirror.invert.SW := by
+    rw [TangleDiagram.mirror_invert_NW, TangleDiagram.mirror_invert_SW]
+    exact hne.symm
+  obtain ⟨colR, hcR, hmR, hfR⟩ :=
+    coloring_fraction_one_add e.diagram.mirror.invert colT hcS hneS hdiagS hcolS
+  refine ⟨colL, colR, ?_, hcR, eL.colorFrom_notMono hrbL, hmR, ?_⟩
+  · simpa [eL, TwistExpr.diagram, crossingTangle] using
+      eL.colorFrom_isColored hrbL 0 1
+  · have hfL := eL.colorFrom_eq_fraction hrbL
+    have hfT := e.colorFrom_eq_fraction hrb
+    have hfS := coloring_fraction_mirror_invert e.diagram colT hdiagT hmT
+    have hLd :
+        ColorMatrix.of ((e.diagram.add RationalTangles.negOne).mul
+          RationalTangles.one) colL =
+          ColorMatrix.of eL.diagram colL := by
+      simp [eL, TwistExpr.diagram, crossingTangle]
+    rw [hLd, hfL, hfR, hfS, hfT, TwistExpr.fraction_transfer_odd]
+    exact congrArg (CFValue.add (1 : CFValue)) (CFValue.neg_inv e.fraction).symm
+
+theorem coloring_transfer_odd_one :
+    ∃ colL colR,
+      ((RationalTangles.one.add RationalTangles.negOne).mul
+        RationalTangles.one).IsColored colL ∧
+      (RationalTangles.one.add RationalTangles.one.mirror.invert).IsColored colR ∧
+      (ColorMatrix.of ((RationalTangles.one.add RationalTangles.negOne).mul
+        RationalTangles.one) colL).NotMono ∧
+      (ColorMatrix.of (RationalTangles.one.add RationalTangles.one.mirror.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of ((RationalTangles.one.add RationalTangles.negOne).mul
+        RationalTangles.one) colL).fraction =
+        (ColorMatrix.of (RationalTangles.one.add RationalTangles.one.mirror.invert)
+          colR).fraction := by
+  simpa [TwistExpr.diagram] using
+    coloring_transfer_odd_rightBottom .one trivial one_NW_ne_NE (by
+      change (ColorMatrix.of RationalTangles.one (colorOne 0 1)).NW ≠
+        (ColorMatrix.of RationalTangles.one (colorOne 0 1)).NE
+      simp [one_matrix])
+
+theorem coloring_transfer_odd_negOne :
+    ∃ colL colR,
+      ((RationalTangles.negOne.add RationalTangles.negOne).mul
+        RationalTangles.one).IsColored colL ∧
+      (RationalTangles.one.add RationalTangles.negOne.mirror.invert).IsColored
+        colR ∧
+      (ColorMatrix.of ((RationalTangles.negOne.add RationalTangles.negOne).mul
+        RationalTangles.one) colL).NotMono ∧
+      (ColorMatrix.of (RationalTangles.one.add
+        RationalTangles.negOne.mirror.invert) colR).NotMono ∧
+      (ColorMatrix.of ((RationalTangles.negOne.add RationalTangles.negOne).mul
+        RationalTangles.one) colL).fraction =
+        (ColorMatrix.of (RationalTangles.one.add
+          RationalTangles.negOne.mirror.invert) colR).fraction := by
+  have hne :
+      (ColorMatrix.of TwistExpr.negOne.diagram
+        (TwistExpr.negOne.colorFrom 0 1)).NW ≠
+      (ColorMatrix.of TwistExpr.negOne.diagram
+        (TwistExpr.negOne.colorFrom 0 1)).NE := by
+    simp only [TwistExpr.diagram, TwistExpr.colorFrom]
+    change (ColorMatrix.of RationalTangles.negOne (colorNegOne 0 1)).NW ≠
+      (ColorMatrix.of RationalTangles.negOne (colorNegOne 0 1)).NE
+    rw [negOne_matrix]
+    decide
+  simpa [TwistExpr.diagram] using
+    coloring_transfer_odd_rightBottom .negOne trivial negOne_NW_ne_NE hne
 
 end RationalTangles
