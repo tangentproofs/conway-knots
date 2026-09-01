@@ -690,6 +690,199 @@ theorem StandardExpr.colorFrom_eq_fraction (e : StandardExpr) :
       simp [ColorMatrix.of] at ih
       exact h.trans (by rw [ih])
 
+/-! ## Color matrices of an arbitrary coloring after adjoining `[±1]` -/
+
+theorem ColorMatrix.of_add_one_colored (T : TangleDiagram) (col : Nat → Int)
+    (h : (T.add one).IsColored col) :
+    ColorMatrix.of (T.add one) col =
+      { NW := col T.NW
+        NE := 2 * col T.NE - col T.SE
+        SW := col T.SW
+        SE := col T.NE } := by
+  have hC : ColoringRule ⟨T.NE, T.maxArc + 2, T.maxArc + 3, T.SE, .pos⟩ col :=
+    h _ (by simp [add_one_crossings])
+  have hβ : col (T.maxArc + 3) = col T.NE := hC.1.symm
+  have hNE : col (T.maxArc + 2) = 2 * col T.NE - col T.SE := by linarith [hC.2]
+  simp only [ColorMatrix.of]
+  rw [add_one_NW, add_one_SW, add_one_NE, add_one_SE, hβ, hNE]
+
+theorem ColorMatrix.of_add_negOne_colored (T : TangleDiagram) (col : Nat → Int)
+    (h : (T.add negOne).IsColored col) :
+    ColorMatrix.of (T.add negOne) col =
+      { NW := col T.NW
+        NE := col T.SE
+        SW := col T.SW
+        SE := 2 * col T.SE - col T.NE } := by
+  have hC : ColoringRule ⟨T.maxArc + 2, T.maxArc + 3, T.SE, T.NE, .neg⟩ col := by
+    apply h
+    rw [add_negOne_crossings]
+    exact List.mem_append.2 (Or.inr (List.mem_singleton.2 rfl))
+  have hβ : col (T.maxArc + 2) = col T.SE := hC.1
+  have hSE : col (T.maxArc + 3) = 2 * col T.SE - col T.NE := by linarith [hC.2]
+  simp only [ColorMatrix.of]
+  rw [show (T.add negOne).NW = T.NW from rfl,
+      show (T.add negOne).SW = T.SW from rfl,
+      add_negOne_NE, add_negOne_SE, hβ, hSE]
+
+theorem ColorMatrix.of_mul_one_colored (T : TangleDiagram) (col : Nat → Int)
+    (h : (T.mul one).IsColored col) :
+    ColorMatrix.of (T.mul one) col =
+      { NW := col T.NW
+        NE := col T.NE
+        SW := 2 * col T.SW - col T.SE
+        SE := col T.SW } := by
+  have hC : ColoringRule ⟨T.SW, T.SE, T.maxArc + 3, T.maxArc + 4, .pos⟩ col :=
+    h _ (by simp [mul_one_crossings])
+  have hβ : col (T.maxArc + 3) = col T.SW := hC.1.symm
+  have hSW : col (T.maxArc + 4) = 2 * col T.SW - col T.SE := by linarith [hC.2]
+  simp only [ColorMatrix.of]
+  rw [show (T.mul one).NW = T.NW from rfl,
+      show (T.mul one).NE = T.NE from rfl,
+      mul_one_SE, mul_one_SW, hβ, hSW]
+
+theorem ColorMatrix.of_mul_negOne_colored (T : TangleDiagram) (col : Nat → Int)
+    (h : (T.mul negOne).IsColored col) :
+    ColorMatrix.of (T.mul negOne) col =
+      { NW := col T.NW
+        NE := col T.NE
+        SW := col T.SE
+        SE := 2 * col T.SE - col T.SW } := by
+  have hC : ColoringRule ⟨T.SE, T.maxArc + 3, T.maxArc + 4, T.SW, .neg⟩ col := by
+    apply h
+    rw [mul_negOne_crossings]
+    exact List.mem_append.2 (Or.inr (List.mem_singleton.2 rfl))
+  have hβ : col (T.maxArc + 4) = col T.SE := hC.1.symm
+  have hSE : col (T.maxArc + 3) = 2 * col T.SE - col T.SW := by linarith [hC.2]
+  simp only [ColorMatrix.of]
+  rw [show (T.mul negOne).NW = T.NW from rfl,
+      show (T.mul negOne).NE = T.NE from rfl,
+      mul_negOne_SE, mul_negOne_SW, hβ, hSE]
+
+theorem NotMono_of_add_one {T : TangleDiagram} {col : Nat → Int}
+    (h : (T.add one).IsColored col)
+    (hdiag : (ColorMatrix.of T col).DiagonalSum)
+    (hm : (ColorMatrix.of (T.add one) col).NotMono) :
+    (ColorMatrix.of T col).NotMono := by
+  intro hmono
+  have hM := ColorMatrix.of_add_one_colored T col h
+  simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at hmono hdiag hm hM
+  omega
+
+theorem NotMono_of_add_negOne {T : TangleDiagram} {col : Nat → Int}
+    (h : (T.add negOne).IsColored col)
+    (hdiag : (ColorMatrix.of T col).DiagonalSum)
+    (hm : (ColorMatrix.of (T.add negOne) col).NotMono) :
+    (ColorMatrix.of T col).NotMono := by
+  intro hmono
+  have hM := ColorMatrix.of_add_negOne_colored T col h
+  simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at hmono hdiag hm hM
+  omega
+
+theorem NotMono_of_mul_one {T : TangleDiagram} {col : Nat → Int}
+    (h : (T.mul one).IsColored col)
+    (hdiag : (ColorMatrix.of T col).DiagonalSum)
+    (hm : (ColorMatrix.of (T.mul one) col).NotMono) :
+    (ColorMatrix.of T col).NotMono := by
+  intro hmono
+  have hM := ColorMatrix.of_mul_one_colored T col h
+  simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at hmono hdiag hm hM
+  omega
+
+theorem NotMono_of_mul_negOne {T : TangleDiagram} {col : Nat → Int}
+    (h : (T.mul negOne).IsColored col)
+    (hdiag : (ColorMatrix.of T col).DiagonalSum)
+    (hm : (ColorMatrix.of (T.mul negOne) col).NotMono) :
+    (ColorMatrix.of T col).NotMono := by
+  intro hmono
+  have hM := ColorMatrix.of_mul_negOne_colored T col h
+  simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at hmono hdiag hm hM
+  omega
+
+/-- On a standard-form diagram, every non-monochrome integral coloring has
+    coloring fraction equal to the arithmetical fraction of the expression. -/
+theorem standard_fraction_any_coloring (e : StandardExpr) (col : Nat → Int)
+    (h : e.diagram.IsColored col)
+    (hm : (ColorMatrix.of e.diagram col).NotMono) :
+    (ColorMatrix.of e.diagram col).fraction = e.fraction := by
+  induction e generalizing col with
+  | zero =>
+    simp [StandardExpr.diagram, StandardExpr.fraction, ColorMatrix.NotMono,
+      ColorMatrix.of, TangleDiagram.zero] at hm ⊢
+    exact zero_fraction_of_colored (fun heq => hm heq)
+  | infinity =>
+    simpa [StandardExpr.diagram, StandardExpr.fraction] using
+      infinity_fraction_of_colored col
+  | addRight e s ih =>
+    have hL : e.diagram.IsColored col := by
+      simpa [StandardExpr.diagram] using IsColored_add_left (T := e.diagram) h
+    have hd := standard_coloring_diagonal e col hL
+    cases s with
+    | pos =>
+      simp [StandardExpr.diagram, StandardExpr.fraction, crossingTangle] at h hm ⊢
+      have h' : (e.diagram.add one).IsColored col := h
+      have hm' : (ColorMatrix.of (e.diagram.add one) col).NotMono := hm
+      have hmL := NotMono_of_add_one h' hd hm'
+      have ih' := ih col hL hmL
+      have hM := ColorMatrix.of_add_one_colored e.diagram col h'
+      have hf := ColorMatrix.fraction_add_one
+        (a := (ColorMatrix.of e.diagram col).NW)
+        (b := (ColorMatrix.of e.diagram col).NE)
+        (c := (ColorMatrix.of e.diagram col).SW)
+        (d := (ColorMatrix.of e.diagram col).SE) hd
+      simp [ColorMatrix.of] at hf ih'
+      change (ColorMatrix.of (e.diagram.add one) col).fraction = _
+      rw [hM, hf, ih']
+    | neg =>
+      simp [StandardExpr.diagram, StandardExpr.fraction, crossingTangle] at h hm ⊢
+      have h' : (e.diagram.add negOne).IsColored col := h
+      have hm' : (ColorMatrix.of (e.diagram.add negOne) col).NotMono := hm
+      have hmL := NotMono_of_add_negOne h' hd hm'
+      have ih' := ih col hL hmL
+      have hM := ColorMatrix.of_add_negOne_colored e.diagram col h'
+      have hf := ColorMatrix.fraction_add_negOne
+        (a := (ColorMatrix.of e.diagram col).NW)
+        (b := (ColorMatrix.of e.diagram col).NE)
+        (c := (ColorMatrix.of e.diagram col).SW)
+        (d := (ColorMatrix.of e.diagram col).SE) hd
+      simp [ColorMatrix.of] at hf ih'
+      change (ColorMatrix.of (e.diagram.add negOne) col).fraction = _
+      rw [hM, hf, ih']
+  | mulBottom e s ih =>
+    have hL : e.diagram.IsColored col := by
+      simpa [StandardExpr.diagram] using IsColored_mul_top (T := e.diagram) h
+    have hd := standard_coloring_diagonal e col hL
+    cases s with
+    | pos =>
+      simp [StandardExpr.diagram, StandardExpr.fraction, crossingTangle] at h hm ⊢
+      have h' : (e.diagram.mul one).IsColored col := h
+      have hm' : (ColorMatrix.of (e.diagram.mul one) col).NotMono := hm
+      have hmL := NotMono_of_mul_one h' hd hm'
+      have ih' := ih col hL hmL
+      have hM := ColorMatrix.of_mul_one_colored e.diagram col h'
+      have hf := ColorMatrix.fraction_mul_one
+        (a := (ColorMatrix.of e.diagram col).NW)
+        (b := (ColorMatrix.of e.diagram col).NE)
+        (c := (ColorMatrix.of e.diagram col).SW)
+        (d := (ColorMatrix.of e.diagram col).SE) hd hmL
+      simp [ColorMatrix.of] at hf ih'
+      change (ColorMatrix.of (e.diagram.mul one) col).fraction = _
+      rw [hM, hf, ih']
+    | neg =>
+      simp [StandardExpr.diagram, StandardExpr.fraction, crossingTangle] at h hm ⊢
+      have h' : (e.diagram.mul negOne).IsColored col := h
+      have hm' : (ColorMatrix.of (e.diagram.mul negOne) col).NotMono := hm
+      have hmL := NotMono_of_mul_negOne h' hd hm'
+      have ih' := ih col hL hmL
+      have hM := ColorMatrix.of_mul_negOne_colored e.diagram col h'
+      have hf := ColorMatrix.fraction_mul_negOne
+        (a := (ColorMatrix.of e.diagram col).NW)
+        (b := (ColorMatrix.of e.diagram col).NE)
+        (c := (ColorMatrix.of e.diagram col).SW)
+        (d := (ColorMatrix.of e.diagram col).SE) hd hmL
+      simp [ColorMatrix.of] at hf ih'
+      change (ColorMatrix.of (e.diagram.mul negOne) col).fraction = _
+      rw [hM, hf, ih']
+
 /-- On a standard-form diagram, the propagated coloring with initial
     colors `0, 1` has coloring fraction equal to the arithmetical
     fraction of the expression. -/
@@ -700,5 +893,16 @@ theorem standard_coloring_eq_fraction (e : StandardExpr) :
       (ColorMatrix.of e.diagram col).fraction = e.fraction :=
   ⟨e.colorFrom 0 1, e.colorFrom_isColored 0 1, e.colorFrom_diagonal 0 1,
     e.colorFrom_notMono, e.colorFrom_eq_fraction⟩
+
+/-- On a fixed standard-form diagram, the coloring fraction is independent of
+    the choice of non-monochrome integral coloring. -/
+theorem standard_form_fraction_unique (e : StandardExpr) (col col' : Nat → Int)
+    (h : e.diagram.IsColored col) (h' : e.diagram.IsColored col')
+    (hm : (ColorMatrix.of e.diagram col).NotMono)
+    (hm' : (ColorMatrix.of e.diagram col').NotMono) :
+    (ColorMatrix.of e.diagram col).fraction =
+      (ColorMatrix.of e.diagram col').fraction :=
+  (standard_fraction_any_coloring e col h hm).trans
+    (standard_fraction_any_coloring e col' h' hm').symm
 
 end RationalTangles

@@ -978,6 +978,95 @@ theorem coloring_fraction_flype_slide_mul (s : CrossingSign) (t : TangleDiagram)
   have hM := ColorMatrix.of_sameEndpoint hs
   exact ⟨col', hc', hM, hM ▸ rfl⟩
 
+/-- Reverse of `coloring_flype_slide_add`, for `Isotopic.symm` on a slide. -/
+theorem coloring_flype_slide_add_rev (s : CrossingSign) (t : TangleDiagram)
+    (col : Nat → Int)
+    (hc : (t.rot180.add (crossingTangle s)).IsColored col)
+    (_hne : t.NW ≠ t.SW)
+    (hdiag : (ColorMatrix.of (t.rot180.add (crossingTangle s)) col).DiagonalSum) :
+    ∃ col', ((crossingTangle s).add t).IsColored col' ∧
+      SameEndpointColors (t.rot180.add (crossingTangle s))
+        ((crossingTangle s).add t) col col' := by
+  let U := crossingTangle s
+  let colU0 := colorAddRight t.rot180 U col
+  let colU := colorRot180Arc colU0
+  let colG := colorGlueAdd U t colU col
+  have hT180 : t.rot180.IsColored col := IsColored_add_left hc
+  have hT : t.IsColored col := by
+    simpa [rot180_rot180] using IsColored_rot180 t.rot180 col hT180
+  have hU0 : U.IsColored colU0 := IsColored_add_right hc
+  have hU : U.IsColored colU := IsColored_colorRot180Arc s colU0 hU0
+  have glueNE : colU U.NE = col t.NW := by
+    change colorRot180Arc colU0 U.NE = col t.NW
+    rw [colorRot180Arc_NE s colU0]
+    exact (colorAddRight_SW t.rot180 U col).resolve_right (crossingTangle_NW_ne_SW s)
+  have glueSE : colU U.SE = col t.SW ∨ t.NW = t.SW := by
+    left
+    change colorRot180Arc colU0 U.SE = col t.SW
+    rw [colorRot180Arc_SE s colU0]
+    dsimp [colU0, U]
+    rw [colorAddRight_NW t.rot180 U col]
+    rfl
+  have hG : (U.add t).IsColored colG :=
+    IsColored_colorGlueAdd U t colU col hU hT glueNE glueSE
+  refine ⟨colorDiagInvol (t.rot180.add U) col colG,
+    IsColored_colorDiagInvol _ _ col colG hG, ?_⟩
+  have hsum :
+      col (t.rot180.add U).NW + col (t.rot180.add U).SE =
+        col (t.rot180.add U).NE + col (t.rot180.add U).SW := by
+    simpa [ColorMatrix.DiagonalSum, ColorMatrix.of] using hdiag
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · have hGnw : colG (U.add t).NW = colU U.NW :=
+      colorGlueAdd_of_le U t colU col (maxArc_ge_NW U)
+    have h2 : colU U.NW = col (t.rot180.add U).SE := by
+      change colorRot180Arc colU0 U.NW = col (t.rot180.add U).SE
+      rw [colorRot180Arc_NW s colU0]
+      change colorAddRight t.rot180 U col U.SE = col (t.rot180.add U).SE
+      simpa [U] using colorAddRight_SE t.rot180 U col
+    change col (t.rot180.add U).NW + col (t.rot180.add U).SE - colG (U.add t).NW =
+      col (t.rot180.add U).NW
+    rw [hGnw, h2]; ring
+  · have h1 : colG (U.add t).NE = col t.NE := by
+      dsimp [colG]
+      rw [add_NE U t]
+      exact colorGlueAdd_comp_shift U t colU col glueNE glueSE t.NE
+    have h2 : col t.NE = col (t.rot180.add U).SW := rfl
+    change col (t.rot180.add U).NW + col (t.rot180.add U).SE - colG (U.add t).NE =
+      col (t.rot180.add U).NE
+    rw [h1, h2]; linarith [hsum]
+  · have h1 : colG (U.add t).SE = col t.SE := by
+      dsimp [colG]
+      rw [add_SE U t]
+      exact colorGlueAdd_comp_shift U t colU col glueNE glueSE t.SE
+    have h2 : col t.SE = col (t.rot180.add U).NW := rfl
+    change col (t.rot180.add U).NW + col (t.rot180.add U).SE - colG (U.add t).SE =
+      col (t.rot180.add U).SE
+    rw [h1, h2]; ring
+  · have hGsw : colG (U.add t).SW = colU U.SW :=
+      colorGlueAdd_of_le U t colU col (maxArc_ge_SW U)
+    have h2 : colU U.SW = col (t.rot180.add U).NE := by
+      change colorRot180Arc colU0 U.SW = col (t.rot180.add U).NE
+      rw [colorRot180Arc_SW s colU0]
+      change colorAddRight t.rot180 U col U.NE = col (t.rot180.add U).NE
+      simpa [U] using colorAddRight_NE t.rot180 U col
+    change col (t.rot180.add U).NW + col (t.rot180.add U).SE - colG (U.add t).SW =
+      col (t.rot180.add U).SW
+    rw [hGsw, h2]; linarith [hsum]
+
+theorem coloring_fraction_flype_slide_add_rev (s : CrossingSign) (t : TangleDiagram)
+    (col : Nat → Int)
+    (hc : (t.rot180.add (crossingTangle s)).IsColored col)
+    (_hne : t.NW ≠ t.SW)
+    (hdiag : (ColorMatrix.of (t.rot180.add (crossingTangle s)) col).DiagonalSum) :
+    ∃ col', ((crossingTangle s).add t).IsColored col' ∧
+      ColorMatrix.of ((crossingTangle s).add t) col' =
+        ColorMatrix.of (t.rot180.add (crossingTangle s)) col ∧
+      (ColorMatrix.of ((crossingTangle s).add t) col').fraction =
+        (ColorMatrix.of (t.rot180.add (crossingTangle s)) col).fraction := by
+  obtain ⟨col', hc', hs⟩ := coloring_flype_slide_add_rev s t col hc _hne hdiag
+  have hM := ColorMatrix.of_sameEndpoint hs
+  exact ⟨col', hc', hM, hM ▸ rfl⟩
+
 /-! ## Associativity of `add` as reindexing -/
 
 theorem coloring_add_assoc (T S R : TangleDiagram) (col : Nat → Int)

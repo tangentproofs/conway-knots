@@ -80,6 +80,13 @@ theorem TangleDiagram.rot180_NE (T : TangleDiagram) : T.rot180.NE = T.SW := rfl
 theorem TangleDiagram.rot180_SE (T : TangleDiagram) : T.rot180.SE = T.NW := rfl
 theorem TangleDiagram.rot180_SW (T : TangleDiagram) : T.rot180.SW = T.NE := rfl
 
+theorem rot180_rot180 (T : TangleDiagram) : T.rot180.rot180 = T := by
+  cases T
+  simp [TangleDiagram.rot180, List.map_map]
+  have hfun : Crossing.rotate180 ∘ Crossing.rotate180 = id :=
+    funext Crossing.rotate180_involutive
+  simp [hfun]
+
 theorem TangleDiagram.vflip_NW (T : TangleDiagram) : T.vflip.NW = T.NE := rfl
 theorem TangleDiagram.vflip_NE (T : TangleDiagram) : T.vflip.NE = T.NW := rfl
 theorem TangleDiagram.vflip_SE (T : TangleDiagram) : T.vflip.SE = T.SW := rfl
