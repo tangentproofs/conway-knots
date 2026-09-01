@@ -1222,4 +1222,348 @@ theorem coloring_invert_cong_slideReady {e e' : TwistExpr}
   rw [hfI, hfI', TwistExpr.toStandard_fraction_ColoringIsotopy_colorFrom hok hok' h]
 
 
+/-! ## Fraction-level `invert_add` / `invert_mul` on `slideReady` diagrams
+
+Independent invert-uniqueness and `colorMulTop`/`colorAddOne` colorings; not
+a `ColoringIsotopy` constructor. Kinks `[∞]+[±1]` are excluded.
+-/
+
+theorem TwistExpr.addRight_slideReady (e : TwistExpr) (s : CrossingSign)
+    (hok : e.slideReady) : (TwistExpr.addRight e s).slideReady :=
+  hok
+
+theorem TwistExpr.mulBottom_slideReady (e : TwistExpr) (s : CrossingSign)
+    (hok : e.slideReady) : (TwistExpr.mulBottom e s).slideReady :=
+  hok
+
+theorem TangleDiagram.invert_NW (T : TangleDiagram) : T.invert.NW = T.NE := by
+  simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
+
+theorem TangleDiagram.invert_NE (T : TangleDiagram) : T.invert.NE = T.SE := by
+  simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
+
+/-- Any coloring of `T.invert` on a `slideReady` diagram has `DiagonalSum`. -/
+theorem twist_coloring_diagonal_invert_slideReady (e : TwistExpr)
+    (hok : e.slideReady) (col : Nat → Int)
+    (hc : e.diagram.invert.IsColored col) :
+    (ColorMatrix.of e.diagram.invert col).DiagonalSum := by
+  have hcMirr : e.diagram.mirror.IsColored col :=
+    TangleDiagram.IsColored_of_invert _ col hc
+  obtain ⟨colA, hcA, hMat, _hfracA⟩ :=
+    coloring_fraction_ColoringIsotopy
+      (coloring_mirror_diagram_slideReady e hok) col hcMirr
+  have hokA : e.mirror.slideReady := TwistExpr.slideReady_mirror e hok
+  have hdA := twist_coloring_diagonal_slideReady e.mirror hokA colA hcA
+  have hdMirr : (ColorMatrix.of e.diagram.mirror col).DiagonalSum := by
+    simpa [hMat] using hdA
+  have hrot :
+      ColorMatrix.of e.diagram.invert col =
+        (ColorMatrix.of e.diagram.mirror col).rotate := by
+    simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+  simpa [hrot] using ColorMatrix.DiagonalSum.rotate hdMirr
+
+theorem coloring_mul_invert_left_unit (s : CrossingSign) (T : TangleDiagram) :
+    ColoringIsotopy ((crossingTangle s).mul T)
+      ((crossingTangle s).invert.mul T) :=
+  ColoringIsotopy.mul_left (ColoringIsotopy.invert_unit s)
+
+namespace ColorMatrix
+
+/-- Unit on top: `f([+1]*S) = 1/(1/f(S)+1)`. -/
+theorem fraction_mulTop_one {a b c d : Int} (_h : a + d = b + c)
+    (hm : ¬ (a = b ∧ b = d)) :
+    (mk b (2 * b - a) c d).fraction =
+      ((mk a b c d).fraction.inv.add 1).inv := by
+  unfold fraction
+  dsimp
+  have hnum : (2 * b - a) - b = b - a := by ring
+  have hdenEq : (2 * b - a) - d = (b - a) + (b - d) := by omega
+  by_cases hd : b - d = 0
+  · have hab : a ≠ b := by intro hab; exact hm ⟨hab, by omega⟩
+    have ha : b - a ≠ 0 := sub_ne_zero.mpr hab.symm
+    have hd' : (2 * b - a) - d ≠ 0 := by rwa [hdenEq, hd, add_zero]
+    simp [hd, hd', CFValue.inv, CFValue.add, hnum]
+    have hden0 : (2 * b - a) - d = b - a := by omega
+    simp [hden0]
+    have : Rat.divInt (b - a) (b - a) = 1 := by
+      rw [Rat.divInt_eq_div]
+      field_simp [ha]
+    simp [this]
+  · by_cases ha : b - a = 0
+    · have hd' : (2 * b - a) - d ≠ 0 := by rwa [hdenEq, ha, zero_add]
+      simp [hd, ha, hd', CFValue.inv, CFValue.add, hnum]
+    · by_cases hd' : (2 * b - a) - d = 0
+      · have hsum : (b - d) + (b - a) = 0 := by omega
+        simp [hd, ha, hd', CFValue.inv, CFValue.add]
+        rw [divInt_add_one (b - d) (b - a) ha, hsum]
+        simp [Rat.divInt_eq_zero ha]
+      · simp [hd, ha, hd', CFValue.inv, CFValue.add, hnum]
+        rw [divInt_add_one (b - d) (b - a) ha]
+        have hnz : Rat.divInt ((b - d) + (b - a)) (b - a) ≠ 0 :=
+          (Rat.divInt_ne_zero ha).mpr (by omega)
+        rw [if_neg hnz, Rat.inv_divInt]
+        rw [add_comm (b - d) (b - a), ← hdenEq]
+
+/-- Unit on top: `f([-1]*S) = 1/(1/f(S)-1)`. -/
+theorem fraction_mulTop_negOne {a b c d : Int} (_h : a + d = b + c)
+    (hm : ¬ (a = b ∧ b = d)) :
+    (mk (2 * a - b) a c d).fraction =
+      ((mk a b c d).fraction.inv.add (.ofInt (-1))).inv := by
+  unfold fraction
+  dsimp
+  have hnum : a - (2 * a - b) = b - a := by ring
+  by_cases hd : b - d = 0
+  · have hab : a ≠ b := by intro hab; exact hm ⟨hab, by omega⟩
+    have ha : b - a ≠ 0 := sub_ne_zero.mpr hab.symm
+    have hden : a - d ≠ 0 := by omega
+    simp [hd, hden, CFValue.inv, CFValue.add, CFValue.ofInt, hnum]
+    have hden' : a - d = -(b - a) := by omega
+    rw [hden', Rat.divInt_neg]
+    simp [Rat.divInt_eq_div, ha]
+    have hz : (b : Rat) - a ≠ 0 := by exact_mod_cast ha
+    field_simp
+    ring
+  · by_cases hb : a - d = 0
+    · have ha : b - a ≠ 0 := by intro hz; omega
+      have hsum : (b - d) - (b - a) = 0 := by omega
+      simp [hd, hb, ha, CFValue.inv, CFValue.add, CFValue.ofInt, hnum]
+      rw [divInt_sub_one _ _ ha, hsum]
+      simp [Rat.divInt_eq_zero ha]
+    · by_cases ha : b - a = 0
+      · simp [hd, hb, ha, CFValue.inv, CFValue.add, CFValue.ofInt, hnum]
+      · have hsum : (b - d) - (b - a) = a - d := by omega
+        simp [hd, hb, ha, CFValue.inv, CFValue.add, CFValue.ofInt, hnum]
+        rw [divInt_sub_one _ _ ha, hsum]
+        have hnz : Rat.divInt (a - d) (b - a) ≠ 0 :=
+          (Rat.divInt_ne_zero ha).mpr hb
+        rw [if_neg hnz, Rat.inv_divInt]
+
+end ColorMatrix
+
+theorem coloring_fraction_mulTop_one (S : TangleDiagram) (colS : Nat → Int)
+    (hcS : S.IsColored colS)
+    (hdiagS : (ColorMatrix.of S colS).DiagonalSum)
+    (hmS : (ColorMatrix.of S colS).NotMono) :
+    (one.mul S).IsColored (colorMulTopOne S colS) ∧
+      (ColorMatrix.of (one.mul S) (colorMulTopOne S colS)).NotMono ∧
+      (ColorMatrix.of (one.mul S) (colorMulTopOne S colS)).fraction =
+        ((ColorMatrix.of S colS).fraction.inv.add 1).inv := by
+  refine ⟨IsColored_colorMulTopOne S colS hcS, ?_, ?_⟩
+  · rw [ColorMatrix.of_colorMulTopOne]
+    intro hmono
+    simp [ColorMatrix.NotMono, ColorMatrix.DiagonalSum, ColorMatrix.of] at hmS hdiagS hmono
+    omega
+  · rw [ColorMatrix.of_colorMulTopOne]
+    exact ColorMatrix.fraction_mulTop_one
+      (by simpa [ColorMatrix.DiagonalSum, ColorMatrix.of] using hdiagS)
+      (by simpa [ColorMatrix.NotMono, ColorMatrix.of] using hmS)
+
+theorem coloring_fraction_mulTop_negOne (S : TangleDiagram) (colS : Nat → Int)
+    (hcS : S.IsColored colS)
+    (hdiagS : (ColorMatrix.of S colS).DiagonalSum)
+    (hmS : (ColorMatrix.of S colS).NotMono) :
+    (negOne.mul S).IsColored (colorMulTopNegOne S colS) ∧
+      (ColorMatrix.of (negOne.mul S) (colorMulTopNegOne S colS)).NotMono ∧
+      (ColorMatrix.of (negOne.mul S) (colorMulTopNegOne S colS)).fraction =
+        ((ColorMatrix.of S colS).fraction.inv.add (.ofInt (-1))).inv := by
+  refine ⟨IsColored_colorMulTopNegOne S colS hcS, ?_, ?_⟩
+  · rw [ColorMatrix.of_colorMulTopNegOne]
+    intro hmono
+    simp [ColorMatrix.NotMono, ColorMatrix.DiagonalSum, ColorMatrix.of] at hmS hdiagS hmono
+    omega
+  · rw [ColorMatrix.of_colorMulTopNegOne]
+    exact ColorMatrix.fraction_mulTop_negOne
+      (by simpa [ColorMatrix.DiagonalSum, ColorMatrix.of] using hdiagS)
+      (by simpa [ColorMatrix.NotMono, ColorMatrix.of] using hmS)
+
+/-- Fresh colorings of `(e+[s])ⁱ` and of `[s]ⁱ * eⁱ` on a `slideReady`
+    diagram with non-kink right ports. Not a `ColoringIsotopy`. -/
+theorem coloring_invert_add_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (s : CrossingSign) (_hne : e.diagram.NE ≠ e.diagram.SE) :
+    ∃ colL colR,
+      ((e.diagram.add (crossingTangle s)).invert).IsColored colL ∧
+      (((crossingTangle s).invert.mul e.diagram.invert)).IsColored colR ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle s)).invert colL).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).invert.mul e.diagram.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle s)).invert colL).fraction =
+        (ColorMatrix.of ((crossingTangle s).invert.mul e.diagram.invert)
+          colR).fraction := by
+  have hokL : (TwistExpr.addRight e s).slideReady :=
+    TwistExpr.addRight_slideReady e s hok
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom (.addRight e s) hokL
+  obtain ⟨colI, hcI, hmI, hfI⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e hok
+  have hdI := twist_coloring_diagonal_invert_slideReady e hok colI hcI
+  have hstep : ColoringIsotopy
+      ((crossingTangle s).mul e.diagram.invert)
+      ((crossingTangle s).invert.mul e.diagram.invert) :=
+    coloring_mul_invert_left_unit s _
+  cases s with
+  | pos =>
+    obtain ⟨hcM, hmM, hfM⟩ :=
+      coloring_fraction_mulTop_one e.diagram.invert colI hcI hdI hmI
+    have hcM' :
+        ((crossingTangle .pos).mul e.diagram.invert).IsColored
+          (colorMulTopOne e.diagram.invert colI) := by
+      simpa [crossingTangle] using hcM
+    obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+      coloring_fraction_ColoringIsotopy hstep
+        (colorMulTopOne e.diagram.invert colI) hcM'
+    refine ⟨colL, colR, hcL, hcR, hmL, ?_, ?_⟩
+    · have hEq := hMat
+      simp [crossingTangle] at hEq hmM ⊢
+      exact hEq ▸ hmM
+    · have hfR :
+          (ColorMatrix.of ((crossingTangle .pos).invert.mul e.diagram.invert)
+            colR).fraction =
+            ((ColorMatrix.of e.diagram.invert colI).fraction.inv.add 1).inv := by
+        simpa [crossingTangle] using hfrac.trans hfM
+      change (ColorMatrix.of (e.addRight CrossingSign.pos).diagram.invert
+          colL).fraction =
+        (ColorMatrix.of ((crossingTangle CrossingSign.pos).invert.mul
+          e.diagram.invert) colR).fraction
+      rw [hfL, hfR, hfI]
+      simp [TwistExpr.toStandard, StandardExpr.addRight_fraction,
+        CrossingSign.cfValue, CFValue.inv_inv]
+  | neg =>
+    obtain ⟨hcM, hmM, hfM⟩ :=
+      coloring_fraction_mulTop_negOne e.diagram.invert colI hcI hdI hmI
+    have hcM' :
+        ((crossingTangle .neg).mul e.diagram.invert).IsColored
+          (colorMulTopNegOne e.diagram.invert colI) := by
+      simpa [crossingTangle] using hcM
+    obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+      coloring_fraction_ColoringIsotopy hstep
+        (colorMulTopNegOne e.diagram.invert colI) hcM'
+    refine ⟨colL, colR, hcL, hcR, hmL, ?_, ?_⟩
+    · have hEq := hMat
+      simp [crossingTangle] at hEq hmM ⊢
+      exact hEq ▸ hmM
+    · have hfR :
+          (ColorMatrix.of ((crossingTangle .neg).invert.mul e.diagram.invert)
+            colR).fraction =
+            ((ColorMatrix.of e.diagram.invert colI).fraction.inv.add
+              (.ofInt (-1))).inv := by
+        simpa [crossingTangle] using hfrac.trans hfM
+      change (ColorMatrix.of (e.addRight CrossingSign.neg).diagram.invert
+          colL).fraction =
+        (ColorMatrix.of ((crossingTangle CrossingSign.neg).invert.mul
+          e.diagram.invert) colR).fraction
+      rw [hfL, hfR, hfI]
+      simp [TwistExpr.toStandard, StandardExpr.addRight_fraction,
+        CrossingSign.cfValue, CFValue.inv_inv]
+
+/-- Fresh colorings of `(e*[s])ⁱ` and of `eⁱ + [s]ⁱ` on a `slideReady`
+    diagram. Not a `ColoringIsotopy`. -/
+theorem coloring_invert_mul_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (s : CrossingSign) :
+    ∃ colL colR,
+      ((e.diagram.mul (crossingTangle s)).invert).IsColored colL ∧
+      ((e.diagram.invert.add (crossingTangle s).invert)).IsColored colR ∧
+      (ColorMatrix.of (e.diagram.mul (crossingTangle s)).invert colL).NotMono ∧
+      (ColorMatrix.of (e.diagram.invert.add (crossingTangle s).invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.mul (crossingTangle s)).invert colL).fraction =
+        (ColorMatrix.of (e.diagram.invert.add (crossingTangle s).invert)
+          colR).fraction := by
+  have hokL : (TwistExpr.mulBottom e s).slideReady :=
+    TwistExpr.mulBottom_slideReady e s hok
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom (.mulBottom e s) hokL
+  obtain ⟨colI, hcI, hmI, hfI⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e hok
+  have hdI := twist_coloring_diagonal_invert_slideReady e hok colI hcI
+  have hstep := coloring_add_invert_right_unit e.diagram.invert s
+  cases s with
+  | pos =>
+    have hcA : (e.diagram.invert.add one).IsColored
+        (colorAddOne e.diagram.invert colI) :=
+      IsColored_add_one _ colI hcI
+    have hM := ColorMatrix.of_add_one e.diagram.invert colI
+    have hmA : (ColorMatrix.of (e.diagram.invert.add one)
+        (colorAddOne e.diagram.invert colI)).NotMono := by
+      rw [hM]
+      intro hmono
+      simp [ColorMatrix.NotMono, ColorMatrix.DiagonalSum, ColorMatrix.of]
+        at hmI hdI hmono
+      omega
+    have hfA :
+        (ColorMatrix.of (e.diagram.invert.add one)
+          (colorAddOne e.diagram.invert colI)).fraction =
+          (ColorMatrix.of e.diagram.invert colI).fraction.add 1 := by
+      rw [hM]
+      exact ColorMatrix.fraction_add_one
+        (a := colI e.diagram.invert.NW) (b := colI e.diagram.invert.NE)
+        (c := colI e.diagram.invert.SW) (d := colI e.diagram.invert.SE)
+        (by simpa [ColorMatrix.DiagonalSum, ColorMatrix.of] using hdI)
+    have hcA' : (e.diagram.invert.add (crossingTangle .pos)).IsColored
+        (colorAddOne e.diagram.invert colI) := by
+      simpa [crossingTangle] using hcA
+    obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+      coloring_fraction_ColoringIsotopy hstep
+        (colorAddOne e.diagram.invert colI) hcA'
+    refine ⟨colL, colR, hcL, hcR, hmL, ?_, ?_⟩
+    · have hEq := hMat
+      simp [crossingTangle] at hEq hmA ⊢
+      exact hEq ▸ hmA
+    · have hfR :
+          (ColorMatrix.of (e.diagram.invert.add
+            (crossingTangle .pos).invert) colR).fraction =
+            (ColorMatrix.of e.diagram.invert colI).fraction.add 1 := by
+        simpa [crossingTangle] using hfrac.trans hfA
+      change (ColorMatrix.of (e.mulBottom CrossingSign.pos).diagram.invert
+          colL).fraction =
+        (ColorMatrix.of (e.diagram.invert.add
+          (crossingTangle CrossingSign.pos).invert) colR).fraction
+      rw [hfL, hfR, hfI]
+      simp [TwistExpr.toStandard, StandardExpr.mulBottom_fraction,
+        CrossingSign.cfValue, CFValue.inv_inv]
+  | neg =>
+    have hcA : (e.diagram.invert.add negOne).IsColored
+        (colorAddNegOne e.diagram.invert colI) :=
+      IsColored_add_negOne _ colI hcI
+    have hM := ColorMatrix.of_add_negOne e.diagram.invert colI
+    have hmA : (ColorMatrix.of (e.diagram.invert.add negOne)
+        (colorAddNegOne e.diagram.invert colI)).NotMono := by
+      rw [hM]
+      intro hmono
+      simp [ColorMatrix.NotMono, ColorMatrix.DiagonalSum, ColorMatrix.of]
+        at hmI hdI hmono
+      omega
+    have hfA :
+        (ColorMatrix.of (e.diagram.invert.add negOne)
+          (colorAddNegOne e.diagram.invert colI)).fraction =
+          (ColorMatrix.of e.diagram.invert colI).fraction.add
+            (.ofInt (-1)) := by
+      rw [hM]
+      exact ColorMatrix.fraction_add_negOne
+        (a := colI e.diagram.invert.NW) (b := colI e.diagram.invert.NE)
+        (c := colI e.diagram.invert.SW) (d := colI e.diagram.invert.SE)
+        (by simpa [ColorMatrix.DiagonalSum, ColorMatrix.of] using hdI)
+    have hcA' : (e.diagram.invert.add (crossingTangle .neg)).IsColored
+        (colorAddNegOne e.diagram.invert colI) := by
+      simpa [crossingTangle] using hcA
+    obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+      coloring_fraction_ColoringIsotopy hstep
+        (colorAddNegOne e.diagram.invert colI) hcA'
+    refine ⟨colL, colR, hcL, hcR, hmL, ?_, ?_⟩
+    · have hEq := hMat
+      simp [crossingTangle] at hEq hmA ⊢
+      exact hEq ▸ hmA
+    · have hfR :
+          (ColorMatrix.of (e.diagram.invert.add
+            (crossingTangle .neg).invert) colR).fraction =
+            (ColorMatrix.of e.diagram.invert colI).fraction.add
+              (.ofInt (-1)) := by
+        simpa [crossingTangle] using hfrac.trans hfA
+      change (ColorMatrix.of (e.mulBottom CrossingSign.neg).diagram.invert
+          colL).fraction =
+        (ColorMatrix.of (e.diagram.invert.add
+          (crossingTangle CrossingSign.neg).invert) colR).fraction
+      rw [hfL, hfR, hfI]
+      simp [TwistExpr.toStandard, StandardExpr.mulBottom_fraction,
+        CrossingSign.cfValue, CFValue.inv_inv]
+
 end RationalTangles
