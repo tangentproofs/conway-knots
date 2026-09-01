@@ -494,6 +494,200 @@ theorem coloring_zero_add (T : TangleDiagram) (col : Nat → Int)
   · rw [zero_add_SE_reindex, colorZeroAdd_reindex]
   · simp [colorZeroAdd, TangleDiagram.add, TangleDiagram.zero]
 
+/-! ## Sign-preserving `[±1]` slide (algebraic Figure 5)
+
+`t.rot180` cycles the box endpoints (`NW = t.SE`), so `colorAddRight` on
+`t.rot180` does not preserve the four disc colors of `[±1]+t`. The PD-code of
+`t.rot180+[±1]` is a planar reindexing of `([±1]+t).rot180`. Pulling `col`
+along that reindexing yields the 180°-rotated color matrix. When the original
+matrix satisfies `DiagonalSum`, the affine map `α ↦ (NW+SE) - α` restores the
+four disc colors.
+
+This is **not** an `IsLocalFlype` witness: an injective `f` cannot both fix
+disc endpoints and implement `rotate180` on `t` (`t.NE` would have to map to
+both `E.NE` and `t.NE`). It is also not `hflip`/`Crossing.switch` or
+`(-T).vflip`.
+
+`SameEndpointColors` for the unrotated diagrams is **false** in general (a
+crossingless diagonal `t` with `NW=SE`, `NE=SW` gives a well-formed
+`[±1]+t` whose non-monochrome colorings do not extend to `t.rot180+[±1]`
+with the same positional colors). Hence no `ColoringIsotopy` constructor is
+added in this slice.
+-/
+
+theorem Crossing.rotate180_maxArc (C : Crossing) :
+    C.rotate180.maxArc = C.maxArc := by
+  simp [Crossing.rotate180, Crossing.maxArc]
+  omega
+
+theorem foldl_maxArc_map_rotate180 (cs : List Crossing) (b : Nat) :
+    (cs.map Crossing.rotate180).foldl (fun m C => max m C.maxArc) b =
+      cs.foldl (fun m C => max m C.maxArc) b := by
+  induction cs generalizing b with
+  | nil => rfl
+  | cons C cs ih =>
+    simp [List.foldl]
+    rw [Crossing.rotate180_maxArc, ih]
+
+theorem maxArc_rot180 (T : TangleDiagram) : T.rot180.maxArc = T.maxArc := by
+  unfold TangleDiagram.rot180 TangleDiagram.maxArc
+  simp [foldl_maxArc_map_rotate180]
+  ac_rfl
+
+theorem IsColored_rot180 (T : TangleDiagram) (col : Nat → Int)
+    (h : T.IsColored col) : T.rot180.IsColored col := by
+  intro C hC
+  simp [TangleDiagram.rot180, List.mem_map] at hC
+  obtain ⟨C0, hC0, rfl⟩ := hC
+  exact ColoringRule_rotate180 C0 col (h C0 hC0)
+
+theorem one_maxArc : one.maxArc = 3 := by
+  unfold one TangleDiagram.maxArc Crossing.maxArc
+  simp
+
+theorem crossingTangle_maxArc (s : CrossingSign) :
+    (crossingTangle s).maxArc = 3 := by
+  cases s with
+  | pos => simp [crossingTangle, one_maxArc]
+  | neg =>
+    simp [crossingTangle, negOne, maxArc_mirror, one_maxArc]
+
+theorem crossingTangle_NW (s : CrossingSign) : (crossingTangle s).NW = 0 := by
+  cases s <;> simp [crossingTangle, one, negOne, TangleDiagram.mirror]
+
+theorem crossingTangle_NE (s : CrossingSign) : (crossingTangle s).NE = 1 := by
+  cases s <;> simp [crossingTangle, one, negOne, TangleDiagram.mirror]
+
+theorem crossingTangle_SE (s : CrossingSign) : (crossingTangle s).SE = 2 := by
+  cases s <;> simp [crossingTangle, one, negOne, TangleDiagram.mirror]
+
+theorem crossingTangle_SW (s : CrossingSign) : (crossingTangle s).SW = 3 := by
+  cases s <;> simp [crossingTangle, one, negOne, TangleDiagram.mirror]
+
+/-- Arc map identifying `([±1]+t).rot180` with `t.rot180+[±1]`. On the unit,
+    ports are 180-cycled then glued; on the shifted copy of `t` it is unshift. -/
+def flypeSlideAddFun (s : CrossingSign) (t : TangleDiagram) (a : Nat) : Nat :=
+  let U := crossingTangle s
+  let m := t.maxArc
+  if a = U.NW then U.SE + (m + 1)
+  else if a = U.NE then t.NW
+  else if a = U.SE then t.SW
+  else if a = U.SW then U.NE + (m + 1)
+  else
+    let b := a - (U.maxArc + 1)
+    if b = t.NW ∨ b = t.SW ∨ t.maxArc < b then a + m + 8
+    else b
+
+theorem flypeSlideAddFun_unit_NW (s : CrossingSign) (t : TangleDiagram) :
+    flypeSlideAddFun s t (crossingTangle s).NW =
+      (crossingTangle s).SE + (t.maxArc + 1) := by
+  simp [flypeSlideAddFun]
+
+theorem flypeSlideAddFun_unit_NE (s : CrossingSign) (t : TangleDiagram) :
+    flypeSlideAddFun s t (crossingTangle s).NE = t.NW := by
+  have hne : (crossingTangle s).NE ≠ (crossingTangle s).NW :=
+    (crossingTangle_NW_ne_NE s).symm
+  simp [flypeSlideAddFun, hne]
+
+theorem flypeSlideAddFun_unit_SE (s : CrossingSign) (t : TangleDiagram) :
+    flypeSlideAddFun s t (crossingTangle s).SE = t.SW := by
+  have hNW : (crossingTangle s).SE ≠ (crossingTangle s).NW := by
+    cases s <;> simp [crossingTangle, one, negOne, TangleDiagram.mirror]
+  have hNE : (crossingTangle s).SE ≠ (crossingTangle s).NE := by
+    cases s <;> simp [crossingTangle, one, negOne, TangleDiagram.mirror]
+  simp [flypeSlideAddFun, hNW, hNE]
+
+theorem flypeSlideAddFun_unit_SW (s : CrossingSign) (t : TangleDiagram) :
+    flypeSlideAddFun s t (crossingTangle s).SW =
+      (crossingTangle s).NE + (t.maxArc + 1) := by
+  have hNW : (crossingTangle s).SW ≠ (crossingTangle s).NW :=
+    (crossingTangle_NW_ne_SW s).symm
+  have hNE : (crossingTangle s).SW ≠ (crossingTangle s).NE := by
+    cases s <;> simp [crossingTangle, one, negOne, TangleDiagram.mirror]
+  have hSE : (crossingTangle s).SW ≠ (crossingTangle s).SE := by
+    cases s <;> simp [crossingTangle, one, negOne, TangleDiagram.mirror]
+  simp [flypeSlideAddFun, hNW, hNE, hSE]
+
+theorem flypeSlideAddFun_eq (s : CrossingSign) (t : TangleDiagram) (a : Nat) :
+    flypeSlideAddFun s t a =
+      if a = 0 then t.maxArc + 3
+      else if a = 1 then t.NW
+      else if a = 2 then t.SW
+      else if a = 3 then t.maxArc + 2
+      else if a - 4 = t.NW ∨ a - 4 = t.SW ∨ t.maxArc < a - 4 then a + t.maxArc + 8
+      else a - 4 := by
+  have hNW : (crossingTangle s).NW = 0 := crossingTangle_NW s
+  have hNE : (crossingTangle s).NE = 1 := crossingTangle_NE s
+  have hSE : (crossingTangle s).SE = 2 := crossingTangle_SE s
+  have hSW : (crossingTangle s).SW = 3 := crossingTangle_SW s
+  have hU : (crossingTangle s).maxArc = 3 := crossingTangle_maxArc s
+  unfold flypeSlideAddFun
+  simp [hNW, hNE, hSE, hSW, hU]
+  split_ifs <;> omega
+
+theorem flypeSlideAddFun_shift (s : CrossingSign) (t : TangleDiagram) {b : Nat}
+    (hNW : b ≠ t.NW) (hSW : b ≠ t.SW) (hle : b ≤ t.maxArc) :
+    flypeSlideAddFun s t (b + ((crossingTangle s).maxArc + 1)) = b := by
+  rw [crossingTangle_maxArc, flypeSlideAddFun_eq]
+  have : b + (3 + 1) ≠ 0 := by omega
+  have : b + (3 + 1) ≠ 1 := by omega
+  have : b + (3 + 1) ≠ 2 := by omega
+  have : b + (3 + 1) ≠ 3 := by omega
+  have : ¬ t.maxArc < b := Nat.not_lt.mpr hle
+  simp [this, hNW, hSW]
+
+theorem flypeSlideAddFun_injective (s : CrossingSign) (t : TangleDiagram)
+    (hne : t.NW ≠ t.SW) :
+    Function.Injective (flypeSlideAddFun s t) := by
+  intro a b h
+  have hNWle : t.NW ≤ t.maxArc := maxArc_ge_NW t
+  have hSWle : t.SW ≤ t.maxArc := maxArc_ge_SW t
+  simp [flypeSlideAddFun_eq] at h
+  split_ifs at h <;> omega
+
+theorem flypeSlideAddFun_comp_glue (s : CrossingSign) (t : TangleDiagram)
+    (a : Nat) (hle : a ≤ t.maxArc) :
+    flypeSlideAddFun s t
+      (addGlue (crossingTangle s) t
+        (a + ((crossingTangle s).maxArc + 1))) = a := by
+  rw [addGlue_shift_eq, crossingTangle_maxArc]
+  by_cases hNW : a = t.NW
+  · rw [if_pos hNW, flypeSlideAddFun_eq]
+    simp [crossingTangle_NE, hNW]
+  · rw [if_neg hNW]
+    by_cases hSW : a = t.SW
+    · rw [if_pos hSW, flypeSlideAddFun_eq]
+      simp [crossingTangle_SE, hSW]
+    · rw [if_neg hSW, flypeSlideAddFun_eq]
+      have : ¬ t.maxArc < a := Nat.not_lt.mpr hle
+      simp [hNW, hSW, this]
+
+theorem Crossing.rotate180_rename (f : Nat → Nat) (C : Crossing) :
+    (C.rename f).rotate180 = C.rotate180.rename f :=
+  rfl
+
+theorem flypeSlideAdd_map_t (s : CrossingSign) (t : TangleDiagram)
+    {C : Crossing} (hC : C ∈ t.crossings) :
+    (C.rename (addGlue (crossingTangle s) t ∘ addShift (crossingTangle s))).rotate180.rename
+        (flypeSlideAddFun s t) =
+      C.rotate180 := by
+  have hb := arc_le_maxArc_of_mem t hC
+  simp [Crossing.rename, Crossing.rotate180, Function.comp, addShift]
+  rw [flypeSlideAddFun_comp_glue s t _ hb.2.2.1,
+      flypeSlideAddFun_comp_glue s t _ hb.2.2.2,
+      flypeSlideAddFun_comp_glue s t _ hb.1,
+      flypeSlideAddFun_comp_glue s t _ hb.2.1]
+  simp
+
+-- Slice 2 blocker: t.rot180+[±1] is a planar reindexing of ([±1]+t).rot180
+-- (flypeSlideAddFun, flypeSlideAdd_map_t). An injective f identifies rotated
+-- disc endpoints, so planar/colorFlype transport gives the 180-degree color
+-- matrix, not SameEndpointColors of the unrotated diagrams. The affine map
+-- sending a color x to (NW+SE)-x restores the matrix iff DiagonalSum holds;
+-- that fails for some well-formed t (crossingless diagonal NW=SE, NE=SW), so
+-- the un-hypothesized coloring theorem is false and no ColoringIsotopy
+-- constructor is added. The vertical flype_slide_mul case is the same.
+
 /-- Recolor after a coloring-ready isotopy so that endpoint colors (hence
     the color matrix and coloring fraction) are unchanged. -/
 theorem coloring_ColoringIsotopy {D E : TangleDiagram}
