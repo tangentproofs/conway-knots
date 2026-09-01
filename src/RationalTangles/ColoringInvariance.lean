@@ -41,11 +41,18 @@ theorem SameEndpointColors.trans {D E F : TangleDiagram} {col col' col'' : Nat �
 
 theorem Crossing.sameUpToRotation.symm {C D : Crossing}
     (h : C.sameUpToRotation D) : D.sameUpToRotation C := by
-  rcases h with rfl | hrot
+  rcases h with rfl | hrot | hrev | hrr
   · exact Or.inl rfl
   · have : D = C.rotate180 := by
       rw [hrot, Crossing.rotate180_involutive]
-    exact Or.inr this
+    exact Or.inr (Or.inl this)
+  · have : D = C.reverseUnders := by
+      rw [hrev, Crossing.reverseUnders_involutive]
+    exact Or.inr (Or.inr (Or.inl this))
+  · have : D = C.rotate180.reverseUnders := by
+      rw [hrr, Crossing.rotate180_involutive, Crossing.reverseUnders_involutive]
+    refine Or.inr (Or.inr (Or.inr ?_))
+    rw [this, ← Crossing.reverseUnders_rotate180]
 
 theorem pairRel_symm {α} {R : α → α → Prop} (hR : ∀ x y, R x y → R y x) :
     ∀ {xs ys : List α}, pairRel R xs ys → pairRel R ys xs
@@ -1883,5 +1890,6 @@ theorem coloring_IsReidemeisterII (D E : TangleDiagram) (col : Nat → Int)
   rcases h with h | h
   · exact coloring_reidemeister_II_add D E col h hc hwE
   · exact coloring_reidemeister_II_remove D E col h hc
+
 
 end RationalTangles

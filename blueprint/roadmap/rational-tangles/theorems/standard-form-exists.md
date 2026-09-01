@@ -1,6 +1,9 @@
 ---
 declaration: lemma
 origin: cited
+statement: formalized
+lean: RationalTangles.standard_form_exists
+proof: formalized
 ---
 
 # Every rational tangle has a standard form

@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Michal Wallace
 -/
 
-import RationalTangles.IntegerTangle
+import RationalTangles.Flype
 
 /-!
 # Rational tangles in twist form
@@ -16,21 +16,23 @@ algebraic expression; its diagram interpretation is a PD-code, and a
 diagram is rational when it is isotopic to some twist-form diagram.
 
 Addition or multiplication of two non-integer rational tangles need not
-remain rational; the constructors only adjoin a single `[±1]` at a time
-(or combine previously constructed twist-form expressions, which is the
-same generation).
+remain rational; the constructors only adjoin a single `[±1]` at a time.
 -/
 
 namespace RationalTangles
 
-/-- An algebraic twist-form expression for a rational tangle. -/
+/-- An algebraic twist-form expression for a rational tangle: start from
+    `[0]` or `[∞]` (or the elementary `[±1]`) and repeatedly add `[±1]` on
+    the left or right, or multiply by `[±1]` on the top or bottom. -/
 inductive TwistExpr where
   | zero
   | infinity
   | one
   | negOne
-  | add : TwistExpr → TwistExpr → TwistExpr
-  | mul : TwistExpr → TwistExpr → TwistExpr
+  | addRight : TwistExpr → CrossingSign → TwistExpr
+  | addLeft : TwistExpr → CrossingSign → TwistExpr
+  | mulBottom : TwistExpr → CrossingSign → TwistExpr
+  | mulTop : TwistExpr → CrossingSign → TwistExpr
   deriving DecidableEq, Repr
 
 namespace TwistExpr
@@ -41,8 +43,10 @@ def diagram : TwistExpr → TangleDiagram
   | infinity => TangleDiagram.infinity
   | one => RationalTangles.one
   | negOne => RationalTangles.negOne
-  | add T S => T.diagram + S.diagram
-  | mul T S => T.diagram * S.diagram
+  | addRight e s => e.diagram + crossingTangle s
+  | addLeft e s => crossingTangle s + e.diagram
+  | mulBottom e s => e.diagram * crossingTangle s
+  | mulTop e s => crossingTangle s * e.diagram
 
 end TwistExpr
 

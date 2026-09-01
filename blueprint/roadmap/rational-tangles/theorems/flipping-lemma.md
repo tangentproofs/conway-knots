@@ -1,6 +1,9 @@
 ---
 declaration: lemma
 origin: cited
+statement: formalized
+lean: RationalTangles.flipping_lemma
+proof: formalized
 ---
 
 # Flipping lemma

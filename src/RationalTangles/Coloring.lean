@@ -125,6 +125,25 @@ theorem tau_self_distrib (β γ α : Int) :
     tau (tau β γ) (tau β α) = tau β (tau γ α) := by
   unfold tau; ring
 
+/-- Recolor after switching over/under at `C`: the four incident arcs all
+    receive the old over-color `β`. The switched crossing is then monochrome,
+    so `ColoringRule` holds. -/
+def recolorSwitch (C : Crossing) (col : Nat → Int) (a : Nat) : Int :=
+  if a = C.a0 ∨ a = C.a1 ∨ a = C.a2 ∨ a = C.a3 then col C.a0 else col a
+
+theorem recolorSwitch_mem (C : Crossing) (col : Nat → Int) {a : Nat}
+    (h : a = C.a0 ∨ a = C.a1 ∨ a = C.a2 ∨ a = C.a3) :
+    recolorSwitch C col a = col C.a0 := by
+  simp [recolorSwitch, h]
+
+theorem ColoringRule_switch_recolor (C : Crossing) (col : Nat → Int)
+    (h : ColoringRule C col) :
+    ColoringRule C.switch (recolorSwitch C col) := by
+  obtain ⟨hβ, hr⟩ := h
+  constructor
+  · simp [Crossing.switch, recolorSwitch]
+  · simp [Crossing.switch, recolorSwitch]; ring
+
 theorem ColoringRule_rotate180 (C : Crossing) (col : Nat → Int)
     (h : ColoringRule C col) : ColoringRule C.rotate180 col := by
   obtain ⟨hβ, hr⟩ := h
@@ -133,15 +152,30 @@ theorem ColoringRule_rotate180 (C : Crossing) (col : Nat → Int)
   · simp [Crossing.rotate180]
     linarith
 
+theorem ColoringRule_reverseUnders (C : Crossing) (col : Nat → Int)
+    (h : ColoringRule C col) : ColoringRule C.reverseUnders col := by
+  obtain ⟨hβ, hr⟩ := h
+  constructor
+  · simpa [Crossing.reverseUnders] using hβ
+  · simp [Crossing.reverseUnders]; linarith
+
 theorem ColoringRule_sameUpToRotation {C D : Crossing} (col : Nat → Int)
     (h : C.sameUpToRotation D) (hc : ColoringRule C col) :
     ColoringRule D col := by
-  rcases h with rfl | hrot
+  rcases h with rfl | hrot | hrev | hrr
   · exact hc
   · have hD : D = C.rotate180 := by
       rw [hrot, Crossing.rotate180_involutive]
     rw [hD]
     exact ColoringRule_rotate180 C col hc
+  · have hD : D = C.reverseUnders := by
+      rw [hrev, Crossing.reverseUnders_involutive]
+    rw [hD]
+    exact ColoringRule_reverseUnders C col hc
+  · have hD : D = C.rotate180.reverseUnders := by
+      rw [hrr, Crossing.rotate180_involutive, Crossing.reverseUnders_involutive]
+    rw [hD]
+    exact ColoringRule_reverseUnders _ col (ColoringRule_rotate180 C col hc)
 
 @[simp] theorem ColoringRule_rename (f : Nat → Nat) (C : Crossing) (col : Nat → Int) :
     ColoringRule (C.rename f) col ↔ ColoringRule C (col ∘ f) :=

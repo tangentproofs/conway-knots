@@ -18,6 +18,7 @@ import RationalTangles.StandardForm
 import RationalTangles.ContinuedFractionForm
 import RationalTangles.CanonicalForm
 import RationalTangles.TangleFraction
+import RationalTangles.FlippingLemma
 
 /-!
 # Rational tangles

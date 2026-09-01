@@ -19,6 +19,11 @@ the value of the corresponding `ArithmeticCF`.
 
 namespace RationalTangles
 
+/-- Arithmetic value of a crossing sign: `+1` or `-1`. -/
+def CrossingSign.cfValue : CrossingSign → CFValue
+  | .pos => 1
+  | .neg => .ofInt (-1)
+
 namespace TwistExpr
 
 /-- Definition 8: evaluate a twist-form expression in ordinary arithmetic. -/
@@ -27,8 +32,10 @@ def fraction : TwistExpr → CFValue
   | infinity => .inf
   | one => 1
   | negOne => .ofInt (-1)
-  | add T S => T.fraction.add S.fraction
-  | mul T S => (T.fraction.inv.add S.fraction).inv
+  | addRight e s => e.fraction.add s.cfValue
+  | addLeft e s => s.cfValue.add e.fraction
+  | mulBottom e s => (e.fraction.inv.add s.cfValue).inv
+  | mulTop e s => (s.cfValue.inv.add e.fraction).inv
 
 end TwistExpr
 

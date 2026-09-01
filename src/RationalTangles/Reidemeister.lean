@@ -50,6 +50,18 @@ inductive CrossingSign where
   | neg
   deriving DecidableEq, Repr
 
+namespace CrossingSign
+
+/-- Reverse a crossing type: positive ↔ negative. -/
+def flip : CrossingSign → CrossingSign
+  | .pos => .neg
+  | .neg => .pos
+
+@[simp] theorem flip_flip (s : CrossingSign) : s.flip.flip = s := by
+  cases s <;> rfl
+
+end CrossingSign
+
 /-- A single crossing of a 2-tangle diagram.
 
     Ports are read counterclockwise. Ports `0` and `2` are the overstrand;
@@ -94,9 +106,16 @@ def rotate180 (C : Crossing) : Crossing :=
 def rename (f : Nat → Nat) (C : Crossing) : Crossing :=
   { a0 := f C.a0, a1 := f C.a1, a2 := f C.a2, a3 := f C.a3, sign := C.sign }
 
-/-- Equal as PD-data after a possible 180° rotation of ports. -/
+/-- Reverse the cyclic reading of the two under-ports and flip the sign.
+    For an unoriented diagram this is the same geometric crossing (clockwise
+    versus counterclockwise PD convention). -/
+def reverseUnders (C : Crossing) : Crossing :=
+  { a0 := C.a0, a1 := C.a3, a2 := C.a2, a3 := C.a1, sign := C.sign.flip }
+
+/-- Equal as PD-data after a 180° rotation of ports, or after reversing the
+    cyclic reading of the unders with a compensating sign flip. -/
 def sameUpToRotation (C D : Crossing) : Prop :=
-  C = D ∨ C = D.rotate180
+  C = D ∨ C = D.rotate180 ∨ C = D.reverseUnders ∨ C = D.reverseUnders.rotate180
 
 /-- `a` is incident to `C`. -/
 def memArc (C : Crossing) (a : Nat) : Prop :=
@@ -135,9 +154,19 @@ def IsKink (C : Crossing) (loopPort : Fin 4) : Prop :=
 @[simp] theorem rotate180_involutive (C : Crossing) : C.rotate180.rotate180 = C := by
   cases C; rfl
 
+@[simp] theorem reverseUnders_involutive (C : Crossing) :
+    C.reverseUnders.reverseUnders = C := by
+  cases C
+  simp [reverseUnders]
+
+theorem reverseUnders_rotate180 (C : Crossing) :
+    C.reverseUnders.rotate180 = C.rotate180.reverseUnders := by
+  cases C
+  simp [reverseUnders, rotate180]
+
 theorem sameUpToRotation_rotate180 (C : Crossing) :
     C.sameUpToRotation C.rotate180 :=
-  Or.inr (rotate180_involutive C ▸ rfl)
+  Or.inr (Or.inl (rotate180_involutive C ▸ rfl))
 
 end Crossing
 
@@ -329,12 +358,58 @@ def IsTriangle (C D E : Crossing) : Prop :=
     D.memArc b ∧ E.memArc b ∧ ¬ C.memArc b ∧
     E.memArc c ∧ C.memArc c ∧ ¬ D.memArc c
 
+/-- Opposite over-port from `u` (the other end of the overstrand). -/
+def Crossing.extOverArc (C : Crossing) (u : Nat) : Nat :=
+  if C.a0 = u then C.a2 else C.a0
+
+/-- Opposite under-port from `w`. -/
+def Crossing.otherUnderArc (C : Crossing) (w : Nat) : Nat :=
+  if C.a1 = w then C.a3 else C.a1
+
+/-- Four ports carry pairwise distinct arcs. -/
+def Crossing.portsDistinct (C : Crossing) : Prop :=
+  C.a0 ≠ C.a1 ∧ C.a0 ≠ C.a2 ∧ C.a0 ≠ C.a3 ∧
+    C.a1 ≠ C.a2 ∧ C.a1 ≠ C.a3 ∧ C.a2 ≠ C.a3
+
+/-- Reidemeister III over-slide: slider over at `P` and `Q` (shared
+    internal over-arc `u`); `R` is the crossing being slid over, with
+    internal arcs `v` (over at `R`) and `w` (under at `P` and `R`). -/
+def IsR3OverSlide (P Q R : Crossing) (u v w : Nat) : Prop :=
+  P.adjacentDistinct ∧ Q.adjacentDistinct ∧ R.adjacentDistinct ∧
+    P.portsDistinct ∧ Q.portsDistinct ∧ R.portsDistinct ∧
+    u ≠ v ∧ v ≠ w ∧ w ≠ u ∧
+      P.isOverArc u ∧ Q.isOverArc u ∧ ¬ R.memArc u ∧
+      Q.isUnderArc v ∧ R.isOverArc v ∧ ¬ P.memArc v ∧
+      P.isUnderArc w ∧ R.isUnderArc w ∧ ¬ Q.memArc w
+
+/-- Matching of the six external triangle legs after renaming by `f`. -/
+def r3ExtMatch (f : Nat → Nat) (PD QD RD PE QE RE : Crossing)
+    (uD vD wD uE vE wE : Nat) : Prop :=
+  PE.extOverArc uE = f (PD.extOverArc uD) ∧
+    QE.extOverArc uE = f (QD.extOverArc uD) ∧
+    PE.otherUnderArc wE = f (PD.otherUnderArc wD) ∧
+    QE.otherUnderArc vE = f (QD.otherUnderArc vD) ∧
+    RE.extOverArc vE = f (RD.extOverArc vD) ∧
+    RE.otherUnderArc wE = f (RD.otherUnderArc wD)
+
+/-- Exterior diagrams agree up to crossing permutation and 180° rotation
+    of ports, with no further arc renaming. -/
+def sameCrossingData (D E : TangleDiagram) : Prop :=
+  D.NW = E.NW ∧ D.NE = E.NE ∧ D.SE = E.SE ∧ D.SW = E.SW ∧
+    ∃ Cs : List Crossing,
+      pairRel Crossing.sameUpToRotation D.crossings Cs ∧
+        List.Perm Cs E.crossings
+
+/-- Drop list entries whose original indices are `i`, `j`, or `k`. -/
+def dropIdxs {α} (i j k : Nat) : Nat → List α → List α
+  | _, [] => []
+  | n, x :: xs =>
+    if n = i ∨ n = j ∨ n = k then dropIdxs i j k (n + 1) xs
+    else x :: dropIdxs i j k (n + 1) xs
+
 /-- Drop the three crossings at indices `i`, `j`, `k`. -/
 def eraseThree (D : TangleDiagram) (i j k : Nat) : TangleDiagram :=
-  let idxs := [i, j, k]
-  -- Erase from the right so earlier indices remain valid.
-  let sorted := idxs.mergeSort (fun x y => decide (y ≤ x))
-  sorted.foldl TangleDiagram.eraseCrossing D
+  { D with crossings := dropIdxs i j k 0 D.crossings }
 
 /-- The complement of an R3 triple: crossings other than `i,j,k`, with
     boundary unchanged. Used to require that R3 does not touch the rest of
@@ -342,25 +417,53 @@ def eraseThree (D : TangleDiagram) (i j k : Nat) : TangleDiagram :=
 def exterior (D : TangleDiagram) (i j k : Nat) : TangleDiagram :=
   eraseThree D i j k
 
-/-- Reidemeister III: a strand may be slid over (or under) a crossing of two
-    other strands. The two diagrams have the same number of crossings, agree
-    outside a triangular triple, and that triple is a triangle of the same
-    signs on both sides (the internal connections of the triangle change). -/
+/-- Reidemeister III: a strand may be slid over a crossing of two other
+    strands. The diagrams have the same crossing count, the same signs on
+    a triangular triple, matching external triangle legs after renaming by
+    `f`, and the same exterior (up to permutation / 180°). Internals of
+    the triple are not boundary arcs and do not meet the exterior. -/
 def IsReidemeisterIII (D E : TangleDiagram) : Prop :=
-  D.crossings.length = E.crossings.length ∧
-    ∃ (f : Nat → Nat) (i j k : Fin D.crossings.length),
-      Function.Injective f ∧
-        i ≠ j ∧ j ≠ k ∧ i ≠ k ∧
-        E.NW = f D.NW ∧ E.NE = f D.NE ∧ E.SE = f D.SE ∧ E.SW = f D.SW ∧
-        IsTriangle D.crossings[i] D.crossings[j] D.crossings[k] ∧
-        IsTriangle (E.crossings.getD i.val default)
-          (E.crossings.getD j.val default) (E.crossings.getD k.val default) ∧
-        D.crossings[i].sign = (E.crossings.getD i.val default).sign ∧
-        D.crossings[j].sign = (E.crossings.getD j.val default).sign ∧
-        D.crossings[k].sign = (E.crossings.getD k.val default).sign ∧
-        PlanarIsotopy
-          (exterior D i.val j.val k.val)
-          ((exterior E i.val j.val k.val).rename f)
+  ∃ (hlen : D.crossings.length = E.crossings.length)
+      (f : Nat → Nat) (i j k : Fin D.crossings.length)
+      (uD vD wD uE vE wE : Nat),
+    Function.Injective f ∧
+      i ≠ j ∧ j ≠ k ∧ i ≠ k ∧
+      E.NW = f D.NW ∧ E.NE = f D.NE ∧ E.SE = f D.SE ∧ E.SW = f D.SW ∧
+      uE ≠ E.NW ∧ uE ≠ E.NE ∧ uE ≠ E.SE ∧ uE ≠ E.SW ∧
+      vE ≠ E.NW ∧ vE ≠ E.NE ∧ vE ≠ E.SE ∧ vE ≠ E.SW ∧
+      wE ≠ E.NW ∧ wE ≠ E.NE ∧ wE ≠ E.SE ∧ wE ≠ E.SW ∧
+      (∀ C ∈ (exterior E i.val j.val k.val).crossings,
+        ¬ C.memArc uE ∧ ¬ C.memArc vE ∧ ¬ C.memArc wE) ∧
+      D.crossings[i].sign = (E.crossings[i.val]'(hlen ▸ i.isLt)).sign ∧
+      D.crossings[j].sign = (E.crossings[j.val]'(hlen ▸ j.isLt)).sign ∧
+      D.crossings[k].sign = (E.crossings[k.val]'(hlen ▸ k.isLt)).sign ∧
+      ((IsR3OverSlide D.crossings[i] D.crossings[j] D.crossings[k] uD vD wD ∧
+          IsR3OverSlide (E.crossings[i.val]'(hlen ▸ i.isLt))
+            (E.crossings[j.val]'(hlen ▸ j.isLt))
+            (E.crossings[k.val]'(hlen ▸ k.isLt)) uE vE wE ∧
+          r3ExtMatch f D.crossings[i] D.crossings[j] D.crossings[k]
+            (E.crossings[i.val]'(hlen ▸ i.isLt))
+            (E.crossings[j.val]'(hlen ▸ j.isLt))
+            (E.crossings[k.val]'(hlen ▸ k.isLt)) uD vD wD uE vE wE) ∨
+        (IsR3OverSlide D.crossings[j] D.crossings[k] D.crossings[i] uD vD wD ∧
+          IsR3OverSlide (E.crossings[j.val]'(hlen ▸ j.isLt))
+            (E.crossings[k.val]'(hlen ▸ k.isLt))
+            (E.crossings[i.val]'(hlen ▸ i.isLt)) uE vE wE ∧
+          r3ExtMatch f D.crossings[j] D.crossings[k] D.crossings[i]
+            (E.crossings[j.val]'(hlen ▸ j.isLt))
+            (E.crossings[k.val]'(hlen ▸ k.isLt))
+            (E.crossings[i.val]'(hlen ▸ i.isLt)) uD vD wD uE vE wE) ∨
+        (IsR3OverSlide D.crossings[k] D.crossings[i] D.crossings[j] uD vD wD ∧
+          IsR3OverSlide (E.crossings[k.val]'(hlen ▸ k.isLt))
+            (E.crossings[i.val]'(hlen ▸ i.isLt))
+            (E.crossings[j.val]'(hlen ▸ j.isLt)) uE vE wE ∧
+          r3ExtMatch f D.crossings[k] D.crossings[i] D.crossings[j]
+            (E.crossings[k.val]'(hlen ▸ k.isLt))
+            (E.crossings[i.val]'(hlen ▸ i.isLt))
+            (E.crossings[j.val]'(hlen ▸ j.isLt)) uD vD wD uE vE wE)) ∧
+      sameCrossingData
+        ((exterior D i.val j.val k.val).rename f)
+        (exterior E i.val j.val k.val)
 
 /-- One Reidemeister generator: R1, R2, or R3 in the interior of the disc,
     or a planar isotopy that does not change crossing data. The four
