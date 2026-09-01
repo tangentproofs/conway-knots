@@ -67,8 +67,13 @@ for `Sⁱ*Tⁱ` (`colorAddRight`/`colorMulBottom` recover the affine
 right/bottom coloring). Skip `0`/`∞` on two general summands
 (matching would force `n = 0` or monochrome). Invert-add when a
 summand is the `[0]` diagram is colored separately via `add_zero_eq` /
-the `[0]+T` reindex (not glue). Invert-add with a summand `[∞]` is
-still omitted (`T+[∞]` merges `NE` with `SE`). Unrestricted
+the `[0]+T` reindex (not glue). Invert-add with a literal `[∞]`
+summand is colored separately: `T+[∞]` (resp. `[∞]+T`) merges `NE`
+with `SE` (resp. `NW` with `SW`), so the invert PD-code is not a
+reindex of `Tⁱ`. A dummy-arc coloring (constant `0` on crossings,
+`1` on the unused kink strand) is a genuine coloring of both
+`(T+[∞])ⁱ` and `[∞]ⁱ*Tⁱ`, each of fraction `0 = (F+∞)⁻¹`. Not glue
+of two general summands. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
 `ColoringIsotopy`.
@@ -78,13 +83,15 @@ diagrams, along invert/mirror/`rot180` of a `slideReady` twist (and
 along `rot180` of any diagram whose coloring has `DiagonalSum`), along
 Figure 14 when the port hypotheses hold, along invert-add of two
 `rightBottom`/`slideReady` diagrams with finite nonzero `F`, and along
-invert-add when a summand is the `[0]` diagram. Restricted
+invert-add when a summand is the `[0]` diagram, and along
+invert-add when a summand is the `[∞]` diagram (carried value `0`).
+Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
 carried value. Induction of `HasColoringFraction` along full `Isotopic`
 is blocked by the unrestricted constructors `Isotopic.flype_slide_add`
 and `Isotopic.flype_slide_mul` (no `DiagonalSum`/`hne`), and by
-`Isotopic.invert_add` when a summand is `[∞]` or a non-`[0]` diagram
-of fraction `0`. That induction is not claimed.
+`Isotopic.invert_add` when a summand is a non-`[0]` diagram
+of fraction `0` that is not `[∞]`. That induction is not claimed.
 -/
 
 namespace RationalTangles
@@ -3343,11 +3350,11 @@ theorem SlideReadyIsotopy.rot180_cong {e e' : TwistExpr} {v : CFValue}
 Carry a non-monochrome coloring fraction along the generators we can
 color, even when the result is not a `TwistExpr`. Unrestricted
 `Isotopic.flype_slide_add` / `flype_slide_mul` (no `DiagonalSum`/`hne`)
-and `Isotopic.invert_add` at a summand `[∞]` (or a non-`[0]` diagram
-of fraction `0`) are not included: they block induction of
+and `Isotopic.invert_add` at a non-`[0]` diagram of fraction `0`
+that is not `[∞]` are not included: they block induction of
 `HasColoringFraction` along `Isotopic`. None of these is added to
-`ColoringIsotopy`. Invert-add with a `[0]` summand is a theorem on
-`HasColoringFraction`, not a constructor of `ColoringIsotopy`.
+`ColoringIsotopy`. Invert-add with a `[0]` or `[∞]` summand is a
+theorem on `HasColoringFraction`, not a constructor of `ColoringIsotopy`.
 -/
 
 /-- `ColoringIsotopy` preserves a carried coloring fraction. -/
@@ -3495,6 +3502,519 @@ theorem HasColoringFraction.invert_add_zero_slideReady (e : TwistExpr)
         ((0 : CFValue).add e.toStandard.fraction).inv := by
   obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
     coloring_invert_add_zero_slideReady e hok
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-! ## Fraction-level `invert_add` of a literal `[∞]` summand
+
+`T+[∞]` keeps `T`'s crossings and replaces the right boundary by a
+fresh arc that is both `NE` and `SE` (the unused right strand of
+`[∞]`; glue of `T.NE` to `[∞].NW` wins over `T.SE` to `[∞].SW`
+because those ports of `[∞]` coincide). The invert PD-code has the
+same crossings as `Tⁱ` and `NW = NE` equal to that dummy. Dual
+statements hold for a left summand `[∞]` and for `[∞]ⁱ*Tⁱ` /
+`Tⁱ*[∞]ⁱ`. A coloring that is `0` on every crossing arc and `1` on
+the dummy is integral, non-monochrome, and has fraction `0`. This is
+not glue of two general summands and is not a `ColoringIsotopy`.
+-/
+
+theorem maxArc_rotate (T : TangleDiagram) : T.rotate.maxArc = T.maxArc := by
+  unfold TangleDiagram.rotate TangleDiagram.maxArc
+  change T.crossings.foldl (fun m C => max m C.maxArc)
+      (max T.NE (max T.SE (max T.SW T.NW))) =
+    T.crossings.foldl (fun m C => max m C.maxArc)
+      (max T.NW (max T.NE (max T.SE T.SW)))
+  congr 1
+  omega
+
+theorem maxArc_invert (T : TangleDiagram) : T.invert.maxArc = T.maxArc := by
+  simpa [TangleDiagram.invert] using (maxArc_mirror T.rotate).trans (maxArc_rotate T)
+
+theorem add_infinity_NW (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).NW = T.NW :=
+  rfl
+
+theorem add_infinity_SW (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).SW = T.SW :=
+  rfl
+
+theorem add_infinity_NE (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).NE = T.maxArc + 2 := by
+  simp [TangleDiagram.add, TangleDiagram.infinity, TangleDiagram.rename]
+  omega
+
+theorem add_infinity_SE (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).SE = T.maxArc + 2 := by
+  simp [TangleDiagram.add, TangleDiagram.infinity, TangleDiagram.rename]
+  omega
+
+theorem add_infinity_crossings (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).crossings = T.crossings := by
+  simp [TangleDiagram.add, TangleDiagram.infinity, TangleDiagram.rename]
+
+theorem invert_add_infinity_crossings (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).invert.crossings = T.invert.crossings := by
+  simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror,
+    add_infinity_crossings]
+
+theorem invert_add_infinity_NW (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).invert.NW = T.maxArc + 2 := by
+  rw [TangleDiagram.invert_NW, add_infinity_NE]
+
+theorem invert_add_infinity_NE (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).invert.NE = T.maxArc + 2 := by
+  rw [TangleDiagram.invert_NE, add_infinity_SE]
+
+theorem invert_add_infinity_SE (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).invert.SE = T.SW := by
+  rw [TangleDiagram.invert_SE, add_infinity_SW]
+
+theorem invert_add_infinity_SW (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).invert.SW = T.NW := by
+  rw [TangleDiagram.invert_SW, add_infinity_NW]
+
+/-- Color `1` on a dummy arc and `0` elsewhere. On a diagram whose
+    crossings avoid the dummy this is the constant coloring `0`. -/
+def colorDummy (dummy : Nat) (b : Nat) : Int :=
+  if b = dummy then 1 else 0
+
+theorem colorDummy_self (dummy : Nat) : colorDummy dummy dummy = 1 := by
+  simp [colorDummy]
+
+theorem colorDummy_of_ne {dummy b : Nat} (h : b ≠ dummy) :
+    colorDummy dummy b = 0 := by
+  simp [colorDummy, h]
+
+theorem IsColored_colorDummy_of_not_mem (D : TangleDiagram) (dummy : Nat)
+    (h : ∀ C ∈ D.crossings, ¬ C.memArc dummy) :
+    D.IsColored (colorDummy dummy) := by
+  intro C hC
+  have hne := h C hC
+  have h0 : C.a0 ≠ dummy := fun e => hne (Or.inl e.symm)
+  have h1 : C.a1 ≠ dummy := fun e => hne (Or.inr (Or.inl e.symm))
+  have h2 : C.a2 ≠ dummy := fun e => hne (Or.inr (Or.inr (Or.inl e.symm)))
+  have h3 : C.a3 ≠ dummy := fun e => hne (Or.inr (Or.inr (Or.inr e.symm)))
+  constructor
+  · simp [colorDummy, h0, h2]
+  · simp [colorDummy, h0, h1, h3]
+
+theorem not_memArc_gt_maxArc (T : TangleDiagram) {C : Crossing}
+    (hC : C ∈ T.crossings) {a : Nat} (ha : T.maxArc < a) :
+    ¬ C.memArc a := by
+  have hle := arc_le_maxArc_of_mem T hC
+  intro hm
+  rcases hm with h | h | h | h <;> omega
+
+theorem IsColored_colorDummy_invert_add_infinity (T : TangleDiagram) :
+    (T.add TangleDiagram.infinity).invert.IsColored
+      (colorDummy (T.maxArc + 2)) := by
+  refine IsColored_colorDummy_of_not_mem _ (T.maxArc + 2) ?_
+  intro C hC
+  rw [invert_add_infinity_crossings] at hC
+  have hlt : T.invert.maxArc < T.maxArc + 2 := by
+    rw [maxArc_invert]; omega
+  exact not_memArc_gt_maxArc T.invert hC hlt
+
+theorem coloring_fraction_invert_add_infinity (T : TangleDiagram) :
+    (ColorMatrix.of (T.add TangleDiagram.infinity).invert
+      (colorDummy (T.maxArc + 2))).fraction = (0 : CFValue) ∧
+    (ColorMatrix.of (T.add TangleDiagram.infinity).invert
+      (colorDummy (T.maxArc + 2))).NotMono := by
+  have hSWne : T.SW ≠ T.maxArc + 2 := by
+    have : T.SW ≤ T.maxArc := maxArc_ge_SW T
+    omega
+  have hNWne : T.NW ≠ T.maxArc + 2 := by
+    have : T.NW ≤ T.maxArc := maxArc_ge_NW T
+    omega
+  have hSE : colorDummy (T.maxArc + 2)
+      (T.add TangleDiagram.infinity).invert.SE = 0 := by
+    rw [invert_add_infinity_SE, colorDummy_of_ne hSWne]
+  have hSW : colorDummy (T.maxArc + 2)
+      (T.add TangleDiagram.infinity).invert.SW = 0 := by
+    rw [invert_add_infinity_SW, colorDummy_of_ne hNWne]
+  have hNW : colorDummy (T.maxArc + 2)
+      (T.add TangleDiagram.infinity).invert.NW = 1 := by
+    rw [invert_add_infinity_NW, colorDummy_self]
+  have hNE : colorDummy (T.maxArc + 2)
+      (T.add TangleDiagram.infinity).invert.NE = 1 := by
+    rw [invert_add_infinity_NE, colorDummy_self]
+  constructor
+  · simp [ColorMatrix.of, ColorMatrix.fraction, hNW, hNE, hSE]
+    rfl
+  · simp [ColorMatrix.of, ColorMatrix.NotMono, hNW, hNE, hSE]
+
+theorem infinity_invert_NW :
+    TangleDiagram.infinity.invert.NW = 1 :=
+  rfl
+
+theorem infinity_invert_NE :
+    TangleDiagram.infinity.invert.NE = 1 :=
+  rfl
+
+theorem infinity_invert_SE :
+    TangleDiagram.infinity.invert.SE = 0 :=
+  rfl
+
+theorem infinity_invert_SW :
+    TangleDiagram.infinity.invert.SW = 0 :=
+  rfl
+
+theorem infinity_invert_maxArc :
+    TangleDiagram.infinity.invert.maxArc = 1 := by
+  rw [maxArc_invert, infinity_maxArc]
+
+theorem infinity_invert_mul_NW (T : TangleDiagram) :
+    (TangleDiagram.infinity.invert.mul T).NW = 1 :=
+  rfl
+
+theorem infinity_invert_mul_NE (T : TangleDiagram) :
+    (TangleDiagram.infinity.invert.mul T).NE = 1 :=
+  rfl
+
+theorem infinityInvertMulReindex_ne_one (T : TangleDiagram) (a : Nat) :
+    mulGlue TangleDiagram.infinity.invert T
+      (a + (TangleDiagram.infinity.invert.maxArc + 1)) ≠ 1 := by
+  rw [mulGlue_shift_eq, infinity_invert_maxArc, infinity_invert_SW,
+    infinity_invert_SE]
+  split_ifs <;> omega
+
+theorem IsColored_colorDummy_infinity_invert_mul (T : TangleDiagram) :
+    (TangleDiagram.infinity.invert.mul T).IsColored (colorDummy 1) := by
+  intro C hC
+  rw [mul_crossings_append] at hC
+  have hempty :
+      TangleDiagram.infinity.invert.crossings = [] := rfl
+  simp [hempty] at hC
+  obtain ⟨C0, hC0, rfl⟩ := hC
+  rw [ColoringRule_rename]
+  have hfun :
+      colorDummy 1 ∘ mulGlue TangleDiagram.infinity.invert T ∘
+        addShift TangleDiagram.infinity.invert = fun _ => 0 := by
+    funext a
+    have hne := infinityInvertMulReindex_ne_one T a
+    simp [colorDummy, addShift, hne]
+  simpa [hfun] using (isColored_const T 0) C0 hC0
+
+theorem infinity_invert_mul_SE_ne_one (T : TangleDiagram) :
+    (TangleDiagram.infinity.invert.mul T).SE ≠ 1 := by
+  rw [mul_SE_glue]
+  exact infinityInvertMulReindex_ne_one T T.SE
+
+theorem infinity_invert_mul_SW_ne_one (T : TangleDiagram) :
+    (TangleDiagram.infinity.invert.mul T).SW ≠ 1 := by
+  rw [mul_SW_glue]
+  exact infinityInvertMulReindex_ne_one T T.SW
+
+theorem coloring_fraction_infinity_invert_mul (T : TangleDiagram) :
+    (ColorMatrix.of (TangleDiagram.infinity.invert.mul T)
+      (colorDummy 1)).fraction = (0 : CFValue) ∧
+    (ColorMatrix.of (TangleDiagram.infinity.invert.mul T)
+      (colorDummy 1)).NotMono := by
+  have hNW : colorDummy 1 (TangleDiagram.infinity.invert.mul T).NW = 1 := by
+    rw [infinity_invert_mul_NW, colorDummy_self]
+  have hNE : colorDummy 1 (TangleDiagram.infinity.invert.mul T).NE = 1 := by
+    rw [infinity_invert_mul_NE, colorDummy_self]
+  have hSE : colorDummy 1 (TangleDiagram.infinity.invert.mul T).SE = 0 :=
+    colorDummy_of_ne (infinity_invert_mul_SE_ne_one T)
+  have hSW : colorDummy 1 (TangleDiagram.infinity.invert.mul T).SW = 0 :=
+    colorDummy_of_ne (infinity_invert_mul_SW_ne_one T)
+  constructor
+  · simp [ColorMatrix.of, ColorMatrix.fraction, hNW, hNE, hSE]
+    rfl
+  · simp [ColorMatrix.of, ColorMatrix.NotMono, hNW, hNE, hSE]
+
+/-- Fresh dummy colorings of `(T+[∞])ⁱ` and of `[∞]ⁱ*Tⁱ`. Both have
+    fraction `0`. Not a `ColoringIsotopy`. Covers a right summand
+    `[∞]`, with no restriction on `F(T)`. -/
+theorem coloring_invert_add_infinity (T : TangleDiagram) :
+    ∃ colL colR,
+      ((T.add TangleDiagram.infinity).invert).IsColored colL ∧
+      ((TangleDiagram.infinity.invert.mul T.invert)).IsColored colR ∧
+      (ColorMatrix.of (T.add TangleDiagram.infinity).invert colL).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.infinity.invert.mul T.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (T.add TangleDiagram.infinity).invert colL).fraction =
+        (ColorMatrix.of (TangleDiagram.infinity.invert.mul T.invert)
+          colR).fraction ∧
+      (ColorMatrix.of (T.add TangleDiagram.infinity).invert colL).fraction =
+        (0 : CFValue) := by
+  let colL := colorDummy (T.maxArc + 2)
+  let colR := colorDummy 1
+  obtain ⟨hfL, hmL⟩ := coloring_fraction_invert_add_infinity T
+  obtain ⟨hfR, hmR⟩ := coloring_fraction_infinity_invert_mul T.invert
+  refine ⟨colL, colR, IsColored_colorDummy_invert_add_infinity T,
+    IsColored_colorDummy_infinity_invert_mul T.invert, hmL, hmR, ?_, hfL⟩
+  exact hfL.trans hfR.symm
+
+theorem coloring_invert_add_slideReady_infinity (e : TwistExpr)
+    (_hok : e.slideReady) :
+    ∃ colL colR,
+      ((e.diagram.add TangleDiagram.infinity).invert).IsColored colL ∧
+      ((TangleDiagram.infinity.invert.mul e.diagram.invert)).IsColored colR ∧
+      (ColorMatrix.of (e.diagram.add TangleDiagram.infinity).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.infinity.invert.mul e.diagram.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.add TangleDiagram.infinity).invert
+        colL).fraction =
+        (ColorMatrix.of (TangleDiagram.infinity.invert.mul e.diagram.invert)
+          colR).fraction ∧
+      (ColorMatrix.of (e.diagram.add TangleDiagram.infinity).invert
+        colL).fraction =
+        (e.toStandard.fraction.add CFValue.inf).inv := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_infinity e.diagram
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, ?_⟩
+  rw [hfL]
+  cases e.toStandard.fraction <;> rfl
+
+theorem infinity_add_NW (T : TangleDiagram) :
+    (TangleDiagram.infinity.add T).NW = 0 :=
+  rfl
+
+theorem infinity_add_SW (T : TangleDiagram) :
+    (TangleDiagram.infinity.add T).SW = 0 :=
+  rfl
+
+def infinityAddReindex (T : TangleDiagram) (a : Nat) : Nat :=
+  if a = T.NW then 1
+  else if a = T.SW then 1
+  else a + 2
+
+theorem infinityAddReindex_eq_glue (T : TangleDiagram) (a : Nat) :
+    addGlue TangleDiagram.infinity T
+      (a + (TangleDiagram.infinity.maxArc + 1)) =
+      infinityAddReindex T a := by
+  rw [addGlue_shift_eq, infinity_maxArc]
+  simp [TangleDiagram.infinity, infinityAddReindex]
+
+theorem infinityAddReindex_ne_zero (T : TangleDiagram) (a : Nat) :
+    infinityAddReindex T a ≠ 0 := by
+  unfold infinityAddReindex
+  split_ifs <;> omega
+
+theorem addGlue_infinity_addShift_ne_zero (T : TangleDiagram) (a : Nat) :
+    addGlue TangleDiagram.infinity T (addShift TangleDiagram.infinity a) ≠ 0 := by
+  intro h
+  apply infinityAddReindex_ne_zero T a
+  rw [← infinityAddReindex_eq_glue]
+  simpa [addShift] using h
+
+theorem invert_crossings_map_switch (D : TangleDiagram) :
+    D.invert.crossings = D.crossings.map Crossing.switch :=
+  rfl
+
+theorem Crossing.switch_memArc (C : Crossing) (a : Nat) :
+    C.switch.memArc a ↔ C.memArc a := by
+  simp [Crossing.switch, Crossing.memArc]
+  tauto
+
+theorem IsColored_invert_colorDummy (D : TangleDiagram) (dummy : Nat)
+    (h : ∀ C ∈ D.crossings, ¬ C.memArc dummy) :
+    D.invert.IsColored (colorDummy dummy) := by
+  refine IsColored_colorDummy_of_not_mem D.invert dummy ?_
+  intro C hC
+  rw [invert_crossings_map_switch] at hC
+  obtain ⟨C0, hC0, rfl⟩ := List.mem_map.1 hC
+  intro hm
+  exact h C0 hC0 ((Crossing.switch_memArc C0 dummy).1 hm)
+
+theorem IsColored_colorDummy_invert_infinity_add (T : TangleDiagram) :
+    (TangleDiagram.infinity.add T).invert.IsColored (colorDummy 0) := by
+  refine IsColored_invert_colorDummy _ 0 ?_
+  intro C hC
+  rw [add_crossings_append] at hC
+  have hempty : TangleDiagram.infinity.crossings = [] := rfl
+  simp only [hempty, List.nil_append, List.mem_map] at hC
+  obtain ⟨C0, hC0, rfl⟩ := hC
+  intro hm
+  simp only [Crossing.rename, Crossing.memArc] at hm
+  rcases hm with h | h | h | h
+  · exact addGlue_infinity_addShift_ne_zero T C0.a0 h.symm
+  · exact addGlue_infinity_addShift_ne_zero T C0.a1 h.symm
+  · exact addGlue_infinity_addShift_ne_zero T C0.a2 h.symm
+  · exact addGlue_infinity_addShift_ne_zero T C0.a3 h.symm
+
+theorem invert_infinity_add_NW (T : TangleDiagram) :
+    (TangleDiagram.infinity.add T).invert.NW =
+      addGlue TangleDiagram.infinity T
+        (T.NE + (TangleDiagram.infinity.maxArc + 1)) := by
+  rw [TangleDiagram.invert_NW, add_NE]
+
+theorem invert_infinity_add_NE (T : TangleDiagram) :
+    (TangleDiagram.infinity.add T).invert.NE =
+      addGlue TangleDiagram.infinity T
+        (T.SE + (TangleDiagram.infinity.maxArc + 1)) := by
+  rw [TangleDiagram.invert_NE, add_SE]
+
+theorem invert_infinity_add_SE (T : TangleDiagram) :
+    (TangleDiagram.infinity.add T).invert.SE = 0 := by
+  rw [TangleDiagram.invert_SE, infinity_add_SW]
+
+theorem invert_infinity_add_SW (T : TangleDiagram) :
+    (TangleDiagram.infinity.add T).invert.SW = 0 := by
+  rw [TangleDiagram.invert_SW, infinity_add_NW]
+
+theorem coloring_fraction_invert_infinity_add (T : TangleDiagram) :
+    (ColorMatrix.of (TangleDiagram.infinity.add T).invert
+      (colorDummy 0)).fraction = (0 : CFValue) ∧
+    (ColorMatrix.of (TangleDiagram.infinity.add T).invert
+      (colorDummy 0)).NotMono := by
+  have hSE : colorDummy 0 (TangleDiagram.infinity.add T).invert.SE = 1 := by
+    rw [invert_infinity_add_SE, colorDummy_self]
+  have hSW : colorDummy 0 (TangleDiagram.infinity.add T).invert.SW = 1 := by
+    rw [invert_infinity_add_SW, colorDummy_self]
+  have hNW : colorDummy 0 (TangleDiagram.infinity.add T).invert.NW = 0 := by
+    rw [invert_infinity_add_NW, infinityAddReindex_eq_glue,
+      colorDummy_of_ne (infinityAddReindex_ne_zero T T.NE)]
+  have hNE : colorDummy 0 (TangleDiagram.infinity.add T).invert.NE = 0 := by
+    rw [invert_infinity_add_NE, infinityAddReindex_eq_glue,
+      colorDummy_of_ne (infinityAddReindex_ne_zero T T.SE)]
+  constructor
+  · simp [ColorMatrix.of, ColorMatrix.fraction, hNW, hNE, hSE]
+    rfl
+  · simp [ColorMatrix.of, ColorMatrix.NotMono, hNW, hNE, hSE]
+
+theorem mul_infinity_invert_NW (T : TangleDiagram) :
+    (T.mul TangleDiagram.infinity.invert).NW = T.NW :=
+  rfl
+
+theorem mul_infinity_invert_NE (T : TangleDiagram) :
+    (T.mul TangleDiagram.infinity.invert).NE = T.NE :=
+  rfl
+
+theorem mul_infinity_invert_SE (T : TangleDiagram) :
+    (T.mul TangleDiagram.infinity.invert).SE = T.maxArc + 1 := by
+  simp [TangleDiagram.mul, TangleDiagram.infinity, TangleDiagram.invert,
+    TangleDiagram.rotate, TangleDiagram.mirror, TangleDiagram.rename]
+
+theorem mul_infinity_invert_SW (T : TangleDiagram) :
+    (T.mul TangleDiagram.infinity.invert).SW = T.maxArc + 1 := by
+  simp [TangleDiagram.mul, TangleDiagram.infinity, TangleDiagram.invert,
+    TangleDiagram.rotate, TangleDiagram.mirror, TangleDiagram.rename]
+
+theorem mul_infinity_invert_crossings (T : TangleDiagram) :
+    (T.mul TangleDiagram.infinity.invert).crossings = T.crossings := by
+  simp [TangleDiagram.mul, TangleDiagram.infinity, TangleDiagram.invert,
+    TangleDiagram.rotate, TangleDiagram.mirror, TangleDiagram.rename]
+
+theorem IsColored_colorDummy_mul_infinity_invert (T : TangleDiagram) :
+    (T.mul TangleDiagram.infinity.invert).IsColored
+      (colorDummy (T.maxArc + 1)) := by
+  refine IsColored_colorDummy_of_not_mem _ (T.maxArc + 1) ?_
+  intro C hC
+  rw [mul_infinity_invert_crossings] at hC
+  exact not_memArc_gt_maxArc T hC (Nat.lt_succ_self _)
+
+theorem coloring_fraction_mul_infinity_invert (T : TangleDiagram) :
+    (ColorMatrix.of (T.mul TangleDiagram.infinity.invert)
+      (colorDummy (T.maxArc + 1))).fraction = (0 : CFValue) ∧
+    (ColorMatrix.of (T.mul TangleDiagram.infinity.invert)
+      (colorDummy (T.maxArc + 1))).NotMono := by
+  have hdumNW : T.NW ≠ T.maxArc + 1 := by
+    have : T.NW ≤ T.maxArc := maxArc_ge_NW T
+    omega
+  have hdumNE : T.NE ≠ T.maxArc + 1 := by
+    have : T.NE ≤ T.maxArc := maxArc_ge_NE T
+    omega
+  have hNW : colorDummy (T.maxArc + 1)
+      (T.mul TangleDiagram.infinity.invert).NW = 0 := by
+    rw [mul_infinity_invert_NW, colorDummy_of_ne hdumNW]
+  have hNE : colorDummy (T.maxArc + 1)
+      (T.mul TangleDiagram.infinity.invert).NE = 0 := by
+    rw [mul_infinity_invert_NE, colorDummy_of_ne hdumNE]
+  have hSE : colorDummy (T.maxArc + 1)
+      (T.mul TangleDiagram.infinity.invert).SE = 1 := by
+    rw [mul_infinity_invert_SE, colorDummy_self]
+  constructor
+  · simp [ColorMatrix.of, ColorMatrix.fraction, hNW, hNE, hSE]
+    rfl
+  · simp [ColorMatrix.of, ColorMatrix.NotMono, hNW, hNE, hSE]
+
+/-- Fresh dummy colorings of `([∞]+T)ⁱ` and of `Tⁱ*[∞]ⁱ`. Both have
+    fraction `0`. Not a `ColoringIsotopy`. Covers a left summand
+    `[∞]`. -/
+theorem coloring_invert_add_infinity_left (T : TangleDiagram) :
+    ∃ colL colR,
+      ((TangleDiagram.infinity.add T).invert).IsColored colL ∧
+      ((T.invert.mul TangleDiagram.infinity.invert)).IsColored colR ∧
+      (ColorMatrix.of (TangleDiagram.infinity.add T).invert colL).NotMono ∧
+      (ColorMatrix.of (T.invert.mul TangleDiagram.infinity.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.infinity.add T).invert colL).fraction =
+        (ColorMatrix.of (T.invert.mul TangleDiagram.infinity.invert)
+          colR).fraction ∧
+      (ColorMatrix.of (TangleDiagram.infinity.add T).invert colL).fraction =
+        (0 : CFValue) := by
+  let colL := colorDummy 0
+  let colR := colorDummy (T.invert.maxArc + 1)
+  obtain ⟨hfL, hmL⟩ := coloring_fraction_invert_infinity_add T
+  obtain ⟨hfR, hmR⟩ := coloring_fraction_mul_infinity_invert T.invert
+  refine ⟨colL, colR, IsColored_colorDummy_invert_infinity_add T,
+    IsColored_colorDummy_mul_infinity_invert T.invert, hmL, hmR, ?_, hfL⟩
+  exact hfL.trans hfR.symm
+
+theorem coloring_invert_add_infinity_slideReady (e : TwistExpr)
+    (_hok : e.slideReady) :
+    ∃ colL colR,
+      ((TangleDiagram.infinity.add e.diagram).invert).IsColored colL ∧
+      ((e.diagram.invert.mul TangleDiagram.infinity.invert)).IsColored colR ∧
+      (ColorMatrix.of (TangleDiagram.infinity.add e.diagram).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (e.diagram.invert.mul TangleDiagram.infinity.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.infinity.add e.diagram).invert
+        colL).fraction =
+        (ColorMatrix.of (e.diagram.invert.mul TangleDiagram.infinity.invert)
+          colR).fraction ∧
+      (ColorMatrix.of (TangleDiagram.infinity.add e.diagram).invert
+        colL).fraction =
+        (CFValue.inf.add e.toStandard.fraction).inv := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_infinity_left e.diagram
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, ?_⟩
+  rw [hfL]
+  cases e.toStandard.fraction <;> rfl
+
+/-- Invert-add with right summand `[∞]`: both `(T+[∞])ⁱ` and `[∞]ⁱ*Tⁱ`
+    carry `0`. Not a `ColoringIsotopy`. -/
+theorem HasColoringFraction.invert_add_slideReady_infinity (e : TwistExpr)
+    (hok : e.slideReady) :
+    HasColoringFraction (e.diagram.add TangleDiagram.infinity).invert
+        (e.toStandard.fraction.add CFValue.inf).inv ∧
+      HasColoringFraction (TangleDiagram.infinity.invert.mul e.diagram.invert)
+        (e.toStandard.fraction.add CFValue.inf).inv := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_slideReady_infinity e hok
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-- Invert-add with left summand `[∞]`: both `([∞]+T)ⁱ` and `Tⁱ*[∞]ⁱ`
+    carry `0`. Not a `ColoringIsotopy`. -/
+theorem HasColoringFraction.invert_add_infinity_slideReady (e : TwistExpr)
+    (hok : e.slideReady) :
+    HasColoringFraction (TangleDiagram.infinity.add e.diagram).invert
+        (CFValue.inf.add e.toStandard.fraction).inv ∧
+      HasColoringFraction (e.diagram.invert.mul TangleDiagram.infinity.invert)
+        (CFValue.inf.add e.toStandard.fraction).inv := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_infinity_slideReady e hok
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-- Invert-add with right summand `[∞]` on an arbitrary diagram. -/
+theorem HasColoringFraction.invert_add_infinity (T : TangleDiagram) :
+    HasColoringFraction (T.add TangleDiagram.infinity).invert (0 : CFValue) ∧
+      HasColoringFraction (TangleDiagram.infinity.invert.mul T.invert)
+        (0 : CFValue) := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_infinity T
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-- Invert-add with left summand `[∞]` on an arbitrary diagram. -/
+theorem HasColoringFraction.invert_add_infinity_left (T : TangleDiagram) :
+    HasColoringFraction (TangleDiagram.infinity.add T).invert (0 : CFValue) ∧
+      HasColoringFraction (T.invert.mul TangleDiagram.infinity.invert)
+        (0 : CFValue) := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_infinity_left T
   exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
 
 end RationalTangles
