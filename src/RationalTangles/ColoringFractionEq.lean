@@ -2624,4 +2624,279 @@ theorem coloring_invert_add_integer_neg_integer (n m : Nat) :
     crossingTangle, CrossingSign.flip] using
     coloring_invert_add_integerUnits_integerUnits n m .pos .neg
 
+/-! ## Invert of a standard-form expression as inverted continued-fraction
+    terms, evaluated by right-and-bottom integer/vertical alternation.
+
+`toTerms` records the continued-fraction coefficients of a `StandardExpr`.
+Inverting the value is `invertTerms` arithmetically (`1/F`). The matching
+right-and-bottom diagram is obtained by reversing those coefficients and
+alternating `addRight` (integer) with `mulBottom` (vertical), starting from
+`[0]` or `[∞]` according to parity. Independent `colorFrom` colorings; not a
+`ColoringIsotopy`. Kinks `[∞]+[±1]` are unused.
+-/
+
+def StandardExpr.appendUnits (e : StandardExpr) : Nat → CrossingSign → StandardExpr
+  | 0, _ => e
+  | n + 1, s => .addRight (appendUnits e n s) s
+
+def StandardExpr.appendVertical (e : StandardExpr) : Nat → CrossingSign → StandardExpr
+  | 0, _ => e
+  | n + 1, s => .mulBottom (appendVertical e n s) s
+
+theorem StandardExpr.addRight_fraction (e : StandardExpr) (s : CrossingSign) :
+    (addRight e s).fraction = e.fraction.add s.cfValue := by
+  cases s <;> simp [StandardExpr.fraction, CrossingSign.cfValue]
+
+theorem StandardExpr.mulBottom_fraction (e : StandardExpr) (s : CrossingSign) :
+    (mulBottom e s).fraction = (e.fraction.inv.add s.cfValue).inv := by
+  cases s <;> simp [StandardExpr.fraction, CrossingSign.cfValue]
+
+theorem StandardExpr.appendUnits_fraction (e : StandardExpr) (n : Nat)
+    (s : CrossingSign) :
+    (appendUnits e n s).fraction =
+      e.fraction.add (CFValue.ofInt (n * s.toInt)) := by
+  induction n with
+  | zero =>
+    simp only [appendUnits]
+    rw [Nat.cast_zero, Int.zero_mul, CFValue.ofInt_zero, CFValue.add_zero]
+  | succ n ih =>
+    simp only [appendUnits, addRight_fraction, ih, CrossingSign.cfValue_eq_ofInt]
+    rw [CFValue.add_assoc, CFValue.ofInt_add]
+    congr 1
+    cases s <;> simp [CrossingSign.toInt, Nat.cast_succ, Int.add_comm]
+
+theorem StandardExpr.appendVertical_fraction (e : StandardExpr) (n : Nat)
+    (s : CrossingSign) :
+    (appendVertical e n s).fraction =
+      (e.fraction.inv.add (CFValue.ofInt (n * s.toInt))).inv := by
+  induction n with
+  | zero =>
+    simp only [appendVertical]
+    rw [Nat.cast_zero, Int.zero_mul, CFValue.ofInt_zero, CFValue.add_zero,
+      CFValue.inv_inv]
+  | succ n ih =>
+    simp only [appendVertical, mulBottom_fraction, ih, CrossingSign.cfValue_eq_ofInt]
+    rw [CFValue.inv_inv, CFValue.add_assoc, CFValue.ofInt_add]
+    congr 1
+    cases s <;> simp [CrossingSign.toInt, Nat.cast_succ, Int.add_comm]
+
+def StandardExpr.intSign (n : Int) : CrossingSign :=
+  if 0 ≤ n then .pos else .neg
+
+theorem StandardExpr.natAbs_intSign (n : Int) :
+    (n.natAbs : Int) * (intSign n).toInt = n := by
+  simp only [intSign]
+  split_ifs with h
+  · rw [CrossingSign.toInt_pos, Int.mul_one]
+    exact (Int.eq_natAbs_of_nonneg h).symm
+  · rw [CrossingSign.toInt_neg, Int.mul_neg, Int.mul_one]
+    omega
+
+mutual
+  def StandardExpr.foldAdd (e : StandardExpr) : List Int → StandardExpr
+    | [] => e
+    | a :: rest =>
+        StandardExpr.foldMul (appendUnits e a.natAbs (intSign a)) rest
+  def StandardExpr.foldMul (e : StandardExpr) : List Int → StandardExpr
+    | [] => e
+    | a :: rest =>
+        StandardExpr.foldAdd (appendVertical e a.natAbs (intSign a)) rest
+end
+
+/-- Right-and-bottom diagram of a continued-fraction coefficient list:
+    reverse the list and alternate integer (`addRight` from `[0]`) with
+    vertical (`mulBottom` from `[∞]`) according to length parity. -/
+def StandardExpr.ofTerms (t : List Int) : StandardExpr :=
+  if t.length % 2 = 1 then foldAdd .zero t.reverse
+  else foldMul .infinity t.reverse
+
+/-- Right-and-bottom diagram of the inverted continued fraction: reverse the
+    same coefficients, with the opposite starting seed so the value is `1/F`. -/
+def StandardExpr.ofInvTerms (t : List Int) : StandardExpr :=
+  if t.length % 2 = 1 then foldMul .infinity t.reverse
+  else foldAdd .zero t.reverse
+
+theorem StandardExpr.fold_concat (e : StandardExpr) (xs : List Int) (a : Int) :
+    (foldAdd e (xs ++ [a]) =
+      if xs.length % 2 = 0 then
+        appendUnits (foldAdd e xs) a.natAbs (intSign a)
+      else
+        appendVertical (foldAdd e xs) a.natAbs (intSign a)) ∧
+    (foldMul e (xs ++ [a]) =
+      if xs.length % 2 = 0 then
+        appendVertical (foldMul e xs) a.natAbs (intSign a)
+      else
+        appendUnits (foldMul e xs) a.natAbs (intSign a)) := by
+  induction xs generalizing e with
+  | nil =>
+    constructor
+    · simp [foldAdd, foldMul]
+    · simp [foldAdd, foldMul]
+  | cons b ys ih =>
+    constructor
+    · simp only [List.cons_append, foldAdd]
+      have hmul := (ih (appendUnits e b.natAbs (intSign b))).2
+      rw [hmul]
+      by_cases h : ys.length % 2 = 0
+      · have hne : ¬ (ys.length + 1) % 2 = 0 := by omega
+        simp [h, hne, List.length_cons]
+      · have heq : (ys.length + 1) % 2 = 0 := by omega
+        simp [h, heq, List.length_cons]
+    · simp only [List.cons_append, foldMul]
+      have hadd := (ih (appendVertical e b.natAbs (intSign b))).1
+      rw [hadd]
+      by_cases h : ys.length % 2 = 0
+      · have hne : ¬ (ys.length + 1) % 2 = 0 := by omega
+        simp [h, hne, List.length_cons]
+      · have heq : (ys.length + 1) % 2 = 0 := by omega
+        simp [h, heq, List.length_cons]
+
+theorem StandardExpr.foldAdd_concat (e : StandardExpr) (xs : List Int) (a : Int) :
+    foldAdd e (xs ++ [a]) =
+      if xs.length % 2 = 0 then
+        appendUnits (foldAdd e xs) a.natAbs (intSign a)
+      else
+        appendVertical (foldAdd e xs) a.natAbs (intSign a) :=
+  (fold_concat e xs a).1
+
+theorem StandardExpr.foldMul_concat (e : StandardExpr) (xs : List Int) (a : Int) :
+    foldMul e (xs ++ [a]) =
+      if xs.length % 2 = 0 then
+        appendVertical (foldMul e xs) a.natAbs (intSign a)
+      else
+        appendUnits (foldMul e xs) a.natAbs (intSign a) :=
+  (fold_concat e xs a).2
+
+theorem StandardExpr.ofTerms_cons (a : Int) (t : List Int) :
+    ofTerms (a :: t) = appendUnits (ofInvTerms t) a.natAbs (intSign a) := by
+  unfold ofTerms ofInvTerms
+  rw [List.length_cons, List.reverse_cons]
+  by_cases ht : t.length % 2 = 1
+  · have hne : ¬ (t.length + 1) % 2 = 1 := by omega
+    rw [if_neg hne, if_pos ht, foldMul_concat, List.length_reverse]
+    have hne0 : ¬ t.length % 2 = 0 := by omega
+    rw [if_neg hne0]
+  · have hpos : (t.length + 1) % 2 = 1 := by omega
+    have heven : t.length % 2 = 0 := by omega
+    rw [if_pos hpos, if_neg ht, foldAdd_concat, List.length_reverse, if_pos heven]
+
+theorem StandardExpr.ofInvTerms_cons (a : Int) (t : List Int) :
+    ofInvTerms (a :: t) = appendVertical (ofTerms t) a.natAbs (intSign a) := by
+  unfold ofTerms ofInvTerms
+  rw [List.length_cons, List.reverse_cons]
+  by_cases ht : t.length % 2 = 1
+  · have hne : ¬ (t.length + 1) % 2 = 1 := by omega
+    rw [if_neg hne, if_pos ht, foldAdd_concat, List.length_reverse]
+    have hne0 : ¬ t.length % 2 = 0 := by omega
+    rw [if_neg hne0]
+  · have hpos : (t.length + 1) % 2 = 1 := by omega
+    have heven : t.length % 2 = 0 := by omega
+    rw [if_pos hpos, if_neg ht, foldMul_concat, List.length_reverse, if_pos heven]
+
+theorem StandardExpr.appendUnits_intSign_fraction (e : StandardExpr) (n : Int) :
+    (appendUnits e n.natAbs (intSign n)).fraction =
+      e.fraction.add (CFValue.ofInt n) := by
+  rw [appendUnits_fraction, natAbs_intSign]
+
+theorem StandardExpr.appendVertical_intSign_fraction (e : StandardExpr) (n : Int) :
+    (appendVertical e n.natAbs (intSign n)).fraction =
+      (e.fraction.inv.add (CFValue.ofInt n)).inv := by
+  rw [appendVertical_fraction, natAbs_intSign]
+
+mutual
+  theorem StandardExpr.ofTerms_fraction :
+      ∀ t : List Int, (ofTerms t).fraction = valueOfList t
+    | [] => by
+      simp [ofTerms, foldMul, StandardExpr.fraction, valueOfList]
+    | a :: t => by
+      rw [ofTerms_cons, appendUnits_intSign_fraction, valueOfList_cons,
+        ofInvTerms_fraction t, CFValue.add_comm]
+  theorem StandardExpr.ofInvTerms_fraction :
+      ∀ t : List Int, (ofInvTerms t).fraction = (valueOfList t).inv
+    | [] => by
+      simp [ofInvTerms, foldAdd, StandardExpr.fraction, valueOfList, CFValue.inv]
+      rfl
+    | a :: t => by
+      rw [ofInvTerms_cons, appendVertical_intSign_fraction, valueOfList_cons,
+        ofTerms_fraction t, CFValue.add_comm]
+end
+
+theorem StandardExpr.ofTerms_invertTerms :
+    ∀ t : List Int, ofTerms (invertTerms t) = ofInvTerms t
+  | [] => by
+    -- invertTerms [] = [0]; ofTerms [0] = zero = ofInvTerms []
+    simp [invertTerms, ofTerms, ofInvTerms, foldAdd, foldMul, appendUnits]
+  | a :: rest => by
+    simp only [invertTerms]
+    split_ifs with ha
+    · subst ha
+      rw [ofInvTerms_cons]
+      simp [appendVertical]
+    · rw [ofTerms_cons]
+      simp [appendUnits]
+
+/-- Fresh invert coloring of a standard-form diagram has fraction `1/F`.
+    Discharges `coloring_invert_inv_standard` by `colorFrom 0 1`. -/
+theorem coloring_invert_inv_eq_F_standard_colorFrom (e : StandardExpr) :
+    ∃ col', e.diagram.invert.IsColored col' ∧
+      (ColorMatrix.of e.diagram.invert col').NotMono ∧
+      (ColorMatrix.of e.diagram.invert col').fraction = e.fraction.inv := by
+  obtain ⟨col', hc', hm', hf⟩ :=
+    coloring_invert_inv_standard e (e.colorFrom 0 1)
+      (e.colorFrom_isColored 0 1) e.colorFrom_notMono
+  refine ⟨col', hc', hm', hf.trans (congrArg CFValue.inv ?_)⟩
+  exact e.colorFrom_eq_fraction
+
+/-- Fresh colorings of `e.diagram.invert` and of the right-and-bottom
+    inverted continued-fraction diagram `ofInvTerms e.toTerms`. -/
+theorem coloring_invert_standard_eq_ofInvTerms (e : StandardExpr) :
+    ∃ colL colR,
+      e.diagram.invert.IsColored colL ∧
+      (StandardExpr.ofInvTerms e.toTerms).diagram.IsColored colR ∧
+      (ColorMatrix.of e.diagram.invert colL).NotMono ∧
+      (ColorMatrix.of (StandardExpr.ofInvTerms e.toTerms).diagram colR).NotMono ∧
+      (ColorMatrix.of e.diagram.invert colL).fraction =
+        (ColorMatrix.of (StandardExpr.ofInvTerms e.toTerms).diagram
+          colR).fraction := by
+  obtain ⟨colL, hcL, hmL, hfL⟩ := coloring_invert_inv_eq_F_standard_colorFrom e
+  let eR := StandardExpr.ofInvTerms e.toTerms
+  let colR := eR.colorFrom 0 1
+  have hcR := eR.colorFrom_isColored 0 1
+  have hmR := eR.colorFrom_notMono
+  have hfR := eR.colorFrom_eq_fraction
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, ?_⟩
+  rw [hfL, hfR, StandardExpr.ofInvTerms_fraction, StandardExpr.fraction_eq_valueOfList]
+
+/-- Invert of a right-add of a unit, against bottom-mul of the inverted
+    continued-fraction diagram of the left summand. -/
+theorem coloring_invert_addRight_eq_mulBottom_ofInvTerms (e : StandardExpr)
+    (s : CrossingSign) :
+    ∃ colL colR,
+      ((e.diagram.add (crossingTangle s)).invert).IsColored colL ∧
+      (StandardExpr.mulBottom (StandardExpr.ofInvTerms e.toTerms) s).diagram.IsColored
+        colR ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle s)).invert colL).NotMono ∧
+      (ColorMatrix.of
+        (StandardExpr.mulBottom (StandardExpr.ofInvTerms e.toTerms) s).diagram
+        colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.add (crossingTangle s)).invert colL).fraction =
+        (ColorMatrix.of
+          (StandardExpr.mulBottom (StandardExpr.ofInvTerms e.toTerms) s).diagram
+          colR).fraction := by
+  let eL : StandardExpr := .addRight e s
+  obtain ⟨colL, hcL, hmL, hfL⟩ := coloring_invert_inv_eq_F_standard_colorFrom eL
+  let eR : StandardExpr := .mulBottom (StandardExpr.ofInvTerms e.toTerms) s
+  let colR := eR.colorFrom 0 1
+  have hcR := eR.colorFrom_isColored 0 1
+  have hmR := eR.colorFrom_notMono
+  have hfR := eR.colorFrom_eq_fraction
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, ?_⟩
+  change (ColorMatrix.of eL.diagram.invert colL).fraction =
+    (ColorMatrix.of eR.diagram colR).fraction
+  rw [hfL, hfR]
+  subst eL eR
+  rw [StandardExpr.addRight_fraction, StandardExpr.mulBottom_fraction,
+    StandardExpr.ofInvTerms_fraction, StandardExpr.fraction_eq_valueOfList,
+    CFValue.inv_inv]
+
 end RationalTangles
