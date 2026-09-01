@@ -978,6 +978,50 @@ theorem coloring_fraction_flype_slide_mul (s : CrossingSign) (t : TangleDiagram)
   have hM := ColorMatrix.of_sameEndpoint hs
   exact ⟨col', hc', hM, hM ▸ rfl⟩
 
+/-! ## Restricted coloring of planar `rot180`
+
+`T.rot180` cycles endpoints (`NW↔SE`, `NE↔SW`), so the same coloring `col`
+satisfies `ColoringRule` on the rotated crossings but not `SameEndpointColors`.
+Under `DiagonalSum`, the affine involution `x ↦ (NW+SE)-x` restores the four
+disc colors. This is false without `DiagonalSum` (same crossingless diagonal
+counterexample as the flype slide), so it is not a `ColoringIsotopy`
+constructor.
+-/
+
+/-- Restricted planar 180°: if `T` is integrally colored and the color matrix
+    satisfies `DiagonalSum`, `x ↦ (NW+SE)-x` transports the coloring to
+    `T.rot180` with unchanged disc colors. -/
+theorem coloring_rot180_diagonal (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.IsColored col)
+    (hdiag : (ColorMatrix.of T col).DiagonalSum) :
+    ∃ col', T.rot180.IsColored col' ∧
+      SameEndpointColors T T.rot180 col col' := by
+  have h180 : T.rot180.IsColored col := IsColored_rot180 T col hc
+  refine ⟨colorDiagInvol T col col,
+    IsColored_colorDiagInvol T.rot180 T col col h180, ?_⟩
+  have hsum : col T.NW + col T.SE = col T.NE + col T.SW := by
+    simpa [ColorMatrix.DiagonalSum, ColorMatrix.of] using hdiag
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · change col T.NW + col T.SE - col T.SE = col T.NW
+    ring
+  · change col T.NW + col T.SE - col T.SW = col T.NE
+    linarith [hsum]
+  · change col T.NW + col T.SE - col T.NW = col T.SE
+    ring
+  · change col T.NW + col T.SE - col T.NE = col T.SW
+    linarith [hsum]
+
+theorem coloring_fraction_rot180_diagonal (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.IsColored col)
+    (hdiag : (ColorMatrix.of T col).DiagonalSum) :
+    ∃ col', T.rot180.IsColored col' ∧
+      ColorMatrix.of T.rot180 col' = ColorMatrix.of T col ∧
+      (ColorMatrix.of T.rot180 col').fraction =
+        (ColorMatrix.of T col).fraction := by
+  obtain ⟨col', hc', hs⟩ := coloring_rot180_diagonal T col hc hdiag
+  have hM := ColorMatrix.of_sameEndpoint hs
+  exact ⟨col', hc', hM, hM ▸ rfl⟩
+
 /-- Reverse of `coloring_flype_slide_add`, for `Isotopic.symm` on a slide. -/
 theorem coloring_flype_slide_add_rev (s : CrossingSign) (t : TangleDiagram)
     (col : Nat → Int)

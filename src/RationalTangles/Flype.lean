@@ -38,9 +38,17 @@ sum/product, congruence of addition and multiplication, and planar
 `rot180` (signs kept). Horizontal/vertical flip congruence and the
 switch-distribution identities `hflip_add`/`vflip_mul`/… are **not**
 generators: they apply `Crossing.switch` and block coloring transport.
-`hflip`/`vflip`/`mirror` remain diagram operations. Inversion congruence
-and the mixed-sign transfer move are still generators (used for
-continued-fraction/canonical form) and likewise use `switch`.
+`hflip`/`vflip`/`mirror` remain diagram operations.
+
+Leftover `Crossing.switch` generators, still on `Isotopic` because they
+have not been retargeted: `invert_cong`, `invert_add`, `invert_mul`
+(continued-fraction existence), `mirror_cong` (canonical `transfer_neg`),
+and `transfer_odd` / `transfer_odd_neg` (Figure 14). Inversion is
+`rotate` then `mirror`; `(T+[∞]).invert ∼ [∞].invert * T.invert` is not
+planar (the left-hand side can be a kink). Figure 14's identity
+`(T+[-1])*[+1] ∼ [+1]+(-T)ⁱ` flips every sign of `T`, which
+`rot180` / `flype_slide` / planar / `invert_unit` / Reidemeister cannot
+do (those preserve signs on `T`, or switch both sides together).
 -/
 
 namespace RationalTangles
@@ -140,10 +148,15 @@ inductive Isotopic : TangleDiagram → TangleDiagram → Prop where
   /-- Planar 180° of a product swaps the factors after rotating each. -/
   | rot180_mul (T S : TangleDiagram) :
       Isotopic (T.mul S).rot180 (S.rot180.mul T.rot180)
+  /-- Functoriality of `Tⁱ := -Tʳ`. Both sides apply `Crossing.switch`.
+      Not coloring-ready (`col` cannot be reused after `switch`). -/
   | invert_cong {T T' : TangleDiagram} :
       Isotopic T T' → Isotopic T.invert T'.invert
+  /-- `(T+S)ⁱ ∼ Sⁱ * Tⁱ`. Not a planar reindexing in general (e.g. `[∞]+[±1]`
+      is a kink). Isolated-from-coloring; still required for CF existence. -/
   | invert_add (T S : TangleDiagram) :
       Isotopic (T.add S).invert (S.invert.mul T.invert)
+  /-- `(T*S)ⁱ ∼ Tⁱ + Sⁱ`. Same switch caveat as `invert_add`. -/
   | invert_mul (T S : TangleDiagram) :
       Isotopic (T.mul S).invert (T.invert.add S.invert)
   | add_assoc (T S R : TangleDiagram) :
@@ -156,10 +169,14 @@ inductive Isotopic : TangleDiagram → TangleDiagram → Prop where
       Isotopic (T.add TangleDiagram.zero) T
   | invert_unit (s : CrossingSign) :
       Isotopic (crossingTangle s) (crossingTangle s).invert
+  /-- Functoriality of mirror. Both sides `Crossing.switch`. Used for the
+      negative Figure 14 case via `cfTangle_mirror`. -/
   | mirror_cong {T T' : TangleDiagram} :
       Isotopic T T' → Isotopic T.mirror T'.mirror
   /-- Transfer move (Figure 14, mixed pair of signs, i odd):
-      `(T + [-1]) * [+1] ∼ [+1] + (-T)⁻¹`. -/
+      `(T + [-1]) * [+1] ∼ [+1] + (-T)⁻¹`.
+      The right-hand side mirrors `T`; this cannot be retargeted onto
+      `rot180`/`flype_slide` (those preserve the signs of `T`). -/
   | transfer_odd (T : TangleDiagram) :
       Isotopic ((T.add negOne).mul one) (one.add T.mirror.invert)
   /-- Transfer move with signs switched. -/
@@ -179,7 +196,8 @@ local flype, planar isotopy, and add/mul congruence.
 This is *not* `Isotopic`: it omits the sign-preserving slide constructors
 `flype_slide_add`/`flype_slide_mul` (algebraic Figure 5 with `rot180`; coloring
 needs `DiagonalSum` and is not for every coloring), `rot180_cong`/`rot180_add`/`rot180_mul`
-(endpoint cycle), switched algebraic `Flype`,
+(endpoint cycle; under `DiagonalSum` there is a restricted coloring lemma
+`coloring_rot180_diagonal`, not a constructor), switched algebraic `Flype`,
 mirror/invert congruence, transfer, and a full `ColoringIsotopy.symm`.
 Indexed R3 is included via the local model; `add_zero`, `zero_add` (planar
 reindexing of `[0]+T`), `invert_unit`/`invert_unit_rev`, and `add_assoc`/`mul_assoc`
