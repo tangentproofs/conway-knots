@@ -23,6 +23,31 @@ namespace RationalTangles
 def ColorMatrix.NotMono (M : ColorMatrix) : Prop :=
   ¬ (M.NW = M.NE ∧ M.NE = M.SE)
 
+theorem ColorMatrix.NotMono_affine (M : ColorMatrix) (n k : Int) (hn : n ≠ 0)
+    (hm : M.NotMono) : (M.affine n k).NotMono := by
+  intro h
+  have e1 : n * M.NW + k = n * M.NE + k := by
+    simpa [ColorMatrix.affine] using h.1
+  have e2 : n * M.NE + k = n * M.SE + k := by
+    simpa [ColorMatrix.affine] using h.2
+  have f1 : n * (M.NW - M.NE) = 0 := by ring_nf at e1 ⊢; linarith
+  have f2 : n * (M.NE - M.SE) = 0 := by ring_nf at e2 ⊢; linarith
+  refine hm ⟨?_, ?_⟩
+  · rcases Int.mul_eq_zero.mp f1 with hn0 | hsub
+    · exact (hn hn0).elim
+    · exact Int.eq_of_sub_eq_zero hsub
+  · rcases Int.mul_eq_zero.mp f2 with hn0 | hsub
+    · exact (hn hn0).elim
+    · exact Int.eq_of_sub_eq_zero hsub
+
+theorem ColorMatrix.DiagonalSum_affine (M : ColorMatrix) (n k : Int)
+    (h : M.DiagonalSum) : (M.affine n k).DiagonalSum := by
+  simp [ColorMatrix.DiagonalSum, ColorMatrix.affine]
+  have := congrArg (fun z => n * z) h
+  simp [mul_add] at this
+  linarith
+
+
 lemma divInt_add_one (n d : Int) (hd : d ≠ 0) :
     Rat.divInt n d + 1 = Rat.divInt (n + d) d := by
   have hdR : (d : Rat) ≠ 0 := Int.cast_ne_zero.mpr hd
@@ -348,6 +373,31 @@ theorem coloring_fraction_add (T S : TangleDiagram) (col : Nat → Int)
   simpa [ColorMatrix.of, TangleDiagram.add] using
     ColorMatrix.fraction_add_glue (col T.NW) (col T.NE) (col T.SW) (col T.SE)
       (col (T.add S).NE) (col (T.add S).SE) hdiag
+
+
+/-- Glue-compatible multiplicativity (the dual of `coloring_fraction_add`):
+    `f(T*S) = 1/(1/f(T)+1/f(S))` when the product is not monochrome. -/
+theorem coloring_fraction_mul (T S : TangleDiagram) (col : Nat → Int)
+    (hNE : S.NW ≠ S.NE)
+    (hT : (ColorMatrix.of T col).DiagonalSum)
+    (hS : (ColorMatrix.of S (colorMulBottom T S col)).DiagonalSum)
+    (hm : (ColorMatrix.of (T.mul S) col).NotMono) :
+    ((ColorMatrix.of T col).fraction.inv.add
+        (ColorMatrix.of S (colorMulBottom T S col)).fraction.inv).inv =
+      (ColorMatrix.of (T.mul S) col).fraction := by
+  rw [ColorMatrix.of_mul_bottom T S col hNE]
+  have hT' : col T.NW + col T.SE = col T.NE + col T.SW := by
+    simpa [ColorMatrix.DiagonalSum, ColorMatrix.of] using hT
+  have hS' : col T.SW + col (T.mul S).SE =
+      col T.SE + col (T.mul S).SW := by
+    have hS0 := hS
+    rw [ColorMatrix.of_mul_bottom T S col hNE] at hS0
+    simpa [ColorMatrix.DiagonalSum] using hS0
+  have hm' : ¬ (col T.NW = col T.NE ∧ col T.NE = col (T.mul S).SE) := by
+    simpa [ColorMatrix.NotMono, ColorMatrix.of, TangleDiagram.mul] using hm
+  simpa [ColorMatrix.of, TangleDiagram.mul] using
+    ColorMatrix.fraction_mul_glue (col T.NW) (col T.NE) (col T.SW) (col T.SE)
+      (col (T.mul S).SW) (col (T.mul S).SE) hT' hS' hm'
 
 theorem coloring_fraction_add_crossing (T : TangleDiagram) (s : CrossingSign)
     (col : Nat → Int) (hcol : (T.add (crossingTangle s)).IsColored col) :

@@ -304,6 +304,73 @@ theorem fraction_add_glue (a b c d e f : Int)
     field_simp
     ring
 
+/-- Glue-compatible multiplicativity: `f(T*S) = 1/(1/f(T)+1/f(S))`.
+    Excludes the monochrome product `NW = NE = SE`. -/
+theorem fraction_mul_glue (a b c d p q : Int)
+    (hT : a + d = b + c) (_hS : c + q = d + p)
+    (hm : ¬ (a = b ∧ b = q)) :
+    ((mk a b c d).fraction.inv.add (mk c d p q).fraction.inv).inv =
+      (mk a b p q).fraction := by
+  unfold fraction
+  dsimp
+  have hnum : b - a = d - c := by omega
+  by_cases hTd : b - d = 0
+  · by_cases hSd : d - q = 0
+    · have hbq : b - q = 0 := by omega
+      simp [hTd, hSd, hbq, CFValue.inv, CFValue.add]
+    · have hbq : b - q ≠ 0 := by intro hz; apply hSd; omega
+      by_cases hna : d - c = 0
+      · simp [hTd, hSd, hbq, hna, hnum, CFValue.inv, CFValue.add]
+      · simp [hTd, hSd, hbq, hna, hnum, CFValue.inv, CFValue.add]
+        congr 1
+        omega
+  · by_cases hSd : d - q = 0
+    · have hbq : b - q ≠ 0 := by intro hz; apply hTd; omega
+      by_cases hna : b - a = 0
+      · simp [hTd, hSd, hbq, hna, CFValue.inv, CFValue.add]
+      · simp [hTd, hSd, hbq, hna, CFValue.inv, CFValue.add]
+        congr 1
+        omega
+    · by_cases hna : b - a = 0
+      · have hbq : b - q ≠ 0 := by
+          intro hz
+          exact hm ⟨by omega, by omega⟩
+        have hdc : d - c = 0 := by omega
+        simp [hTd, hSd, hna, hdc, hbq, CFValue.inv, CFValue.add]
+      · have hdc : d - c ≠ 0 := by intro hz; apply hna; omega
+        have hz : (b : Rat) - a ≠ 0 := by exact_mod_cast hna
+        by_cases hbq : b - q = 0
+        · have hsum :
+              Rat.divInt (b - d) (b - a) + Rat.divInt (d - q) (d - c) = 0 := by
+            rw [hnum, Rat.divInt_eq_div, Rat.divInt_eq_div, ← add_div]
+            have hz0 : ((b - d : Rat) + (d - q) = 0) :=
+              by exact_mod_cast (show (b - d) + (d - q) = 0 by omega)
+            simp [hz0]
+          simp [hTd, hSd, hna, hdc, hbq, hnum, CFValue.inv, CFValue.add, hsum]
+          convert_to (d - c) * ((b - d) + (d - q)) = 0 using 1
+          · ring
+          have : (b - d) + (d - q) = 0 := by omega
+          simp [this]
+        · have hsum :
+              Rat.divInt (b - d) (b - a) + Rat.divInt (d - q) (d - c) =
+                Rat.divInt (b - q) (b - a) := by
+            rw [hnum, Rat.divInt_eq_div, Rat.divInt_eq_div, Rat.divInt_eq_div,
+              ← add_div]
+            congr 1
+            exact_mod_cast (show (b - d) + (d - q) = b - q by omega)
+          have hnz :
+              Rat.divInt (b - d) (b - a) + Rat.divInt (d - q) (d - c) ≠ 0 := by
+            rw [hsum]
+            exact (Rat.divInt_ne_zero hna).mpr hbq
+          have hTnz : Rat.divInt (b - a) (b - d) ≠ 0 :=
+            (Rat.divInt_ne_zero hTd).mpr hna
+          have hSnz : Rat.divInt (d - c) (d - q) ≠ 0 :=
+            (Rat.divInt_ne_zero hSd).mpr hdc
+          simp [hTd, hSd, hdc, hbq, hTnz, hSnz, CFValue.inv, Rat.inv_divInt]
+          rw [if_neg hnz, hsum]
+          simp [Rat.inv_divInt]
+
+
 end ColorMatrix
 
 /-! ## Integral colorability -/
