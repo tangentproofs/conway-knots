@@ -194,6 +194,24 @@ theorem colorMulBottom_SW (T S : TangleDiagram) (col : Nat → Int) :
     colorMulBottom T S col S.SW = col (T.mul S).SW := by
   simp [colorMulBottom, addShift, mul_SW_glue]
 
+/-- Restriction of a glue coloring of `T.add S` recovers the right-hand coloring. -/
+theorem colorAddRight_colorGlueAdd (T S : TangleDiagram) (colT colS : Nat → Int)
+    (hNE : colT T.NE = colS S.NW)
+    (hSE : colT T.SE = colS S.SW ∨ S.NW = S.SW) :
+    colorAddRight T S (colorGlueAdd T S colT colS) = colS := by
+  funext b
+  simpa [colorAddRight, addShift] using
+    colorGlueAdd_comp_shift T S colT colS hNE hSE b
+
+/-- Restriction of a glue coloring of `T.mul S` recovers the bottom coloring. -/
+theorem colorMulBottom_colorGlueMul (T S : TangleDiagram) (colT colS : Nat → Int)
+    (hNW : colT T.SW = colS S.NW)
+    (hNE : colT T.SE = colS S.NE ∨ S.NW = S.NE) :
+    colorMulBottom T S (colorGlueMul T S colT colS) = colS := by
+  funext b
+  simpa [colorMulBottom, addShift] using
+    colorGlueMul_comp_shift T S colT colS hNW hNE b
+
 theorem coloring_add_left {T T' S : TangleDiagram} {col colT' : Nat → Int}
     (_hT : T.IsColored col) (hS : S.IsColored (colorAddRight T S col))
     (hT' : T'.IsColored colT')

@@ -57,13 +57,17 @@ PD-codes have the same `f`, both equal to `F`. That uniqueness plus
 `F`-invariance is not added as a constructor of `ColoringIsotopy`.
 Standard-form `F` is invariant along the relation when both endpoints are
 `slideReady` twist diagrams. This is not `Isotopic`: isotopy can leave
-the twist/`slideReady` class. Remaining omitted: invert-add of two
-general (non-unit) PD-code summands assembled as a single comparison
-(glue/affine matching and `coloring_fraction_mul` are in place for finite
-nonzero `F`; wiring `colorAddRight` to `colorGlueAdd` on the inverted
-mirror-sum is the remaining bookkeeping), unrestricted `flype_slide_*`
-(no `DiagonalSum`/`hne`), and paths that leave twist form. None of those
-leftover constructors is added to `ColoringIsotopy`.
+the twist/`slideReady` class. Invert-add of two general (non-unit) PD-code summands is not a
+`TwistExpr`, so it is not a `SlideReadyIsotopy` constructor. For two
+`rightBottom`/`slideReady` diagrams with finite nonzero `F`, glue of
+affine-matched colorings colors the PD-sum; algebraic mirrors glue and
+transport along `ColoringIsotopy` to the PD-mirror of the sum, then
+rotate for `(T+S)ⁱ`; invert colorings glue with `coloring_fraction_mul`
+for `Sⁱ*Tⁱ` (`colorAddRight`/`colorMulBottom` recover the affine
+right/bottom coloring). Skip `0`/`∞` (matching would force `n = 0` or
+monochrome). Unrestricted `flype_slide_*` (no `DiagonalSum`/`hne`) and
+paths that leave twist form remain omitted. None of those leftover
+constructors is added to `ColoringIsotopy`.
 -/
 
 namespace RationalTangles
@@ -1277,6 +1281,12 @@ theorem TangleDiagram.invert_NW (T : TangleDiagram) : T.invert.NW = T.NE := by
 theorem TangleDiagram.invert_NE (T : TangleDiagram) : T.invert.NE = T.SE := by
   simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
 
+theorem TangleDiagram.invert_SE (T : TangleDiagram) : T.invert.SE = T.SW := by
+  simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
+
+theorem TangleDiagram.invert_SW (T : TangleDiagram) : T.invert.SW = T.NW := by
+  simp [invert_eq_mirror_rotate, TangleDiagram.rotate, TangleDiagram.mirror]
+
 /-- Any coloring of `T.invert` on a `slideReady` diagram has `DiagonalSum`. -/
 theorem twist_coloring_diagonal_invert_slideReady (e : TwistExpr)
     (hok : e.slideReady) (col : Nat → Int)
@@ -2445,6 +2455,425 @@ theorem coloring_affine_match_mul (T S : TangleDiagram) (colT colS : Nat → Int
     rw [show colS' = fun a => nS * colS a + kS from rfl, ColorMatrix.of_affineMap]
     exact ColorMatrix.DiagonalSum_affine _ nS kS hdS
 
+theorem ColorMatrix.NE_ne_SE_of_fraction_ne_inf (M : ColorMatrix)
+    (h : M.fraction ≠ .inf) : M.NE ≠ M.SE := by
+  intro heq
+  apply h
+  simp [ColorMatrix.fraction, heq]
+
+theorem ColorMatrix.NE_ne_NW_of_fraction_finite_ne_zero (M : ColorMatrix)
+    (hfin : M.fraction ≠ .inf) (hnz : M.fraction ≠ 0) : M.NE ≠ M.NW := by
+  intro heq
+  apply hnz
+  have hd : M.NE - M.SE ≠ 0 :=
+    sub_ne_zero.mpr (ColorMatrix.NE_ne_SE_of_fraction_ne_inf M hfin)
+  have hfrac : M.fraction =
+      .ofRat (Rat.divInt (M.NE - M.NW) (M.NE - M.SE)) := by
+    simp [ColorMatrix.fraction, hd]
+  have hnum : M.NE - M.NW = 0 := by rw [heq]; ring
+  have hden : M.NE - M.SE ≠ 0 := hd
+  rw [hfrac, hnum, (Rat.divInt_eq_zero hden).2 rfl]
+  rfl
+
+theorem ColorMatrix.NW_ne_SW_of_DiagonalSum_ne_inf (M : ColorMatrix)
+    (hd : M.DiagonalSum) (h : M.NE ≠ M.SE) : M.NW ≠ M.SW := by
+  intro heq
+  simp [ColorMatrix.DiagonalSum] at hd
+  omega
+
+theorem ColorMatrix.SW_ne_SE_of_DiagonalSum_ne_zero (M : ColorMatrix)
+    (hd : M.DiagonalSum) (h : M.NE ≠ M.NW) : M.SW ≠ M.SE := by
+  intro heq
+  simp [ColorMatrix.DiagonalSum] at hd
+  omega
+
+theorem ColorMatrix.NotMono_of_NE_ne_SE (M : ColorMatrix) (h : M.NE ≠ M.SE) :
+    M.NotMono := by
+  intro hm
+  exact h hm.2
+
+theorem CFValue.inv_eq_zero_iff (x : CFValue) : x.inv = 0 ↔ x = .inf := by
+  cases x with
+  | inf =>
+    simp [CFValue.inv]
+    rfl
+  | ofRat q =>
+    constructor
+    · intro h
+      by_cases hq : q = 0
+      · simp [CFValue.inv, hq] at h
+      · simp [CFValue.inv, hq] at h
+        have : q⁻¹ = 0 := CFValue.ofRat_injective h
+        exact (inv_ne_zero hq this).elim
+    · intro h
+      cases h
+
+theorem CFValue.inv_eq_inf_iff (x : CFValue) : x.inv = .inf ↔ x = 0 := by
+  cases x with
+  | inf =>
+    simp [CFValue.inv]
+  | ofRat q =>
+    constructor
+    · intro h
+      by_cases hq : q = 0
+      · simp [CFValue.inv, hq] at h ⊢
+        rfl
+      · simp [CFValue.inv, hq] at h
+    · intro h
+      have hq : q = 0 := CFValue.ofRat_injective h
+      simp [CFValue.inv, hq]
+
+theorem CFValue.neg_eq_inf_iff (x : CFValue) : x.neg = .inf ↔ x = .inf := by
+  cases x <;> simp [CFValue.neg]
+
+/-- Glue affine-matched finite colorings along an `add` seam, identifying
+    `colorAddRight` with the affine right-hand coloring. -/
+theorem coloring_glue_add_finite (T S : TangleDiagram) (colT colS : Nat → Int)
+    (hT : T.IsColored colT) (hS : S.IsColored colS)
+    (hdT : (ColorMatrix.of T colT).DiagonalSum)
+    (hdS : (ColorMatrix.of S colS).DiagonalSum)
+    (_hmT : (ColorMatrix.of T colT).NotMono)
+    (_hmS : (ColorMatrix.of S colS).NotMono)
+    (hfinT : (ColorMatrix.of T colT).fraction ≠ .inf)
+    (hfinS : (ColorMatrix.of S colS).fraction ≠ .inf) :
+    ∃ col colS',
+      (T.add S).IsColored col ∧
+      S.IsColored colS' ∧
+      colorAddRight T S col = colS' ∧
+      (ColorMatrix.of T col).DiagonalSum ∧
+      (ColorMatrix.of S colS').DiagonalSum ∧
+      (ColorMatrix.of (T.add S) col).DiagonalSum ∧
+      (ColorMatrix.of (T.add S) col).NotMono ∧
+      (ColorMatrix.of (T.add S) col).fraction =
+        (ColorMatrix.of T colT).fraction.add (ColorMatrix.of S colS).fraction := by
+  have hdenT : colT T.NE ≠ colT T.SE :=
+    ColorMatrix.NE_ne_SE_of_fraction_ne_inf _ hfinT
+  have hdenS : colS S.NW ≠ colS S.SW :=
+    ColorMatrix.NW_ne_SW_of_DiagonalSum_ne_inf _ hdS
+      (ColorMatrix.NE_ne_SE_of_fraction_ne_inf _ hfinS)
+  have hports : S.NW ≠ S.SW := fun h => hdenS (h ▸ rfl)
+  let nT := colS S.NW - colS S.SW
+  let nS := colT T.NE - colT T.SE
+  let kS := nT * colT T.NE - nS * colS S.NW
+  let colT' : Nat → Int := fun a => nT * colT a + 0
+  let colS' : Nat → Int := fun a => nS * colS a + kS
+  have hnT : nT ≠ 0 := sub_ne_zero.mpr hdenS
+  have hnS : nS ≠ 0 := sub_ne_zero.mpr hdenT
+  have hcT' : T.IsColored colT' := coloring_affine T colT nT 0 hT
+  have hcS' : S.IsColored colS' := coloring_affine S colS nS kS hS
+  have glueNE : colT' T.NE = colS' S.NW := by
+    change nT * colT T.NE + 0 = nS * colS S.NW + (nT * colT T.NE - nS * colS S.NW)
+    ring
+  have glueSE : colT' T.SE = colS' S.SW := by
+    change nT * colT T.SE + 0 = nS * colS S.SW + (nT * colT T.NE - nS * colS S.NW)
+    ring
+  let col := colorGlueAdd T S colT' colS'
+  have hc : (T.add S).IsColored col :=
+    IsColored_colorGlueAdd T S colT' colS' hcT' hcS' glueNE (Or.inl glueSE)
+  have hAddR : colorAddRight T S col = colS' :=
+    colorAddRight_colorGlueAdd T S colT' colS' glueNE (Or.inl glueSE)
+  have hMT : ColorMatrix.of T col = ColorMatrix.of T colT' := by
+    refine ColorMatrix.ext ?_ ?_ ?_ ?_
+    · exact colorGlueAdd_of_le T S colT' colS' (maxArc_ge_NW T)
+    · exact colorGlueAdd_of_le T S colT' colS' (maxArc_ge_NE T)
+    · exact colorGlueAdd_of_le T S colT' colS' (maxArc_ge_SW T)
+    · exact colorGlueAdd_of_le T S colT' colS' (maxArc_ge_SE T)
+  have hdT' : (ColorMatrix.of T colT').DiagonalSum := by
+    rw [show colT' = fun a => nT * colT a + 0 from rfl, ColorMatrix.of_affineMap]
+    exact ColorMatrix.DiagonalSum_affine _ nT 0 hdT
+  have hdS' : (ColorMatrix.of S colS').DiagonalSum := by
+    rw [show colS' = fun a => nS * colS a + kS from rfl, ColorMatrix.of_affineMap]
+    exact ColorMatrix.DiagonalSum_affine _ nS kS hdS
+  have hdTcol : (ColorMatrix.of T col).DiagonalSum := by simpa [hMT] using hdT'
+  have hdG : (ColorMatrix.of (T.add S) col).DiagonalSum :=
+    ColorMatrix.DiagonalSum_of_add hports hdTcol (by rw [hAddR]; exact hdS')
+  have hM := ColorMatrix.of_colorGlueAdd T S colT' colS' glueNE (Or.inl glueSE)
+  have hneSE : colS' S.NE ≠ colS' S.SE := by
+    intro h
+    have : nS * (colS S.NE - colS S.SE) = 0 := by
+      change nS * colS S.NE + kS = nS * colS S.SE + kS at h
+      linarith
+    rcases Int.mul_eq_zero.mp this with h0 | hsub
+    · exact hnS h0
+    · exact (ColorMatrix.NE_ne_SE_of_fraction_ne_inf _ hfinS)
+        (Int.eq_of_sub_eq_zero hsub)
+  have hmG : (ColorMatrix.of (T.add S) col).NotMono := by
+    rw [hM]
+    exact ColorMatrix.NotMono_of_NE_ne_SE _ hneSE
+  have fT : (ColorMatrix.of T colT').fraction = (ColorMatrix.of T colT).fraction := by
+    rw [show colT' = fun a => nT * colT a + 0 from rfl, ColorMatrix.of_affineMap]
+    exact ColorMatrix.fraction_affine _ nT 0 hnT
+  have fS : (ColorMatrix.of S colS').fraction = (ColorMatrix.of S colS).fraction := by
+    rw [show colS' = fun a => nS * colS a + kS from rfl, ColorMatrix.of_affineMap]
+    exact ColorMatrix.fraction_affine _ nS kS hnS
+  have hfadd := coloring_fraction_add T S col hports (by rw [hAddR]; exact hdS')
+  have hf : (ColorMatrix.of (T.add S) col).fraction =
+      (ColorMatrix.of T colT).fraction.add (ColorMatrix.of S colS).fraction := by
+    rw [hAddR] at hfadd
+    rw [hfadd.symm, hMT, fT, fS]
+  exact ⟨col, colS', hc, hcS', hAddR, hdTcol, hdS', hdG, hmG, hf⟩
+
+/-- Glue affine-matched finite nonzero colorings along a `mul` seam,
+    identifying `colorMulBottom` with the affine bottom coloring. -/
+theorem coloring_glue_mul_finite (T S : TangleDiagram) (colT colS : Nat → Int)
+    (hT : T.IsColored colT) (hS : S.IsColored colS)
+    (hdT : (ColorMatrix.of T colT).DiagonalSum)
+    (hdS : (ColorMatrix.of S colS).DiagonalSum)
+    (_hmT : (ColorMatrix.of T colT).NotMono)
+    (_hmS : (ColorMatrix.of S colS).NotMono)
+    (hfinT : (ColorMatrix.of T colT).fraction ≠ .inf)
+    (hfinS : (ColorMatrix.of S colS).fraction ≠ .inf)
+    (hnzT : (ColorMatrix.of T colT).fraction ≠ 0)
+    (hnzS : (ColorMatrix.of S colS).fraction ≠ 0) :
+    ∃ col colS',
+      (T.mul S).IsColored col ∧
+      S.IsColored colS' ∧
+      colorMulBottom T S col = colS' ∧
+      (ColorMatrix.of T col).DiagonalSum ∧
+      (ColorMatrix.of S colS').DiagonalSum ∧
+      (ColorMatrix.of (T.mul S) col).DiagonalSum ∧
+      (ColorMatrix.of (T.mul S) col).NotMono ∧
+      (ColorMatrix.of (T.mul S) col).fraction =
+        ((ColorMatrix.of T colT).fraction.inv.add
+          (ColorMatrix.of S colS).fraction.inv).inv := by
+  have hdenT : colT T.SW ≠ colT T.SE :=
+    ColorMatrix.SW_ne_SE_of_DiagonalSum_ne_zero _ hdT
+      (ColorMatrix.NE_ne_NW_of_fraction_finite_ne_zero _ hfinT hnzT)
+  have hdenS : colS S.NW ≠ colS S.NE :=
+    (ColorMatrix.NE_ne_NW_of_fraction_finite_ne_zero _ hfinS hnzS).symm
+  have hports : S.NW ≠ S.NE := fun h => hdenS (h ▸ rfl)
+  let nT := colS S.NW - colS S.NE
+  let nS := colT T.SW - colT T.SE
+  let kS := nT * colT T.SW - nS * colS S.NW
+  let colT' : Nat → Int := fun a => nT * colT a + 0
+  let colS' : Nat → Int := fun a => nS * colS a + kS
+  have hnT : nT ≠ 0 := sub_ne_zero.mpr hdenS
+  have hnS : nS ≠ 0 := sub_ne_zero.mpr hdenT
+  have hcT' : T.IsColored colT' := coloring_affine T colT nT 0 hT
+  have hcS' : S.IsColored colS' := coloring_affine S colS nS kS hS
+  have glueSW : colT' T.SW = colS' S.NW := by
+    change nT * colT T.SW + 0 = nS * colS S.NW + (nT * colT T.SW - nS * colS S.NW)
+    ring
+  have glueSE : colT' T.SE = colS' S.NE := by
+    change nT * colT T.SE + 0 = nS * colS S.NE + (nT * colT T.SW - nS * colS S.NW)
+    simp [ColorMatrix.DiagonalSum, ColorMatrix.of] at hdT hdS
+    nlinarith
+  let col := colorGlueMul T S colT' colS'
+  have hc : (T.mul S).IsColored col :=
+    IsColored_colorGlueMul T S colT' colS' hcT' hcS' glueSW (Or.inl glueSE)
+  have hMulB : colorMulBottom T S col = colS' :=
+    colorMulBottom_colorGlueMul T S colT' colS' glueSW (Or.inl glueSE)
+  have hMT : ColorMatrix.of T col = ColorMatrix.of T colT' := by
+    refine ColorMatrix.ext ?_ ?_ ?_ ?_
+    · exact colorGlueMul_of_le T S colT' colS' (maxArc_ge_NW T)
+    · exact colorGlueMul_of_le T S colT' colS' (maxArc_ge_NE T)
+    · exact colorGlueMul_of_le T S colT' colS' (maxArc_ge_SW T)
+    · exact colorGlueMul_of_le T S colT' colS' (maxArc_ge_SE T)
+  have hdT' : (ColorMatrix.of T colT').DiagonalSum := by
+    rw [show colT' = fun a => nT * colT a + 0 from rfl, ColorMatrix.of_affineMap]
+    exact ColorMatrix.DiagonalSum_affine _ nT 0 hdT
+  have hdS' : (ColorMatrix.of S colS').DiagonalSum := by
+    rw [show colS' = fun a => nS * colS a + kS from rfl, ColorMatrix.of_affineMap]
+    exact ColorMatrix.DiagonalSum_affine _ nS kS hdS
+  have hdTcol : (ColorMatrix.of T col).DiagonalSum := by simpa [hMT] using hdT'
+  have hdG : (ColorMatrix.of (T.mul S) col).DiagonalSum :=
+    ColorMatrix.DiagonalSum_of_mul hports hdTcol (by rw [hMulB]; exact hdS')
+  have hM := ColorMatrix.of_colorGlueMul T S colT' colS' glueSW (Or.inl glueSE)
+  have hneNWNE : colT' T.NW ≠ colT' T.NE := by
+    intro h
+    have : nT * (colT T.NW - colT T.NE) = 0 := by
+      change nT * colT T.NW + 0 = nT * colT T.NE + 0 at h
+      linarith
+    rcases Int.mul_eq_zero.mp this with h0 | hsub
+    · exact hnT h0
+    · exact (ColorMatrix.NE_ne_NW_of_fraction_finite_ne_zero _ hfinT hnzT)
+        (Int.eq_of_sub_eq_zero hsub).symm
+  have hmG : (ColorMatrix.of (T.mul S) col).NotMono := by
+    rw [hM]
+    intro hm
+    exact hneNWNE hm.1
+  have fT : (ColorMatrix.of T colT').fraction = (ColorMatrix.of T colT).fraction := by
+    rw [show colT' = fun a => nT * colT a + 0 from rfl, ColorMatrix.of_affineMap]
+    exact ColorMatrix.fraction_affine _ nT 0 hnT
+  have fS : (ColorMatrix.of S colS').fraction = (ColorMatrix.of S colS).fraction := by
+    rw [show colS' = fun a => nS * colS a + kS from rfl, ColorMatrix.of_affineMap]
+    exact ColorMatrix.fraction_affine _ nS kS hnS
+  have hfmul := coloring_fraction_mul T S col hports hdTcol
+    (by rw [hMulB]; exact hdS') hmG
+  have hf : (ColorMatrix.of (T.mul S) col).fraction =
+      ((ColorMatrix.of T colT).fraction.inv.add
+        (ColorMatrix.of S colS).fraction.inv).inv := by
+    rw [hMulB] at hfmul
+    rw [hfmul.symm, hMT, fT, fS]
+  exact ⟨col, colS', hc, hcS', hMulB, hdTcol, hdS', hdG, hmG, hf⟩
+
+/-- `colorFrom` of two `rightBottom`/`slideReady` diagrams with finite `F`
+    glue to a coloring of the PD-sum `T.add S`. -/
+theorem coloring_add_two_rightBottom (e f : TwistExpr)
+    (_hrb : e.rightBottom) (_hrb' : f.rightBottom)
+    (hok : e.slideReady) (hok' : f.slideReady)
+    (hfin : e.toStandard.fraction ≠ .inf)
+    (hfin' : f.toStandard.fraction ≠ .inf) :
+    ∃ col,
+      (e.diagram.add f.diagram).IsColored col ∧
+      (ColorMatrix.of (e.diagram.add f.diagram) col).NotMono ∧
+      (ColorMatrix.of (e.diagram.add f.diagram) col).DiagonalSum ∧
+      (ColorMatrix.of (e.diagram.add f.diagram) col).fraction =
+        e.toStandard.fraction.add f.toStandard.fraction := by
+  let colT := e.colorFrom 0 1
+  let colS := f.colorFrom 0 1
+  have hT : e.diagram.IsColored colT := e.colorFrom_isColored_slideReady hok 0 1
+  have hS : f.diagram.IsColored colS := f.colorFrom_isColored_slideReady hok' 0 1
+  have hdT := e.colorFrom_diagonal_slideReady hok 0 1
+  have hdS := f.colorFrom_diagonal_slideReady hok' 0 1
+  have hmT := e.colorFrom_notMono_slideReady hok
+  have hmS := f.colorFrom_notMono_slideReady hok'
+  have hfT := coloring_fraction_eq_F e hok colT hT hdT hmT
+  have hfS := coloring_fraction_eq_F f hok' colS hS hdS hmS
+  have hfinT : (ColorMatrix.of e.diagram colT).fraction ≠ .inf := by
+    rw [hfT]; exact hfin
+  have hfinS : (ColorMatrix.of f.diagram colS).fraction ≠ .inf := by
+    rw [hfS]; exact hfin'
+  obtain ⟨col, _, hc, _, _, _, _, hdG, hmG, hf⟩ :=
+    coloring_glue_add_finite e.diagram f.diagram colT colS hT hS hdT hdS hmT hmS
+      hfinT hfinS
+  exact ⟨col, hc, hmG, hdG, hf.trans (by rw [hfT, hfS])⟩
+
+/-- Fresh coloring of the PD-mirror via the algebraic mirror's `colorFrom`. -/
+theorem coloring_pd_mirror_of_colorFrom (e : TwistExpr) (hok : e.slideReady) :
+    ∃ col, e.diagram.mirror.IsColored col ∧
+      (ColorMatrix.of e.diagram.mirror col).NotMono ∧
+      (ColorMatrix.of e.diagram.mirror col).DiagonalSum ∧
+      (ColorMatrix.of e.diagram.mirror col).fraction = e.toStandard.fraction.neg := by
+  have hokM : e.mirror.slideReady := TwistExpr.slideReady_mirror e hok
+  obtain ⟨col, hc, hMat, hfrac⟩ :=
+    coloring_fraction_ColoringIsotopy (coloring_mirror_diagram_rev_slideReady e hok)
+      (e.mirror.colorFrom 0 1) (e.mirror.colorFrom_isColored_slideReady hokM 0 1)
+  have hmA := e.mirror.colorFrom_notMono_slideReady hokM
+  have hdA := e.mirror.colorFrom_diagonal_slideReady hokM 0 1
+  have hm : (ColorMatrix.of e.diagram.mirror col).NotMono := by simpa [hMat] using hmA
+  have hd : (ColorMatrix.of e.diagram.mirror col).DiagonalSum := by simpa [hMat] using hdA
+  have hfA := coloring_fraction_eq_F e.mirror hokM (e.mirror.colorFrom 0 1)
+    (e.mirror.colorFrom_isColored_slideReady hokM 0 1) hdA hmA
+  refine ⟨col, hc, hm, hd, ?_⟩
+  rw [hfrac, hfA, TwistExpr.toStandard_mirror, StandardExpr.fraction_mirror]
+
+/-- `ColoringIsotopy` from the algebraic-mirror sum to the PD-mirror of the
+    sum (existing `add_left`/`add_right`, not a leftover generator). -/
+theorem coloring_mirror_add_two (e f : TwistExpr)
+    (hok : e.slideReady) (hok' : f.slideReady) :
+    ColoringIsotopy (e.mirror.diagram.add f.mirror.diagram)
+      (e.diagram.mirror.add f.diagram.mirror) := by
+  have hglue : f.mirror.diagram.NW = f.mirror.diagram.SW →
+      f.diagram.mirror.NW = f.diagram.mirror.SW := by
+    intro h
+    simpa [TangleDiagram.mirror, TwistExpr.mirror_NW, TwistExpr.mirror_SW] using h
+  exact ColoringIsotopy.trans
+    (.add_left (S := f.mirror.diagram) (coloring_mirror_diagram_rev_slideReady e hok))
+    (.add_right (coloring_mirror_diagram_rev_slideReady f hok') hglue)
+
+/-- Fresh colorings of `(T+S)ⁱ` and of `Sⁱ * Tⁱ` for two `rightBottom` /
+    `slideReady` diagrams with finite nonzero `F`. Not a `ColoringIsotopy`,
+    not unrestricted `flype_slide`, and not a `SlideReadyIsotopy` constructor
+    (`T.add S` is not a `TwistExpr`). -/
+theorem coloring_invert_add_two_rightBottom (e f : TwistExpr)
+    (hrb : e.rightBottom) (hrb' : f.rightBottom)
+    (hok : e.slideReady) (hok' : f.slideReady)
+    (hfin : e.toStandard.fraction ≠ .inf)
+    (hfin' : f.toStandard.fraction ≠ .inf)
+    (hnz : e.toStandard.fraction ≠ (0 : CFValue))
+    (hnz' : f.toStandard.fraction ≠ (0 : CFValue)) :
+    ∃ colL colR,
+      ((e.diagram.add f.diagram).invert).IsColored colL ∧
+      ((f.diagram.invert.mul e.diagram.invert)).IsColored colR ∧
+      (ColorMatrix.of (e.diagram.add f.diagram).invert colL).NotMono ∧
+      (ColorMatrix.of (f.diagram.invert.mul e.diagram.invert) colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.add f.diagram).invert colL).fraction =
+        (ColorMatrix.of (f.diagram.invert.mul e.diagram.invert) colR).fraction ∧
+      (ColorMatrix.of (e.diagram.add f.diagram).invert colL).fraction =
+        (e.toStandard.fraction.add f.toStandard.fraction).inv := by
+  have hokMe : e.mirror.slideReady := TwistExpr.slideReady_mirror e hok
+  have hokMf : f.mirror.slideReady := TwistExpr.slideReady_mirror f hok'
+  have hrbMe : e.mirror.rightBottom := TwistExpr.rightBottom_mirror e hrb
+  have hrbMf : f.mirror.rightBottom := TwistExpr.rightBottom_mirror f hrb'
+  have hfinMe : e.mirror.toStandard.fraction ≠ .inf := by
+    rw [TwistExpr.toStandard_mirror, StandardExpr.fraction_mirror]
+    intro h
+    exact hfin ((CFValue.neg_eq_inf_iff _).1 h)
+  have hfinMf : f.mirror.toStandard.fraction ≠ .inf := by
+    rw [TwistExpr.toStandard_mirror, StandardExpr.fraction_mirror]
+    intro h
+    exact hfin' ((CFValue.neg_eq_inf_iff _).1 h)
+  obtain ⟨colSumM, hcSumM, hmSumM, hdSumM, hfSumM⟩ :=
+    coloring_add_two_rightBottom e.mirror f.mirror hrbMe hrbMf hokMe hokMf
+      hfinMe hfinMf
+  obtain ⟨colMirr, hcMirr, hMatMirr, hfracMirr⟩ :=
+    coloring_fraction_ColoringIsotopy (coloring_mirror_add_two e f hok hok')
+      colSumM hcSumM
+  have hcMirr' : (e.diagram.add f.diagram).mirror.IsColored colMirr := by
+    simpa [mirror_add] using hcMirr
+  have hMatMirr' :
+      ColorMatrix.of (e.diagram.add f.diagram).mirror colMirr =
+        ColorMatrix.of (e.mirror.diagram.add f.mirror.diagram) colSumM := by
+    simpa [mirror_add] using hMatMirr
+  have hcL : (e.diagram.add f.diagram).invert.IsColored colMirr := by
+    simpa [invert_eq_mirror_rotate] using coloring_rotate _ colMirr hcMirr'
+  have hdMirr : (ColorMatrix.of (e.diagram.add f.diagram).mirror colMirr).DiagonalSum := by
+    simpa [hMatMirr'] using hdSumM
+  have hmMirr : (ColorMatrix.of (e.diagram.add f.diagram).mirror colMirr).NotMono := by
+    simpa [hMatMirr'] using hmSumM
+  have hmL : (ColorMatrix.of (e.diagram.add f.diagram).invert colMirr).NotMono := by
+    have hrot :
+        ColorMatrix.of (e.diagram.add f.diagram).invert colMirr =
+          (ColorMatrix.of (e.diagram.add f.diagram).mirror colMirr).rotate := by
+      simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+    simpa [hrot] using ColorMatrix.NotMono_rotate hdMirr hmMirr
+  have hfL :
+      (ColorMatrix.of (e.diagram.add f.diagram).invert colMirr).fraction =
+        (e.toStandard.fraction.add f.toStandard.fraction).inv := by
+    have hrot :
+        (ColorMatrix.of (e.diagram.add f.diagram).invert colMirr).fraction =
+          (ColorMatrix.of (e.diagram.add f.diagram).mirror colMirr).fraction.negInv :=
+      coloring_fraction_rotate _ colMirr hdMirr hmMirr
+    have hfM :
+        (ColorMatrix.of (e.diagram.add f.diagram).mirror colMirr).fraction =
+          e.mirror.toStandard.fraction.add f.mirror.toStandard.fraction := by
+      rw [hMatMirr', hfSumM]
+    rw [hrot, hfM, TwistExpr.toStandard_mirror, TwistExpr.toStandard_mirror,
+      StandardExpr.fraction_mirror, StandardExpr.fraction_mirror]
+    rw [← CFValue.neg_add, CFValue.neg_negInv]
+  obtain ⟨colSinv, hcSinv, hmSinv, hfSinv⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom f hok'
+  obtain ⟨colTinv, hcTinv, hmTinv, hfTinv⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e hok
+  have hdSinv := twist_coloring_diagonal_invert_slideReady f hok' colSinv hcSinv
+  have hdTinv := twist_coloring_diagonal_invert_slideReady e hok colTinv hcTinv
+  have hfinSinv : (ColorMatrix.of f.diagram.invert colSinv).fraction ≠ .inf := by
+    rw [hfSinv]
+    intro h
+    exact hnz' ((CFValue.inv_eq_inf_iff _).1 h)
+  have hfinTinv : (ColorMatrix.of e.diagram.invert colTinv).fraction ≠ .inf := by
+    rw [hfTinv]
+    intro h
+    exact hnz ((CFValue.inv_eq_inf_iff _).1 h)
+  have hnzSinv : (ColorMatrix.of f.diagram.invert colSinv).fraction ≠ 0 := by
+    rw [hfSinv]
+    intro h
+    exact hfin' ((CFValue.inv_eq_zero_iff _).1 h)
+  have hnzTinv : (ColorMatrix.of e.diagram.invert colTinv).fraction ≠ 0 := by
+    rw [hfTinv]
+    intro h
+    exact hfin ((CFValue.inv_eq_zero_iff _).1 h)
+  obtain ⟨colR, _, hcR, _, _, _, _, _, hmR, hfR⟩ :=
+    coloring_glue_mul_finite f.diagram.invert e.diagram.invert
+      colSinv colTinv hcSinv hcTinv hdSinv hdTinv hmSinv hmTinv
+      hfinSinv hfinTinv hnzSinv hnzTinv
+  have hfR' :
+      (ColorMatrix.of (f.diagram.invert.mul e.diagram.invert) colR).fraction =
+        (e.toStandard.fraction.add f.toStandard.fraction).inv := by
+    rw [hfR, hfSinv, hfTinv, CFValue.inv_inv, CFValue.inv_inv, CFValue.add_comm]
+  refine ⟨colMirr, colR, hcL, hcR, hmL, hmR, ?_, hfL⟩
+  exact hfL.trans hfR'.symm
 
 /-! ## `SlideReadyIsotopy`
 
