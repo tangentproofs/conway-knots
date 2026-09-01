@@ -64,22 +64,27 @@ affine-matched colorings colors the PD-sum; algebraic mirrors glue and
 transport along `ColoringIsotopy` to the PD-mirror of the sum, then
 rotate for `(T+S)ⁱ`; invert colorings glue with `coloring_fraction_mul`
 for `Sⁱ*Tⁱ` (`colorAddRight`/`colorMulBottom` recover the affine
-right/bottom coloring). Skip `0`/`∞` (matching would force `n = 0` or
-monochrome). Unrestricted `flype_slide_*` (no `DiagonalSum`/`hne`) and
-paths that leave twist form remain omitted. None of those leftover
-constructors is added to `ColoringIsotopy`.
+right/bottom coloring). Skip `0`/`∞` on two general summands
+(matching would force `n = 0` or monochrome). Invert-add when a
+summand is the `[0]` diagram is colored separately via `add_zero_eq` /
+the `[0]+T` reindex (not glue). Invert-add with a summand `[∞]` is
+still omitted (`T+[∞]` merges `NE` with `SE`). Unrestricted
+`flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
+form remain omitted. None of those leftover constructors is added to
+`ColoringIsotopy`.
 
 `HasColoringFraction` is carried along `ColoringIsotopy` on arbitrary
 diagrams, along invert/mirror/`rot180` of a `slideReady` twist (and
 along `rot180` of any diagram whose coloring has `DiagonalSum`), along
-Figure 14 when the port hypotheses hold, and along invert-add of two
-`rightBottom`/`slideReady` diagrams with finite nonzero `F`. Restricted
+Figure 14 when the port hypotheses hold, along invert-add of two
+`rightBottom`/`slideReady` diagrams with finite nonzero `F`, and along
+invert-add when a summand is the `[0]` diagram. Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
 carried value. Induction of `HasColoringFraction` along full `Isotopic`
 is blocked by the unrestricted constructors `Isotopic.flype_slide_add`
 and `Isotopic.flype_slide_mul` (no `DiagonalSum`/`hne`), and by
-`Isotopic.invert_add` when a summand has fraction `0` or `∞`. That
-induction is not claimed.
+`Isotopic.invert_add` when a summand is `[∞]` or a non-`[0]` diagram
+of fraction `0`. That induction is not claimed.
 -/
 
 namespace RationalTangles
@@ -2887,6 +2892,164 @@ theorem coloring_invert_add_two_rightBottom (e f : TwistExpr)
   refine ⟨colMirr, colR, hcL, hcR, hmL, hmR, ?_, hfL⟩
   exact hfL.trans hfR'.symm
 
+/-- Invert of `[0]+T` is the invert of `T` with the same arc reindex as
+    `zero_add`. -/
+theorem invert_zero_add_crossings (T : TangleDiagram) :
+    (TangleDiagram.zero.add T).invert.crossings =
+      T.invert.crossings.map (Crossing.rename (zeroAddReindex T)) := by
+  simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror,
+    zero_add_crossings_reindex, List.map_map, Function.comp,
+    Crossing.switch_rename]
+
+/-- Recolor `Tⁱ` along the `[0]+T` reindex. Dummy names `0`/`1` take
+    `T.NW`/`T.SW` (the inverted `SW`/`SE`), so this needs no port
+    hypothesis. -/
+theorem IsColored_colorZeroAdd_invert (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.invert.IsColored col) :
+    (TangleDiagram.zero.add T).invert.IsColored (colorZeroAdd T col) := by
+  intro C hC
+  rw [invert_zero_add_crossings] at hC
+  obtain ⟨C0, hC0, rfl⟩ := List.mem_map.1 hC
+  rw [ColoringRule_rename]
+  have hfun : colorZeroAdd T col ∘ zeroAddReindex T = col :=
+    funext (colorZeroAdd_reindex T col)
+  simpa [hfun] using hc C0 hC0
+
+theorem coloring_invert_zero_add (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.invert.IsColored col) :
+    ∃ col', (TangleDiagram.zero.add T).invert.IsColored col' ∧
+      SameEndpointColors T.invert (TangleDiagram.zero.add T).invert col col' := by
+  refine ⟨colorZeroAdd T col, IsColored_colorZeroAdd_invert T col hc, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [TangleDiagram.invert_NW, TangleDiagram.invert_NW, zero_add_NE_reindex,
+      colorZeroAdd_reindex]
+  · rw [TangleDiagram.invert_NE, TangleDiagram.invert_NE, zero_add_SE_reindex,
+      colorZeroAdd_reindex]
+  · rw [TangleDiagram.invert_SE, TangleDiagram.invert_SE]
+    simp [TangleDiagram.add, TangleDiagram.zero, colorZeroAdd]
+  · rw [TangleDiagram.invert_SW, TangleDiagram.invert_SW]
+    simp [TangleDiagram.add, TangleDiagram.zero, colorZeroAdd]
+
+theorem coloring_fraction_invert_zero_add (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.invert.IsColored col) :
+    ∃ col', (TangleDiagram.zero.add T).invert.IsColored col' ∧
+      ColorMatrix.of (TangleDiagram.zero.add T).invert col' =
+        ColorMatrix.of T.invert col ∧
+      (ColorMatrix.of (TangleDiagram.zero.add T).invert col').fraction =
+        (ColorMatrix.of T.invert col).fraction := by
+  obtain ⟨col', hc', hs⟩ := coloring_invert_zero_add T col hc
+  have hM := ColorMatrix.of_sameEndpoint hs
+  exact ⟨col', hc', hM, hM ▸ rfl⟩
+
+/-- Fresh colorings of `(T+[0])ⁱ` and of `[0]ⁱ * Tⁱ` on a `slideReady`
+    diagram. Left PD-code is `Tⁱ` (`add_zero_eq`); right is `[∞]*Tⁱ`,
+    colored by the left-mul reindex. Not a `ColoringIsotopy`
+    (`invert_add` switches crossings). Covers a right summand `[0]`,
+    including when `F(T)=∞`. -/
+theorem coloring_invert_add_slideReady_zero (e : TwistExpr)
+    (hok : e.slideReady) :
+    ∃ colL colR,
+      ((e.diagram.add TangleDiagram.zero).invert).IsColored colL ∧
+      ((TangleDiagram.zero.invert.mul e.diagram.invert)).IsColored colR ∧
+      (ColorMatrix.of (e.diagram.add TangleDiagram.zero).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.zero.invert.mul e.diagram.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (e.diagram.add TangleDiagram.zero).invert
+        colL).fraction =
+        (ColorMatrix.of (TangleDiagram.zero.invert.mul e.diagram.invert)
+          colR).fraction ∧
+      (ColorMatrix.of (e.diagram.add TangleDiagram.zero).invert
+        colL).fraction =
+        (e.toStandard.fraction.add (0 : CFValue)).inv := by
+  have hL : e.diagram.add TangleDiagram.zero = e.diagram := add_zero_eq _
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e hok
+  have hcL' :
+      (e.diagram.add TangleDiagram.zero).invert.IsColored colL := by
+    simpa only [hL] using hcL
+  have hmL' :
+      (ColorMatrix.of (e.diagram.add TangleDiagram.zero).invert
+        colL).NotMono := by
+    simpa only [hL] using hmL
+  have hfL' :
+      (ColorMatrix.of (e.diagram.add TangleDiagram.zero).invert
+        colL).fraction = e.toStandard.fraction.inv := by
+    simpa only [hL] using hfL
+  have hR :
+      TangleDiagram.zero.invert.mul e.diagram.invert =
+        TangleDiagram.infinity.mul e.diagram.invert := by
+    rw [invert_zero]
+  obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+    coloring_fraction_infinity_mul e.diagram.invert colL hcL
+  refine ⟨colL, colR, hcL', ?_, hmL', ?_, ?_, ?_⟩
+  · simpa only [hR] using hcR
+  · have hmR :
+        (ColorMatrix.of (TangleDiagram.infinity.mul e.diagram.invert)
+          colR).NotMono := by
+      simpa only [hMat] using hmL
+    simpa only [hR] using hmR
+  · have hfR :
+        (ColorMatrix.of (TangleDiagram.zero.invert.mul e.diagram.invert)
+          colR).fraction = e.toStandard.fraction.inv := by
+      simpa only [hR] using hfrac.trans hfL
+    exact hfL'.trans hfR.symm
+  · rw [hfL']
+    simp [show (0 : CFValue) = CFValue.ofRat 0 from rfl, CFValue.add_zero]
+
+/-- Fresh colorings of `([0]+T)ⁱ` and of `Tⁱ * [0]ⁱ` on a `slideReady`
+    diagram. Right PD-code is `Tⁱ` (`mul_infinity_eq` after `invert_zero`);
+    left is the invert of the `[0]+T` reindex, colored by
+    `coloring_fraction_invert_zero_add`. Not a `ColoringIsotopy`. Covers a
+    left summand `[0]`. -/
+theorem coloring_invert_add_zero_slideReady (e : TwistExpr)
+    (hok : e.slideReady) :
+    ∃ colL colR,
+      ((TangleDiagram.zero.add e.diagram).invert).IsColored colL ∧
+      ((e.diagram.invert.mul TangleDiagram.zero.invert)).IsColored colR ∧
+      (ColorMatrix.of (TangleDiagram.zero.add e.diagram).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (e.diagram.invert.mul TangleDiagram.zero.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.zero.add e.diagram).invert
+        colL).fraction =
+        (ColorMatrix.of (e.diagram.invert.mul TangleDiagram.zero.invert)
+          colR).fraction ∧
+      (ColorMatrix.of (TangleDiagram.zero.add e.diagram).invert
+        colL).fraction =
+        ((0 : CFValue).add e.toStandard.fraction).inv := by
+  obtain ⟨col0, hc0, hm0, hf0⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e hok
+  have hR :
+      e.diagram.invert.mul TangleDiagram.zero.invert = e.diagram.invert := by
+    rw [invert_zero, mul_infinity_eq]
+  have hcR :
+      (e.diagram.invert.mul TangleDiagram.zero.invert).IsColored col0 := by
+    simpa only [hR] using hc0
+  have hmR :
+      (ColorMatrix.of (e.diagram.invert.mul TangleDiagram.zero.invert)
+        col0).NotMono := by
+    simpa only [hR] using hm0
+  have hfR :
+      (ColorMatrix.of (e.diagram.invert.mul TangleDiagram.zero.invert)
+        col0).fraction = e.toStandard.fraction.inv := by
+    simpa only [hR] using hf0
+  obtain ⟨colL, hcL, hMat, hfrac⟩ :=
+    coloring_fraction_invert_zero_add e.diagram col0 hc0
+  refine ⟨colL, col0, hcL, hcR, ?_, hmR, ?_, ?_⟩
+  · simpa only [hMat] using hm0
+  · have hfL :
+        (ColorMatrix.of (TangleDiagram.zero.add e.diagram).invert
+          colL).fraction = e.toStandard.fraction.inv :=
+      hfrac.trans hf0
+    exact hfL.trans hfR.symm
+  · have hfL :
+        (ColorMatrix.of (TangleDiagram.zero.add e.diagram).invert
+          colL).fraction = e.toStandard.fraction.inv :=
+      hfrac.trans hf0
+    rw [hfL]
+    simp [show (0 : CFValue) = CFValue.ofRat 0 from rfl, CFValue.zero_add]
+
 /-! ## `SlideReadyIsotopy`
 
 The relation generated by coloring-ready isotopy on `slideReady` twist
@@ -3180,9 +3343,11 @@ theorem SlideReadyIsotopy.rot180_cong {e e' : TwistExpr} {v : CFValue}
 Carry a non-monochrome coloring fraction along the generators we can
 color, even when the result is not a `TwistExpr`. Unrestricted
 `Isotopic.flype_slide_add` / `flype_slide_mul` (no `DiagonalSum`/`hne`)
-and `Isotopic.invert_add` at fraction `0`/`∞` are not included: they
-block induction of `HasColoringFraction` along `Isotopic`. None of these
-is added to `ColoringIsotopy`.
+and `Isotopic.invert_add` at a summand `[∞]` (or a non-`[0]` diagram
+of fraction `0`) are not included: they block induction of
+`HasColoringFraction` along `Isotopic`. None of these is added to
+`ColoringIsotopy`. Invert-add with a `[0]` summand is a theorem on
+`HasColoringFraction`, not a constructor of `ColoringIsotopy`.
 -/
 
 /-- `ColoringIsotopy` preserves a carried coloring fraction. -/
@@ -3306,6 +3471,30 @@ theorem HasColoringFraction.invert_add_two_rightBottom (e f : TwistExpr)
         (e.toStandard.fraction.add f.toStandard.fraction).inv := by
   obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
     coloring_invert_add_two_rightBottom e f hrb hrb' hok hok' hfin hfin' hnz hnz'
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-- Invert-add with right summand `[0]`: both `(T+[0])ⁱ` and `[0]ⁱ*Tⁱ`
+    carry `F(T)⁻¹`. Not a `ColoringIsotopy`. -/
+theorem HasColoringFraction.invert_add_slideReady_zero (e : TwistExpr)
+    (hok : e.slideReady) :
+    HasColoringFraction (e.diagram.add TangleDiagram.zero).invert
+        (e.toStandard.fraction.add (0 : CFValue)).inv ∧
+      HasColoringFraction (TangleDiagram.zero.invert.mul e.diagram.invert)
+        (e.toStandard.fraction.add (0 : CFValue)).inv := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_slideReady_zero e hok
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+/-- Invert-add with left summand `[0]`: both `([0]+T)ⁱ` and `Tⁱ*[0]ⁱ`
+    carry `F(T)⁻¹`. Not a `ColoringIsotopy`. -/
+theorem HasColoringFraction.invert_add_zero_slideReady (e : TwistExpr)
+    (hok : e.slideReady) :
+    HasColoringFraction (TangleDiagram.zero.add e.diagram).invert
+        ((0 : CFValue).add e.toStandard.fraction).inv ∧
+      HasColoringFraction (e.diagram.invert.mul TangleDiagram.zero.invert)
+        ((0 : CFValue).add e.toStandard.fraction).inv := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_zero_slideReady e hok
   exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
 
 end RationalTangles
