@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/coloring-reidemeister-iii.html">
+        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/nested-two-block-reindex.html">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Coloring invariance under Reidemeister III: local context - Conway knots</title>
+        <title>Nested unit chains versus two-block PD-sums: local context - Conway knots</title>
       
     
     
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Coloring invariance under Reidemeister III: local context
+              Nested unit chains versus two-block PD-sums: local context
             
           </span>
         </div>
@@ -779,33 +779,24 @@
   
 
 
-<h1 id="coloring-invariance-under-reidemeister-iii-local-context">Coloring invariance under Reidemeister III: local context</h1>
-<p><a href="../../../../../dependencies.html">Project map</a> · <a href="../../../../scopes/rational-tangles/coloring.html">Chapter map</a> · <a href="../../../../full.html">Full theorem DAG</a> · <a href="../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-iii">Open textbook statement</a></p>
-<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">5</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<h1 id="nested-unit-chains-versus-two-block-pd-sums-local-context">Nested unit chains versus two-block PD-sums: local context</h1>
+<p><a href="../../../../../dependencies.html">Project map</a> · <a href="../../../../scopes/rational-tangles/coloring.html">Chapter map</a> · <a href="../../../../full.html">Full theorem DAG</a> · <a href="../../../../../roadmap/rational-tangles/coloring/index.html#theorems-nested-two-block-reindex">Open textbook statement</a></p>
+<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">3</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
 <div class="mermaid">graph LR
-  n0["Reidemeister moves"]:::fully_proved
-  n1["2-tangle and isotopy"]:::fully_proved
-  n2["Coloring rule"]:::fully_proved
-  n3("Coloring invariance under Reidemeister III"):::fully_proved
-  n4("Reversible fragment of coloring isotopy"):::fully_proved
-  n5("Coloring fraction of a rational tangle"):::can_state
-  n2 --&gt; n3
-  n2 --&gt; n4
-  n3 -.-&gt; n5
-  n3 --&gt; n4
-  n4 -.-&gt; n5
-  n0 --&gt; n3
-  n0 --&gt; n1
+  n0["2-tangle and isotopy"]:::fully_proved
+  n1["Integer and vertical tangles"]:::fully_proved
+  n2("Nested unit chains versus two-block PD-sums"):::fully_proved
+  n3("Coloring fraction of a rational tangle"):::can_state
+  n2 -.-&gt; n3
+  n1 -.-&gt; n3
   n1 --&gt; n2
-  n1 --&gt; n3
-  n1 --&gt; n4
-  click n0 "../../../../../roadmap/rational-tangles/index.html#definitions-reidemeister-moves" "Reidemeister moves — 1 item · 1 fully proved"
-  click n1 "../../../../../roadmap/rational-tangles/index.html#definitions-two-tangle-isotopy" "2-tangle and isotopy — 1 item · 1 fully proved"
-  click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#definitions-coloring-rule" "Coloring rule — 1 item · 1 fully proved"
-  class n3 focus
-  click n3 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-iii" "Coloring invariance under Reidemeister III — 1 item · 1 fully proved"
-  click n4 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-reversible-coloring-isotopy" "Reversible fragment of coloring isotopy — 1 item · 1 fully proved"
-  click n5 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"</div>
+  n0 --&gt; n2
+  n0 --&gt; n1
+  click n0 "../../../../../roadmap/rational-tangles/index.html#definitions-two-tangle-isotopy" "2-tangle and isotopy — 1 item · 1 fully proved"
+  click n1 "../../../../../roadmap/rational-tangles/index.html#definitions-integer-tangle" "Integer and vertical tangles — 1 item · 1 fully proved"
+  class n2 focus
+  click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-nested-two-block-reindex" "Nested unit chains versus two-block PD-sums — 1 item · 1 fully proved"
+  click n3 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"</div>
 
 
 

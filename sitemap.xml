@@ -53,6 +53,10 @@
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/coloring-infinity-mul.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
          <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/coloring-invert-add-units.html</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
@@ -70,6 +74,14 @@
     </url>
     <url>
          <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/integral-colorability.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/nested-two-block-reindex.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/reversible-coloring-isotopy.html</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
@@ -133,6 +145,34 @@
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/coloring-invert-add-zero.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/coloring-invert-cong-slideReady.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/coloring-invert-mul-two-rightBottom.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/coloring-mirror-cong-slideReady.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/coloring-rot180-add-units.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/coloring-rot180-cong-slideReady.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/coloring-transfer-odd-slideReady.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
          <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/continued-fraction-canonical.html</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
@@ -150,6 +190,10 @@
     </url>
     <url>
          <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/same-fraction-isotopic.html</loc>
+         <lastmod>2026-09-01</lastmod>
+    </url>
+    <url>
+         <loc>https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/theorems/slideReady-isotopy-fraction.html</loc>
          <lastmod>2026-09-01</lastmod>
     </url>
     <url>

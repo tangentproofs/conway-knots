@@ -800,7 +800,7 @@
 
 <h1 id="full-theorem-dependency-graph">Full theorem dependency graph</h1>
 <p><a href="../dependencies.html">Project map</a></p>
-<p>39 nodes · 103 dependencies. Arrows point from a prerequisite to what depends on it; dashed arrows are needed only by proofs. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">21</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">8</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">8</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span><span class="bp-swatch bp-swatch-planned"></span><span class="bp-legend-label">planned</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Described in the blueprint only.</span></div></span></span></p>
+<p>50 nodes · 157 dependencies. Arrows point from a prerequisite to what depends on it; dashed arrows are needed only by proofs. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">24</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">16</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">8</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span><span class="bp-swatch bp-swatch-planned"></span><span class="bp-legend-label">planned</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Described in the blueprint only.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0("Rational tangles"):::can_state
   n1("The fraction through integral coloring"):::can_state
@@ -823,127 +823,192 @@
   n18("Coloring invariance under Reidemeister I"):::fully_proved
   n19("Coloring invariance under Reidemeister II"):::fully_proved
   n20("Coloring invariance under Reidemeister III"):::fully_proved
-  n21("Flipping lemma"):::can_prove
-  n22("Coloring fraction of a rational tangle"):::can_state
-  n23("Coloring fraction of inverted unit sums and products"):::proved
-  n24["Canonical form of a rational tangle"]:::fully_proved
-  n25("Tait flyping conjecture"):::can_state
-  n26("Alternating rational tangles related by flypes"):::can_state
-  n27("Every rational tangle has a standard form"):::proved
-  n28("Every rational tangle has a continued fraction form"):::proved
-  n29("Every rational tangle isotopes to canonical form"):::proved
-  n30("Unique canonical continued fraction"):::fully_proved
-  n31("Canonical diagrams of equal fraction are equal"):::proved
-  n32("The fraction is an isotopy invariant"):::can_state
-  n33("Same fraction implies isotopic"):::can_state
-  n34("Classification of rational tangles"):::planned
-  n35("Standard-form value of a twist diagram is well-defined"):::proved
-  n36("Standard-form $F$ along coloring isotopy"):::proved
-  n37("Twist expressions of equal fraction are isotopic"):::proved
-  n38("Rational tangles roadmap"):::can_state
+  n21("Left product by the vertical trivial tangle is planar reindexing"):::fully_proved
+  n22("Nested unit chains versus two-block PD-sums"):::fully_proved
+  n23("Reversible fragment of coloring isotopy"):::fully_proved
+  n24("Flipping lemma"):::can_prove
+  n25("Coloring fraction of a rational tangle"):::can_state
+  n26("Coloring fraction of inverted unit sums and products"):::proved
+  n27["Canonical form of a rational tangle"]:::fully_proved
+  n28("Tait flyping conjecture"):::can_state
+  n29("Alternating rational tangles related by flypes"):::can_state
+  n30("Every rational tangle has a standard form"):::proved
+  n31("Every rational tangle has a continued fraction form"):::proved
+  n32("Every rational tangle isotopes to canonical form"):::proved
+  n33("Unique canonical continued fraction"):::fully_proved
+  n34("Canonical diagrams of equal fraction are equal"):::proved
+  n35("The fraction is an isotopy invariant"):::can_state
+  n36("Same fraction implies isotopic"):::can_state
+  n37("Classification of rational tangles"):::planned
+  n38("Standard-form value of a twist diagram is well-defined"):::proved
+  n39("Standard-form $F$ along coloring isotopy"):::proved
+  n40("Coloring fraction after invert on slide-ready diagrams"):::proved
+  n41("Invert-add with a trivial horizontal summand"):::proved
+  n42("Invert-mul of two right-and-bottom diagrams"):::proved
+  n43("Coloring fraction after mirror on slide-ready diagrams"):::proved
+  n44("Coloring fraction of rotated unit sums and products"):::proved
+  n45("Coloring fraction after 180° rotation on slide-ready diagrams"):::proved
+  n46("Figure 14 at the coloring fraction on slide-ready diagrams"):::proved
+  n47("Standard-form $F$ along slide-ready coloring paths"):::proved
+  n48("Twist expressions of equal fraction are isotopic"):::proved
+  n49("Rational tangles roadmap"):::can_state
   n5 --&gt; n6
   n5 --&gt; n7
   n5 -.-&gt; n11
-  n5 --&gt; n22
-  n6 --&gt; n22
+  n5 --&gt; n25
+  n5 --&gt; n21
+  n6 --&gt; n25
+  n6 --&gt; n26
   n6 --&gt; n23
-  n6 --&gt; n36
+  n6 --&gt; n41
+  n6 --&gt; n40
+  n6 --&gt; n42
+  n6 --&gt; n43
+  n6 --&gt; n44
+  n6 --&gt; n45
+  n6 --&gt; n46
+  n6 --&gt; n47
+  n6 --&gt; n39
   n4 --&gt; n5
   n4 --&gt; n7
   n4 --&gt; n11
+  n4 --&gt; n21
   n4 --&gt; n18
   n4 --&gt; n19
   n4 --&gt; n20
   n4 --&gt; n17
-  n7 -.-&gt; n22
-  n11 -.-&gt; n22
-  n22 -.-&gt; n23
-  n22 -.-&gt; n32
-  n22 -.-&gt; n36
-  n22 -.-&gt; n35
-  n18 -.-&gt; n22
-  n19 -.-&gt; n22
-  n20 -.-&gt; n22
-  n17 -.-&gt; n22
-  n24 --&gt; n29
-  n24 --&gt; n31
-  n24 --&gt; n33
-  n24 --&gt; n37
+  n4 --&gt; n23
+  n7 -.-&gt; n25
+  n11 -.-&gt; n25
+  n11 --&gt; n23
+  n25 -.-&gt; n26
+  n25 -.-&gt; n40
+  n25 -.-&gt; n35
+  n25 -.-&gt; n39
+  n25 -.-&gt; n38
+  n21 -.-&gt; n25
+  n21 --&gt; n41
+  n26 -.-&gt; n42
+  n26 -.-&gt; n47
+  n18 -.-&gt; n25
+  n18 --&gt; n23
+  n19 -.-&gt; n25
+  n19 --&gt; n23
+  n20 -.-&gt; n25
+  n20 --&gt; n23
+  n17 -.-&gt; n25
+  n22 -.-&gt; n25
+  n23 -.-&gt; n25
+  n27 --&gt; n32
+  n27 --&gt; n34
+  n27 --&gt; n36
+  n27 --&gt; n48
   n15 --&gt; n16
-  n15 --&gt; n30
-  n14 --&gt; n24
+  n15 --&gt; n33
+  n14 --&gt; n27
   n14 --&gt; n16
-  n14 --&gt; n28
+  n14 --&gt; n31
   n10 -.-&gt; n11
-  n10 -.-&gt; n22
-  n10 -.-&gt; n26
-  n10 --&gt; n21
+  n10 -.-&gt; n25
+  n10 -.-&gt; n29
+  n10 --&gt; n24
   n9 --&gt; n11
-  n9 --&gt; n26
-  n9 -.-&gt; n29
   n9 --&gt; n21
-  n9 -.-&gt; n27
-  n9 --&gt; n25
-  n8 -.-&gt; n22
-  n8 --&gt; n23
+  n9 --&gt; n29
+  n9 -.-&gt; n32
+  n9 --&gt; n44
+  n9 --&gt; n46
+  n9 --&gt; n24
+  n9 --&gt; n47
+  n9 -.-&gt; n30
+  n9 --&gt; n28
+  n8 -.-&gt; n25
+  n8 --&gt; n21
+  n8 --&gt; n26
   n8 -.-&gt; n17
+  n8 --&gt; n22
   n8 --&gt; n14
   n8 --&gt; n9
   n8 --&gt; n12
-  n12 --&gt; n22
+  n8 --&gt; n41
+  n8 --&gt; n42
+  n12 --&gt; n25
   n12 --&gt; n17
   n12 --&gt; n13
   n12 --&gt; n16
-  n12 --&gt; n26
-  n12 --&gt; n21
-  n12 --&gt; n35
+  n12 --&gt; n29
+  n12 --&gt; n24
+  n12 --&gt; n38
   n2 --&gt; n18
   n2 --&gt; n19
   n2 --&gt; n20
   n2 --&gt; n3
   n13 --&gt; n14
-  n13 --&gt; n31
-  n13 --&gt; n27
-  n13 --&gt; n36
-  n13 --&gt; n35
-  n13 --&gt; n37
-  n16 --&gt; n22
-  n16 --&gt; n31
-  n16 --&gt; n32
-  n16 --&gt; n33
-  n16 --&gt; n36
+  n13 --&gt; n34
+  n13 --&gt; n40
+  n13 --&gt; n43
+  n13 --&gt; n45
+  n13 --&gt; n47
+  n13 --&gt; n30
+  n13 --&gt; n39
+  n13 --&gt; n38
+  n13 --&gt; n48
+  n16 --&gt; n25
+  n16 --&gt; n34
   n16 --&gt; n35
-  n16 --&gt; n37
+  n16 --&gt; n36
+  n16 --&gt; n39
+  n16 --&gt; n38
+  n16 --&gt; n48
   n3 --&gt; n5
   n3 --&gt; n4
   n3 --&gt; n11
+  n3 --&gt; n21
   n3 --&gt; n18
   n3 --&gt; n19
   n3 --&gt; n20
+  n3 --&gt; n22
+  n3 --&gt; n23
   n3 --&gt; n10
   n3 --&gt; n9
   n3 --&gt; n8
-  n3 --&gt; n32
-  n3 --&gt; n25
-  n29 -.-&gt; n31
-  n29 -.-&gt; n33
-  n31 -.-&gt; n37
-  n30 --&gt; n31
-  n30 --&gt; n33
-  n28 -.-&gt; n29
-  n28 -.-&gt; n31
-  n21 -.-&gt; n22
-  n21 -.-&gt; n26
-  n21 -.-&gt; n29
-  n21 -.-&gt; n27
-  n32 --&gt; n34
-  n32 -.-&gt; n33
+  n3 --&gt; n35
+  n3 --&gt; n28
+  n32 -.-&gt; n34
+  n32 -.-&gt; n36
+  n34 -.-&gt; n48
+  n40 -.-&gt; n41
+  n40 -.-&gt; n42
+  n40 -.-&gt; n43
+  n40 -.-&gt; n46
+  n40 -.-&gt; n47
+  n43 -.-&gt; n46
+  n43 -.-&gt; n47
+  n44 -.-&gt; n45
+  n44 -.-&gt; n47
+  n45 -.-&gt; n47
+  n46 -.-&gt; n47
   n33 --&gt; n34
-  n27 -.-&gt; n28
-  n27 -.-&gt; n35
-  n27 -.-&gt; n37
-  n25 -.-&gt; n26
+  n33 --&gt; n36
+  n31 -.-&gt; n32
+  n31 -.-&gt; n34
+  n24 -.-&gt; n25
+  n24 -.-&gt; n29
+  n24 -.-&gt; n32
+  n24 -.-&gt; n30
+  n35 --&gt; n37
   n35 -.-&gt; n36
+  n36 --&gt; n37
+  n30 -.-&gt; n31
+  n30 -.-&gt; n38
+  n30 -.-&gt; n48
+  n28 -.-&gt; n29
+  n39 -.-&gt; n40
+  n39 -.-&gt; n43
+  n39 -.-&gt; n44
+  n39 -.-&gt; n45
+  n39 -.-&gt; n47
+  n38 -.-&gt; n39
   click n0 "../roadmap/rational-tangles/index.html" "Rational tangles — 1 item · 1 ready to state"
   click n1 "../roadmap/rational-tangles/coloring/index.html" "The fraction through integral coloring — 1 item · 1 ready to state"
   click n2 "../roadmap/rational-tangles/index.html#definitions-reidemeister-moves" "Reidemeister moves — 1 item · 1 fully proved"
@@ -965,24 +1030,35 @@
   click n18 "../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-i" "Coloring invariance under Reidemeister I — 1 item · 1 fully proved"
   click n19 "../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-ii" "Coloring invariance under Reidemeister II — 1 item · 1 fully proved"
   click n20 "../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-iii" "Coloring invariance under Reidemeister III — 1 item · 1 fully proved"
-  click n21 "../roadmap/rational-tangles/index.html#theorems-flipping-lemma" "Flipping lemma — 1 item · 1 ready to prove"
-  click n22 "../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"
-  click n23 "../roadmap/rational-tangles/coloring/index.html#theorems-coloring-invert-add-units" "Coloring fraction of inverted unit sums and products — 1 item · 1 proved"
-  click n24 "../roadmap/rational-tangles/index.html#definitions-canonical-form" "Canonical form of a rational tangle — 1 item · 1 fully proved"
-  click n25 "../roadmap/rational-tangles/index.html#theorems-tait-flyping" "Tait flyping conjecture — 1 item · 1 ready to state"
-  click n26 "../roadmap/rational-tangles/index.html#theorems-alternating-flypes" "Alternating rational tangles related by flypes — 1 item · 1 ready to state"
-  click n27 "../roadmap/rational-tangles/index.html#theorems-standard-form-exists" "Every rational tangle has a standard form — 1 item · 1 proved"
-  click n28 "../roadmap/rational-tangles/index.html#theorems-continued-fraction-form-exists" "Every rational tangle has a continued fraction form — 1 item · 1 proved"
-  click n29 "../roadmap/rational-tangles/index.html#theorems-canonical-form-exists" "Every rational tangle isotopes to canonical form — 1 item · 1 proved"
-  click n30 "../roadmap/rational-tangles/index.html#theorems-continued-fraction-canonical" "Unique canonical continued fraction — 1 item · 1 fully proved"
-  click n31 "../roadmap/rational-tangles/index.html#theorems-canonical-same-fraction" "Canonical diagrams of equal fraction are equal — 1 item · 1 proved"
-  click n32 "../roadmap/rational-tangles/index.html#theorems-fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 ready to state"
-  click n33 "../roadmap/rational-tangles/index.html#theorems-same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 ready to state"
-  click n34 "../roadmap/rational-tangles/index.html#theorems-classification" "Classification of rational tangles — 1 item · 1 planned"
-  click n35 "../roadmap/rational-tangles/index.html#theorems-twist-diagram-fraction" "Standard-form value of a twist diagram is well-defined — 1 item · 1 proved"
-  click n36 "../roadmap/rational-tangles/index.html#theorems-twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 proved"
-  click n37 "../roadmap/rational-tangles/index.html#theorems-twist-same-fraction" "Twist expressions of equal fraction are isotopic — 1 item · 1 proved"
-  click n38 "../roadmap/index.html" "Rational tangles roadmap — 1 item · 1 ready to state"</div>
+  click n21 "../roadmap/rational-tangles/coloring/index.html#theorems-coloring-infinity-mul" "Left product by the vertical trivial tangle is planar reindexing — 1 item · 1 fully proved"
+  click n22 "../roadmap/rational-tangles/coloring/index.html#theorems-nested-two-block-reindex" "Nested unit chains versus two-block PD-sums — 1 item · 1 fully proved"
+  click n23 "../roadmap/rational-tangles/coloring/index.html#theorems-reversible-coloring-isotopy" "Reversible fragment of coloring isotopy — 1 item · 1 fully proved"
+  click n24 "../roadmap/rational-tangles/index.html#theorems-flipping-lemma" "Flipping lemma — 1 item · 1 ready to prove"
+  click n25 "../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"
+  click n26 "../roadmap/rational-tangles/coloring/index.html#theorems-coloring-invert-add-units" "Coloring fraction of inverted unit sums and products — 1 item · 1 proved"
+  click n27 "../roadmap/rational-tangles/index.html#definitions-canonical-form" "Canonical form of a rational tangle — 1 item · 1 fully proved"
+  click n28 "../roadmap/rational-tangles/index.html#theorems-tait-flyping" "Tait flyping conjecture — 1 item · 1 ready to state"
+  click n29 "../roadmap/rational-tangles/index.html#theorems-alternating-flypes" "Alternating rational tangles related by flypes — 1 item · 1 ready to state"
+  click n30 "../roadmap/rational-tangles/index.html#theorems-standard-form-exists" "Every rational tangle has a standard form — 1 item · 1 proved"
+  click n31 "../roadmap/rational-tangles/index.html#theorems-continued-fraction-form-exists" "Every rational tangle has a continued fraction form — 1 item · 1 proved"
+  click n32 "../roadmap/rational-tangles/index.html#theorems-canonical-form-exists" "Every rational tangle isotopes to canonical form — 1 item · 1 proved"
+  click n33 "../roadmap/rational-tangles/index.html#theorems-continued-fraction-canonical" "Unique canonical continued fraction — 1 item · 1 fully proved"
+  click n34 "../roadmap/rational-tangles/index.html#theorems-canonical-same-fraction" "Canonical diagrams of equal fraction are equal — 1 item · 1 proved"
+  click n35 "../roadmap/rational-tangles/index.html#theorems-fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 ready to state"
+  click n36 "../roadmap/rational-tangles/index.html#theorems-same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 ready to state"
+  click n37 "../roadmap/rational-tangles/index.html#theorems-classification" "Classification of rational tangles — 1 item · 1 planned"
+  click n38 "../roadmap/rational-tangles/index.html#theorems-twist-diagram-fraction" "Standard-form value of a twist diagram is well-defined — 1 item · 1 proved"
+  click n39 "../roadmap/rational-tangles/index.html#theorems-twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 proved"
+  click n40 "../roadmap/rational-tangles/index.html#theorems-coloring-invert-cong-slideReady" "Coloring fraction after invert on slide-ready diagrams — 1 item · 1 proved"
+  click n41 "../roadmap/rational-tangles/index.html#theorems-coloring-invert-add-zero" "Invert-add with a trivial horizontal summand — 1 item · 1 proved"
+  click n42 "../roadmap/rational-tangles/index.html#theorems-coloring-invert-mul-two-rightBottom" "Invert-mul of two right-and-bottom diagrams — 1 item · 1 proved"
+  click n43 "../roadmap/rational-tangles/index.html#theorems-coloring-mirror-cong-slideReady" "Coloring fraction after mirror on slide-ready diagrams — 1 item · 1 proved"
+  click n44 "../roadmap/rational-tangles/index.html#theorems-coloring-rot180-add-units" "Coloring fraction of rotated unit sums and products — 1 item · 1 proved"
+  click n45 "../roadmap/rational-tangles/index.html#theorems-coloring-rot180-cong-slideReady" "Coloring fraction after 180° rotation on slide-ready diagrams — 1 item · 1 proved"
+  click n46 "../roadmap/rational-tangles/index.html#theorems-coloring-transfer-odd-slideReady" "Figure 14 at the coloring fraction on slide-ready diagrams — 1 item · 1 proved"
+  click n47 "../roadmap/rational-tangles/index.html#theorems-slideReady-isotopy-fraction" "Standard-form $F$ along slide-ready coloring paths — 1 item · 1 proved"
+  click n48 "../roadmap/rational-tangles/index.html#theorems-twist-same-fraction" "Twist expressions of equal fraction are isotopic — 1 item · 1 proved"
+  click n49 "../roadmap/index.html" "Rational tangles roadmap — 1 item · 1 ready to state"</div>
 
 
 

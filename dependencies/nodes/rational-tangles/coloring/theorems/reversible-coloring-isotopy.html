@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/coloring-reidemeister-iii.html">
+        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/dependencies/nodes/rational-tangles/coloring/theorems/reversible-coloring-isotopy.html">
       
       
       
@@ -21,7 +21,7 @@
     
     
       
-        <title>Coloring invariance under Reidemeister III: local context - Conway knots</title>
+        <title>Reversible fragment of coloring isotopy: local context - Conway knots</title>
       
     
     
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Coloring invariance under Reidemeister III: local context
+              Reversible fragment of coloring isotopy: local context
             
           </span>
         </div>
@@ -779,33 +779,51 @@
   
 
 
-<h1 id="coloring-invariance-under-reidemeister-iii-local-context">Coloring invariance under Reidemeister III: local context</h1>
-<p><a href="../../../../../dependencies.html">Project map</a> · <a href="../../../../scopes/rational-tangles/coloring.html">Chapter map</a> · <a href="../../../../full.html">Full theorem DAG</a> · <a href="../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-iii">Open textbook statement</a></p>
-<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">5</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<h1 id="reversible-fragment-of-coloring-isotopy-local-context">Reversible fragment of coloring isotopy: local context</h1>
+<p><a href="../../../../../dependencies.html">Project map</a> · <a href="../../../../scopes/rational-tangles/coloring.html">Chapter map</a> · <a href="../../../../full.html">Full theorem DAG</a> · <a href="../../../../../roadmap/rational-tangles/coloring/index.html#theorems-reversible-coloring-isotopy">Open textbook statement</a></p>
+<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">8</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
 <div class="mermaid">graph LR
-  n0["Reidemeister moves"]:::fully_proved
-  n1["2-tangle and isotopy"]:::fully_proved
-  n2["Coloring rule"]:::fully_proved
-  n3("Coloring invariance under Reidemeister III"):::fully_proved
-  n4("Reversible fragment of coloring isotopy"):::fully_proved
-  n5("Coloring fraction of a rational tangle"):::can_state
-  n2 --&gt; n3
-  n2 --&gt; n4
-  n3 -.-&gt; n5
-  n3 --&gt; n4
-  n4 -.-&gt; n5
-  n0 --&gt; n3
-  n0 --&gt; n1
-  n1 --&gt; n2
+  n0["2-tangle and isotopy"]:::fully_proved
+  n1["Coloring rule"]:::fully_proved
+  n2["Coloring fraction"]:::fully_proved
+  n3("Coloring invariance under flypes"):::fully_proved
+  n4("Coloring invariance under Reidemeister I"):::fully_proved
+  n5("Coloring invariance under Reidemeister II"):::fully_proved
+  n6("Coloring invariance under Reidemeister III"):::fully_proved
+  n7("Reversible fragment of coloring isotopy"):::fully_proved
+  n8("Coloring fraction of a rational tangle"):::can_state
+  n2 --&gt; n8
+  n2 --&gt; n7
   n1 --&gt; n3
   n1 --&gt; n4
-  click n0 "../../../../../roadmap/rational-tangles/index.html#definitions-reidemeister-moves" "Reidemeister moves — 1 item · 1 fully proved"
-  click n1 "../../../../../roadmap/rational-tangles/index.html#definitions-two-tangle-isotopy" "2-tangle and isotopy — 1 item · 1 fully proved"
-  click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#definitions-coloring-rule" "Coloring rule — 1 item · 1 fully proved"
-  class n3 focus
-  click n3 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-iii" "Coloring invariance under Reidemeister III — 1 item · 1 fully proved"
-  click n4 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-reversible-coloring-isotopy" "Reversible fragment of coloring isotopy — 1 item · 1 fully proved"
-  click n5 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"</div>
+  n1 --&gt; n5
+  n1 --&gt; n6
+  n1 --&gt; n7
+  n3 -.-&gt; n8
+  n3 --&gt; n7
+  n4 -.-&gt; n8
+  n4 --&gt; n7
+  n5 -.-&gt; n8
+  n5 --&gt; n7
+  n6 -.-&gt; n8
+  n6 --&gt; n7
+  n7 -.-&gt; n8
+  n0 --&gt; n1
+  n0 --&gt; n3
+  n0 --&gt; n4
+  n0 --&gt; n5
+  n0 --&gt; n6
+  n0 --&gt; n7
+  click n0 "../../../../../roadmap/rational-tangles/index.html#definitions-two-tangle-isotopy" "2-tangle and isotopy — 1 item · 1 fully proved"
+  click n1 "../../../../../roadmap/rational-tangles/coloring/index.html#definitions-coloring-rule" "Coloring rule — 1 item · 1 fully proved"
+  click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#definitions-coloring-fraction" "Coloring fraction — 1 item · 1 fully proved"
+  click n3 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-flype-invariance" "Coloring invariance under flypes — 1 item · 1 fully proved"
+  click n4 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-i" "Coloring invariance under Reidemeister I — 1 item · 1 fully proved"
+  click n5 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-ii" "Coloring invariance under Reidemeister II — 1 item · 1 fully proved"
+  click n6 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-iii" "Coloring invariance under Reidemeister III — 1 item · 1 fully proved"
+  class n7 focus
+  click n7 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-reversible-coloring-isotopy" "Reversible fragment of coloring isotopy — 1 item · 1 fully proved"
+  click n8 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"</div>
 
 
 
