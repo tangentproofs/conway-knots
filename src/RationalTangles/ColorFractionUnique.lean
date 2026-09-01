@@ -23,7 +23,12 @@ same `maxArc`; on `unit.add S` the appearing arcs are determined by
 lemmas, `slideReady_mirror`, and a `ColoringIsotopy` between `e.diagram.mirror`
 and `e.mirror.diagram` for `slideReady` expressions (extending
 `coloring_mirror_diagram_rightBottom`). Invert uniqueness on this class
-reuses `colorFrom_isColored_slideReady`.
+reuses `colorFrom_isColored_slideReady`. Any non-monochrome coloring of
+`T.invert` has fraction `1/F` (`invert_eq_mirror_rotate` plus uniqueness
+on the PD-mirror). If two `slideReady` expressions are related by
+`ColoringIsotopy`, fresh invert colorings therefore agree. That is
+fraction-level `invert_cong` on this class; it does not add `invert_cong`
+to `ColoringIsotopy`.
 -/
 
 namespace RationalTangles
@@ -1083,6 +1088,138 @@ theorem coloring_invert_inv_slideReady (e : TwistExpr) (hok : e.slideReady)
         coloring_fraction_rotate e.diagram.mirror col' hd' hm'
     have hfM := coloring_mirror_slideReady e hok col col' hc hm hc' hm'
     rw [hrot, hfM, CFValue.negInv, ← CFValue.neg_inv, CFValue.neg_neg]
+
+/-- Rotation does not change the crossing list, so a coloring of `T.invert`
+    is a coloring of `T.mirror`. -/
+theorem TangleDiagram.IsColored_of_invert (T : TangleDiagram) (col : Nat → Int)
+    (h : T.invert.IsColored col) : T.mirror.IsColored col := by
+  intro C hC
+  have hC' : C ∈ T.invert.crossings := by
+    simpa [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror] using hC
+  exact h C hC'
+
+/-- `NotMono` of a 90° rotate, with `DiagonalSum`, implies `NotMono`. -/
+theorem ColorMatrix.NotMono_of_rotate {M : ColorMatrix}
+    (hd : M.DiagonalSum) (hm : M.rotate.NotMono) : M.NotMono := by
+  intro h
+  simp [ColorMatrix.NotMono, ColorMatrix.rotate, ColorMatrix.DiagonalSum] at h hd hm
+  omega
+
+/-- A fresh coloring of the inverted PD-code of a `slideReady` twist
+    diagram has coloring fraction `1/F(T)`. Composes
+    `coloring_invert_inv_slideReady` with `f = F`. Not a coloring of
+    `Isotopic.invert_cong`. -/
+theorem coloring_invert_inv_eq_F_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (col : Nat → Int)
+    (hc : e.diagram.IsColored col)
+    (hm : (ColorMatrix.of e.diagram col).NotMono) :
+    ∃ col', e.diagram.invert.IsColored col' ∧
+      (ColorMatrix.of e.diagram.invert col').NotMono ∧
+      (ColorMatrix.of e.diagram.invert col').fraction =
+        e.toStandard.fraction.inv := by
+  obtain ⟨col', hc', hm', hf⟩ := coloring_invert_inv_slideReady e hok col hc hm
+  refine ⟨col', hc', hm', hf.trans (congrArg CFValue.inv ?_)⟩
+  exact coloring_fraction_eq_F e hok col hc
+    (twist_coloring_diagonal_slideReady e hok col hc) hm
+
+/-- Same as `coloring_invert_inv_eq_F_slideReady`, discharging the coloring
+    by `colorFrom 0 1`. -/
+theorem coloring_invert_inv_eq_F_slideReady_colorFrom (e : TwistExpr)
+    (hok : e.slideReady) :
+    ∃ col', e.diagram.invert.IsColored col' ∧
+      (ColorMatrix.of e.diagram.invert col').NotMono ∧
+      (ColorMatrix.of e.diagram.invert col').fraction =
+        e.toStandard.fraction.inv :=
+  coloring_invert_inv_eq_F_slideReady e hok (e.colorFrom 0 1)
+    (e.colorFrom_isColored_slideReady hok 0 1)
+    (e.colorFrom_notMono_slideReady hok)
+
+/-- Standard-form `F` of a `slideReady` twist expression is unchanged along
+    `ColoringIsotopy`, with the coloring discharged by `colorFrom 0 1`. -/
+theorem TwistExpr.toStandard_fraction_ColoringIsotopy_colorFrom {e₁ e₂ : TwistExpr}
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady)
+    (h : ColoringIsotopy e₁.diagram e₂.diagram) :
+    e₁.toStandard.fraction = e₂.toStandard.fraction :=
+  TwistExpr.toStandard_fraction_ColoringIsotopy hok₁ hok₂ h
+    (e₁.colorFrom 0 1)
+    (e₁.colorFrom_isColored_slideReady hok₁ 0 1)
+    (e₁.colorFrom_diagonal_slideReady hok₁ 0 1)
+    (e₁.colorFrom_notMono_slideReady hok₁)
+
+/-- Every non-monochrome coloring of `T.invert` on a `slideReady` diagram has
+    fraction `1/F(T)`. The invert PD-code is the rotate of the PD-mirror
+    (`invert_eq_mirror_rotate`); uniqueness of `f` on `T` and on the
+    algebraic mirror identifies the PD-mirror fraction as `-F`. -/
+theorem coloring_invert_inv_any_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (col : Nat → Int)
+    (hc : e.diagram.invert.IsColored col)
+    (hm : (ColorMatrix.of e.diagram.invert col).NotMono) :
+    (ColorMatrix.of e.diagram.invert col).fraction =
+      e.toStandard.fraction.inv := by
+  have hcMirr : e.diagram.mirror.IsColored col :=
+    TangleDiagram.IsColored_of_invert _ col hc
+  obtain ⟨colA, hcA, hMat, _hfracA⟩ :=
+    coloring_fraction_ColoringIsotopy
+      (coloring_mirror_diagram_slideReady e hok) col hcMirr
+  have hokA : e.mirror.slideReady := TwistExpr.slideReady_mirror e hok
+  have hdA : (ColorMatrix.of e.mirror.diagram colA).DiagonalSum :=
+    twist_coloring_diagonal_slideReady e.mirror hokA colA hcA
+  have hdMirr : (ColorMatrix.of e.diagram.mirror col).DiagonalSum := by
+    simpa [hMat] using hdA
+  have hrotM :
+      ColorMatrix.of e.diagram.invert col =
+        (ColorMatrix.of e.diagram.mirror col).rotate := by
+    simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+  have hmMirr : (ColorMatrix.of e.diagram.mirror col).NotMono :=
+    ColorMatrix.NotMono_of_rotate hdMirr (by simpa [hrotM] using hm)
+  have hrot :
+      (ColorMatrix.of e.diagram.invert col).fraction =
+        (ColorMatrix.of e.diagram.mirror col).fraction.negInv := by
+    simpa [invert_eq_mirror_rotate] using
+      coloring_fraction_rotate e.diagram.mirror col hdMirr hmMirr
+  let colT := e.colorFrom 0 1
+  have hcT : e.diagram.IsColored colT := e.colorFrom_isColored_slideReady hok 0 1
+  have hmT : (ColorMatrix.of e.diagram colT).NotMono :=
+    e.colorFrom_notMono_slideReady hok
+  have hfM := coloring_mirror_slideReady e hok colT col hcT hmT hcMirr hmMirr
+  have hfT := coloring_fraction_eq_F e hok colT hcT
+    (e.colorFrom_diagonal_slideReady hok 0 1) hmT
+  rw [hrot, hfM, hfT, CFValue.negInv, ← CFValue.neg_inv, CFValue.neg_neg]
+
+/-- Uniqueness of `f` after invert: any two non-monochrome colorings of
+    `T.invert` on a `slideReady` diagram have the same coloring fraction. -/
+theorem coloring_fraction_unique_invert_slideReady (e : TwistExpr)
+    (hok : e.slideReady) (col col' : Nat → Int)
+    (hc : e.diagram.invert.IsColored col)
+    (hc' : e.diagram.invert.IsColored col')
+    (hm : (ColorMatrix.of e.diagram.invert col).NotMono)
+    (hm' : (ColorMatrix.of e.diagram.invert col').NotMono) :
+    (ColorMatrix.of e.diagram.invert col).fraction =
+      (ColorMatrix.of e.diagram.invert col').fraction :=
+  (coloring_invert_inv_any_slideReady e hok col hc hm).trans
+    (coloring_invert_inv_any_slideReady e hok col' hc' hm').symm
+
+/-- If two `slideReady` twist diagrams are related by `ColoringIsotopy`,
+    then *fresh* colorings of their inverted PD-codes have the same coloring
+    fraction `1/F(T)`. This is the fraction-level content of
+    `Isotopic.invert_cong` on this class. It does not add `invert_cong` to
+    `ColoringIsotopy` (colorings are not transported across `switch`). -/
+theorem coloring_invert_cong_slideReady {e e' : TwistExpr}
+    (hok : e.slideReady) (hok' : e'.slideReady)
+    (h : ColoringIsotopy e.diagram e'.diagram) :
+    ∃ colI colI',
+      e.diagram.invert.IsColored colI ∧
+      e'.diagram.invert.IsColored colI' ∧
+      (ColorMatrix.of e.diagram.invert colI).NotMono ∧
+      (ColorMatrix.of e'.diagram.invert colI').NotMono ∧
+      (ColorMatrix.of e.diagram.invert colI).fraction =
+        (ColorMatrix.of e'.diagram.invert colI').fraction := by
+  obtain ⟨colI, hcI, hmI, hfI⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e hok
+  obtain ⟨colI', hcI', hmI', hfI'⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e' hok'
+  refine ⟨colI, colI', hcI, hcI', hmI, hmI', ?_⟩
+  rw [hfI, hfI', TwistExpr.toStandard_fraction_ColoringIsotopy_colorFrom hok hok' h]
 
 
 end RationalTangles

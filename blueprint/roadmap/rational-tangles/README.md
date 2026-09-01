@@ -50,6 +50,7 @@ in Theorem 3.
 - [Twist expressions of equal fraction are isotopic](theorems/twist-same-fraction.md)
 - [Standard-form value of a twist diagram is well-defined](theorems/twist-diagram-fraction.md)
 - [Standard-form $F$ along coloring isotopy](theorems/twist-coloring-isotopy-fraction.md)
+- [Coloring fraction after invert on slide-ready diagrams](theorems/coloring-invert-cong-slideReady.md)
 
 ## Coloring
 
