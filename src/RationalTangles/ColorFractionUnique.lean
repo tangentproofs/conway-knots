@@ -112,11 +112,14 @@ coloring of `[∞]ⁱ` on both PD-codes (`mul_infinity_eq` /
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
 `ColoringIsotopy`. Full `ColoringIsotopy.symm` is omitted: `r3Local` has no
-reverse coloring (triangle internals are not `f`-images), `add_right`/`mul_right`
-have one-way glue, and unrestricted `zero_add` has no reverse coloring when
-`NW = SW`. Local flype reverses (`IsLocalFlype.symm`) and is in
-`ReversibleColoringIsotopy`. `ReversibleColoringIsotopy` is the symmetric
-fragment (`PlanarIsotopy.symm`, `IsLocalFlype.symm`,
+reverse coloring (triangle internals are not `f`-images), one-way
+`add_right`/`mul_right` glue (without the converse identification) would
+need a false coloring, and unrestricted `zero_add` has no reverse coloring
+when `NW = SW`. Two-way glue and `zero_add` when `NW ≠ SW` reverse and are
+in `ReversibleColoringIsotopy`. Local flype reverses (`IsLocalFlype.symm`)
+and is in `ReversibleColoringIsotopy`. `ReversibleColoringIsotopy` is the
+symmetric fragment (`PlanarIsotopy.symm`, `IsLocalFlype.symm`, two-way
+`add_right`/`mul_right`, `zero_add` when `NW ≠ SW`,
 `add_assoc_rev`/`mul_assoc_rev`); it does not add unrestricted `flype_slide`.
 
 `HasColoringFraction` is carried along `ColoringIsotopy` on arbitrary

@@ -356,6 +356,38 @@ theorem coloring_mul_right {T S S' : TangleDiagram} {col colS' : Nat → Int}
       exact colorGlueMul_comp_shift T S' col colS' glueNW glueNE S'.SW
     rw [h1, hSW, colorMulBottom_SW]
 
+/-- Reverse of `coloring_add_right`. Restriction `colorAddRight` recovers the
+    right-hand coloring of `T.add S'`. Gluing a matching coloring of `S`
+    back onto `T` needs the converse identification
+    `S'.NW = S'.SW → S.NW = S.SW`. Without it, `S'.NW = S'.SW` and
+    `S.NW ≠ S.SW` would force `col T.SE = col T.NE`, which is false in
+    general. -/
+theorem coloring_add_right_rev {T S S' : TangleDiagram} {col colS : Nat → Int}
+    (hT : T.IsColored col) (hS' : S'.IsColored (colorAddRight T S' col))
+    (hS : S.IsColored colS)
+    (hsame : SameEndpointColors S' S (colorAddRight T S' col) colS)
+    (hglue : S'.NW = S'.SW → S.NW = S.SW) :
+    (T.add S).IsColored (colorGlueAdd T S col colS) ∧
+      SameEndpointColors (T.add S') (T.add S) col
+        (colorGlueAdd T S col colS) :=
+  coloring_add_right hT hS' hS hsame hglue
+
+/-- Reverse of `coloring_mul_right`. Restriction `colorMulBottom` recovers the
+    bottom coloring of `T.mul S'`. Gluing a matching coloring of `S` back
+    onto `T` needs the converse identification
+    `S'.NW = S'.NE → S.NW = S.NE`. Without it, `S'.NW = S'.NE` and
+    `S.NW ≠ S.NE` would force `col T.SE = col T.SW`, which is false in
+    general. -/
+theorem coloring_mul_right_rev {T S S' : TangleDiagram} {col colS : Nat → Int}
+    (hT : T.IsColored col) (hS' : S'.IsColored (colorMulBottom T S' col))
+    (hS : S.IsColored colS)
+    (hsame : SameEndpointColors S' S (colorMulBottom T S' col) colS)
+    (hglue : S'.NW = S'.NE → S.NW = S.NE) :
+    (T.mul S).IsColored (colorGlueMul T S col colS) ∧
+      SameEndpointColors (T.mul S') (T.mul S) col
+        (colorGlueMul T S col colS) :=
+  coloring_mul_right hT hS' hS hsame hglue
+
 /-- Recolor `[±1]` after inversion so endpoint colors (as a 2-tangle) agree. -/
 def colorInvertUnit (col : Nat → Int) (a : Nat) : Int :=
   if a = 0 then col 3
@@ -561,6 +593,25 @@ theorem coloring_zero_add (T : TangleDiagram) (col : Nat → Int)
   · rw [zero_add_NE_reindex, colorZeroAdd_reindex]
   · rw [zero_add_SE_reindex, colorZeroAdd_reindex]
   · simp [colorZeroAdd, TangleDiagram.add, TangleDiagram.zero]
+
+/-- Reverse of `coloring_zero_add` when `T.NW ≠ T.SW`. Restriction
+    `colorAddRight` recovers the summand coloring. The dummy-strand case
+    `NW = SW` is omitted: `[0]+T` then records unused SW name `1` while the
+    reindex sends that arc to `0`. -/
+theorem coloring_zero_add_rev (T : TangleDiagram) (hne : T.NW ≠ T.SW)
+    (col : Nat → Int) (hc : (TangleDiagram.zero.add T).IsColored col) :
+    ∃ col', T.IsColored col' ∧
+      SameEndpointColors (TangleDiagram.zero.add T) T col col' := by
+  refine ⟨colorAddRight TangleDiagram.zero T col, IsColored_add_right hc, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · rw [colorAddRight_NW]
+    simp [TangleDiagram.add, TangleDiagram.zero]
+  · exact colorAddRight_NE TangleDiagram.zero T col
+  · exact colorAddRight_SE TangleDiagram.zero T col
+  · have hsw :=
+        (colorAddRight_SW TangleDiagram.zero T col).resolve_right hne
+    rw [hsw]
+    simp [TangleDiagram.add, TangleDiagram.zero]
 
 /-! ## Left-mul of infinity as a planar reindexing
 
@@ -2089,8 +2140,9 @@ theorem ColoringIsotopy.localFlype_rev {D E : TangleDiagram}
   .localFlype h.symm
 
 /-- Reverse a reversible coloring isotopy. Not `ColoringIsotopy.symm`:
-    `r3Local`, `add_right`/`mul_right`, and unrestricted `zero_add` are
-    omitted from `ReversibleColoringIsotopy`. Local flype is included. -/
+    `r3Local` and unrestricted `zero_add` (`NW = SW`) are omitted from
+    `ReversibleColoringIsotopy`. Two-way-glue `add_right`/`mul_right`,
+    `zero_add` when `NW ≠ SW`, and local flype are included. -/
 theorem ReversibleColoringIsotopy.symm {D E : TangleDiagram}
     (h : ReversibleColoringIsotopy D E) : ReversibleColoringIsotopy E D := by
   induction h with
@@ -2101,10 +2153,13 @@ theorem ReversibleColoringIsotopy.symm {D E : TangleDiagram}
   | localFlype h => exact .localFlype h.symm
   | isotopy h => exact .isotopy h.symm
   | add_left h ih => exact .add_left ih
+  | add_right h hglue ih => exact .add_right ih hglue.symm
   | mul_left h ih => exact .mul_left ih
+  | mul_right h hglue ih => exact .mul_right ih hglue.symm
   | add_zero T =>
     exact (congrArg (fun X => ReversibleColoringIsotopy X
       (T.add TangleDiagram.zero)) (add_zero_eq T)).mp (.refl _)
+  | zero_add T hne => exact .isotopy (planar_zero_add T hne).symm
   | invert_unit s => exact .invert_unit_rev s
   | invert_unit_rev s => exact .invert_unit s
   | add_assoc T S R => exact .add_assoc_rev T S R
