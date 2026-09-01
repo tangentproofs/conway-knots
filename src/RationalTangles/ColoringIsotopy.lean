@@ -1335,6 +1335,18 @@ theorem ColoringIsotopy.of_IsReidemeisterIII {D E : TangleDiagram}
     (h : IsReidemeisterIII D E) : ColoringIsotopy D E :=
   .r3Local h.toLocal
 
+/-- A Reidemeister generator is coloring-ready when both diagrams are
+    well-formed (needed for R1/R2 coloring transport). Not a leftover
+    `Isotopic` constructor. -/
+theorem ColoringIsotopy.of_ReidemeisterMove {D E : TangleDiagram}
+    (h : ReidemeisterMove D E) (hwD : D.WellFormed) (hwE : E.WellFormed) :
+    ColoringIsotopy D E := by
+  cases h with
+  | r1 h => exact .r1 h hwD hwE
+  | r2 h => exact .r2 h hwD hwE
+  | r3 h => exact .of_IsReidemeisterIII h
+  | isotopy h => exact .isotopy h
+
 /-- The color matrix (hence `f`) is unchanged along `ColoringIsotopy`. -/
 theorem coloring_fraction_ColoringIsotopy {D E : TangleDiagram}
     (h : ColoringIsotopy D E) (col : Nat → Int) (hc : D.IsColored col) :

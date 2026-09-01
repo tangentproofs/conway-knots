@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.HasColoringFraction RationalTangles.SlideReadyIsotopy RationalTangles.HasColoringFraction.colorFrom_slideReady RationalTangles.SlideReadyIsotopy.has_fraction RationalTangles.TwistExpr.toStandard_fraction_SlideReadyIsotopy RationalTangles.TwistExpr.toStandard_fraction_eq_SlideReadyIsotopy_value RationalTangles.StandardExpr.fraction_SlideReadyIsotopy RationalTangles.coloring_rot180_any_eq_F_slideReady RationalTangles.coloring_rot180_slideReady RationalTangles.coloring_flype_slide_add_slideReady RationalTangles.coloring_flype_slide_mul_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady RationalTangles.coloring_rot180_add_slideReady RationalTangles.coloring_rot180_mul_slideReady RationalTangles.coloring_rot180_cong_SlideReadyIsotopy RationalTangles.SlideReadyIsotopy.rot180_cong
+lean: RationalTangles.HasColoringFraction RationalTangles.SlideReadyIsotopy RationalTangles.HasColoringFraction.colorFrom_slideReady RationalTangles.SlideReadyIsotopy.has_fraction RationalTangles.TwistExpr.toStandard_fraction_SlideReadyIsotopy RationalTangles.TwistExpr.toStandard_fraction_eq_SlideReadyIsotopy_value RationalTangles.StandardExpr.fraction_SlideReadyIsotopy RationalTangles.coloring_rot180_any_eq_F_slideReady RationalTangles.coloring_rot180_slideReady RationalTangles.coloring_flype_slide_add_slideReady RationalTangles.coloring_flype_slide_mul_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady RationalTangles.coloring_rot180_add_slideReady RationalTangles.coloring_rot180_mul_slideReady RationalTangles.coloring_rot180_cong_SlideReadyIsotopy RationalTangles.SlideReadyIsotopy.rot180_cong RationalTangles.HasColoringFraction.of_ColoringIsotopy RationalTangles.HasColoringFraction.rot180_diagonal RationalTangles.HasColoringFraction.invert_slideReady RationalTangles.HasColoringFraction.mirror_slideReady RationalTangles.HasColoringFraction.rot180_slideReady RationalTangles.HasColoringFraction.flype_slide_add RationalTangles.HasColoringFraction.flype_slide_mul RationalTangles.HasColoringFraction.transfer_odd_slideReady RationalTangles.HasColoringFraction.transfer_odd_neg_slideReady RationalTangles.HasColoringFraction.invert_add_two_rightBottom RationalTangles.ColoringIsotopy.of_ReidemeisterMove
 proof: formalized
 ---
 
@@ -45,6 +45,15 @@ twist/`slideReady` class; remaining omitted: invert-add of two general
 summands, unrestricted `flype_slide_*` (no `DiagonalSum`/`hne`), and
 paths that exit twist form. None of those leftover constructors is added
 to `ColoringIsotopy`.
+
+`HasColoringFraction` carries along `ColoringIsotopy` on arbitrary
+diagrams, along invert, PD-mirror, and `rot180` of a `slideReady` twist
+(and `rot180` of any `DiagonalSum` coloring), along Figure 14 when
+defined, and along invert-add of two `rightBottom`/`slideReady` diagrams
+with finite nonzero `F` (skip `0`/`∞`). Restricted Figure 5 slides
+preserve the value. Induction along `Isotopic` is blocked by the
+unrestricted constructors `flype_slide_add` and `flype_slide_mul`; it is
+not claimed, and this is not Theorem 2.
 
 ## Sources
 

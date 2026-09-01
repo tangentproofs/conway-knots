@@ -68,6 +68,18 @@ right/bottom coloring). Skip `0`/`∞` (matching would force `n = 0` or
 monochrome). Unrestricted `flype_slide_*` (no `DiagonalSum`/`hne`) and
 paths that leave twist form remain omitted. None of those leftover
 constructors is added to `ColoringIsotopy`.
+
+`HasColoringFraction` is carried along `ColoringIsotopy` on arbitrary
+diagrams, along invert/mirror/`rot180` of a `slideReady` twist (and
+along `rot180` of any diagram whose coloring has `DiagonalSum`), along
+Figure 14 when the port hypotheses hold, and along invert-add of two
+`rightBottom`/`slideReady` diagrams with finite nonzero `F`. Restricted
+Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
+carried value. Induction of `HasColoringFraction` along full `Isotopic`
+is blocked by the unrestricted constructors `Isotopic.flype_slide_add`
+and `Isotopic.flype_slide_mul` (no `DiagonalSum`/`hne`), and by
+`Isotopic.invert_add` when a summand has fraction `0` or `∞`. That
+induction is not claimed.
 -/
 
 namespace RationalTangles
@@ -2898,7 +2910,9 @@ def HasColoringFraction (D : TangleDiagram) (v : CFValue) : Prop :=
     summands, unrestricted `flype_slide_*` (without `DiagonalSum` and the
     port hypotheses), and paths that leave twist form. Fraction-level
     `rot180_cong` is a theorem on this class, not a constructor.
-    Constructors are not added to `ColoringIsotopy`. -/
+    Constructors are not added to `ColoringIsotopy`. Induction of
+    `HasColoringFraction` along `Isotopic` is blocked by unrestricted
+    `flype_slide_add`/`flype_slide_mul`. -/
 inductive SlideReadyIsotopy : TangleDiagram → TangleDiagram → CFValue → Prop where
   | refl (e : TwistExpr) (hok : e.slideReady) :
       SlideReadyIsotopy e.diagram e.diagram e.toStandard.fraction
@@ -3160,5 +3174,138 @@ theorem SlideReadyIsotopy.rot180_cong {e e' : TwistExpr} {v : CFValue}
       e.toStandard.fraction :=
     hF ▸ SlideReadyIsotopy.rot180 e' hok'
   exact (SlideReadyIsotopy.rot180_rev e hok).trans (hpath.trans h2)
+
+/-! ## `HasColoringFraction` along colorable `Isotopic` constructors
+
+Carry a non-monochrome coloring fraction along the generators we can
+color, even when the result is not a `TwistExpr`. Unrestricted
+`Isotopic.flype_slide_add` / `flype_slide_mul` (no `DiagonalSum`/`hne`)
+and `Isotopic.invert_add` at fraction `0`/`∞` are not included: they
+block induction of `HasColoringFraction` along `Isotopic`. None of these
+is added to `ColoringIsotopy`.
+-/
+
+/-- `ColoringIsotopy` preserves a carried coloring fraction. -/
+theorem HasColoringFraction.of_ColoringIsotopy {D E : TangleDiagram} {v : CFValue}
+    (h : ColoringIsotopy D E) (hf : HasColoringFraction D v) :
+    HasColoringFraction E v := by
+  obtain ⟨col, hc, hm, hfrac⟩ := hf
+  obtain ⟨col', hc', hMat, hfrac'⟩ := coloring_fraction_ColoringIsotopy h col hc
+  refine ⟨col', hc', ?_, hfrac'.trans hfrac⟩
+  simpa [hMat] using hm
+
+/-- Planar `180°` under `DiagonalSum` preserves the coloring fraction on
+    an arbitrary diagram (not necessarily twist-form). -/
+theorem HasColoringFraction.rot180_diagonal {D : TangleDiagram} {v : CFValue}
+    (col : Nat → Int) (hc : D.IsColored col)
+    (hm : (ColorMatrix.of D col).NotMono)
+    (hd : (ColorMatrix.of D col).DiagonalSum)
+    (hfrac : (ColorMatrix.of D col).fraction = v) :
+    HasColoringFraction D.rot180 v := by
+  obtain ⟨col', hc', hM, hf'⟩ := coloring_fraction_rot180_diagonal D col hc hd
+  refine ⟨col', hc', ?_, hf'.trans hfrac⟩
+  simpa [hM] using hm
+
+/-- Invert of a `slideReady` twist is colored with fraction `1/F`. -/
+theorem HasColoringFraction.invert_slideReady (e : TwistExpr)
+    (hok : e.slideReady) :
+    HasColoringFraction e.diagram.invert e.toStandard.fraction.inv := by
+  obtain ⟨col', hc', hm', hf'⟩ :=
+    coloring_invert_inv_eq_F_slideReady_colorFrom e hok
+  exact ⟨col', hc', hm', hf'⟩
+
+/-- PD-mirror of a `slideReady` twist is colored with fraction `-F`. -/
+theorem HasColoringFraction.mirror_slideReady (e : TwistExpr)
+    (hok : e.slideReady) :
+    HasColoringFraction e.diagram.mirror e.toStandard.fraction.neg := by
+  obtain ⟨col, hc, hm, _hd, hf⟩ := coloring_pd_mirror_of_colorFrom e hok
+  exact ⟨col, hc, hm, hf⟩
+
+/-- Planar `180°` of a `slideReady` twist is colored with fraction `F`. -/
+theorem HasColoringFraction.rot180_slideReady (e : TwistExpr)
+    (hok : e.slideReady) :
+    HasColoringFraction e.diagram.rot180 e.toStandard.fraction := by
+  obtain ⟨_col, col', _hc, hc', _hm, hm', _hM, hf'⟩ :=
+    coloring_rot180_slideReady e hok
+  exact ⟨col', hc', hm', hf'⟩
+
+/-- Restricted Figure 5 slide on a sum: `DiagonalSum` and distinct left
+    ports. Not unrestricted `Isotopic.flype_slide_add`. -/
+theorem HasColoringFraction.flype_slide_add {s : CrossingSign}
+    {t : TangleDiagram} {v : CFValue} (col : Nat → Int)
+    (hc : ((crossingTangle s).add t).IsColored col)
+    (hne : t.NW ≠ t.SW)
+    (hd : (ColorMatrix.of ((crossingTangle s).add t) col).DiagonalSum)
+    (hm : (ColorMatrix.of ((crossingTangle s).add t) col).NotMono)
+    (hfrac : (ColorMatrix.of ((crossingTangle s).add t) col).fraction = v) :
+    HasColoringFraction (t.rot180.add (crossingTangle s)) v := by
+  obtain ⟨col', hc', hM, hf'⟩ :=
+    coloring_fraction_flype_slide_add s t col hc hne hd
+  refine ⟨col', hc', ?_, hf'.trans hfrac⟩
+  simpa [hM] using hm
+
+/-- Restricted Figure 5 slide on a product. Not unrestricted
+    `Isotopic.flype_slide_mul`. -/
+theorem HasColoringFraction.flype_slide_mul {s : CrossingSign}
+    {t : TangleDiagram} {v : CFValue} (col : Nat → Int)
+    (hc : ((crossingTangle s).mul t).IsColored col)
+    (hne : t.NW ≠ t.NE)
+    (hd : (ColorMatrix.of ((crossingTangle s).mul t) col).DiagonalSum)
+    (hm : (ColorMatrix.of ((crossingTangle s).mul t) col).NotMono)
+    (hfrac : (ColorMatrix.of ((crossingTangle s).mul t) col).fraction = v) :
+    HasColoringFraction (t.rot180.mul (crossingTangle s)) v := by
+  obtain ⟨col', hc', hM, hf'⟩ :=
+    coloring_fraction_flype_slide_mul s t col hc hne hd
+  refine ⟨col', hc', ?_, hf'.trans hfrac⟩
+  simpa [hM] using hm
+
+/-- Both sides of Figure 14, when defined on a `slideReady` diagram. -/
+theorem HasColoringFraction.transfer_odd_slideReady (e : TwistExpr)
+    (hok : e.slideReady)
+    (hports : e.diagram.NW ≠ e.diagram.NE)
+    (hne : (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NW ≠
+      (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NE) :
+    HasColoringFraction
+        ((e.diagram.add RationalTangles.negOne).mul RationalTangles.one)
+        (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).toStandard.fraction ∧
+      HasColoringFraction
+        (RationalTangles.one.add e.diagram.mirror.invert)
+        (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).toStandard.fraction :=
+  SlideReadyIsotopy.has_fraction
+    (SlideReadyIsotopy.transfer_odd e hok hports hne)
+
+/-- Figure 14 with switched signs, when defined. -/
+theorem HasColoringFraction.transfer_odd_neg_slideReady (e : TwistExpr)
+    (hok : e.slideReady)
+    (hports : e.diagram.NW ≠ e.diagram.NE)
+    (hne : (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NW ≠
+      (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NE) :
+    HasColoringFraction
+        ((e.diagram.add RationalTangles.one).mul RationalTangles.negOne)
+        (TwistExpr.mulBottom (TwistExpr.addRight e .pos) .neg).toStandard.fraction ∧
+      HasColoringFraction
+        (RationalTangles.negOne.add e.diagram.mirror.invert)
+        (TwistExpr.mulBottom (TwistExpr.addRight e .pos) .neg).toStandard.fraction :=
+  SlideReadyIsotopy.has_fraction
+    (SlideReadyIsotopy.transfer_odd_neg e hok hports hne)
+
+/-- Invert-add of two `rightBottom`/`slideReady` diagrams with finite
+    nonzero `F`: both `(T+S)ⁱ` and `Sⁱ*Tⁱ` carry
+    `(F(T)+F(S))⁻¹`. Skip `0`/`∞`. Not a `TwistExpr`, so not a
+    `SlideReadyIsotopy` constructor, and not unrestricted `flype_slide`. -/
+theorem HasColoringFraction.invert_add_two_rightBottom (e f : TwistExpr)
+    (hrb : e.rightBottom) (hrb' : f.rightBottom)
+    (hok : e.slideReady) (hok' : f.slideReady)
+    (hfin : e.toStandard.fraction ≠ .inf)
+    (hfin' : f.toStandard.fraction ≠ .inf)
+    (hnz : e.toStandard.fraction ≠ (0 : CFValue))
+    (hnz' : f.toStandard.fraction ≠ (0 : CFValue)) :
+    HasColoringFraction (e.diagram.add f.diagram).invert
+        (e.toStandard.fraction.add f.toStandard.fraction).inv ∧
+      HasColoringFraction (f.diagram.invert.mul e.diagram.invert)
+        (e.toStandard.fraction.add f.toStandard.fraction).inv := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_two_rightBottom e f hrb hrb' hok hok' hfin hfin' hnz hnz'
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
 
 end RationalTangles
