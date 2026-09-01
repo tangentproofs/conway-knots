@@ -159,10 +159,223 @@ theorem TwistExpr.toStandard_mulTop (e : TwistExpr) (s : CrossingSign) :
     (TwistExpr.mulTop e s).toStandard = (TwistExpr.mulBottom e s).toStandard :=
   rfl
 
-/-- Propagate two initial strand colors through a right-and-bottom twist
-    expression (the same construction as `StandardExpr.colorFrom`, plus
-    the elementary `[±1]` diagrams). Left-add / top-mul are dummy: those
-    cases are excluded by `rightBottom`. -/
+/-- Glue `[+1]` on the left of a coloring of `S` (unit overstrand matches `S.SW`). -/
+def colorAddLeftOne (S : TangleDiagram) (colS : Nat → Int) : Nat → Int :=
+  colorGlueAdd one S (colorOne (colS S.SW) (colS S.NW)) colS
+
+/-- Glue `[-1]` on the left of a coloring of `S` (unit NE matches `S.NW`). -/
+def colorAddLeftNegOne (S : TangleDiagram) (colS : Nat → Int) : Nat → Int :=
+  colorGlueAdd negOne S (colorNegOne (colS S.NW) (2 * colS S.NW - colS S.SW)) colS
+
+/-- Glue `[+1]` on top of a coloring of `S` (unit SE matches `S.NE`). -/
+def colorMulTopOne (S : TangleDiagram) (colS : Nat → Int) : Nat → Int :=
+  colorGlueMul one S (colorOne (colS S.NE) (2 * colS S.NE - colS S.NW)) colS
+
+/-- Glue `[-1]` on top of a coloring of `S` (unit SW matches `S.NW`). -/
+def colorMulTopNegOne (S : TangleDiagram) (colS : Nat → Int) : Nat → Int :=
+  colorGlueMul negOne S (colorNegOne (colS S.NW) (2 * colS S.NW - colS S.NE)) colS
+
+theorem IsColored_colorAddLeftOne (S : TangleDiagram) (colS : Nat → Int)
+    (hS : S.IsColored colS) :
+    (one.add S).IsColored (colorAddLeftOne S colS) := by
+  refine IsColored_colorGlueAdd one S (colorOne (colS S.SW) (colS S.NW)) colS
+    (one_isColored _ _) hS ?_ (Or.inl ?_)
+  · simp [colorOne_1, one]
+  · simp [colorOne_2, one]
+
+theorem IsColored_colorAddLeftNegOne (S : TangleDiagram) (colS : Nat → Int)
+    (hS : S.IsColored colS) :
+    (negOne.add S).IsColored (colorAddLeftNegOne S colS) := by
+  refine IsColored_colorGlueAdd negOne S
+    (colorNegOne (colS S.NW) (2 * colS S.NW - colS S.SW)) colS
+    (negOne_isColored _ _) hS ?_ (Or.inl ?_)
+  · change colorNegOne (colS S.NW) (2 * colS S.NW - colS S.SW) 1 = colS S.NW
+    simp [colorNegOne_1]
+  · change colorNegOne (colS S.NW) (2 * colS S.NW - colS S.SW) 2 = colS S.SW
+    simp [colorNegOne_2]
+
+theorem IsColored_colorMulTopOne (S : TangleDiagram) (colS : Nat → Int)
+    (hS : S.IsColored colS) :
+    (one.mul S).IsColored (colorMulTopOne S colS) := by
+  refine IsColored_colorGlueMul one S
+    (colorOne (colS S.NE) (2 * colS S.NE - colS S.NW)) colS
+    (one_isColored _ _) hS ?_ (Or.inl ?_)
+  · change colorOne (colS S.NE) (2 * colS S.NE - colS S.NW) 3 = colS S.NW
+    simp [colorOne_3]
+  · simp [colorOne_2, one]
+
+theorem IsColored_colorMulTopNegOne (S : TangleDiagram) (colS : Nat → Int)
+    (hS : S.IsColored colS) :
+    (negOne.mul S).IsColored (colorMulTopNegOne S colS) := by
+  refine IsColored_colorGlueMul negOne S
+    (colorNegOne (colS S.NW) (2 * colS S.NW - colS S.NE)) colS
+    (negOne_isColored _ _) hS ?_ (Or.inl ?_)
+  · change colorNegOne (colS S.NW) (2 * colS S.NW - colS S.NE) 3 = colS S.NW
+    simp [colorNegOne_3]
+  · change colorNegOne (colS S.NW) (2 * colS S.NW - colS S.NE) 2 = colS S.NE
+    simp [colorNegOne_2]
+
+theorem ColorMatrix.ext {M N : ColorMatrix}
+    (hNW : M.NW = N.NW) (hNE : M.NE = N.NE)
+    (hSW : M.SW = N.SW) (hSE : M.SE = N.SE) : M = N := by
+  cases M; cases N; congr
+
+theorem ColorMatrix.of_colorAddLeftOne (S : TangleDiagram) (colS : Nat → Int) :
+    ColorMatrix.of (one.add S) (colorAddLeftOne S colS) =
+      { NW := colS S.SW
+        NE := colS S.NE
+        SW := 2 * colS S.SW - colS S.NW
+        SE := colS S.SE } := by
+  let U := RationalTangles.one
+  let colU := colorOne (colS S.SW) (colS S.NW)
+  let colG := colorGlueAdd U S colU colS
+  have glueNE : colU U.NE = colS S.NW := by
+    simp [colU, colorOne_1, U, RationalTangles.one]
+  have glueSE : colU U.SE = colS S.SW ∨ S.NW = S.SW := by
+    left
+    simp [colU, colorOne_2, U, RationalTangles.one]
+  have hNW : colG (U.add S).NW = colU U.NW :=
+    colorGlueAdd_of_le U S colU colS (maxArc_ge_NW U)
+  have hSW : colG (U.add S).SW = colU U.SW :=
+    colorGlueAdd_of_le U S colU colS (maxArc_ge_SW U)
+  have hNE : colG (U.add S).NE = colS S.NE := by
+    rw [add_NE U S]
+    exact colorGlueAdd_comp_shift U S colU colS glueNE glueSE S.NE
+  have hSE : colG (U.add S).SE = colS S.SE := by
+    rw [add_SE U S]
+    exact colorGlueAdd_comp_shift U S colU colS glueNE glueSE S.SE
+  have hMat : ColorMatrix.of (U.add S) colG =
+      { NW := colS S.SW, NE := colS S.NE, SW := 2 * colS S.SW - colS S.NW,
+        SE := colS S.SE } := by
+    apply ColorMatrix.ext
+    · simpa [ColorMatrix.of, colU, colorOne_0, U, RationalTangles.one] using hNW
+    · simpa [ColorMatrix.of] using hNE
+    · simpa [ColorMatrix.of, colU, colorOne_3, U, RationalTangles.one] using hSW
+    · simpa [ColorMatrix.of] using hSE
+  exact hMat
+
+theorem ColorMatrix.of_colorAddLeftNegOne (S : TangleDiagram) (colS : Nat → Int) :
+    ColorMatrix.of (negOne.add S) (colorAddLeftNegOne S colS) =
+      { NW := 2 * colS S.NW - colS S.SW
+        NE := colS S.NE
+        SW := colS S.NW
+        SE := colS S.SE } := by
+  let U := RationalTangles.negOne
+  let colU := colorNegOne (colS S.NW) (2 * colS S.NW - colS S.SW)
+  let colG := colorGlueAdd U S colU colS
+  have glueNE : colU U.NE = colS S.NW := by
+    change colU 1 = colS S.NW
+    simp [colU, colorNegOne_1]
+  have glueSE : colU U.SE = colS S.SW ∨ S.NW = S.SW := by
+    left
+    change colU 2 = colS S.SW
+    simp [colU, colorNegOne_2]
+  have hNW : colG (U.add S).NW = colU U.NW :=
+    colorGlueAdd_of_le U S colU colS (maxArc_ge_NW U)
+  have hSW : colG (U.add S).SW = colU U.SW :=
+    colorGlueAdd_of_le U S colU colS (maxArc_ge_SW U)
+  have hNE : colG (U.add S).NE = colS S.NE := by
+    rw [add_NE U S]
+    exact colorGlueAdd_comp_shift U S colU colS glueNE glueSE S.NE
+  have hSE : colG (U.add S).SE = colS S.SE := by
+    rw [add_SE U S]
+    exact colorGlueAdd_comp_shift U S colU colS glueNE glueSE S.SE
+  have hMat : ColorMatrix.of (U.add S) colG =
+      { NW := 2 * colS S.NW - colS S.SW, NE := colS S.NE, SW := colS S.NW,
+        SE := colS S.SE } := by
+    apply ColorMatrix.ext
+    · have : colU U.NW = 2 * colS S.NW - colS S.SW := by
+        change colU 0 = _
+        simp [colU, colorNegOne_0]
+      simpa [ColorMatrix.of, this] using hNW
+    · simpa [ColorMatrix.of] using hNE
+    · have : colU U.SW = colS S.NW := by
+        change colU 3 = _
+        simp [colU, colorNegOne_3]
+      simpa [ColorMatrix.of, this] using hSW
+    · simpa [ColorMatrix.of] using hSE
+  exact hMat
+
+theorem ColorMatrix.of_colorMulTopOne (S : TangleDiagram) (colS : Nat → Int) :
+    ColorMatrix.of (one.mul S) (colorMulTopOne S colS) =
+      { NW := colS S.NE
+        NE := 2 * colS S.NE - colS S.NW
+        SW := colS S.SW
+        SE := colS S.SE } := by
+  let U := RationalTangles.one
+  let colU := colorOne (colS S.NE) (2 * colS S.NE - colS S.NW)
+  let colG := colorGlueMul U S colU colS
+  have glueSW : colU U.SW = colS S.NW := by
+    simp [colU, colorOne_3, U, RationalTangles.one]
+  have glueSE : colU U.SE = colS S.NE ∨ S.NW = S.NE := by
+    left
+    simp [colU, colorOne_2, U, RationalTangles.one]
+  have hNW : colG (U.mul S).NW = colU U.NW :=
+    colorGlueMul_of_le U S colU colS (maxArc_ge_NW U)
+  have hNE : colG (U.mul S).NE = colU U.NE :=
+    colorGlueMul_of_le U S colU colS (maxArc_ge_NE U)
+  have hSE : colG (U.mul S).SE = colS S.SE := by
+    rw [mul_SE_glue U S]
+    exact colorGlueMul_comp_shift U S colU colS glueSW glueSE S.SE
+  have hSW : colG (U.mul S).SW = colS S.SW := by
+    rw [mul_SW_glue U S]
+    exact colorGlueMul_comp_shift U S colU colS glueSW glueSE S.SW
+  have hMat : ColorMatrix.of (U.mul S) colG =
+      { NW := colS S.NE, NE := 2 * colS S.NE - colS S.NW, SW := colS S.SW,
+        SE := colS S.SE } := by
+    apply ColorMatrix.ext
+    · simpa [ColorMatrix.of, colU, colorOne_0, U, RationalTangles.one] using hNW
+    · simpa [ColorMatrix.of, colU, colorOne_1, U, RationalTangles.one] using hNE
+    · simpa [ColorMatrix.of] using hSW
+    · simpa [ColorMatrix.of] using hSE
+  exact hMat
+
+theorem ColorMatrix.of_colorMulTopNegOne (S : TangleDiagram) (colS : Nat → Int) :
+    ColorMatrix.of (negOne.mul S) (colorMulTopNegOne S colS) =
+      { NW := 2 * colS S.NW - colS S.NE
+        NE := colS S.NW
+        SW := colS S.SW
+        SE := colS S.SE } := by
+  let U := RationalTangles.negOne
+  let colU := colorNegOne (colS S.NW) (2 * colS S.NW - colS S.NE)
+  let colG := colorGlueMul U S colU colS
+  have glueSW : colU U.SW = colS S.NW := by
+    change colU 3 = colS S.NW
+    simp [colU, colorNegOne_3]
+  have glueSE : colU U.SE = colS S.NE ∨ S.NW = S.NE := by
+    left
+    change colU 2 = colS S.NE
+    simp [colU, colorNegOne_2]
+  have hNW : colG (U.mul S).NW = colU U.NW :=
+    colorGlueMul_of_le U S colU colS (maxArc_ge_NW U)
+  have hNE : colG (U.mul S).NE = colU U.NE :=
+    colorGlueMul_of_le U S colU colS (maxArc_ge_NE U)
+  have hSE : colG (U.mul S).SE = colS S.SE := by
+    rw [mul_SE_glue U S]
+    exact colorGlueMul_comp_shift U S colU colS glueSW glueSE S.SE
+  have hSW : colG (U.mul S).SW = colS S.SW := by
+    rw [mul_SW_glue U S]
+    exact colorGlueMul_comp_shift U S colU colS glueSW glueSE S.SW
+  have hMat : ColorMatrix.of (U.mul S) colG =
+      { NW := 2 * colS S.NW - colS S.NE, NE := colS S.NW, SW := colS S.SW,
+        SE := colS S.SE } := by
+    apply ColorMatrix.ext
+    · have : colU U.NW = 2 * colS S.NW - colS S.NE := by
+        change colU 0 = _
+        simp [colU, colorNegOne_0]
+      simpa [ColorMatrix.of, this] using hNW
+    · have : colU U.NE = colS S.NW := by
+        change colU 1 = _
+        simp [colU, colorNegOne_1]
+      simpa [ColorMatrix.of, this] using hNE
+    · simpa [ColorMatrix.of] using hSW
+    · simpa [ColorMatrix.of] using hSE
+  exact hMat
+
+/-- Propagate two initial strand colors through a twist expression
+    (the same construction as `StandardExpr.colorFrom`, plus the elementary
+    `[±1]` diagrams). Left-add / top-mul glue a unit coloring onto
+    `e.colorFrom`. -/
 def TwistExpr.colorFrom : TwistExpr → Int → Int → (Nat → Int)
   | .zero, a, c => colorZero a c
   | .infinity, a, b => colorInfinity a b
@@ -172,8 +385,10 @@ def TwistExpr.colorFrom : TwistExpr → Int → Int → (Nat → Int)
   | .addRight e .neg, a, c => colorAddNegOne e.diagram (e.colorFrom a c)
   | .mulBottom e .pos, a, c => colorMulOne e.diagram (e.colorFrom a c)
   | .mulBottom e .neg, a, c => colorMulNegOne e.diagram (e.colorFrom a c)
-  | .addLeft e _, a, c => e.colorFrom a c
-  | .mulTop e _, a, c => e.colorFrom a c
+  | .addLeft e .pos, a, c => colorAddLeftOne e.diagram (e.colorFrom a c)
+  | .addLeft e .neg, a, c => colorAddLeftNegOne e.diagram (e.colorFrom a c)
+  | .mulTop e .pos, a, c => colorMulTopOne e.diagram (e.colorFrom a c)
+  | .mulTop e .neg, a, c => colorMulTopNegOne e.diagram (e.colorFrom a c)
 
 theorem twist_coloring_diagonal_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
     (col : Nat → Int) (h : e.diagram.IsColored col) :
@@ -662,6 +877,261 @@ theorem coloring_fraction_eq_F_mulTop_bottom (e : TwistExpr) (s : CrossingSign)
   (coloring_fraction_eq_F_mulTop e s hrb hne col hc hm).trans
     (TwistExpr.fraction_mulBottom_eq_toStandard_mulTop e s hrb).symm
 
+theorem TwistExpr.colorFrom_isColored_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (_hne : e.diagram.NW ≠ e.diagram.SW) (a c : Int) :
+    (TwistExpr.addLeft e s).diagram.IsColored
+      ((TwistExpr.addLeft e s).colorFrom a c) := by
+  have hc := e.colorFrom_isColored hrb a c
+  cases s with
+  | pos =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+    exact IsColored_colorAddLeftOne e.diagram _ hc
+  | neg =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+    exact IsColored_colorAddLeftNegOne e.diagram _ hc
+
+theorem TwistExpr.colorFrom_diagonal_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW) (a c : Int) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram
+      ((TwistExpr.addLeft e s).colorFrom a c)).DiagonalSum :=
+  twist_coloring_diagonal_addLeft e s hrb hne _
+    (e.colorFrom_isColored_addLeft s hrb hne a c)
+
+theorem TwistExpr.colorFrom_notMono_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram
+      ((TwistExpr.addLeft e s).colorFrom 0 1)).NotMono := by
+  have ih := e.colorFrom_notMono hrb
+  have hd := e.colorFrom_diagonal hrb 0 1
+  cases s with
+  | pos =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+    erw [ColorMatrix.of_colorAddLeftOne]
+    simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih hd ⊢
+    omega
+  | neg =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+    erw [ColorMatrix.of_colorAddLeftNegOne]
+    simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih hd ⊢
+    omega
+
+theorem TwistExpr.colorFrom_eq_fraction_addLeft (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.SW) :
+    (ColorMatrix.of (TwistExpr.addLeft e s).diagram
+      ((TwistExpr.addLeft e s).colorFrom 0 1)).fraction =
+      (TwistExpr.addLeft e s).fraction :=
+  coloring_fraction_eq_F_addLeft e s hrb hne
+    ((TwistExpr.addLeft e s).colorFrom 0 1)
+    (e.colorFrom_isColored_addLeft s hrb hne 0 1)
+    (e.colorFrom_notMono_addLeft s hrb hne)
+
+theorem TwistExpr.colorFrom_isColored_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (_hne : e.diagram.NW ≠ e.diagram.NE) (a c : Int) :
+    (TwistExpr.mulTop e s).diagram.IsColored
+      ((TwistExpr.mulTop e s).colorFrom a c) := by
+  have hc := e.colorFrom_isColored hrb a c
+  cases s with
+  | pos =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+    exact IsColored_colorMulTopOne e.diagram _ hc
+  | neg =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+    exact IsColored_colorMulTopNegOne e.diagram _ hc
+
+theorem TwistExpr.colorFrom_diagonal_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE) (a c : Int) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram
+      ((TwistExpr.mulTop e s).colorFrom a c)).DiagonalSum :=
+  twist_coloring_diagonal_mulTop e s hrb hne _
+    (e.colorFrom_isColored_mulTop s hrb hne a c)
+
+theorem TwistExpr.colorFrom_notMono_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram
+      ((TwistExpr.mulTop e s).colorFrom 0 1)).NotMono := by
+  have ih := e.colorFrom_notMono hrb
+  have hd := e.colorFrom_diagonal hrb 0 1
+  cases s with
+  | pos =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+    erw [ColorMatrix.of_colorMulTopOne]
+    simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih hd ⊢
+    omega
+  | neg =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+    erw [ColorMatrix.of_colorMulTopNegOne]
+    simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih hd ⊢
+    omega
+
+theorem TwistExpr.colorFrom_eq_fraction_mulTop (e : TwistExpr) (s : CrossingSign)
+    (hrb : e.rightBottom) (hne : e.diagram.NW ≠ e.diagram.NE) :
+    (ColorMatrix.of (TwistExpr.mulTop e s).diagram
+      ((TwistExpr.mulTop e s).colorFrom 0 1)).fraction =
+      (TwistExpr.mulTop e s).toStandard.fraction :=
+  coloring_fraction_eq_F_mulTop e s hrb hne
+    ((TwistExpr.mulTop e s).colorFrom 0 1)
+    (e.colorFrom_isColored_mulTop s hrb hne 0 1)
+    (e.colorFrom_notMono_mulTop s hrb hne)
+
+theorem twist_coloring_diagonal_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (col : Nat → Int) (h : e.diagram.IsColored col) :
+    (ColorMatrix.of e.diagram col).DiagonalSum := by
+  induction e generalizing col with
+  | zero => simpa [TwistExpr.diagram] using zero_diagonal_any col
+  | infinity => simpa [TwistExpr.diagram] using infinity_diagonal_any col
+  | one => simpa [TwistExpr.diagram] using one_diagonal_any col h
+  | negOne => simpa [TwistExpr.diagram] using negOne_diagonal_any col h
+  | addRight e s ih =>
+    have hok' : e.slideReady := hok
+    simp [TwistExpr.diagram] at h ⊢
+    exact ColorMatrix.DiagonalSum_of_add (crossingTangle_NW_ne_SW s)
+      (ih hok' col (IsColored_add_left h))
+      (crossingTangle_diagonal_any s _ (IsColored_add_right h))
+  | mulBottom e s ih =>
+    have hok' : e.slideReady := hok
+    simp [TwistExpr.diagram] at h ⊢
+    exact ColorMatrix.DiagonalSum_of_mul (crossingTangle_NW_ne_NE s)
+      (ih hok' col (IsColored_mul_top h))
+      (crossingTangle_diagonal_any s _ (IsColored_mul_bottom h))
+  | addLeft e s ih =>
+    obtain ⟨hne, hok'⟩ := hok
+    simp [TwistExpr.diagram] at h ⊢
+    exact ColorMatrix.DiagonalSum_of_add hne
+      (crossingTangle_diagonal_any s _ (IsColored_add_left h))
+      (ih hok' _ (IsColored_add_right h))
+  | mulTop e s ih =>
+    obtain ⟨hne, hok'⟩ := hok
+    simp [TwistExpr.diagram] at h ⊢
+    exact ColorMatrix.DiagonalSum_of_mul hne
+      (crossingTangle_diagonal_any s _ (IsColored_mul_top h))
+      (ih hok' _ (IsColored_mul_bottom h))
+
+theorem TwistExpr.colorFrom_isColored_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (a c : Int) : e.diagram.IsColored (e.colorFrom a c) := by
+  induction e generalizing a c with
+  | zero => exact zero_isColored a c
+  | infinity => exact infinity_isColored a c
+  | one => exact one_isColored a c
+  | negOne => exact negOne_isColored a c
+  | addRight e s ih =>
+    have hok' : e.slideReady := hok
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_add_one e.diagram (e.colorFrom a c) (ih hok' a c)
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_add_negOne e.diagram (e.colorFrom a c) (ih hok' a c)
+  | mulBottom e s ih =>
+    have hok' : e.slideReady := hok
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_mul_one e.diagram (e.colorFrom a c) (ih hok' a c)
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_mul_negOne e.diagram (e.colorFrom a c) (ih hok' a c)
+  | addLeft e s ih =>
+    obtain ⟨_hne, hok'⟩ := hok
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_colorAddLeftOne e.diagram _ (ih hok' a c)
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_colorAddLeftNegOne e.diagram _ (ih hok' a c)
+  | mulTop e s ih =>
+    obtain ⟨_hne, hok'⟩ := hok
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_colorMulTopOne e.diagram _ (ih hok' a c)
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_colorMulTopNegOne e.diagram _ (ih hok' a c)
+
+theorem TwistExpr.colorFrom_diagonal_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (a c : Int) :
+    (ColorMatrix.of e.diagram (e.colorFrom a c)).DiagonalSum :=
+  twist_coloring_diagonal_slideReady e hok (e.colorFrom a c)
+    (e.colorFrom_isColored_slideReady hok a c)
+
+theorem TwistExpr.colorFrom_notMono_slideReady (e : TwistExpr) (hok : e.slideReady) :
+    (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NotMono := by
+  induction e with
+  | zero =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, ColorMatrix.NotMono,
+      ColorMatrix.of, TangleDiagram.zero, colorZero]
+  | infinity =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, ColorMatrix.NotMono,
+      ColorMatrix.of, TangleDiagram.infinity, colorInfinity]
+  | one =>
+    change (ColorMatrix.of RationalTangles.one (colorOne 0 1)).NotMono
+    rw [one_matrix]; simp [ColorMatrix.NotMono]
+  | negOne =>
+    change (ColorMatrix.of RationalTangles.negOne (colorNegOne 0 1)).NotMono
+    rw [negOne_matrix]; simp [ColorMatrix.NotMono]
+  | addRight e s ih =>
+    have hok' : e.slideReady := hok
+    have hd := e.colorFrom_diagonal_slideReady hok' 0 1
+    have ih' := ih hok'
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_add_one]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_add_negOne]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+  | mulBottom e s ih =>
+    have hok' : e.slideReady := hok
+    have hd := e.colorFrom_diagonal_slideReady hok' 0 1
+    have ih' := ih hok'
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_mul_one]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_mul_negOne]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+  | addLeft e s ih =>
+    obtain ⟨_hne, hok'⟩ := hok
+    have hd := e.colorFrom_diagonal_slideReady hok' 0 1
+    have ih' := ih hok'
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_colorAddLeftOne]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_colorAddLeftNegOne]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+  | mulTop e s ih =>
+    obtain ⟨_hne, hok'⟩ := hok
+    have hd := e.colorFrom_diagonal_slideReady hok' 0 1
+    have ih' := ih hok'
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_colorMulTopOne]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_colorMulTopNegOne]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+
 /-- Two `slideReady` twist expressions with the same PD-code have the same
     standard-form evaluation, once a non-monochrome `DiagonalSum` coloring of
     that code is given. Thus `toStandard.fraction` depends on the diagram, not
@@ -958,11 +1428,6 @@ theorem TwistExpr.transferOdd_diagram (e : TwistExpr) :
     (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).diagram =
       (e.diagram.add RationalTangles.negOne).mul RationalTangles.one :=
   rfl
-
-theorem ColorMatrix.ext {M N : ColorMatrix}
-    (hNW : M.NW = N.NW) (hNE : M.NE = N.NE)
-    (hSW : M.SW = N.SW) (hSE : M.SE = N.SE) : M = N := by
-  cases M; cases N; congr
 
 /-- Glue `[+1]` on the left of a colored diagram with distinct left ports. -/
 theorem coloring_one_add (S : TangleDiagram) (colS : Nat → Int)
