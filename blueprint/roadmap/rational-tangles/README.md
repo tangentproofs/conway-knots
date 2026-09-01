@@ -51,6 +51,8 @@ in Theorem 3.
 - [Standard-form value of a twist diagram is well-defined](theorems/twist-diagram-fraction.md)
 - [Standard-form $F$ along coloring isotopy](theorems/twist-coloring-isotopy-fraction.md)
 - [Coloring fraction after invert on slide-ready diagrams](theorems/coloring-invert-cong-slideReady.md)
+- [Coloring fraction after mirror on slide-ready diagrams](theorems/coloring-mirror-cong-slideReady.md)
+- [Figure 14 at the coloring fraction on slide-ready diagrams](theorems/coloring-transfer-odd-slideReady.md)
 
 ## Coloring
 

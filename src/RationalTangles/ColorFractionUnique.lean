@@ -28,7 +28,14 @@ reuses `colorFrom_isColored_slideReady`. Any non-monochrome coloring of
 on the PD-mirror). If two `slideReady` expressions are related by
 `ColoringIsotopy`, fresh invert colorings therefore agree. That is
 fraction-level `invert_cong` on this class; it does not add `invert_cong`
-to `ColoringIsotopy`.
+to `ColoringIsotopy`. The same uniqueness after mirror gives
+fraction-level `mirror_cong`: fresh PD-mirror colorings have fraction
+`-F`, so they agree along `ColoringIsotopy`. Figure 14 (`transfer_odd`)
+is compared at the fraction level on this class: the left-hand side is
+a `slideReady` twist, and the right-hand side glues `[+1]` onto a
+fresh coloring of `T.mirror.invert`, whose fraction is `-1/F` by
+uniqueness after mirror rather than `SameEndpointColors` after
+`one.mirror`.
 -/
 
 namespace RationalTangles
@@ -1565,5 +1572,201 @@ theorem coloring_invert_mul_slideReady (e : TwistExpr) (hok : e.slideReady)
       rw [hfL, hfR, hfI]
       simp [TwistExpr.toStandard, StandardExpr.mulBottom_fraction,
         CrossingSign.cfValue, CFValue.inv_inv]
+
+/-! ## Fraction-level `mirror_cong` and Figure 14 (`transfer_odd`)
+
+Independent colorings; not `ColoringIsotopy` constructors. Kinks with
+`NW = NE` (the `[0]` family) are excluded from left-glue of `[+1]`.
+-/
+
+/-- Any non-monochrome coloring of the PD-mirror of a `slideReady` diagram
+    has fraction `-F(T)`. -/
+theorem coloring_mirror_any_eq_neg_F_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (col : Nat → Int)
+    (hc : e.diagram.mirror.IsColored col)
+    (hm : (ColorMatrix.of e.diagram.mirror col).NotMono) :
+    (ColorMatrix.of e.diagram.mirror col).fraction =
+      e.toStandard.fraction.neg := by
+  let colT := e.colorFrom 0 1
+  have hcT : e.diagram.IsColored colT := e.colorFrom_isColored_slideReady hok 0 1
+  have hmT : (ColorMatrix.of e.diagram colT).NotMono :=
+    e.colorFrom_notMono_slideReady hok
+  have hf := coloring_mirror_slideReady e hok colT col hcT hmT hc hm
+  have hfT := coloring_fraction_eq_F e hok colT hcT
+    (e.colorFrom_diagonal_slideReady hok 0 1) hmT
+  rw [hf, hfT]
+
+/-- If two `slideReady` diagrams are related by `ColoringIsotopy`, fresh
+    colorings of their PD-mirrors have the same coloring fraction `-F`.
+    Fraction-level `Isotopic.mirror_cong` on this class; not a
+    `ColoringIsotopy` constructor. -/
+theorem coloring_mirror_cong_slideReady {e e' : TwistExpr}
+    (hok : e.slideReady) (hok' : e'.slideReady)
+    (h : ColoringIsotopy e.diagram e'.diagram) :
+    ∃ colM colM',
+      e.diagram.mirror.IsColored colM ∧
+      e'.diagram.mirror.IsColored colM' ∧
+      (ColorMatrix.of e.diagram.mirror colM).NotMono ∧
+      (ColorMatrix.of e'.diagram.mirror colM').NotMono ∧
+      (ColorMatrix.of e.diagram.mirror colM).fraction =
+        (ColorMatrix.of e'.diagram.mirror colM').fraction := by
+  have hokM : e.mirror.slideReady := TwistExpr.slideReady_mirror e hok
+  have hokM' : e'.mirror.slideReady := TwistExpr.slideReady_mirror e' hok'
+  obtain ⟨colM, hcM, hMatM, _hfracM⟩ :=
+    coloring_fraction_ColoringIsotopy (coloring_mirror_diagram_rev_slideReady e hok)
+      (e.mirror.colorFrom 0 1) (e.mirror.colorFrom_isColored_slideReady hokM 0 1)
+  obtain ⟨colM', hcM', hMatM', _hfracM'⟩ :=
+    coloring_fraction_ColoringIsotopy (coloring_mirror_diagram_rev_slideReady e' hok')
+      (e'.mirror.colorFrom 0 1) (e'.mirror.colorFrom_isColored_slideReady hokM' 0 1)
+  have hmM : (ColorMatrix.of e.diagram.mirror colM).NotMono := by
+    simpa [hMatM] using e.mirror.colorFrom_notMono_slideReady hokM
+  have hmM' : (ColorMatrix.of e'.diagram.mirror colM').NotMono := by
+    simpa [hMatM'] using e'.mirror.colorFrom_notMono_slideReady hokM'
+  refine ⟨colM, colM', hcM, hcM', hmM, hmM', ?_⟩
+  have hf := coloring_mirror_any_eq_neg_F_slideReady e hok colM hcM hmM
+  have hf' := coloring_mirror_any_eq_neg_F_slideReady e' hok' colM' hcM' hmM'
+  rw [hf, hf', TwistExpr.toStandard_fraction_ColoringIsotopy_colorFrom hok hok' h]
+
+theorem TwistExpr.toStandard_transfer_odd (e : TwistExpr) :
+    (TwistExpr.mulBottom (TwistExpr.addRight e .neg) .pos).toStandard.fraction =
+      (1 : CFValue).add e.toStandard.fraction.neg.inv := by
+  simp [TwistExpr.toStandard, StandardExpr.addRight_fraction,
+    StandardExpr.mulBottom_fraction, CrossingSign.cfValue]
+  simpa [one_eq_ofInt_one] using
+    CFValue.transfer_odd_value e.toStandard.fraction
+
+/-- Any non-monochrome coloring of `T.mirror.invert` on a `slideReady`
+    diagram has fraction `-1/F(T)`. Uniqueness after mirror identifies
+    `f(T.mirror) = -F`, so this is `1/f(T.mirror)`; the PD-code is the
+    rotate of the double mirror (`planar_mirror_mirror`). -/
+theorem coloring_mirror_invert_any_eq_negInv_F_slideReady (e : TwistExpr)
+    (hok : e.slideReady) (col : Nat → Int)
+    (hc : e.diagram.mirror.invert.IsColored col)
+    (hm : (ColorMatrix.of e.diagram.mirror.invert col).NotMono) :
+    (ColorMatrix.of e.diagram.mirror.invert col).fraction =
+      e.toStandard.fraction.negInv := by
+  have hcMM : e.diagram.mirror.mirror.IsColored col :=
+    TangleDiagram.IsColored_of_invert e.diagram.mirror col hc
+  obtain ⟨colT, hcT, hMat, hfracT⟩ :=
+    coloring_fraction_ColoringIsotopy
+      (.isotopy (planar_mirror_mirror e.diagram)) col hcMM
+  have hdT := twist_coloring_diagonal_slideReady e hok colT hcT
+  have hdMM : (ColorMatrix.of e.diagram.mirror.mirror col).DiagonalSum := by
+    simpa [hMat] using hdT
+  have hrot :
+      ColorMatrix.of e.diagram.mirror.invert col =
+        (ColorMatrix.of e.diagram.mirror.mirror col).rotate := by
+    simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+  have hmMM : (ColorMatrix.of e.diagram.mirror.mirror col).NotMono :=
+    ColorMatrix.NotMono_of_rotate hdMM (by simpa [hrot] using hm)
+  have hmT : (ColorMatrix.of e.diagram colT).NotMono := by
+    simpa [hMat] using hmMM
+  have hfT := coloring_fraction_eq_F e hok colT hcT hdT hmT
+  have hrotF :
+      (ColorMatrix.of e.diagram.mirror.invert col).fraction =
+        (ColorMatrix.of e.diagram.mirror.mirror col).fraction.negInv := by
+    simpa [invert_eq_mirror_rotate] using
+      coloring_fraction_rotate e.diagram.mirror.mirror col hdMM hmMM
+  have hokM : e.mirror.slideReady := TwistExpr.slideReady_mirror e hok
+  obtain ⟨colPd, hcPd, hMatPd, _⟩ :=
+    coloring_fraction_ColoringIsotopy
+      (coloring_mirror_diagram_rev_slideReady e hok)
+      (e.mirror.colorFrom 0 1)
+      (e.mirror.colorFrom_isColored_slideReady hokM 0 1)
+  have hmPd : (ColorMatrix.of e.diagram.mirror colPd).NotMono := by
+    simpa [hMatPd] using e.mirror.colorFrom_notMono_slideReady hokM
+  have hfM := coloring_mirror_any_eq_neg_F_slideReady e hok colPd hcPd hmPd
+  calc
+    (ColorMatrix.of e.diagram.mirror.invert col).fraction
+        = (ColorMatrix.of e.diagram.mirror.mirror col).fraction.negInv := hrotF
+    _ = (ColorMatrix.of e.diagram colT).fraction.negInv := by rw [hfracT]
+    _ = e.toStandard.fraction.negInv := by rw [hfT]
+    _ = e.toStandard.fraction.neg.inv := by
+          simp [CFValue.negInv, CFValue.neg_inv]
+    _ = (ColorMatrix.of e.diagram.mirror colPd).fraction.inv := by rw [hfM]
+    _ = e.toStandard.fraction.neg.inv := by rw [hfM]
+    _ = e.toStandard.fraction.negInv := by
+          simp [CFValue.negInv, CFValue.neg_inv]
+
+/-- Figure 14 at the fraction level on a `slideReady` diagram with distinct
+    `NW`/`NE` (not the `[0]` kink). Independent colorings of
+    `(T+[-1])*[+1]` and `[+1]+(-T)ⁱ`; uniqueness after mirror supplies
+    `f((-T)ⁱ) = -1/F(T)`. Not a `ColoringIsotopy`. -/
+theorem coloring_transfer_odd_slideReady (e : TwistExpr) (hok : e.slideReady)
+    (hports : e.diagram.NW ≠ e.diagram.NE)
+    (hne : (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NW ≠
+      (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NE) :
+    ∃ colL colR,
+      ((e.diagram.add RationalTangles.negOne).mul RationalTangles.one).IsColored
+        colL ∧
+      (RationalTangles.one.add e.diagram.mirror.invert).IsColored colR ∧
+      (ColorMatrix.of ((e.diagram.add RationalTangles.negOne).mul
+        RationalTangles.one) colL).NotMono ∧
+      (ColorMatrix.of (RationalTangles.one.add e.diagram.mirror.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of ((e.diagram.add RationalTangles.negOne).mul
+        RationalTangles.one) colL).fraction =
+        (ColorMatrix.of (RationalTangles.one.add e.diagram.mirror.invert)
+          colR).fraction := by
+  let eL : TwistExpr := .mulBottom (.addRight e .neg) .pos
+  have hokL : eL.slideReady :=
+    TwistExpr.mulBottom_slideReady _ _ (TwistExpr.addRight_slideReady e .neg hok)
+  let colL := eL.colorFrom 0 1
+  have hcL : eL.diagram.IsColored colL :=
+    eL.colorFrom_isColored_slideReady hokL 0 1
+  have hmL : (ColorMatrix.of eL.diagram colL).NotMono :=
+    eL.colorFrom_notMono_slideReady hokL
+  have hfL := coloring_fraction_eq_F eL hokL colL hcL
+    (eL.colorFrom_diagonal_slideReady hokL 0 1) hmL
+  let colT := e.colorFrom 0 1
+  have hcT : e.diagram.IsColored colT := e.colorFrom_isColored_slideReady hok 0 1
+  have hmT : (ColorMatrix.of e.diagram colT).NotMono :=
+    e.colorFrom_notMono_slideReady hok
+  have hdT := e.colorFrom_diagonal_slideReady hok 0 1
+  obtain ⟨colMM, hcMM, hMatMM, _⟩ :=
+    coloring_fraction_ColoringIsotopy
+      (.isotopy (planar_mirror_mirror_rev e.diagram)) colT hcT
+  have hcI : e.diagram.mirror.invert.IsColored colMM := by
+    simpa [invert_eq_mirror_rotate] using coloring_rotate _ colMM hcMM
+  have hdMM : (ColorMatrix.of e.diagram.mirror.mirror colMM).DiagonalSum := by
+    simpa [hMatMM] using hdT
+  have hmMM : (ColorMatrix.of e.diagram.mirror.mirror colMM).NotMono := by
+    simpa [hMatMM] using hmT
+  have hrot :
+      ColorMatrix.of e.diagram.mirror.invert colMM =
+        (ColorMatrix.of e.diagram.mirror.mirror colMM).rotate := by
+    simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+  have hmI : (ColorMatrix.of e.diagram.mirror.invert colMM).NotMono := by
+    simpa [hrot] using ColorMatrix.NotMono_rotate hdMM hmMM
+  have hneS : e.diagram.mirror.invert.NW ≠ e.diagram.mirror.invert.SW := by
+    rw [TangleDiagram.mirror_invert_NW, TangleDiagram.mirror_invert_SW]
+    exact hports.symm
+  have hdiagS : (ColorMatrix.of e.diagram.mirror.invert colMM).DiagonalSum := by
+    simpa [hrot] using ColorMatrix.DiagonalSum.rotate hdMM
+  have hcolS : colMM e.diagram.mirror.invert.NW ≠
+      colMM e.diagram.mirror.invert.SW := by
+    rw [TangleDiagram.mirror_invert_NW, TangleDiagram.mirror_invert_SW]
+    change (ColorMatrix.of e.diagram.mirror.mirror colMM).NE ≠
+      (ColorMatrix.of e.diagram.mirror.mirror colMM).NW
+    have hNE := congrArg ColorMatrix.NE hMatMM
+    have hNW := congrArg ColorMatrix.NW hMatMM
+    have hne' :
+        (ColorMatrix.of e.diagram colT).NE ≠
+          (ColorMatrix.of e.diagram colT).NW := hne.symm
+    exact hNE.trans_ne (hne'.trans_eq hNW.symm)
+  obtain ⟨colR, hcR, hmR, hfR⟩ :=
+    coloring_fraction_one_add e.diagram.mirror.invert colMM hcI hneS hdiagS hcolS
+  have hfI :=
+    coloring_mirror_invert_any_eq_negInv_F_slideReady e hok colMM hcI hmI
+  refine ⟨colL, colR, ?_, hcR, ?_, hmR, ?_⟩
+  · simpa [eL, TwistExpr.diagram, crossingTangle] using hcL
+  · simpa [eL, TwistExpr.diagram, crossingTangle] using hmL
+  · have hLd :
+        ColorMatrix.of ((e.diagram.add RationalTangles.negOne).mul
+          RationalTangles.one) colL =
+          ColorMatrix.of eL.diagram colL := by
+      simp [eL, TwistExpr.diagram, crossingTangle]
+    rw [hLd, hfL, hfR, hfI, TwistExpr.toStandard_transfer_odd]
+    simp [CFValue.negInv, CFValue.neg_inv]
 
 end RationalTangles
