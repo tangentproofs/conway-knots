@@ -17,6 +17,7 @@ import RationalTangles.ColoringR3
 import RationalTangles.ColoringFlype
 import RationalTangles.ColoringIsotopy
 import RationalTangles.ColoringStandard
+import RationalTangles.ColoringToStandard
 import RationalTangles.ColorFraction
 import RationalTangles.Rational
 import RationalTangles.StandardForm
