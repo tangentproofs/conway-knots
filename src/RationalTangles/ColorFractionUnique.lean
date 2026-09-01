@@ -91,7 +91,16 @@ PD-sum `(integerTangle n).add (integerTangle (-n))` is not a
 non-monochrome, and invert-add of the two blocks reuses
 `coloring_invert_add_two_rightBottom` when `n ≠ 0` (summands have
 finite nonzero `F`) or the `[0]` invert-add lemmas when `n = 0`.
-Unrestricted
+The two-block PD-product `(verticalTwists n).mul (verticalTwists (-n))`
+is likewise not a `TwistExpr`; a coloring of that PD-code (glue of
+vertical colorings, `coloring_fraction_mul`) has fraction `∞` when
+non-monochrome. Existence reuses `coloring_mul_two_rightBottom` when
+`n ≠ 0` (factors have finite nonzero `F`) or the `[∞]*T` reindex when
+`n = 0`. Invert-mul of those two vertical blocks is not covered:
+existing `coloring_invert_mul_*` compare a unit or a `slideReady`
+diagram times a unit, not two general vertical PD-blocks, and there
+is no `coloring_invert_mul_two_rightBottom`. Nested versus two-block
+invert-add remains distinguished. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
 `ColoringIsotopy`.
@@ -107,7 +116,8 @@ and along invert-add of canceling units `[+1]+[-1]` / `[-1]+[+1]`
 (carried value `∞`), and along invert-add of nested canceling
 integer chains (carried value `∞`), and along invert-add of the
 two-block PD-sum of canceling integer diagrams (carried value `∞`).
-Restricted
+The two-block vertical product of canceling diagrams carries `∞` as
+a coloring fraction (not along invert-mul). Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
 carried value. Induction of `HasColoringFraction` along full `Isotopic`
 is blocked by the unrestricted constructors `Isotopic.flype_slide_add`
@@ -2785,6 +2795,47 @@ theorem coloring_add_two_rightBottom (e f : TwistExpr)
       hfinT hfinS
   exact ⟨col, hc, hmG, hdG, hf.trans (by rw [hfT, hfS])⟩
 
+/-- `colorFrom` of two `rightBottom`/`slideReady` diagrams with finite
+    nonzero `F` glue to a coloring of the PD-product `T.mul S`. Dual of
+    `coloring_add_two_rightBottom`; needs nonzero because
+    `coloring_glue_mul_finite` does. -/
+theorem coloring_mul_two_rightBottom (e f : TwistExpr)
+    (_hrb : e.rightBottom) (_hrb' : f.rightBottom)
+    (hok : e.slideReady) (hok' : f.slideReady)
+    (hfin : e.toStandard.fraction ≠ .inf)
+    (hfin' : f.toStandard.fraction ≠ .inf)
+    (hnz : e.toStandard.fraction ≠ (0 : CFValue))
+    (hnz' : f.toStandard.fraction ≠ (0 : CFValue)) :
+    ∃ col,
+      (e.diagram.mul f.diagram).IsColored col ∧
+      (ColorMatrix.of (e.diagram.mul f.diagram) col).NotMono ∧
+      (ColorMatrix.of (e.diagram.mul f.diagram) col).DiagonalSum ∧
+      (ColorMatrix.of (e.diagram.mul f.diagram) col).fraction =
+        ((e.toStandard.fraction.inv.add
+          f.toStandard.fraction.inv).inv) := by
+  let colT := e.colorFrom 0 1
+  let colS := f.colorFrom 0 1
+  have hT : e.diagram.IsColored colT := e.colorFrom_isColored_slideReady hok 0 1
+  have hS : f.diagram.IsColored colS := f.colorFrom_isColored_slideReady hok' 0 1
+  have hdT := e.colorFrom_diagonal_slideReady hok 0 1
+  have hdS := f.colorFrom_diagonal_slideReady hok' 0 1
+  have hmT := e.colorFrom_notMono_slideReady hok
+  have hmS := f.colorFrom_notMono_slideReady hok'
+  have hfT := coloring_fraction_eq_F e hok colT hT hdT hmT
+  have hfS := coloring_fraction_eq_F f hok' colS hS hdS hmS
+  have hfinT : (ColorMatrix.of e.diagram colT).fraction ≠ .inf := by
+    rw [hfT]; exact hfin
+  have hfinS : (ColorMatrix.of f.diagram colS).fraction ≠ .inf := by
+    rw [hfS]; exact hfin'
+  have hnzT : (ColorMatrix.of e.diagram colT).fraction ≠ (0 : CFValue) := by
+    rw [hfT]; exact hnz
+  have hnzS : (ColorMatrix.of f.diagram colS).fraction ≠ (0 : CFValue) := by
+    rw [hfS]; exact hnz'
+  obtain ⟨col, _, hc, _, _, _, _, hdG, hmG, hf⟩ :=
+    coloring_glue_mul_finite e.diagram f.diagram colT colS hT hS hdT hdS hmT hmS
+      hfinT hfinS hnzT hnzS
+  exact ⟨col, hc, hmG, hdG, hf.trans (by rw [hfT, hfS])⟩
+
 /-- Fresh coloring of the PD-mirror via the algebraic mirror's `colorFrom`. -/
 theorem coloring_pd_mirror_of_colorFrom (e : TwistExpr) (hok : e.slideReady) :
     ∃ col, e.diagram.mirror.IsColored col ∧
@@ -5067,5 +5118,312 @@ theorem HasColoringFraction.invert_add_neg_integerTangle_add (n : Int) :
         ((integerTangle n).invert.mul (integerTangle (-n)).invert)
         CFValue.inf :=
   by simpa [neg_neg] using HasColoringFraction.invert_add_integerTangle_add_neg (-n)
+
+
+/-! ## Two-block PD-product of canceling vertical diagrams
+
+`(verticalTwists n).mul (verticalTwists (-n))` is a single glue of two
+vertical PD-blocks, not a nested `TwistExpr`. Vertical uniqueness gives
+`f([n]ⁱ)=1/n` and `f([-n]ⁱ)=-1/n` on each block; glue /
+`coloring_fraction_mul` takes the parallel combination, which is `∞`.
+Existence is `coloring_mul_two_rightBottom` when `n ≠ 0`, and the
+`[∞]*T` reindex when `n = 0`. Invert-mul of the two blocks is not
+claimed: existing `coloring_invert_mul_*` need a unit factor.
+Not a `ColoringIsotopy`, and not unrestricted `flype_slide`.
+-/
+
+theorem TwistExpr.verticalUnits_NW (k : Nat) (s : CrossingSign) :
+    (verticalUnits k s).diagram.NW = TangleDiagram.infinity.NW := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    change (verticalUnits k s).diagram.NW = TangleDiagram.infinity.NW
+    exact ih
+
+theorem TwistExpr.verticalUnits_NE (k : Nat) (s : CrossingSign) :
+    (verticalUnits k s).diagram.NE = TangleDiagram.infinity.NE := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    change (verticalUnits k s).diagram.NE = TangleDiagram.infinity.NE
+    exact ih
+
+theorem verticalTwists_NW (n : Int) :
+    (verticalTwists n).NW = TangleDiagram.infinity.NW := by
+  rw [← TwistExpr.ofVertical_diagram]
+  simpa only [TwistExpr.ofVertical] using TwistExpr.verticalUnits_NW _ _
+
+theorem verticalTwists_NE (n : Int) :
+    (verticalTwists n).NE = TangleDiagram.infinity.NE := by
+  rw [← TwistExpr.ofVertical_diagram]
+  simpa only [TwistExpr.ofVertical] using TwistExpr.verticalUnits_NE _ _
+
+theorem verticalTwists_NW_ne_NE (n : Int) :
+    (verticalTwists n).NW ≠ (verticalTwists n).NE := by
+  rw [verticalTwists_NW, verticalTwists_NE]
+  decide
+
+theorem ColorMatrix.fraction_eq_zero_of_NW_eq_NE {M : ColorMatrix}
+    (hNW : M.NW = M.NE) (hne : M.NE ≠ M.SE) :
+    M.fraction = (0 : CFValue) := by
+  unfold ColorMatrix.fraction
+  have hden : M.NE - M.SE ≠ 0 := sub_ne_zero.mpr hne
+  have hnum : M.NE - M.NW = 0 := by omega
+  simp [hden, hnum]
+  rfl
+
+theorem CFValue.inv_ofInt_ne_zero (n : Int) :
+    (CFValue.ofInt n).inv ≠ (0 : CFValue) := by
+  intro h
+  have h' := congrArg CFValue.inv h
+  have hz : (0 : CFValue).inv = CFValue.inf := by
+    change (CFValue.ofRat 0).inv = CFValue.inf
+    simp [CFValue.inv]
+  rw [CFValue.inv_inv, hz] at h'
+  exact CFValue.ofInt_ne_inf n h'
+
+theorem CFValue.inv_ofInt_eq_inf_iff (n : Int) :
+    (CFValue.ofInt n).inv = CFValue.inf ↔ n = 0 := by
+  constructor
+  · intro h
+    have h' := congrArg CFValue.inv h
+    rw [CFValue.inv_inv, CFValue.inv_inf] at h'
+    exact (CFValue.ofInt_eq_zero_iff n).1 h'
+  · intro h
+    subst h
+    exact CFValue.inv_ofInt_zero
+
+theorem TwistExpr.ofVertical_toStandard_fraction (n : Int) :
+    (ofVertical n).toStandard.fraction = (CFValue.ofInt n).inv := by
+  rw [← TwistExpr.fraction_eq_toStandard_rightBottom _
+      (TwistExpr.ofVertical_rightBottom n), TwistExpr.ofVertical_fraction]
+
+theorem TwistExpr.ofVertical_slideReady (n : Int) :
+    (ofVertical n).slideReady :=
+  TwistExpr.rightBottom_slideReady _ (TwistExpr.ofVertical_rightBottom n)
+
+/-- Any non-monochrome coloring of the vertical diagram of `|n|` twists
+    has fraction `1/n`. Uniqueness on `ofVertical`. -/
+theorem coloring_fraction_verticalTwists (n : Int) (col : Nat → Int)
+    (hc : (verticalTwists n).IsColored col)
+    (hm : (ColorMatrix.of (verticalTwists n) col).NotMono) :
+    (ColorMatrix.of (verticalTwists n) col).fraction =
+      (CFValue.ofInt n).inv := by
+  have hc' : (TwistExpr.ofVertical n).diagram.IsColored col := by
+    rwa [TwistExpr.ofVertical_diagram]
+  have hm' : (ColorMatrix.of (TwistExpr.ofVertical n).diagram col).NotMono := by
+    rwa [TwistExpr.ofVertical_diagram]
+  have hf := coloring_fraction_eq_F_rightBottom (TwistExpr.ofVertical n)
+    (TwistExpr.ofVertical_rightBottom n) col hc' hm'
+  simpa [TwistExpr.ofVertical_diagram, TwistExpr.ofVertical_fraction] using hf
+
+theorem verticalTwists_diagonal (n : Int) (col : Nat → Int)
+    (hc : (verticalTwists n).IsColored col) :
+    (ColorMatrix.of (verticalTwists n) col).DiagonalSum := by
+  have h := twist_coloring_diagonal_rightBottom (TwistExpr.ofVertical n)
+    (TwistExpr.ofVertical_rightBottom n) col
+    (by rwa [TwistExpr.ofVertical_diagram])
+  simpa [TwistExpr.ofVertical_diagram] using h
+
+/-- Any non-monochrome coloring of the two-block PD-product
+    `[n]ⁱ * [-n]ⁱ` has coloring fraction `∞`. -/
+theorem coloring_fraction_verticalTwists_mul_neg (n : Int) (col : Nat → Int)
+    (hc : ((verticalTwists n).mul (verticalTwists (-n))).IsColored col)
+    (hm : (ColorMatrix.of ((verticalTwists n).mul (verticalTwists (-n)))
+      col).NotMono) :
+    (ColorMatrix.of ((verticalTwists n).mul (verticalTwists (-n)))
+      col).fraction = CFValue.inf := by
+  set T := verticalTwists n
+  set S := verticalTwists (-n)
+  have hports : S.NW ≠ S.NE := verticalTwists_NW_ne_NE (-n)
+  have hT : T.IsColored col := IsColored_mul_top hc
+  have hS : S.IsColored (colorMulBottom T S col) := IsColored_mul_bottom hc
+  have hdT : (ColorMatrix.of T col).DiagonalSum :=
+    verticalTwists_diagonal n col hT
+  have hdS : (ColorMatrix.of S (colorMulBottom T S col)).DiagonalSum :=
+    verticalTwists_diagonal (-n) (colorMulBottom T S col) hS
+  have hSmat := ColorMatrix.of_mul_bottom T S col hports
+  have hmT : (ColorMatrix.of T col).NotMono := by
+    intro hmonoT
+    have hNWeqNE : (ColorMatrix.of T col).NW = (ColorMatrix.of T col).NE :=
+      hmonoT.1
+    have hNEeqSE : (ColorMatrix.of T col).NE = (ColorMatrix.of T col).SE :=
+      hmonoT.2
+    have hSWeqNE : (ColorMatrix.of T col).SW = (ColorMatrix.of T col).NE := by
+      simp [ColorMatrix.DiagonalSum, ColorMatrix.of] at hdT hNWeqNE hNEeqSE ⊢
+      omega
+    have hNW_NE_S : (ColorMatrix.of S (colorMulBottom T S col)).NW =
+        (ColorMatrix.of S (colorMulBottom T S col)).NE := by
+      rw [hSmat]
+      simpa [ColorMatrix.of] using (hSWeqNE.trans hNEeqSE)
+    by_cases hmS : (ColorMatrix.of S (colorMulBottom T S col)).NotMono
+    · have hfS := coloring_fraction_verticalTwists (-n)
+        (colorMulBottom T S col) hS hmS
+      have h0 : (ColorMatrix.of S (colorMulBottom T S col)).fraction =
+          (0 : CFValue) := by
+        have hNEneSE : (ColorMatrix.of S (colorMulBottom T S col)).NE ≠
+            (ColorMatrix.of S (colorMulBottom T S col)).SE := by
+          intro hEq
+          exact hmS ⟨hNW_NE_S, hEq⟩
+        exact ColorMatrix.fraction_eq_zero_of_NW_eq_NE hNW_NE_S hNEneSE
+      exact (CFValue.inv_ofInt_ne_zero (-n)) (hfS.symm.trans h0)
+    · have hmonoS : (ColorMatrix.of S (colorMulBottom T S col)).NW =
+          (ColorMatrix.of S (colorMulBottom T S col)).NE ∧
+          (ColorMatrix.of S (colorMulBottom T S col)).NE =
+          (ColorMatrix.of S (colorMulBottom T S col)).SE := by
+        simpa [ColorMatrix.NotMono] using hmS
+      have hNE := congrArg ColorMatrix.NE hSmat
+      have hSE := congrArg ColorMatrix.SE hSmat
+      simp [ColorMatrix.of] at hNE hSE
+      refine hm ⟨?_, ?_⟩
+      · change col (T.mul S).NW = col (T.mul S).NE
+        calc
+          col (T.mul S).NW = col T.NW := rfl
+          _ = col T.NE := by simpa [ColorMatrix.of] using hNWeqNE
+      · change col (T.mul S).NE = col (T.mul S).SE
+        calc
+          col (T.mul S).NE = col T.NE := rfl
+          _ = col T.SE := by simpa [ColorMatrix.of] using hNEeqSE
+          _ = colorMulBottom T S col S.NE := hNE.symm
+          _ = colorMulBottom T S col S.SE := hmonoS.2
+          _ = col (T.mul S).SE := hSE
+  have hmS : (ColorMatrix.of S (colorMulBottom T S col)).NotMono := by
+    intro hmonoS
+    have hNWNE : (ColorMatrix.of S (colorMulBottom T S col)).NW =
+        (ColorMatrix.of S (colorMulBottom T S col)).NE := hmonoS.1
+    have hNESE : (ColorMatrix.of S (colorMulBottom T S col)).NE =
+        (ColorMatrix.of S (colorMulBottom T S col)).SE := hmonoS.2
+    have hSWeqSE_T : col T.SW = col T.SE := by
+      have h1 := congrArg ColorMatrix.NW hSmat
+      have h2 := congrArg ColorMatrix.NE hSmat
+      simp [ColorMatrix.of] at h1 h2
+      simp [ColorMatrix.of] at hNWNE
+      rw [← h1, ← h2, hNWNE]
+    have hNWeqNE_T : col T.NW = col T.NE := by
+      simp [ColorMatrix.DiagonalSum, ColorMatrix.of] at hdT
+      omega
+    have hfT := coloring_fraction_verticalTwists n col hT hmT
+    have h0 : (ColorMatrix.of T col).fraction = (0 : CFValue) := by
+      have hNEneSE : col T.NE ≠ col T.SE := by
+        intro hEq
+        exact hmT ⟨by simpa [ColorMatrix.of] using hNWeqNE_T,
+          by simpa [ColorMatrix.of] using hEq⟩
+      exact ColorMatrix.fraction_eq_zero_of_NW_eq_NE
+        (by simpa [ColorMatrix.of] using hNWeqNE_T)
+        (by simpa [ColorMatrix.of] using hNEneSE)
+    exact (CFValue.inv_ofInt_ne_zero n) (hfT.symm.trans h0)
+  have hfT := coloring_fraction_verticalTwists n col hT hmT
+  have hfS := coloring_fraction_verticalTwists (-n)
+    (colorMulBottom T S col) hS hmS
+  have hmul := coloring_fraction_mul T S col hports hdT hdS hm
+  have hval :
+      ((CFValue.ofInt n).inv.inv.add (CFValue.ofInt (-n)).inv.inv).inv =
+        CFValue.inf := by
+    rw [CFValue.inv_inv, CFValue.inv_inv, CFValue.ofInt_add_neg]
+    have h0 : (0 : CFValue) = CFValue.ofInt 0 := rfl
+    rw [h0, CFValue.inv_ofInt_zero]
+  rw [hmul.symm, hfT, hfS]
+  exact hval
+
+theorem coloring_fraction_neg_verticalTwists_mul (n : Int) (col : Nat → Int)
+    (hc : ((verticalTwists (-n)).mul (verticalTwists n)).IsColored col)
+    (hm : (ColorMatrix.of ((verticalTwists (-n)).mul (verticalTwists n))
+      col).NotMono) :
+    (ColorMatrix.of ((verticalTwists (-n)).mul (verticalTwists n))
+      col).fraction = CFValue.inf := by
+  have hc' :
+      ((verticalTwists (-n)).mul (verticalTwists (-(-n)))).IsColored col := by
+    simpa [neg_neg] using hc
+  have hm' :
+      (ColorMatrix.of ((verticalTwists (-n)).mul (verticalTwists (-(-n))))
+        col).NotMono := by
+    simpa [neg_neg] using hm
+  simpa [neg_neg] using
+    coloring_fraction_verticalTwists_mul_neg (-n) col hc' hm'
+
+/-- Glue of vertical colorings of `[n]ⁱ` and `[-n]ⁱ` is a non-monochrome
+    coloring of the two-block PD-product, of fraction `∞`. -/
+theorem coloring_exists_verticalTwists_mul_neg (n : Int) :
+    ∃ col,
+      ((verticalTwists n).mul (verticalTwists (-n))).IsColored col ∧
+      (ColorMatrix.of ((verticalTwists n).mul (verticalTwists (-n)))
+        col).NotMono ∧
+      (ColorMatrix.of ((verticalTwists n).mul (verticalTwists (-n)))
+        col).fraction = CFValue.inf := by
+  by_cases hn : n = 0
+  · subst hn
+    have h0 : verticalTwists (0 : Int) = TangleDiagram.infinity := rfl
+    let col0 := TwistExpr.infinity.colorFrom 0 1
+    have hc0 : TangleDiagram.infinity.IsColored col0 :=
+      TwistExpr.infinity.colorFrom_isColored trivial 0 1
+    have hm0 : (ColorMatrix.of TangleDiagram.infinity col0).NotMono :=
+      TwistExpr.infinity.colorFrom_notMono trivial
+    have hf0 : (ColorMatrix.of TangleDiagram.infinity col0).fraction =
+        CFValue.inf := by
+      simpa [TwistExpr.diagram, TwistExpr.fraction] using
+        TwistExpr.infinity.colorFrom_eq_fraction trivial
+    obtain ⟨col, hc, hM, hf⟩ :=
+      coloring_fraction_infinity_mul TangleDiagram.infinity col0 hc0
+    refine ⟨col, ?_, ?_, ?_⟩
+    · simpa [h0] using hc
+    · simpa [h0, hM] using hm0
+    · simpa [h0, hM] using hf.trans hf0
+  · have hfin : (TwistExpr.ofVertical n).toStandard.fraction ≠ .inf := by
+      rw [TwistExpr.ofVertical_toStandard_fraction]
+      intro h
+      exact hn ((CFValue.inv_ofInt_eq_inf_iff n).1 h)
+    have hfin' : (TwistExpr.ofVertical (-n)).toStandard.fraction ≠ .inf := by
+      rw [TwistExpr.ofVertical_toStandard_fraction]
+      intro h
+      have : -n = 0 := (CFValue.inv_ofInt_eq_inf_iff (-n)).1 h
+      exact hn (neg_eq_zero.mp this)
+    have hnz : (TwistExpr.ofVertical n).toStandard.fraction ≠
+        (0 : CFValue) := by
+      rw [TwistExpr.ofVertical_toStandard_fraction]
+      exact CFValue.inv_ofInt_ne_zero n
+    have hnz' : (TwistExpr.ofVertical (-n)).toStandard.fraction ≠
+        (0 : CFValue) := by
+      rw [TwistExpr.ofVertical_toStandard_fraction]
+      exact CFValue.inv_ofInt_ne_zero (-n)
+    obtain ⟨col, hc, hm, _, hf⟩ :=
+      coloring_mul_two_rightBottom (TwistExpr.ofVertical n)
+        (TwistExpr.ofVertical (-n))
+        (TwistExpr.ofVertical_rightBottom n)
+        (TwistExpr.ofVertical_rightBottom (-n))
+        (TwistExpr.ofVertical_slideReady n)
+        (TwistExpr.ofVertical_slideReady (-n)) hfin hfin' hnz hnz'
+    have hinf :
+        ((TwistExpr.ofVertical n).toStandard.fraction.inv.add
+          (TwistExpr.ofVertical (-n)).toStandard.fraction.inv).inv =
+          CFValue.inf := by
+      rw [TwistExpr.ofVertical_toStandard_fraction,
+        TwistExpr.ofVertical_toStandard_fraction, CFValue.inv_inv,
+        CFValue.inv_inv, CFValue.ofInt_add_neg]
+      change (CFValue.ofInt 0).inv = CFValue.inf
+      exact CFValue.inv_ofInt_zero
+    refine ⟨col, ?_, ?_, ?_⟩
+    · simpa [TwistExpr.ofVertical_diagram] using hc
+    · simpa [TwistExpr.ofVertical_diagram] using hm
+    · simpa [TwistExpr.ofVertical_diagram] using hf.trans hinf
+
+theorem coloring_exists_neg_verticalTwists_mul (n : Int) :
+    ∃ col,
+      ((verticalTwists (-n)).mul (verticalTwists n)).IsColored col ∧
+      (ColorMatrix.of ((verticalTwists (-n)).mul (verticalTwists n))
+        col).NotMono ∧
+      (ColorMatrix.of ((verticalTwists (-n)).mul (verticalTwists n))
+        col).fraction = CFValue.inf :=
+  by simpa [neg_neg] using coloring_exists_verticalTwists_mul_neg (-n)
+
+theorem HasColoringFraction.verticalTwists_mul_neg (n : Int) :
+    HasColoringFraction ((verticalTwists n).mul (verticalTwists (-n)))
+      CFValue.inf := by
+  obtain ⟨col, hc, hm, hf⟩ := coloring_exists_verticalTwists_mul_neg n
+  exact ⟨col, hc, hm, hf⟩
+
+theorem HasColoringFraction.neg_verticalTwists_mul (n : Int) :
+    HasColoringFraction ((verticalTwists (-n)).mul (verticalTwists n))
+      CFValue.inf :=
+  by simpa [neg_neg] using HasColoringFraction.verticalTwists_mul_neg (-n)
 
 end RationalTangles
