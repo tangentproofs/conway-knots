@@ -839,6 +839,283 @@ theorem planar_invert_of_rename {D E : TangleDiagram} {f : Nat → Nat}
   · simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror, hSW]
   · simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror, hNW]
 
+theorem foldAddUnits_replicate_snoc (n : Nat) (s : CrossingSign) :
+    List.replicate (n + 1) (crossingTangle s) =
+      List.replicate n (crossingTangle s) ++ [crossingTangle s] := by
+  induction n with
+  | zero => simp [List.replicate]
+  | succ n ih =>
+    calc List.replicate (n + 1 + 1) (crossingTangle s)
+        = crossingTangle s :: List.replicate (n + 1) (crossingTangle s) := rfl
+      _ = crossingTangle s ::
+          (List.replicate n (crossingTangle s) ++ [crossingTangle s]) := by
+            rw [ih]
+      _ = (crossingTangle s :: List.replicate n (crossingTangle s)) ++
+          [crossingTangle s] := by simp [List.cons_append]
+      _ = List.replicate (n + 1) (crossingTangle s) ++ [crossingTangle s] := rfl
+
+/-- Nested right-adds of `n` copies of `[s]` onto `T`. -/
+def foldAddUnits (T : TangleDiagram) (n : Nat) (s : CrossingSign) :
+    TangleDiagram :=
+  (List.replicate n (crossingTangle s)).foldl TangleDiagram.add T
+
+/-- Two-block integer summand: `[s]` nested onto `[0]` (dummy arcs `0,1`). -/
+def integerBlock (n : Nat) (s : CrossingSign) : TangleDiagram :=
+  foldAddUnits TangleDiagram.zero n s
+
+theorem foldAddUnits_zero (T : TangleDiagram) (s : CrossingSign) :
+    foldAddUnits T 0 s = T :=
+  rfl
+
+theorem integerBlock_zero (s : CrossingSign) :
+    integerBlock 0 s = TangleDiagram.zero :=
+  rfl
+
+theorem foldAddUnits_succ (T : TangleDiagram) (n : Nat) (s : CrossingSign) :
+    foldAddUnits T (n + 1) s =
+      (foldAddUnits T n s).add (crossingTangle s) := by
+  unfold foldAddUnits
+  rw [foldAddUnits_replicate_snoc, List.foldl_append]
+  simp [List.foldl]
+
+theorem integerBlock_succ (n : Nat) (s : CrossingSign) :
+    integerBlock (n + 1) s =
+      (integerBlock n s).add (crossingTangle s) :=
+  foldAddUnits_succ TangleDiagram.zero n s
+
+theorem foldAddUnits_maxArc (T : TangleDiagram) (n : Nat) (s : CrossingSign) :
+    (foldAddUnits T n s).maxArc = T.maxArc + 3 * n := by
+  induction n with
+  | zero => simp [foldAddUnits]
+  | succ n ih =>
+    rw [foldAddUnits_succ]
+    cases s with
+    | pos =>
+      rw [show crossingTangle CrossingSign.pos = one from rfl, maxArc_add_one, ih]
+      omega
+    | neg =>
+      rw [show crossingTangle CrossingSign.neg = negOne from rfl, maxArc_add_negOne, ih]
+      omega
+
+theorem integerBlock_maxArc (n : Nat) (s : CrossingSign) :
+    (integerBlock n s).maxArc = 1 + 3 * n := by
+  simpa [integerBlock, zero_maxArc, Nat.add_comm] using
+    foldAddUnits_maxArc TangleDiagram.zero n s
+
+theorem foldAddUnits_NW (T : TangleDiagram) (n : Nat) (s : CrossingSign) :
+    (foldAddUnits T n s).NW = T.NW := by
+  induction n with
+  | zero => rfl
+  | succ n ih =>
+    rw [foldAddUnits_succ]
+    cases s with
+    | pos =>
+      rw [show crossingTangle CrossingSign.pos = one from rfl, add_one_NW, ih]
+    | neg =>
+      rw [show crossingTangle CrossingSign.neg = negOne from rfl, add_negOne_NW, ih]
+
+theorem foldAddUnits_SW (T : TangleDiagram) (n : Nat) (s : CrossingSign) :
+    (foldAddUnits T n s).SW = T.SW := by
+  induction n with
+  | zero => rfl
+  | succ n ih =>
+    rw [foldAddUnits_succ]
+    cases s with
+    | pos =>
+      rw [show crossingTangle CrossingSign.pos = one from rfl, add_one_SW, ih]
+    | neg =>
+      rw [show crossingTangle CrossingSign.neg = negOne from rfl, add_negOne_SW, ih]
+
+theorem addZeroBlockReindex_NW (T : TangleDiagram) :
+    addZeroBlockReindex T T.NW = T.NW :=
+  addZeroBlockReindex_le T (maxArc_ge_NW T)
+
+theorem addZeroBlockReindex_NE (T : TangleDiagram) :
+    addZeroBlockReindex T T.NE = T.NE :=
+  addZeroBlockReindex_le T (maxArc_ge_NE T)
+
+theorem addZeroBlockReindex_SE (T : TangleDiagram) :
+    addZeroBlockReindex T T.SE = T.SE :=
+  addZeroBlockReindex_le T (maxArc_ge_SE T)
+
+theorem addZeroBlockReindex_SW (T : TangleDiagram) :
+    addZeroBlockReindex T T.SW = T.SW :=
+  addZeroBlockReindex_le T (maxArc_ge_SW T)
+
+theorem crossings_rename_addZeroBlockReindex (T : TangleDiagram) :
+    T.crossings.map (Crossing.rename (addZeroBlockReindex T)) = T.crossings := by
+  refine
+    (show ∀ cs, (∀ C ∈ cs, C ∈ T.crossings) →
+        cs.map (Crossing.rename (addZeroBlockReindex T)) = cs from ?_)
+      T.crossings (fun _ h => h)
+  intro cs hcs
+  induction cs with
+  | nil => rfl
+  | cons C cs ih =>
+    simp [List.map]
+    constructor
+    · have h := arc_le_maxArc_of_mem T (hcs C (List.mem_cons.2 (Or.inl rfl)))
+      exact Crossing.rename_eq_of_ports
+        (addZeroBlockReindex_le T h.1) (addZeroBlockReindex_le T h.2.1)
+        (addZeroBlockReindex_le T h.2.2.1) (addZeroBlockReindex_le T h.2.2.2)
+    · exact ih (fun X hX => hcs X (List.mem_cons.2 (Or.inr hX)))
+
+theorem add_NW (T S : TangleDiagram) : (T.add S).NW = T.NW := rfl
+
+theorem add_SW (T S : TangleDiagram) : (T.add S).SW = T.SW := rfl
+
+theorem foldAddUnits_integerBlock_rename (T : TangleDiagram) (n : Nat)
+    (s : CrossingSign) :
+    (T.add (integerBlock n s)).NW =
+        addZeroBlockReindex T (foldAddUnits T n s).NW ∧
+      (T.add (integerBlock n s)).NE =
+        addZeroBlockReindex T (foldAddUnits T n s).NE ∧
+      (T.add (integerBlock n s)).SE =
+        addZeroBlockReindex T (foldAddUnits T n s).SE ∧
+      (T.add (integerBlock n s)).SW =
+        addZeroBlockReindex T (foldAddUnits T n s).SW ∧
+      (T.add (integerBlock n s)).crossings =
+        (foldAddUnits T n s).crossings.map
+          (Crossing.rename (addZeroBlockReindex T)) := by
+  induction n with
+  | zero =>
+    rw [foldAddUnits_zero, integerBlock_zero, add_zero_eq]
+    refine ⟨?_, ?_, ?_, ?_, ?_⟩
+    · rw [addZeroBlockReindex_NW]
+    · rw [addZeroBlockReindex_NE]
+    · rw [addZeroBlockReindex_SE]
+    · rw [addZeroBlockReindex_SW]
+    · exact (crossings_rename_addZeroBlockReindex T).symm
+  | succ n ih =>
+    cases s with
+    | pos =>
+      rw [foldAddUnits_succ, integerBlock_succ,
+        show crossingTangle CrossingSign.pos = one from rfl]
+      obtain ⟨_ihNW, ihNE, ihSE, _ihSW, ihcs⟩ := ih
+      have hglue :
+          addGlue T ((integerBlock n CrossingSign.pos).add one) =
+            addGlue T (integerBlock n CrossingSign.pos) :=
+        addGlue_eq_of_glue_ports T (integerBlock n CrossingSign.pos)
+          ((integerBlock n CrossingSign.pos).add one)
+          (add_one_NW _) (add_one_SW _)
+      have hmaxD := foldAddUnits_maxArc T n CrossingSign.pos
+      have hmaxS := integerBlock_maxArc n CrossingSign.pos
+      have hf2 : addZeroBlockReindex T
+          ((foldAddUnits T n CrossingSign.pos).maxArc + 2) =
+          (foldAddUnits T n CrossingSign.pos).maxArc + 4 := by
+        apply addZeroBlockReindex_gt; omega
+      have hf3 : addZeroBlockReindex T
+          ((foldAddUnits T n CrossingSign.pos).maxArc + 3) =
+          (foldAddUnits T n CrossingSign.pos).maxArc + 5 := by
+        apply addZeroBlockReindex_gt; omega
+      have hfresh2 :
+          addGlue T (integerBlock n CrossingSign.pos)
+            ((integerBlock n CrossingSign.pos).maxArc + 2 + (T.maxArc + 1)) =
+            (integerBlock n CrossingSign.pos).maxArc + 2 + (T.maxArc + 1) :=
+        addGlue_shift_fresh T (integerBlock n CrossingSign.pos) (by omega)
+      have hfresh3 :
+          addGlue T (integerBlock n CrossingSign.pos)
+            ((integerBlock n CrossingSign.pos).maxArc + 3 + (T.maxArc + 1)) =
+            (integerBlock n CrossingSign.pos).maxArc + 3 + (T.maxArc + 1) :=
+        addGlue_shift_fresh T (integerBlock n CrossingSign.pos) (by omega)
+      have hport2 :
+          addGlue T (integerBlock n CrossingSign.pos)
+            ((integerBlock n CrossingSign.pos).maxArc + 2 + (T.maxArc + 1)) =
+            addZeroBlockReindex T
+              ((foldAddUnits T n CrossingSign.pos).maxArc + 2) := by
+        rw [hfresh2, hf2, hmaxD, hmaxS]; omega
+      have hport3 :
+          addGlue T (integerBlock n CrossingSign.pos)
+            ((integerBlock n CrossingSign.pos).maxArc + 3 + (T.maxArc + 1)) =
+            addZeroBlockReindex T
+              ((foldAddUnits T n CrossingSign.pos).maxArc + 3) := by
+        rw [hfresh3, hf3, hmaxD, hmaxS]; omega
+      refine ⟨?_, ?_, ?_, ?_, ?_⟩
+      · rw [add_NW, add_one_NW, foldAddUnits_NW, addZeroBlockReindex_NW]
+      · rw [add_NE, add_one_NE, hglue, add_one_NE]
+        exact hport2
+      · rw [add_SE, add_one_SE, hglue, add_one_SE]
+        exact hport3
+      · rw [add_SW, add_one_SW, foldAddUnits_SW, addZeroBlockReindex_SW]
+      · rw [add_crossings_add_one, add_one_crossings, ihcs, List.map_append]
+        simp [List.map, Crossing.rename, addShift, Function.comp, hport2, hport3]
+        constructor
+        · simpa [add_NE] using ihNE
+        · simpa [add_SE] using ihSE
+    | neg =>
+      rw [foldAddUnits_succ, integerBlock_succ,
+        show crossingTangle CrossingSign.neg = negOne from rfl]
+      obtain ⟨_ihNW, ihNE, ihSE, _ihSW, ihcs⟩ := ih
+      have hglue :
+          addGlue T ((integerBlock n CrossingSign.neg).add negOne) =
+            addGlue T (integerBlock n CrossingSign.neg) :=
+        addGlue_eq_of_glue_ports T (integerBlock n CrossingSign.neg)
+          ((integerBlock n CrossingSign.neg).add negOne)
+          (add_negOne_NW _) (add_negOne_SW _)
+      have hmaxD := foldAddUnits_maxArc T n CrossingSign.neg
+      have hmaxS := integerBlock_maxArc n CrossingSign.neg
+      have hf2 : addZeroBlockReindex T
+          ((foldAddUnits T n CrossingSign.neg).maxArc + 2) =
+          (foldAddUnits T n CrossingSign.neg).maxArc + 4 := by
+        apply addZeroBlockReindex_gt; omega
+      have hf3 : addZeroBlockReindex T
+          ((foldAddUnits T n CrossingSign.neg).maxArc + 3) =
+          (foldAddUnits T n CrossingSign.neg).maxArc + 5 := by
+        apply addZeroBlockReindex_gt; omega
+      have hfresh2 :
+          addGlue T (integerBlock n CrossingSign.neg)
+            ((integerBlock n CrossingSign.neg).maxArc + 2 + (T.maxArc + 1)) =
+            (integerBlock n CrossingSign.neg).maxArc + 2 + (T.maxArc + 1) :=
+        addGlue_shift_fresh T (integerBlock n CrossingSign.neg) (by omega)
+      have hfresh3 :
+          addGlue T (integerBlock n CrossingSign.neg)
+            ((integerBlock n CrossingSign.neg).maxArc + 3 + (T.maxArc + 1)) =
+            (integerBlock n CrossingSign.neg).maxArc + 3 + (T.maxArc + 1) :=
+        addGlue_shift_fresh T (integerBlock n CrossingSign.neg) (by omega)
+      have hport2 :
+          addGlue T (integerBlock n CrossingSign.neg)
+            ((integerBlock n CrossingSign.neg).maxArc + 2 + (T.maxArc + 1)) =
+            addZeroBlockReindex T
+              ((foldAddUnits T n CrossingSign.neg).maxArc + 2) := by
+        rw [hfresh2, hf2, hmaxD, hmaxS]; omega
+      have hport3 :
+          addGlue T (integerBlock n CrossingSign.neg)
+            ((integerBlock n CrossingSign.neg).maxArc + 3 + (T.maxArc + 1)) =
+            addZeroBlockReindex T
+              ((foldAddUnits T n CrossingSign.neg).maxArc + 3) := by
+        rw [hfresh3, hf3, hmaxD, hmaxS]; omega
+      refine ⟨?_, ?_, ?_, ?_, ?_⟩
+      · rw [add_NW, add_negOne_NW, foldAddUnits_NW, addZeroBlockReindex_NW]
+      · rw [add_NE, add_negOne_NE, hglue, add_negOne_NE]
+        exact hport2
+      · rw [add_SE, add_negOne_SE, hglue, add_negOne_SE]
+        exact hport3
+      · rw [add_SW, add_negOne_SW, foldAddUnits_SW, addZeroBlockReindex_SW]
+      · rw [add_crossings_add_negOne, add_negOne_crossings, ihcs, List.map_append]
+        simp [List.map, Crossing.rename, addShift, Function.comp, hport2, hport3]
+        constructor
+        · simpa [add_SE] using ihSE
+        · simpa [add_NE] using ihNE
+
+/-- Nested right-adds of `n` copies of `[s]` onto `T` is a planar reindexing
+    of the two-block PD-sum `T.add (integerBlock n s)`. Not a flype. -/
+theorem planar_foldAddUnits_integerBlock (T : TangleDiagram) (n : Nat)
+    (s : CrossingSign) :
+    PlanarIsotopy (foldAddUnits T n s) (T.add (integerBlock n s)) := by
+  obtain ⟨hNW, hNE, hSE, hSW, hcs⟩ := foldAddUnits_integerBlock_rename T n s
+  exact planar_of_rename (addZeroBlockReindex_injective T) hNW hNE hSE hSW hcs
+
+/-- Invert of both sides of `planar_foldAddUnits_integerBlock` is the same
+    rename after `Crossing.switch`. Not `invert_cong` on `ColoringIsotopy`. -/
+theorem planar_foldAddUnits_integerBlock_invert (T : TangleDiagram) (n : Nat)
+    (s : CrossingSign) :
+    PlanarIsotopy (foldAddUnits T n s).invert
+      (T.add (integerBlock n s)).invert := by
+  obtain ⟨hNW, hNE, hSE, hSW, hcs⟩ := foldAddUnits_integerBlock_rename T n s
+  exact planar_invert_of_rename (addZeroBlockReindex_injective T)
+    hNW hNE hSE hSW hcs
+
+
 /-! ## Sign-preserving `[±1]` slide (algebraic Figure 5)
 
 `t.rot180` cycles the box endpoints (`NW = t.SE`), so `colorAddRight` on

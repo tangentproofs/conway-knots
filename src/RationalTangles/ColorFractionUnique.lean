@@ -4992,6 +4992,32 @@ theorem HasColoringFraction.two_block_of_nested_canceling (n : Nat)
   HasColoringFraction.of_ColoringIsotopy
     (coloringIsotopy_nested_canceling n s) h
 
+/-- Invert of the nested canceling chain is a planar reindexing of invert of
+    the two-block PD-sum (`Crossing.switch` commutes with the dummy-`[0]`
+    rename). Not `invert_cong` on `ColoringIsotopy`. -/
+theorem planar_nested_canceling_invert (n : Nat) (s : CrossingSign) :
+    PlanarIsotopy
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram.invert
+      ((TwistExpr.integerUnits n s).diagram.add
+        (TwistExpr.integerUnits n s.flip).diagram).invert := by
+  simpa only [TwistExpr.appendUnits_diagram, TwistExpr.integerUnits_diagram,
+    foldAddUnits, integerBlock] using
+    planar_foldAddUnits_integerBlock_invert
+      (TwistExpr.integerUnits n s).diagram n s.flip
+
+/-- Nested canceling invert and the two-block invert carry the same coloring
+    fraction, by the rename of `planar_nested_canceling_invert`. -/
+theorem HasColoringFraction.invert_two_block_of_nested_canceling (n : Nat)
+    (s : CrossingSign) {v : CFValue}
+    (h : HasColoringFraction
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram.invert
+      v) :
+    HasColoringFraction
+      ((TwistExpr.integerUnits n s).diagram.add
+        (TwistExpr.integerUnits n s.flip).diagram).invert v :=
+  HasColoringFraction.of_ColoringIsotopy
+    (ColoringIsotopy.isotopy (planar_nested_canceling_invert n s)) h
+
 theorem CFValue.ofInt_ne_inf (n : Int) : CFValue.ofInt n ≠ .inf := by
   intro h
   cases h
