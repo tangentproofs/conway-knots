@@ -259,13 +259,31 @@ def IsReidemeisterIAdd (D E : TangleDiagram) : Prop :=
 def IsReidemeisterI (D E : TangleDiagram) : Prop :=
   IsReidemeisterIAdd D E ∨ IsReidemeisterIAdd E D
 
+/-- An arc occupies an overstrand port (0 or 2). -/
+def Crossing.isOverArc (C : Crossing) (a : Nat) : Prop :=
+  a = C.a0 ∨ a = C.a2
+
+/-- An arc occupies an understrand port (1 or 3). -/
+def Crossing.isUnderArc (C : Crossing) (a : Nat) : Prop :=
+  a = C.a1 ∨ a = C.a3
+
+/-- Consecutive ports of `C` carry distinct arcs (no kink at `C`). -/
+def Crossing.adjacentDistinct (C : Crossing) : Prop :=
+  C.a0 ≠ C.a1 ∧ C.a1 ≠ C.a2 ∧ C.a2 ≠ C.a3 ∧ C.a3 ≠ C.a0
+
 /-- Two crossings of opposite sign sharing exactly two distinct arcs
-    (a bigon). This is the local picture of Reidemeister II. -/
+    (a bigon), with one shared arc over at both crossings and the other
+    under at both. This is Reidemeister II: one strand passes entirely
+    over the other, so both crossings have the same over-color and `τ`
+    is an involution on the understrand. Neither crossing is a kink. -/
 def IsR2Pair (C D : Crossing) : Prop :=
   C.sign ≠ D.sign ∧
+    C.adjacentDistinct ∧ D.adjacentDistinct ∧
     ∃ p q : Nat, p ≠ q ∧
       C.memArc p ∧ C.memArc q ∧ D.memArc p ∧ D.memArc q ∧
-      ∀ a : Nat, (C.memArc a ∧ D.memArc a) → a = p ∨ a = q
+      (∀ a : Nat, (C.memArc a ∧ D.memArc a) → a = p ∨ a = q) ∧
+      ((C.isOverArc p ∧ D.isOverArc p ∧ C.isUnderArc q ∧ D.isUnderArc q) ∨
+        (C.isOverArc q ∧ D.isOverArc q ∧ C.isUnderArc p ∧ D.isUnderArc p))
 
 /-- Boolean incidence test, for use in executable collapse maps. -/
 def memArcB (C : Crossing) (a : Nat) : Bool :=
