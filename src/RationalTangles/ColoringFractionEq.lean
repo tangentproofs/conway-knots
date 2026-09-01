@@ -148,6 +148,22 @@ def TwistExpr.rightBottom : TwistExpr → Prop
   | addRight e _ | mulBottom e _ => e.rightBottom
   | addLeft _ _ | mulTop _ _ => False
 
+/-- Propagate two initial strand colors through a right-and-bottom twist
+    expression (the same construction as `StandardExpr.colorFrom`, plus
+    the elementary `[±1]` diagrams). Left-add / top-mul are dummy: those
+    cases are excluded by `rightBottom`. -/
+def TwistExpr.colorFrom : TwistExpr → Int → Int → (Nat → Int)
+  | .zero, a, c => colorZero a c
+  | .infinity, a, b => colorInfinity a b
+  | .one, a, c => colorOne a c
+  | .negOne, a, c => colorNegOne a c
+  | .addRight e .pos, a, c => colorAddOne e.diagram (e.colorFrom a c)
+  | .addRight e .neg, a, c => colorAddNegOne e.diagram (e.colorFrom a c)
+  | .mulBottom e .pos, a, c => colorMulOne e.diagram (e.colorFrom a c)
+  | .mulBottom e .neg, a, c => colorMulNegOne e.diagram (e.colorFrom a c)
+  | .addLeft e _, a, c => e.colorFrom a c
+  | .mulTop e _, a, c => e.colorFrom a c
+
 theorem twist_coloring_diagonal_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
     (col : Nat → Int) (h : e.diagram.IsColored col) :
     (ColorMatrix.of e.diagram col).DiagonalSum := by
@@ -242,6 +258,108 @@ theorem coloring_fraction_eq_F_rightBottom (e : TwistExpr) (hrb : e.rightBottom)
   have hdiag := twist_coloring_diagonal_rightBottom e hrb col hc
   exact (coloring_fraction_toStandard e hok col hc hdiag hm).trans
     (TwistExpr.fraction_eq_toStandard_rightBottom e hrb).symm
+
+theorem TwistExpr.colorFrom_isColored (e : TwistExpr) (hrb : e.rightBottom)
+    (a c : Int) :
+    e.diagram.IsColored (e.colorFrom a c) := by
+  induction e generalizing a c with
+  | zero => exact zero_isColored a c
+  | infinity => exact infinity_isColored a c
+  | one => exact one_isColored a c
+  | negOne => exact negOne_isColored a c
+  | addRight e s ih =>
+    have hrb' : e.rightBottom := hrb
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_add_one e.diagram (e.colorFrom a c) (ih hrb' a c)
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_add_negOne e.diagram (e.colorFrom a c) (ih hrb' a c)
+  | mulBottom e s ih =>
+    have hrb' : e.rightBottom := hrb
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_mul_one e.diagram (e.colorFrom a c) (ih hrb' a c)
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      exact IsColored_mul_negOne e.diagram (e.colorFrom a c) (ih hrb' a c)
+  | addLeft e s => cases hrb
+  | mulTop e s => cases hrb
+
+theorem TwistExpr.colorFrom_diagonal (e : TwistExpr) (hrb : e.rightBottom)
+    (a c : Int) :
+    (ColorMatrix.of e.diagram (e.colorFrom a c)).DiagonalSum :=
+  twist_coloring_diagonal_rightBottom e hrb (e.colorFrom a c)
+    (e.colorFrom_isColored hrb a c)
+
+theorem TwistExpr.colorFrom_notMono (e : TwistExpr) (hrb : e.rightBottom) :
+    (ColorMatrix.of e.diagram (e.colorFrom 0 1)).NotMono := by
+  induction e with
+  | zero =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, ColorMatrix.NotMono,
+      ColorMatrix.of, TangleDiagram.zero, colorZero]
+  | infinity =>
+    simp [TwistExpr.diagram, TwistExpr.colorFrom, ColorMatrix.NotMono,
+      ColorMatrix.of, TangleDiagram.infinity, colorInfinity]
+  | one =>
+    change (ColorMatrix.of RationalTangles.one (colorOne 0 1)).NotMono
+    rw [one_matrix]
+    simp [ColorMatrix.NotMono]
+  | negOne =>
+    change (ColorMatrix.of RationalTangles.negOne (colorNegOne 0 1)).NotMono
+    rw [negOne_matrix]
+    simp [ColorMatrix.NotMono]
+  | addRight e s ih =>
+    have hrb' : e.rightBottom := hrb
+    have hd := e.colorFrom_diagonal hrb' 0 1
+    have ih' := ih hrb'
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_add_one]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_add_negOne]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+  | mulBottom e s ih =>
+    have hrb' : e.rightBottom := hrb
+    have hd := e.colorFrom_diagonal hrb' 0 1
+    have ih' := ih hrb'
+    cases s with
+    | pos =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_mul_one]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+    | neg =>
+      simp [TwistExpr.diagram, TwistExpr.colorFrom, crossingTangle]
+      erw [ColorMatrix.of_mul_negOne]
+      simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
+      omega
+  | addLeft e s => cases hrb
+  | mulTop e s => cases hrb
+
+/-- The propagated coloring of a right-and-bottom twist diagram has
+    coloring fraction `F(e)`, so the coloring hypotheses of
+    `coloring_fraction_eq_F_rightBottom` can be discharged. -/
+theorem TwistExpr.colorFrom_eq_fraction (e : TwistExpr) (hrb : e.rightBottom) :
+    (ColorMatrix.of e.diagram (e.colorFrom 0 1)).fraction = e.fraction :=
+  coloring_fraction_eq_F_rightBottom e hrb (e.colorFrom 0 1)
+    (e.colorFrom_isColored hrb 0 1) (e.colorFrom_notMono hrb)
+
+theorem coloring_fraction_eq_F_rightBottom_exists (e : TwistExpr)
+    (hrb : e.rightBottom) :
+    ∃ col : Nat → Int, e.diagram.IsColored col ∧
+      (ColorMatrix.of e.diagram col).DiagonalSum ∧
+      (ColorMatrix.of e.diagram col).NotMono ∧
+      (ColorMatrix.of e.diagram col).fraction = e.fraction :=
+  ⟨e.colorFrom 0 1, e.colorFrom_isColored hrb 0 1, e.colorFrom_diagonal hrb 0 1,
+    e.colorFrom_notMono hrb, e.colorFrom_eq_fraction hrb⟩
 
 /-- On a standard-form diagram, every non-monochrome coloring has `f = F`,
     with `F` the continued-fraction value of `toTerms`. -/

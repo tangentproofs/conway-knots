@@ -368,6 +368,13 @@ theorem coloring_fraction_rotate (T : TangleDiagram) (col : Nat → Int)
   rw [ColorMatrix.of_rotate]
   exact ColorMatrix.fraction_rotate h hm
 
+/-- `NotMono` survives a 90° rotate under `DiagonalSum`. -/
+theorem ColorMatrix.NotMono_rotate {M : ColorMatrix}
+    (hd : M.DiagonalSum) (hm : M.NotMono) : M.rotate.NotMono := by
+  intro h
+  simp [ColorMatrix.NotMono, ColorMatrix.rotate, ColorMatrix.DiagonalSum] at h hd hm
+  omega
+
 theorem coloring_fraction_vflip_neg (T : TangleDiagram) (col : Nat → Int)
     (h : (ColorMatrix.of T col).DiagonalSum) :
     (ColorMatrix.of (-T).vflip col).fraction =

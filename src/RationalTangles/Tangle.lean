@@ -146,6 +146,11 @@ theorem mirror_invert (T : TangleDiagram) :
     T.invert.mirror = T.mirror.invert := by
   simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror]
 
+/-- Inversion is also the counterclockwise rotate of the mirror. -/
+theorem invert_eq_mirror_rotate (T : TangleDiagram) :
+    T.invert = T.mirror.rotate :=
+  rfl
+
 @[simp] theorem mirror_zero : TangleDiagram.zero.mirror = TangleDiagram.zero := rfl
 @[simp] theorem mirror_infinity : TangleDiagram.infinity.mirror = TangleDiagram.infinity := rfl
 

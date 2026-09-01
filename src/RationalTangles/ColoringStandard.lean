@@ -164,4 +164,43 @@ theorem coloring_invert_standard (e : StandardExpr) (col : Nat → Int)
       (ColorMatrix.of e.diagram col).fraction.negInv :=
   coloring_fraction_rotate e.diagram col (standard_coloring_diagonal e col hc) hm
 
+/-- Paper Theorem 4(6) on standard form: `f(Tⁱ) = 1/f(T)`.
+    `SameEndpointColors` after `one.mirror` is false, so this uses a fresh
+    coloring of `e.mirror` (via `colorFrom`), transported along
+    `coloring_mirror_diagram_rev` onto `e.diagram.mirror`, then the same
+    coloring of the rotate (`T.invert = T.mirror.rotate`). -/
+theorem coloring_invert_inv_standard (e : StandardExpr) (col : Nat → Int)
+    (hc : e.diagram.IsColored col)
+    (hm : (ColorMatrix.of e.diagram col).NotMono) :
+    ∃ col', e.diagram.invert.IsColored col' ∧
+      (ColorMatrix.of e.diagram.invert col').NotMono ∧
+      (ColorMatrix.of e.diagram.invert col').fraction =
+        (ColorMatrix.of e.diagram col).fraction.inv := by
+  let colM := e.mirror.colorFrom 0 1
+  have hcM : e.mirror.diagram.IsColored colM := e.mirror.colorFrom_isColored 0 1
+  have hmM : (ColorMatrix.of e.mirror.diagram colM).NotMono := e.mirror.colorFrom_notMono
+  have hdM : (ColorMatrix.of e.mirror.diagram colM).DiagonalSum :=
+    e.mirror.colorFrom_diagonal 0 1
+  obtain ⟨col', hc', hMat, _hfrac⟩ :=
+    coloring_fraction_ColoringIsotopy (coloring_mirror_diagram_rev e) colM hcM
+  have hm' : (ColorMatrix.of e.diagram.mirror col').NotMono := by
+    simpa [hMat] using hmM
+  have hd' : (ColorMatrix.of e.diagram.mirror col').DiagonalSum := by
+    simpa [hMat] using hdM
+  have hcI : e.diagram.invert.IsColored col' := by
+    simpa [invert_eq_mirror_rotate] using coloring_rotate _ col' hc'
+  refine ⟨col', hcI, ?_, ?_⟩
+  · have hrot :
+        ColorMatrix.of e.diagram.invert col' =
+          (ColorMatrix.of e.diagram.mirror col').rotate := by
+      simp [invert_eq_mirror_rotate, ColorMatrix.of_rotate]
+    simpa [hrot] using ColorMatrix.NotMono_rotate hd' hm'
+  · have hrot :
+        (ColorMatrix.of e.diagram.invert col').fraction =
+          (ColorMatrix.of e.diagram.mirror col').fraction.negInv := by
+      simpa [invert_eq_mirror_rotate] using
+        coloring_fraction_rotate e.diagram.mirror col' hd' hm'
+    have hfM := coloring_mirror_standard e col col' hc hm hc' hm'
+    rw [hrot, hfM, CFValue.negInv, ← CFValue.neg_inv, CFValue.neg_neg]
+
 end RationalTangles
