@@ -110,6 +110,10 @@ theorem ColorMatrix.fraction_affine (M : ColorMatrix) (n k : Int) (hn : n ≠ 0)
     rw [mul_comm n (M.NE - M.NW), mul_comm n (M.NE - M.SE)]
     exact Rat.divInt_mul_right hn
 
+theorem ColorMatrix.of_affineMap (D : TangleDiagram) (col : Nat → Int) (n k : Int) :
+    ColorMatrix.of D (fun a => n * col a + k) = (ColorMatrix.of D col).affine n k :=
+  rfl
+
 /-! ## Algebra of `τ` and the coloring rule -/
 
 @[simp] theorem tau_apply (β α : Int) : tau β α = 2 * β - α := rfl
