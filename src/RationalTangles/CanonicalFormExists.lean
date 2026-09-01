@@ -7,6 +7,7 @@ Authors: Michal Wallace
 import Mathlib.Tactic.Linarith
 import RationalTangles.ContinuedFractionFormExists
 import RationalTangles.CanonicalForm
+import RationalTangles.ContinuedFractionCanonical
 
 /-!
 # Every rational tangle isotopes to canonical form (Proposition 2)
@@ -202,8 +203,9 @@ theorem isotopic_transfer_neg (a b : Int) (rest : List Int)
 
 theorem pack_alternating (t : List Int) (hne : t ≠ []) (hl : IsCFList t)
     (hodd : t.length % 2 = 1) (halt : IsAlternating t) :
-    ∃ cf : ArithmeticCF, cf.IsCanonical ∧ cfTangle t = cf.tangle :=
-  ⟨⟨t, hne, hl⟩, ⟨hodd, halt⟩, rfl⟩
+    ∃ cf : ArithmeticCF, cf.IsCanonical ∧ cfTangle t = cf.tangle ∧
+      cf.value = valueOfList t :=
+  ⟨⟨t, hne, hl⟩, ⟨hodd, halt⟩, rfl, rfl⟩
 
 theorem isRational_cfTangle_any : ∀ t : List Int, IsRational (cfTangle t)
   | [] => isRational_infinity
@@ -462,26 +464,28 @@ theorem isCFList_cons_nonzero_head {a z : Int} {zs : List Int}
 theorem cfTangle_reduce :
     ∀ t : List Int,
       (∃ t' : List Int, IsCFList t' ∧ t' ≠ [] ∧ absSum t' ≤ absSum t ∧
-          t'.length ≤ t.length ∧ Isotopic (cfTangle t) (cfTangle t')) ∨
-      Isotopic (cfTangle t) TangleDiagram.infinity := by
+          t'.length ≤ t.length ∧ Isotopic (cfTangle t) (cfTangle t') ∧
+          valueOfList t' = valueOfList t) ∨
+      (Isotopic (cfTangle t) TangleDiagram.infinity ∧ valueOfList t = .inf) := by
   intro t
   induction hn : t.length using Nat.strongRecOn generalizing t with
   | ind n ih =>
     match t with
     | [] =>
-      refine Or.inr ?_
+      refine Or.inr ⟨?_, rfl⟩
       simpa [cfTangle] using Isotopic.refl TangleDiagram.infinity
     | [x] =>
       have hlen1 : ([x] : List Int).length ≤ n := by
         simp at hn ⊢
         omega
-      refine Or.inl ⟨[x], isCFList_singleton x, by simp, by simp [absSum], hlen1, .refl _⟩
+      refine Or.inl ⟨[x], isCFList_singleton x, by simp, by simp [absSum], hlen1,
+        .refl _, rfl⟩
     | x :: y :: ys =>
       if hy : y = 0 then
         subst hy
         match ys with
         | [] =>
-          exact Or.inr (isotopic_cfTangle_snoc_zero x)
+          exact Or.inr ⟨isotopic_cfTangle_snoc_zero x, valueOfList_snoc_zero x⟩
         | z :: zs =>
           have hlen : ((x + z) :: zs).length < n := by
             subst hn; simp
@@ -493,14 +497,16 @@ theorem cfTangle_reduce :
             omega
           have hlenle : ((x + z) :: zs).length ≤ (x :: 0 :: z :: zs).length := by
             simp
-          rcases hred with ⟨t', hcf, hne, hle, hll, hiso'⟩ | hinf
+          have hval0 : valueOfList ((x + z) :: zs) = valueOfList (x :: 0 :: z :: zs) :=
+            (valueOfList_cons_zero x z zs).symm
+          rcases hred with ⟨t', hcf, hne, hle, hll, hiso', hval'⟩ | ⟨hinf, hvali⟩
           · exact Or.inl ⟨t', hcf, hne, le_trans hle hsum,
-              le_trans hll (le_of_lt hlen), .trans hiso hiso'⟩
-          · exact Or.inr (.trans hiso hinf)
+              le_trans hll (le_of_lt hlen), .trans hiso hiso', hval'.trans hval0⟩
+          · exact Or.inr ⟨.trans hiso hinf, hval0.symm.trans hvali⟩
       else
         have hlen : (y :: ys).length < n := by subst hn; simp
         have hred := ih _ hlen (y :: ys) rfl
-        rcases hred with ⟨t', hcf, hne, hle, hll, hiso'⟩ | hinf
+        rcases hred with ⟨t', hcf, hne, hle, hll, hiso', hval'⟩ | ⟨hinf, hvali⟩
         · match t' with
           | [] => exact (hne rfl).elim
           | z :: zs =>
@@ -510,7 +516,10 @@ theorem cfTangle_reduce :
               | [] =>
                 have hcons : Isotopic (cfTangle (x :: y :: ys)) (cfTangle [x, 0]) :=
                   isotopic_cfTangle_cons x (List.cons_ne_nil _ _) (by simp) hiso'
-                exact Or.inr (.trans hcons (isotopic_cfTangle_snoc_zero x))
+                have hvalx : valueOfList (x :: y :: ys) = .inf := by
+                  rw [valueOfList_cons, ← hval']
+                  simp [valueOfList, CFValue.ofInt, CFValue.add, CFValue.inv]
+                exact Or.inr ⟨.trans hcons (isotopic_cfTangle_snoc_zero x), hvalx⟩
               | w :: ws =>
                 have hcons : Isotopic (cfTangle (x :: y :: ys))
                     (cfTangle (x :: 0 :: w :: ws)) :=
@@ -531,19 +540,27 @@ theorem cfTangle_reduce :
                   have : (0 :: w :: ws).length ≤ (y :: ys).length := hll
                   simp at this ⊢
                   omega
-                rcases hred2 with ⟨t2, hcf2, hne2, hle2, hll2, hiso2⟩ | hinf2
+                have hvalxz :
+                    valueOfList ((x + w) :: ws) = valueOfList (x :: y :: ys) := by
+                  rw [← valueOfList_cons_zero x w ws]
+                  simp only [valueOfList_cons, hval']
+                rcases hred2 with ⟨t2, hcf2, hne2, hle2, hll2, hiso2, hval2⟩ | ⟨hinf2, hvali2⟩
                 · exact Or.inl ⟨t2, hcf2, hne2, le_trans hle2 hsum,
-                    le_trans hll2 (le_of_lt hlen2), .trans hcons (.trans hcol hiso2)⟩
-                · exact Or.inr (.trans hcons (.trans hcol hinf2))
+                    le_trans hll2 (le_of_lt hlen2), .trans hcons (.trans hcol hiso2),
+                    hval2.trans hvalxz⟩
+                · exact Or.inr ⟨.trans hcons (.trans hcol hinf2),
+                    hvalxz.symm.trans hvali2⟩
             else
               refine Or.inl ⟨x :: z :: zs, isCFList_cons_nonzero_head hz hcf,
                 List.cons_ne_nil _ _, ?_, ?_,
-                isotopic_cfTangle_cons x (List.cons_ne_nil _ _) (List.cons_ne_nil _ _) hiso'⟩
+                isotopic_cfTangle_cons x (List.cons_ne_nil _ _) (List.cons_ne_nil _ _) hiso',
+                ?_⟩
               · simp [absSum] at hle ⊢; omega
               · subst hn
                 have : (z :: zs).length ≤ (y :: ys).length := hll
                 simp at this ⊢
                 omega
+              · simp [valueOfList_cons, hval']
         · have hcons' : Isotopic (cfTangle (x :: y :: ys))
               (integerTangle x + TangleDiagram.infinity.invert) := by
             cases ys with
@@ -553,12 +570,14 @@ theorem cfTangle_reduce :
             | cons _ _ =>
               simp [cfTangle]
               exact .add_right (.invert_cong hinf)
-          refine Or.inl ⟨[x], isCFList_singleton x, by simp, ?_, ?_, ?_⟩
+          refine Or.inl ⟨[x], isCFList_singleton x, by simp, ?_, ?_, ?_, ?_⟩
           · simp [absSum]
           · simp at hn ⊢; omega
           · refine .trans hcons' ?_
             refine .trans (.add_right isotopic_infinity_invert) ?_
             simpa [cfTangle] using Isotopic.add_zero (integerTangle x)
+          · rw [value_singleton]
+            exact (valueOfList_cons_inf hvali).symm
 
 theorem getLast_mem_tail {α} {t : List α} (hne : t ≠ []) (h2 : 1 < t.length) :
     t.getLast hne ∈ t.tail := by
@@ -575,7 +594,8 @@ theorem mem_tail_of_mem_dropLast {α} {t : List α} {x : α}
 
 theorem oddify_alternating (t : List Int) (ht : IsCFList t) (hne : t ≠ [])
     (halt : IsAlternating t) (heven : t.length % 2 = 0) :
-    ∃ cf : ArithmeticCF, cf.IsCanonical ∧ Isotopic (cfTangle t) cf.tangle := by
+    ∃ cf : ArithmeticCF, cf.IsCanonical ∧ Isotopic (cfTangle t) cf.tangle ∧
+      cf.value = valueOfList t := by
   have hlen2 : 1 < t.length := by
     cases t with
     | nil => exact (hne rfl).elim
@@ -644,13 +664,13 @@ theorem oddify_alternating (t : List Int) (ht : IsCFList t) (hne : t ≠ [])
         simp [h1, hpj] at hlen
         simp
         omega
-      obtain ⟨cf, hcan, heq⟩ :=
+      obtain ⟨cf, hcan, heq, hval⟩ :=
         pack_alternating (v ++ [p + 1]) (by simp) hcf' hodd' halt'
       have hassoc : v ++ [p] ++ [1] = v ++ [p, 1] := by simp
       rw [hassoc]
-      refine ⟨cf, hcan, hiso.trans ?_⟩
-      rw [heq]
-      exact Isotopic.refl _
+      refine ⟨cf, hcan, hiso.trans ?_, ?_⟩
+      · rw [heq]; exact Isotopic.refl _
+      · exact hval.trans (valueOfList_concat_one v p).symm
     else
       have ha2 : 1 < a := by omega
       have hiso := isotopic_cfTangle_split_one u a
@@ -680,11 +700,11 @@ theorem oddify_alternating (t : List Int) (ht : IsCFList t) (hne : t ≠ [])
           simp at hlen
           simp
           omega
-        obtain ⟨cf, hcan, heq⟩ :=
+        obtain ⟨cf, hcan, heq, hval⟩ :=
           pack_alternating (q :: qs ++ [a - 1, 1]) (by simp) hcf' hodd' halt'
-        refine ⟨cf, hcan, hiso.trans ?_⟩
-        rw [heq]
-        exact Isotopic.refl _
+        refine ⟨cf, hcan, hiso.trans ?_, ?_⟩
+        · rw [heq]; exact Isotopic.refl _
+        · exact hval.trans (valueOfList_split_one (q :: qs) a).symm
   · have haneg : a < 0 := by
       have : a ≤ 0 := hnneg a (by rw [eqt]; simp)
       exact lt_of_le_of_ne this ha0
@@ -733,13 +753,13 @@ theorem oddify_alternating (t : List Int) (ht : IsCFList t) (hne : t ≠ [])
         simp [h1, hpj] at hlen
         simp
         omega
-      obtain ⟨cf, hcan, heq⟩ :=
+      obtain ⟨cf, hcan, heq, hval⟩ :=
         pack_alternating (v ++ [p - 1]) (by simp) hcf' hodd' halt'
       have hassoc : v ++ [p] ++ [-1] = v ++ [p, -1] := by simp
       rw [hassoc]
-      refine ⟨cf, hcan, hiso.trans ?_⟩
-      rw [heq]
-      exact Isotopic.refl _
+      refine ⟨cf, hcan, hiso.trans ?_, ?_⟩
+      · rw [heq]; exact Isotopic.refl _
+      · exact hval.trans (valueOfList_concat_negOne v p).symm
     else
       have ha2 : a < -1 := by omega
       have hiso := isotopic_cfTangle_split_negOne u a
@@ -768,46 +788,78 @@ theorem oddify_alternating (t : List Int) (ht : IsCFList t) (hne : t ≠ [])
           simp at hlen
           simp
           omega
-        obtain ⟨cf, hcan, heq⟩ :=
+        obtain ⟨cf, hcan, heq, hval⟩ :=
           pack_alternating (q :: qs ++ [a + 1, -1]) (by simp) hcf' hodd' halt'
-        refine ⟨cf, hcan, hiso.trans ?_⟩
-        rw [heq]
-        exact Isotopic.refl _
+        refine ⟨cf, hcan, hiso.trans ?_, ?_⟩
+        · rw [heq]; exact Isotopic.refl _
+        · exact hval.trans (valueOfList_split_negOne (q :: qs) a).symm
 
-/-- Recursively eliminate mixed signs, then force odd length. -/
+/-- Recursively eliminate mixed signs, then force odd length, preserving
+    the arithmetic continued-fraction value. -/
 theorem cf_to_canonical :
     ∀ t : List Int, IsCFList t → t ≠ [] →
-      (∃ cf : ArithmeticCF, cf.IsCanonical ∧ Isotopic (cfTangle t) cf.tangle) ∨
-        Isotopic (cfTangle t) TangleDiagram.infinity := by
+      (∃ cf : ArithmeticCF, cf.IsCanonical ∧ Isotopic (cfTangle t) cf.tangle ∧
+          cf.value = valueOfList t) ∨
+        (Isotopic (cfTangle t) TangleDiagram.infinity ∧ valueOfList t = .inf) := by
   intro t ht hne
   induction hn : absSum t using Nat.strongRecOn generalizing t with
   | ind n ih =>
     by_cases halt : IsAlternating t
     · by_cases hodd : t.length % 2 = 1
-      · obtain ⟨cf, hcan, heq⟩ := pack_alternating t hne ht hodd halt
-        exact Or.inl ⟨cf, hcan, by simpa [heq] using Isotopic.refl (cfTangle t)⟩
+      · obtain ⟨cf, hcan, heq, hval⟩ := pack_alternating t hne ht hodd halt
+        exact Or.inl ⟨cf, hcan, by simpa [heq] using Isotopic.refl (cfTangle t), hval⟩
       · have heven : t.length % 2 = 0 := by omega
         exact Or.inl (oddify_alternating t ht hne halt heven)
     · have htr := applyFirstTransfer_isotopic t ht
       have hlt := absSum_applyFirstTransfer_lt t ht halt
       have hred := cfTangle_reduce (applyFirstTransfer t)
-      rcases hred with ⟨t', hcf, hne', hle, _, hiso⟩ | hinf
+      have htrv : valueOfList (applyFirstTransfer t) = valueOfList t :=
+        valueOfList_applyFirstTransfer t
+      rcases hred with ⟨t', hcf, hne', hle, _, hiso, hvalr⟩ | ⟨hinf, hvali⟩
       · have hsum : absSum t' < n := by
           subst hn; omega
         have hrec := ih (absSum t') hsum t' hcf hne' rfl
         have hchain : Isotopic (cfTangle t) (cfTangle t') := .trans htr hiso
-        rcases hrec with ⟨cf, hcan, hiso'⟩ | hinf'
-        · exact Or.inl ⟨cf, hcan, .trans hchain hiso'⟩
-        · exact Or.inr (.trans hchain hinf')
-      · exact Or.inr (.trans htr hinf)
+        rcases hrec with ⟨cf, hcan, hiso', hval'⟩ | ⟨hinf', hvali'⟩
+        · exact Or.inl ⟨cf, hcan, .trans hchain hiso',
+            hval'.trans (hvalr.trans htrv)⟩
+        · exact Or.inr ⟨.trans hchain hinf',
+            htrv.symm.trans (hvalr.symm.trans hvali')⟩
+      · exact Or.inr ⟨.trans htr hinf, htrv.symm.trans hvali⟩
 
 /-- Proposition 2. -/
 theorem canonical_form_exists (T : TangleDiagram) (h : IsRational T) :
     ∃ S : TangleDiagram, IsCanonicalForm S ∧ Isotopic T S := by
   obtain ⟨cf, hcf⟩ := continued_fraction_form_exists T h
   rcases cf_to_canonical cf.terms cf.later_ne_zero cf.terms_ne with
-    ⟨cf', hcan, hiso⟩ | hinf
+    ⟨cf', hcan, hiso, _hval⟩ | ⟨hinf, _hvali⟩
   · exact ⟨cf'.tangle, Or.inr ⟨cf', hcan, rfl⟩, .trans hcf hiso⟩
   · exact ⟨TangleDiagram.infinity, Or.inl rfl, .trans hcf hinf⟩
+
+/-- Two canonical continued-fraction diagrams of the same arithmetic value
+    are isotopic; they are the same PD-code. -/
+theorem canonical_tangle_isotopic_of_value {cf₁ cf₂ : ArithmeticCF}
+    (h₁ : cf₁.IsCanonical) (h₂ : cf₂.IsCanonical)
+    (hv : cf₁.value = cf₂.value) :
+    Isotopic cf₁.tangle cf₂.tangle := by
+  rw [canonical_tangle_eq_of_value h₁ h₂ hv]
+  exact Isotopic.refl _
+
+/-- A finite-value continued-fraction list isotopes to the unique canonical
+    diagram of that value. -/
+theorem cfTangle_isotopic_canonicalCF {t : List Int} {q : Rat}
+    (ht : IsCFList t) (hne : t ≠ []) (hv : valueOfList t = CFValue.ofRat q) :
+    Isotopic (cfTangle t) (canonicalCF q).tangle := by
+  rcases cf_to_canonical t ht hne with ⟨cf, hcan, hiso, hval⟩ | ⟨_, hinf⟩
+  · have heq : cf = canonicalCF q :=
+      canonicalCF_unique hcan (hval.trans hv)
+    simpa [heq] using hiso
+  · rw [hinf] at hv
+    cases hv
+
+theorem ArithmeticCF.isotopic_canonicalCF {cf : ArithmeticCF} {q : Rat}
+    (hv : cf.value = CFValue.ofRat q) :
+    Isotopic cf.tangle (canonicalCF q).tangle :=
+  cfTangle_isotopic_canonicalCF cf.later_ne_zero cf.terms_ne hv
 
 end RationalTangles

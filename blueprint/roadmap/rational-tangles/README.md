@@ -46,6 +46,7 @@ in Theorem 3.
 - [Every rational tangle has a continued fraction form](theorems/continued-fraction-form-exists.md)
 - [Every rational tangle isotopes to canonical form](theorems/canonical-form-exists.md)
 - [Unique canonical continued fraction](theorems/continued-fraction-canonical.md)
+- [Canonical diagrams of equal fraction are equal](theorems/canonical-same-fraction.md)
 
 ## Coloring
 

@@ -5,7 +5,9 @@ Authors: Michal Wallace
 -/
 
 import Mathlib.Data.Rat.Floor
+import Mathlib.Tactic.FieldSimp
 import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.Ring
 import RationalTangles.CanonicalForm
 
 /-!
@@ -889,5 +891,164 @@ theorem continued_fraction_canonical_unique {cf₁ cf₂ : ArithmeticCF}
       have e1 : cf₁ = canonicalCF q := canonicalCF_unique h₁ hv₁
       have e2 : cf₂ = canonicalCF q := canonicalCF_unique h₂ (hv.symm.trans hv₁)
       exact e1.trans e2.symm
+
+/-- Canonical continued-fraction diagrams of equal arithmetic value are
+    the same PD-code (they are both `canonicalCF q`). -/
+theorem canonical_tangle_eq_of_value {cf₁ cf₂ : ArithmeticCF}
+    (h₁ : cf₁.IsCanonical) (h₂ : cf₂.IsCanonical)
+    (hv : cf₁.value = cf₂.value) :
+    cf₁.tangle = cf₂.tangle :=
+  congrArg ArithmeticCF.tangle (continued_fraction_canonical_unique h₁ h₂ hv)
+
+theorem isCanonicalForm_tangle {cf : ArithmeticCF} (h : cf.IsCanonical) :
+    IsCanonicalForm cf.tangle :=
+  Or.inr ⟨cf, h, rfl⟩
+
+theorem isCanonicalForm_eq_of_value {T S : TangleDiagram}
+    {cf₁ cf₂ : ArithmeticCF}
+    (hT : T = cf₁.tangle) (hS : S = cf₂.tangle)
+    (h₁ : cf₁.IsCanonical) (h₂ : cf₂.IsCanonical)
+    (hv : cf₁.value = cf₂.value) : T = S := by
+  rw [hT, hS, canonical_tangle_eq_of_value h₁ h₂ hv]
+
+theorem canonical_tangle_eq_canonicalCF {cf : ArithmeticCF} {q : Rat}
+    (hc : cf.IsCanonical) (hv : cf.value = CFValue.ofRat q) :
+    cf.tangle = (canonicalCF q).tangle :=
+  canonical_tangle_eq_of_value hc (canonicalCF_isCanonical q)
+    (hv.trans (canonicalCF_value q).symm)
+
+/-! ### Value of transfer and last-term identities (Remark 5) -/
+
+namespace CFValue
+
+theorem transfer_one_inv (u : CFValue) :
+    ((ofInt 1).add ((u.add (ofInt 1)).neg.inv)).inv =
+      (ofInt 1).add u.inv := by
+  cases u with
+  | inf =>
+    simp [ofInt, add, neg, inv]
+  | ofRat q =>
+    have hsum : (ofRat q).add (ofInt 1) = ofRat (q + 1) := by
+      simp [ofInt, add]
+    rw [hsum]
+    by_cases hz : q + 1 = 0
+    · have hq : q = -1 := by linarith
+      subst hq
+      simp [ofInt, add, neg, inv]
+    · have hneg0 : -(q + 1) ≠ 0 := fun h => hz (by linarith)
+      have hqp1 : (q + 1 : Rat) ≠ 0 := by exact_mod_cast hz
+      have hneg : (ofRat (q + 1)).neg = ofRat (-(q + 1)) := rfl
+      rw [hneg, inv_ofRat hneg0]
+      have : (ofInt 1).add (ofRat (-(q + 1))⁻¹) = ofRat (1 + (-(q + 1))⁻¹) := by
+        simp [ofInt, add]
+      rw [this]
+      have hval : (1 : Rat) + (-(q + 1))⁻¹ = q / (q + 1) := by
+        field_simp [hqp1]
+        ring
+      rw [hval]
+      by_cases hq0 : q = 0
+      · subst hq0
+        simp [inv, add, ofInt]
+      · have hfrac : q / (q + 1) ≠ 0 := div_ne_zero hq0 hqp1
+        rw [inv_ofRat hfrac]
+        have hR : (ofInt 1).add (ofRat q).inv = ofRat (1 + q⁻¹) := by
+          rw [inv_ofRat hq0]
+          simp [ofInt, add]
+        rw [hR]
+        congr 1
+        field_simp [hq0, hqp1]
+
+theorem transfer_head_neg_sum (b : Int) (r : CFValue) :
+    (ofInt (-(b + 1))).add r.neg.inv =
+      (((ofInt b).add r.inv).add (ofInt 1)).neg := by
+  rw [ofInt_neg, ← neg_inv, ← neg_add]
+  congr 1
+  have hb1 : ofInt (b + 1) = (ofInt b).add (ofInt 1) := (ofInt_add b 1).symm
+  rw [hb1, add_assoc, add_comm (ofInt 1), add_assoc]
+
+theorem add_pred_one_inv (a : Int) (u : CFValue) :
+    (ofInt (a - 1)).add ((ofInt 1).add u.inv) = (ofInt a).add u.inv := by
+  rw [show a - 1 = a + (-1) from sub_eq_add_neg a 1, ← ofInt_add, add_assoc]
+  have h : (ofInt (-1)).add ((ofInt 1).add u.inv) =
+      ((ofInt (-1)).add (ofInt 1)).add u.inv := (add_assoc _ _ _).symm
+  rw [h, ofInt_add, show (-1 + 1 : Int) = 0 from rfl, ofInt_zero, zero_add]
+
+end CFValue
+
+theorem valueOfList_snoc_zero (x : Int) : valueOfList [x, 0] = .inf := by
+  simp [valueOfList, CFValue.ofInt, CFValue.inv, CFValue.add]
+
+theorem valueOfList_cons_zero (x z : Int) (zs : List Int) :
+    valueOfList (x :: 0 :: z :: zs) = valueOfList ((x + z) :: zs) := by
+  simp only [valueOfList_cons, CFValue.ofInt_zero, CFValue.zero_add, CFValue.inv_inv]
+  rw [← CFValue.add_assoc, CFValue.ofInt_add]
+
+theorem valueOfList_cons_inf {x : Int} {t : List Int}
+    (h : valueOfList t = .inf) :
+    valueOfList (x :: t) = CFValue.ofInt x := by
+  rw [valueOfList_cons, h]
+  simp [CFValue.inv, CFValue.add, CFValue.ofInt]
+
+theorem transferHead_pos_eq (a b : Int) (rest : List Int) (ha : 0 < a) :
+    transferHead a b rest =
+      (a - 1) :: 1 :: (-(b + 1)) :: rest.map (fun n => -n) := by
+  simp [transferHead, ha]
+
+theorem valueOfList_transferHead_pos (a b : Int) (rest : List Int) (ha : 0 < a) :
+    valueOfList (transferHead a b rest) = valueOfList (a :: b :: rest) := by
+  rw [transferHead_pos_eq a b rest ha]
+  simp only [valueOfList_cons, valueOfList_neg]
+  set r := valueOfList rest
+  rw [CFValue.transfer_head_neg_sum b r]
+  rw [CFValue.transfer_one_inv ((CFValue.ofInt b).add r.inv)]
+  exact CFValue.add_pred_one_inv a ((CFValue.ofInt b).add r.inv)
+
+theorem transferHead_neg_eq_of_neg (a b : Int) (rest : List Int) (ha : a < 0) :
+    transferHead a b rest =
+      (a + 1) :: (-1) :: (1 - b) :: rest.map (fun n => -n) := by
+  have : ¬ 0 < a := not_lt.mpr (le_of_lt ha)
+  simp [transferHead, this]
+
+theorem transfer_neg_terms (a b : Int) (rest : List Int) :
+    ((a + 1) :: (-1) :: (1 - b) :: rest.map (fun n => -n)).map (fun n => -n) =
+      (-a - 1) :: 1 :: (-(-b + 1)) :: rest := by
+  simp [List.map_map, neg_neg, sub_eq_add_neg, add_comm]
+
+theorem valueOfList_transferHead (a b : Int) (rest : List Int)
+    (h : oppSign a b) :
+    valueOfList (transferHead a b rest) = valueOfList (a :: b :: rest) := by
+  rcases h with ⟨ha, _hb⟩ | ⟨ha, _hb⟩
+  · exact valueOfList_transferHead_pos a b rest ha
+  · have hap : 0 < -a := neg_pos.mpr ha
+    rw [transferHead_neg_eq_of_neg a b rest ha]
+    have hpos :=
+      valueOfList_transferHead_pos (-a) (-b) (rest.map (fun n => -n)) hap
+    have hpos_eq := transferHead_pos_eq (-a) (-b) (rest.map (fun n => -n)) hap
+    have hlist :
+        ((a + 1) :: (-1) :: (1 - b) :: rest.map (fun n => -n)).map
+            (fun n => -n) =
+          transferHead (-a) (-b) (rest.map (fun n => -n)) := by
+      rw [hpos_eq, transfer_neg_terms]
+      simp [List.map_map, neg_neg]
+    have hneg := valueOfList_neg
+      ((a + 1) :: (-1) :: (1 - b) :: rest.map (fun n => -n))
+    rw [hlist, hpos] at hneg
+    have hrhs :
+        valueOfList ((-a) :: (-b) :: rest.map (fun n => -n)) =
+          (valueOfList (a :: b :: rest)).neg := by
+      simp [valueOfList_cons, valueOfList_neg, CFValue.ofInt_neg, CFValue.neg_add,
+        CFValue.neg_inv]
+    rw [hrhs] at hneg
+    simpa [CFValue.neg_neg] using (congrArg CFValue.neg hneg).symm
+
+theorem valueOfList_applyFirstTransfer :
+    ∀ t : List Int, valueOfList (applyFirstTransfer t) = valueOfList t
+  | [] => rfl
+  | [_a] => by simp [applyFirstTransfer]
+  | a :: b :: rest => by
+      simp only [applyFirstTransfer]
+      split_ifs with hmix
+      · exact valueOfList_transferHead a b rest hmix
+      · simp [valueOfList_cons, valueOfList_applyFirstTransfer (b :: rest)]
 
 end RationalTangles
