@@ -78,7 +78,14 @@ and `[-1]+[+1]` are `rightBottom` twist diagrams with coloring
 fraction `0` (`colorFrom` uniqueness / `coloring_fraction_eq_F`).
 Invert-add of that pair reuses `coloring_invert_add_units` and
 invert uniqueness on the two-unit twist (not glue of two general
-summands, so no dummy coloring), carrying `∞`. Unrestricted
+summands, so no dummy coloring), carrying `∞`. Nested integer
+canceling (`n` units of sign `s` then `n` of `s.flip`, including
+`ofInteger n` followed by `|n|` opposite units) is likewise a
+`rightBottom` twist of fraction `0`; invert-add reuses
+`coloring_invert_add_integerUnits_integerUnits` /
+`coloring_invert_add_ofInteger_integerUnits` and invert
+uniqueness, carrying `∞`. This is nested right-adds, not the
+two-block PD-sum of integer diagrams. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
 form remain omitted. None of those leftover constructors is added to
 `ColoringIsotopy`.
@@ -91,7 +98,8 @@ Figure 14 when the port hypotheses hold, along invert-add of two
 invert-add when a summand is the `[0]` diagram, and along
 invert-add when a summand is the `[∞]` diagram (carried value `0`),
 and along invert-add of canceling units `[+1]+[-1]` / `[-1]+[+1]`
-(carried value `∞`).
+(carried value `∞`), and along invert-add of nested canceling
+integer chains (carried value `∞`).
 Restricted
 Figure 5 slides (with `DiagonalSum` and `hne`) likewise preserve the
 carried value. Induction of `HasColoringFraction` along full `Isotopic`
@@ -4252,5 +4260,431 @@ theorem HasColoringFraction.invert_add_negOne_one :
         (RationalTangles.one.invert.mul RationalTangles.negOne.invert)
         CFValue.inf :=
   HasColoringFraction.invert_add_canceling_units .neg
+
+
+/-! ## Nested canceling integer chains
+
+`appendUnits (integerUnits n s) n s.flip` is a `rightBottom` twist
+diagram (nested right-adds of units, not a two-block PD-sum).
+`colorFrom 0 1` is a genuine non-monochrome coloring of fraction `0`,
+and uniqueness identifies every non-monochrome coloring with that
+value. Invert-add of the pair reuses
+`coloring_invert_add_integerUnits_integerUnits` (and the `ofInteger`
+form) together with invert uniqueness; the carried value is `∞`.
+Not a `ColoringIsotopy`, and not glue of two general summands.
+-/
+
+theorem CFValue.ofInt_add_neg (n : Int) :
+    (CFValue.ofInt n).add (CFValue.ofInt (-n)) = (0 : CFValue) := by
+  rw [CFValue.ofInt_add, add_neg_cancel]
+  rfl
+
+theorem TwistExpr.appendUnits_canceling_integerUnits_fraction (n : Nat)
+    (s : CrossingSign) :
+    (appendUnits (integerUnits n s) n s.flip).fraction = (0 : CFValue) := by
+  simp only [appendUnits_integerUnits_fraction, CrossingSign.toInt_flip]
+  rw [Int.mul_neg, add_neg_cancel]
+  rfl
+
+theorem integerTangle_neg_ofNat (n : Nat) :
+    integerTangle (-(n : Nat)) = (TwistExpr.integerUnits n .neg).diagram := by
+  rw [← TwistExpr.ofInteger_diagram (-(n : Nat))]
+  simp only [TwistExpr.ofInteger]
+  by_cases h : 0 ≤ (-(n : Int))
+  · have hn : n = 0 := by omega
+    subst hn
+    rfl
+  · simp only [if_neg h, Int.natAbs_neg, Int.natAbs_natCast]
+
+theorem TwistExpr.appendUnits_ofInteger_canceling_fraction (n : Int) :
+    (appendUnits (ofInteger n) n.natAbs
+      (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).fraction =
+      (0 : CFValue) := by
+  simp only [appendUnits_fraction, ofInteger_fraction]
+  rw [CFValue.ofInt_add]
+  have hsum :
+      n + (n.natAbs : Int) *
+        (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos).toInt = 0 := by
+    split_ifs with h
+    · rw [CrossingSign.toInt_neg]
+      have hn := Int.eq_natAbs_of_nonneg h
+      rw [← hn]
+      ring
+    · rw [CrossingSign.toInt_pos, Int.mul_one]
+      have hn : n = - (n.natAbs : Int) := by
+        have : n < 0 := lt_of_not_ge h
+        omega
+      omega
+  rw [hsum]
+  rfl
+
+/-- Any non-monochrome coloring of the nested canceling chain
+    `[s]ⁿ` then `[s.flip]ⁿ` has fraction `0`. -/
+theorem coloring_fraction_canceling_integerUnits (n : Nat) (s : CrossingSign)
+    (col : Nat → Int)
+    (hc : (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram.IsColored
+      col)
+    (hm : (ColorMatrix.of
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram
+      col).NotMono) :
+    (ColorMatrix.of
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram
+      col).fraction = (0 : CFValue) := by
+  let e := TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip
+  have hrb : e.rightBottom :=
+    TwistExpr.appendUnits_rightBottom _ (TwistExpr.integerUnits_rightBottom n s) n s.flip
+  have hok : e.slideReady := TwistExpr.rightBottom_slideReady e hrb
+  have hf := coloring_fraction_unique_slideReady e hok col (e.colorFrom 0 1)
+    hc (e.colorFrom_isColored hrb 0 1) hm (e.colorFrom_notMono hrb)
+  have hf0 := e.colorFrom_eq_fraction hrb
+  have hF : e.fraction = (0 : CFValue) :=
+    TwistExpr.appendUnits_canceling_integerUnits_fraction n s
+  exact hf.trans (hf0.trans hF)
+
+/-- Any non-monochrome coloring of nested `ofInteger n` then `|n|`
+    opposite units has fraction `0`. -/
+theorem coloring_fraction_canceling_ofInteger (n : Int) (col : Nat → Int)
+    (hc : (TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+      (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram.IsColored
+      col)
+    (hm : (ColorMatrix.of
+      (TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+        (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram
+      col).NotMono) :
+    (ColorMatrix.of
+      (TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+        (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram
+      col).fraction = (0 : CFValue) := by
+  let t : CrossingSign := if 0 ≤ n then .neg else .pos
+  let e := TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs t
+  have hrb : e.rightBottom :=
+    TwistExpr.appendUnits_rightBottom _ (TwistExpr.ofInteger_rightBottom n) n.natAbs t
+  have hok : e.slideReady := TwistExpr.rightBottom_slideReady e hrb
+  have hf := coloring_fraction_unique_slideReady e hok col (e.colorFrom 0 1)
+    hc (e.colorFrom_isColored hrb 0 1) hm (e.colorFrom_notMono hrb)
+  have hf0 := e.colorFrom_eq_fraction hrb
+  have hF : e.fraction = (0 : CFValue) :=
+    TwistExpr.appendUnits_ofInteger_canceling_fraction n
+  exact hf.trans (hf0.trans hF)
+
+theorem coloring_fraction_integer_add_neg (n : Nat) (col : Nat → Int)
+    (hc : ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+      (integerTangle n)).IsColored col)
+    (hm : (ColorMatrix.of
+      ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+        (integerTangle n))
+      col).NotMono) :
+    (ColorMatrix.of
+      ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+        (integerTangle n))
+      col).fraction = (0 : CFValue) := by
+  have hd :
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n .pos) n .neg).diagram =
+        (List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+          (integerTangle n) := by
+    rw [TwistExpr.appendUnits_diagram, integerTangle_nat_eq_integerUnits,
+      crossingTangle]
+  have hc' :
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n .pos) n .neg).diagram.IsColored
+        col := by
+    rw [hd]; exact hc
+  have hm' :
+      (ColorMatrix.of
+        (TwistExpr.appendUnits (TwistExpr.integerUnits n .pos) n .neg).diagram
+        col).NotMono := by
+    rw [hd]; exact hm
+  have hval := coloring_fraction_canceling_integerUnits n .pos col hc' hm'
+  rw [← hd]; exact hval
+
+theorem coloring_fraction_neg_integer_add (n : Nat) (col : Nat → Int)
+    (hc : ((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+      (integerTangle (-(n : Int)))).IsColored col)
+    (hm : (ColorMatrix.of
+      ((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+        (integerTangle (-(n : Int))))
+      col).NotMono) :
+    (ColorMatrix.of
+      ((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+        (integerTangle (-(n : Int))))
+      col).fraction = (0 : CFValue) := by
+  have hd :
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n .neg) n .pos).diagram =
+        (List.replicate n RationalTangles.one).foldl TangleDiagram.add
+          (integerTangle (-(n : Int))) := by
+    rw [TwistExpr.appendUnits_diagram, integerTangle_neg_ofNat, crossingTangle]
+  have hc' :
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n .neg) n .pos).diagram.IsColored
+        col := by
+    rw [hd]; exact hc
+  have hm' :
+      (ColorMatrix.of
+        (TwistExpr.appendUnits (TwistExpr.integerUnits n .neg) n .pos).diagram
+        col).NotMono := by
+    rw [hd]; exact hm
+  have hval := coloring_fraction_canceling_integerUnits n .neg col hc' hm'
+  rw [← hd]; exact hval
+
+theorem HasColoringFraction.canceling_integerUnits (n : Nat) (s : CrossingSign) :
+    HasColoringFraction
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram
+      (0 : CFValue) := by
+  let e := TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip
+  have hrb : e.rightBottom :=
+    TwistExpr.appendUnits_rightBottom _ (TwistExpr.integerUnits_rightBottom n s) n s.flip
+  refine ⟨e.colorFrom 0 1, e.colorFrom_isColored hrb 0 1,
+    e.colorFrom_notMono hrb, ?_⟩
+  exact coloring_fraction_canceling_integerUnits n s (e.colorFrom 0 1)
+    (e.colorFrom_isColored hrb 0 1) (e.colorFrom_notMono hrb)
+
+theorem HasColoringFraction.canceling_ofInteger (n : Int) :
+    HasColoringFraction
+      (TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+        (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram
+      (0 : CFValue) := by
+  let t : CrossingSign := if 0 ≤ n then .neg else .pos
+  let e := TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs t
+  have hrb : e.rightBottom :=
+    TwistExpr.appendUnits_rightBottom _ (TwistExpr.ofInteger_rightBottom n) n.natAbs t
+  refine ⟨e.colorFrom 0 1, e.colorFrom_isColored hrb 0 1,
+    e.colorFrom_notMono hrb, ?_⟩
+  exact coloring_fraction_canceling_ofInteger n (e.colorFrom 0 1)
+    (e.colorFrom_isColored hrb 0 1) (e.colorFrom_notMono hrb)
+
+theorem HasColoringFraction.integer_add_neg (n : Nat) :
+    HasColoringFraction
+      ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+        (integerTangle n))
+      (0 : CFValue) := by
+  have hflip : CrossingSign.pos.flip = CrossingSign.neg := rfl
+  simpa only [hflip, integerTangle_nat_eq_integerUnits n,
+    TwistExpr.appendUnits_diagram, crossingTangle] using
+    HasColoringFraction.canceling_integerUnits n .pos
+
+theorem HasColoringFraction.neg_integer_add (n : Nat) :
+    HasColoringFraction
+      ((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+        (integerTangle (-(n : Int))))
+      (0 : CFValue) := by
+  have hflip : CrossingSign.neg.flip = CrossingSign.pos := rfl
+  simpa only [hflip, integerTangle_neg_ofNat n, TwistExpr.appendUnits_diagram,
+    crossingTangle] using
+    HasColoringFraction.canceling_integerUnits n .neg
+
+/-- Fresh colorings of nested `([s]ⁿ+[s.flip]ⁿ)ⁱ` and of the matching
+    vertical chain, both of fraction `∞`. Reuses
+    `coloring_invert_add_integerUnits_integerUnits` and invert
+    uniqueness; not a dummy coloring and not a `ColoringIsotopy`. -/
+theorem coloring_invert_add_canceling_integerUnits (n : Nat) (s : CrossingSign) :
+    ∃ colL colR,
+      ((TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram.invert).IsColored
+        colL ∧
+      (TwistExpr.appendVertical (TwistExpr.verticalUnits n s.flip) n s).diagram.IsColored
+        colR ∧
+      (ColorMatrix.of
+        (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram.invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        (TwistExpr.appendVertical (TwistExpr.verticalUnits n s.flip) n s).diagram
+        colR).NotMono ∧
+      (ColorMatrix.of
+        (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram.invert
+        colL).fraction =
+        (ColorMatrix.of
+          (TwistExpr.appendVertical (TwistExpr.verticalUnits n s.flip) n s).diagram
+          colR).fraction ∧
+      (ColorMatrix.of
+        (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram.invert
+        colL).fraction =
+        CFValue.inf := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree⟩ :=
+    coloring_invert_add_integerUnits_integerUnits n n s s.flip
+  let e := TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip
+  have hrb : e.rightBottom :=
+    TwistExpr.appendUnits_rightBottom _ (TwistExpr.integerUnits_rightBottom n s) n s.flip
+  have hok : e.slideReady := TwistExpr.rightBottom_slideReady e hrb
+  obtain ⟨colI, hcI, hmI, hfI⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom e hrb
+  have huniq :=
+    coloring_fraction_unique_invert_slideReady e hok colL colI hcL hcI hmL hmI
+  have hf0 : e.fraction.inv = CFValue.inf := by
+    rw [TwistExpr.appendUnits_canceling_integerUnits_fraction]
+    have h0 : (0 : CFValue) = CFValue.ofInt 0 := rfl
+    rw [h0, CFValue.inv_ofInt_zero]
+  have hval :
+      (ColorMatrix.of e.diagram.invert colL).fraction = CFValue.inf :=
+    huniq.trans (hfI.trans hf0)
+  exact ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hval⟩
+
+/-- Invert-add of nested `ofInteger n` then `|n|` opposite units, both
+    sides carrying `∞`. -/
+theorem coloring_invert_add_canceling_ofInteger (n : Int) :
+    ∃ colL colR,
+      ((TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+        (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram.invert).IsColored
+        colL ∧
+      (TwistExpr.appendVertical (TwistExpr.ofVertical n) n.natAbs
+        (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram.IsColored
+        colR ∧
+      (ColorMatrix.of
+        (TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+          (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram.invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        (TwistExpr.appendVertical (TwistExpr.ofVertical n) n.natAbs
+          (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram
+        colR).NotMono ∧
+      (ColorMatrix.of
+        (TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+          (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram.invert
+        colL).fraction =
+        (ColorMatrix.of
+          (TwistExpr.appendVertical (TwistExpr.ofVertical n) n.natAbs
+            (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram
+          colR).fraction ∧
+      (ColorMatrix.of
+        (TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+          (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram.invert
+        colL).fraction =
+        CFValue.inf := by
+  let t : CrossingSign := if 0 ≤ n then .neg else .pos
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree⟩ :=
+    coloring_invert_add_ofInteger_integerUnits n n.natAbs t
+  let e := TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs t
+  have hrb : e.rightBottom :=
+    TwistExpr.appendUnits_rightBottom _ (TwistExpr.ofInteger_rightBottom n) n.natAbs t
+  have hok : e.slideReady := TwistExpr.rightBottom_slideReady e hrb
+  obtain ⟨colI, hcI, hmI, hfI⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom e hrb
+  have huniq :=
+    coloring_fraction_unique_invert_slideReady e hok colL colI hcL hcI hmL hmI
+  have hf0 : e.fraction.inv = CFValue.inf := by
+    rw [TwistExpr.appendUnits_ofInteger_canceling_fraction]
+    have h0 : (0 : CFValue) = CFValue.ofInt 0 := rfl
+    rw [h0, CFValue.inv_ofInt_zero]
+  have hval :
+      (ColorMatrix.of e.diagram.invert colL).fraction = CFValue.inf :=
+    huniq.trans (hfI.trans hf0)
+  exact ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hval⟩
+
+/-- Nested `(integerTangle n + [-1]ⁿ)ⁱ` against Conway vertical `[-1]ⁿ`
+    then `n` positive bottom twists, both of fraction `∞`. -/
+theorem coloring_invert_add_integer_neg_canceling (n : Nat) :
+    ∃ colL colR,
+      (((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+        (integerTangle n)).invert).IsColored colL ∧
+      ((List.replicate n RationalTangles.one).foldl TangleDiagram.mul
+        (verticalTwists (-(n : Int)))).IsColored colR ∧
+      (ColorMatrix.of
+        ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+          (integerTangle n)).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        ((List.replicate n RationalTangles.one).foldl TangleDiagram.mul
+          (verticalTwists (-(n : Int))))
+        colR).NotMono ∧
+      (ColorMatrix.of
+        ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+          (integerTangle n)).invert
+        colL).fraction =
+        (ColorMatrix.of
+          ((List.replicate n RationalTangles.one).foldl TangleDiagram.mul
+            (verticalTwists (-(n : Int))))
+          colR).fraction ∧
+      (ColorMatrix.of
+        ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+          (integerTangle n)).invert
+        colL).fraction =
+        CFValue.inf := by
+  have hflip : CrossingSign.pos.flip = CrossingSign.neg := rfl
+  simpa only [hflip, integerTangle_nat_eq_integerUnits n,
+    verticalTwists_neg_ofNat n, TwistExpr.appendUnits_diagram,
+    TwistExpr.appendVertical_diagram, crossingTangle] using
+    coloring_invert_add_canceling_integerUnits n .pos
+
+/-- Nested `(integerTangle (-n) + [+1]ⁿ)ⁱ` against Conway vertical
+    `[+1]ⁿ` then `n` negative bottom twists, both of fraction `∞`. -/
+theorem coloring_invert_add_neg_integer_canceling (n : Nat) :
+    ∃ colL colR,
+      (((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+        (integerTangle (-(n : Int)))).invert).IsColored colL ∧
+      ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.mul
+        (verticalTwists n)).IsColored colR ∧
+      (ColorMatrix.of
+        ((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+          (integerTangle (-(n : Int)))).invert
+        colL).NotMono ∧
+      (ColorMatrix.of
+        ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.mul
+          (verticalTwists n))
+        colR).NotMono ∧
+      (ColorMatrix.of
+        ((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+          (integerTangle (-(n : Int)))).invert
+        colL).fraction =
+        (ColorMatrix.of
+          ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.mul
+            (verticalTwists n))
+          colR).fraction ∧
+      (ColorMatrix.of
+        ((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+          (integerTangle (-(n : Int)))).invert
+        colL).fraction =
+        CFValue.inf := by
+  have hflip : CrossingSign.neg.flip = CrossingSign.pos := rfl
+  simpa only [hflip, integerTangle_neg_ofNat n, verticalTwists_nat n,
+    TwistExpr.appendUnits_diagram, TwistExpr.appendVertical_diagram,
+    crossingTangle] using
+    coloring_invert_add_canceling_integerUnits n .neg
+
+theorem HasColoringFraction.invert_add_canceling_integerUnits (n : Nat)
+    (s : CrossingSign) :
+    HasColoringFraction
+        (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram.invert
+        CFValue.inf ∧
+      HasColoringFraction
+        (TwistExpr.appendVertical (TwistExpr.verticalUnits n s.flip) n s).diagram
+        CFValue.inf := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_canceling_integerUnits n s
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+theorem HasColoringFraction.invert_add_canceling_ofInteger (n : Int) :
+    HasColoringFraction
+        (TwistExpr.appendUnits (TwistExpr.ofInteger n) n.natAbs
+          (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram.invert
+        CFValue.inf ∧
+      HasColoringFraction
+        (TwistExpr.appendVertical (TwistExpr.ofVertical n) n.natAbs
+          (if 0 ≤ n then CrossingSign.neg else CrossingSign.pos)).diagram
+        CFValue.inf := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_canceling_ofInteger n
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+theorem HasColoringFraction.invert_add_integer_neg_canceling (n : Nat) :
+    HasColoringFraction
+        ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.add
+          (integerTangle n)).invert
+        CFValue.inf ∧
+      HasColoringFraction
+        ((List.replicate n RationalTangles.one).foldl TangleDiagram.mul
+          (verticalTwists (-(n : Int))))
+        CFValue.inf := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_integer_neg_canceling n
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
+
+theorem HasColoringFraction.invert_add_neg_integer_canceling (n : Nat) :
+    HasColoringFraction
+        ((List.replicate n RationalTangles.one).foldl TangleDiagram.add
+          (integerTangle (-(n : Int)))).invert
+        CFValue.inf ∧
+      HasColoringFraction
+        ((List.replicate n RationalTangles.negOne).foldl TangleDiagram.mul
+          (verticalTwists n))
+        CFValue.inf := by
+  obtain ⟨colL, colR, hcL, hcR, hmL, hmR, hagree, hfL⟩ :=
+    coloring_invert_add_neg_integer_canceling n
+  exact ⟨⟨colL, hcL, hmL, hfL⟩, ⟨colR, hcR, hmR, hagree.symm.trans hfL⟩⟩
 
 end RationalTangles
