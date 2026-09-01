@@ -289,11 +289,65 @@ theorem planar_vflip_rot180_hflip (T : TangleDiagram) :
       rename_id]
   simpa [hmap] using pairRel_rotate180 T.hflip.crossings
 
-theorem isotopic_rot180_of_flips {T : TangleDiagram}
-    (hh : Isotopic T T.hflip) (hv : Isotopic T T.vflip) :
-    Isotopic T.rot180 T := by
-  rw [rot180_eq_hflip_vflip]
-  exact .trans (.vflip_cong hh.symm) hv.symm
+theorem invert_invert_eq_rot180 (T : TangleDiagram) :
+    T.invert.invert = T.rot180 := by
+  rw [invert_invert_eq_hflip_vflip, rot180_eq_hflip_vflip]
+
+def cycle02_13 (n : Nat) : Nat :=
+  if n = 0 then 2 else if n = 2 then 0 else if n = 1 then 3 else if n = 3 then 1 else n
+
+theorem cycle02_13_injective : Injective cycle02_13 := by
+  intro a b h
+  unfold cycle02_13 at h
+  split_ifs at h <;> omega
+
+theorem planar_zero_rot180 :
+    PlanarIsotopy TangleDiagram.zero.rot180 TangleDiagram.zero := by
+  refine ⟨swap01, swap01_injective, rfl, rfl, rfl, rfl, [], pairRel_nil, List.Perm.nil⟩
+
+theorem planar_infinity_rot180 :
+    PlanarIsotopy TangleDiagram.infinity.rot180 TangleDiagram.infinity := by
+  refine ⟨swap01, swap01_injective, rfl, rfl, rfl, rfl, [], pairRel_nil, List.Perm.nil⟩
+
+theorem planar_one_rot180 : PlanarIsotopy one.rot180 one := by
+  refine ⟨cycle02_13, cycle02_13_injective, ?_, ?_, ?_, ?_, one.crossings, ?_, List.Perm.rfl⟩
+  · simp [one, TangleDiagram.rot180, cycle02_13]
+  · simp [one, TangleDiagram.rot180, cycle02_13]
+  · simp [one, TangleDiagram.rot180, cycle02_13]
+  · simp [one, TangleDiagram.rot180, cycle02_13]
+  · refine ⟨?_, trivial⟩
+    simp [one, TangleDiagram.rot180, Crossing.rename, Crossing.rotate180, cycle02_13,
+      Crossing.sameUpToRotation]
+
+theorem planar_negOne_rot180 : PlanarIsotopy negOne.rot180 negOne := by
+  refine ⟨cycle02_13, cycle02_13_injective, ?_, ?_, ?_, ?_, negOne.crossings, ?_, List.Perm.rfl⟩
+  · simp [negOne, one, TangleDiagram.rot180, TangleDiagram.mirror, Crossing.switch, cycle02_13]
+  · simp [negOne, one, TangleDiagram.rot180, TangleDiagram.mirror, Crossing.switch, cycle02_13]
+  · simp [negOne, one, TangleDiagram.rot180, TangleDiagram.mirror, Crossing.switch, cycle02_13]
+  · simp [negOne, one, TangleDiagram.rot180, TangleDiagram.mirror, Crossing.switch, cycle02_13]
+  · refine ⟨?_, trivial⟩
+    simp [negOne, one, TangleDiagram.rot180, TangleDiagram.mirror, Crossing.rename,
+      Crossing.switch, Crossing.rotate180, cycle02_13, Crossing.sameUpToRotation]
+
+theorem isotopic_zero_rot180 :
+    Isotopic TangleDiagram.zero.rot180 TangleDiagram.zero :=
+  isotopic_planar planar_zero_rot180
+
+theorem isotopic_infinity_rot180 :
+    Isotopic TangleDiagram.infinity.rot180 TangleDiagram.infinity :=
+  isotopic_planar planar_infinity_rot180
+
+theorem isotopic_one_rot180 : Isotopic one.rot180 one :=
+  isotopic_planar planar_one_rot180
+
+theorem isotopic_negOne_rot180 : Isotopic negOne.rot180 negOne :=
+  isotopic_planar planar_negOne_rot180
+
+theorem isotopic_crossingTangle_rot180 (s : CrossingSign) :
+    Isotopic (crossingTangle s).rot180 (crossingTangle s) := by
+  cases s <;> simp [crossingTangle]
+  · exact isotopic_one_rot180
+  · exact isotopic_negOne_rot180
 
 /-! ## Lemma 2 on twist-form expressions -/
 
@@ -308,84 +362,88 @@ theorem flype_mul (s : CrossingSign) (t : TangleDiagram) :
     Isotopic (crossingTangle s * t) (t.rot180 * crossingTangle s) :=
   .flype_slide_mul s t
 
-theorem TwistExpr.isotopic_flips (e : TwistExpr) :
-    Isotopic e.diagram e.diagram.hflip ∧ Isotopic e.diagram e.diagram.vflip := by
+/-- Sign-preserving planar 180° of a twist-form diagram. -/
+theorem TwistExpr.isotopic_rot180 (e : TwistExpr) :
+    Isotopic e.diagram.rot180 e.diagram := by
   induction e with
-  | zero => exact ⟨isotopic_zero_hflip, isotopic_zero_vflip⟩
-  | infinity => exact ⟨isotopic_infinity_hflip, isotopic_infinity_vflip⟩
-  | one => exact ⟨isotopic_one_hflip, isotopic_one_vflip⟩
-  | negOne => exact ⟨isotopic_negOne_hflip, isotopic_negOne_vflip⟩
+  | zero => simpa [TwistExpr.diagram] using isotopic_zero_rot180
+  | infinity => simpa [TwistExpr.diagram] using isotopic_infinity_rot180
+  | one => simpa [TwistExpr.diagram] using isotopic_one_rot180
+  | negOne => simpa [TwistExpr.diagram] using isotopic_negOne_rot180
   | addRight e s ih =>
-    obtain ⟨ihh, ihv⟩ := ih
     simp only [TwistExpr.diagram, add_eq_add]
-    constructor
-    · refine .trans ?_ (.symm (.hflip_add e.diagram (crossingTangle s)))
-      exact .trans (.add_left ihh) (.add_right (isotopic_crossingTangle_hflip s))
-    · have hslide :
-          Isotopic (crossingTangle s + e.diagram.vflip)
-            (e.diagram.vflip.rot180 + crossingTangle s) :=
-        flype_add s e.diagram.vflip
-      have hrot : Isotopic e.diagram.vflip.rot180 e.diagram.hflip :=
-        isotopic_planar (planar_vflip_rot180_hflip e.diagram)
-      have hcomm : Isotopic (crossingTangle s + e.diagram.vflip)
-          (e.diagram + crossingTangle s) :=
-        .trans hslide (.trans (.add_left hrot) (.add_left ihh.symm))
-      refine .trans hcomm.symm ?_
-      refine .trans ?_ (.symm (.vflip_add e.diagram (crossingTangle s)))
-      exact .add_left (isotopic_crossingTangle_vflip s)
+    have hswap : Isotopic (e.diagram.add (crossingTangle s)).rot180
+        ((crossingTangle s).rot180.add e.diagram.rot180) :=
+      .rot180_add e.diagram (crossingTangle s)
+    have hunit : Isotopic (crossingTangle s).rot180 (crossingTangle s) :=
+      isotopic_crossingTangle_rot180 s
+    have hleft : Isotopic ((crossingTangle s).rot180.add e.diagram.rot180)
+        ((crossingTangle s).add e.diagram) :=
+      .trans (.add_left hunit) (.add_right ih)
+    have hcomm : Isotopic ((crossingTangle s).add e.diagram)
+        (e.diagram.add (crossingTangle s)) :=
+      .trans (flype_add s e.diagram) (.add_left ih)
+    exact .trans hswap (.trans hleft hcomm)
   | addLeft e s ih =>
-    obtain ⟨ihh, ihv⟩ := ih
     simp only [TwistExpr.diagram, add_eq_add]
-    constructor
-    · refine .trans ?_ (.symm (.hflip_add (crossingTangle s) e.diagram))
-      exact .trans (.add_left (isotopic_crossingTangle_hflip s)) (.add_right ihh)
-    · have hrot : Isotopic e.diagram.rot180 e.diagram :=
-        isotopic_rot180_of_flips ihh ihv
-      have hST : Isotopic (crossingTangle s + e.diagram)
-          (e.diagram + crossingTangle s) :=
-        .trans (flype_add s e.diagram) (.add_left hrot)
-      refine .trans hST ?_
-      refine .trans ?_ (.symm (.vflip_add (crossingTangle s) e.diagram))
-      exact .trans (.add_left ihv) (.add_right (isotopic_crossingTangle_vflip s))
+    have hswap : Isotopic ((crossingTangle s).add e.diagram).rot180
+        (e.diagram.rot180.add (crossingTangle s).rot180) :=
+      .rot180_add (crossingTangle s) e.diagram
+    have hunit : Isotopic (crossingTangle s).rot180 (crossingTangle s) :=
+      isotopic_crossingTangle_rot180 s
+    have hto : Isotopic (e.diagram.rot180.add (crossingTangle s).rot180)
+        (e.diagram.add (crossingTangle s)) :=
+      .trans (.add_left ih) (.add_right hunit)
+    have hcomm : Isotopic (e.diagram.add (crossingTangle s))
+        ((crossingTangle s).add e.diagram) :=
+      .trans (.add_left ih.symm) (.symm (flype_add s e.diagram))
+    exact .trans hswap (.trans hto hcomm)
   | mulBottom e s ih =>
-    obtain ⟨ihh, ihv⟩ := ih
     simp only [TwistExpr.diagram, mul_eq_mul]
-    constructor
-    · refine .symm ?_
-      refine .trans (.hflip_mul e.diagram (crossingTangle s)) ?_
-      refine .trans (.mul_left (isotopic_crossingTangle_hflip s).symm) ?_
-      refine .trans (flype_mul s e.diagram.hflip) ?_
-      refine .trans
-        (.mul_left (isotopic_planar (planar_hflip_rot180_vflip e.diagram))) ?_
-      exact .mul_left ihv.symm
-    · refine .trans ?_ (.symm (.vflip_mul e.diagram (crossingTangle s)))
-      exact .trans (.mul_left ihv) (.mul_right (isotopic_crossingTangle_vflip s))
+    have hswap : Isotopic (e.diagram.mul (crossingTangle s)).rot180
+        ((crossingTangle s).rot180.mul e.diagram.rot180) :=
+      .rot180_mul e.diagram (crossingTangle s)
+    have hunit : Isotopic (crossingTangle s).rot180 (crossingTangle s) :=
+      isotopic_crossingTangle_rot180 s
+    have hleft : Isotopic ((crossingTangle s).rot180.mul e.diagram.rot180)
+        ((crossingTangle s).mul e.diagram) :=
+      .trans (.mul_left hunit) (.mul_right ih)
+    have hcomm : Isotopic ((crossingTangle s).mul e.diagram)
+        (e.diagram.mul (crossingTangle s)) :=
+      .trans (flype_mul s e.diagram) (.mul_left ih)
+    exact .trans hswap (.trans hleft hcomm)
   | mulTop e s ih =>
-    obtain ⟨ihh, ihv⟩ := ih
     simp only [TwistExpr.diagram, mul_eq_mul]
-    constructor
-    · refine .trans ?_ (.symm (.hflip_mul (crossingTangle s) e.diagram))
-      refine .trans (flype_mul s e.diagram) ?_
-      refine .trans (.mul_left (isotopic_rot180_of_flips ihh ihv)) ?_
-      refine .trans (.mul_left ihh) ?_
-      exact .mul_right (isotopic_crossingTangle_hflip s)
-    · refine .trans ?_ (.symm (.vflip_mul (crossingTangle s) e.diagram))
-      exact .trans (.mul_left (isotopic_crossingTangle_vflip s)) (.mul_right ihv)
+    have hswap : Isotopic ((crossingTangle s).mul e.diagram).rot180
+        (e.diagram.rot180.mul (crossingTangle s).rot180) :=
+      .rot180_mul (crossingTangle s) e.diagram
+    have hunit : Isotopic (crossingTangle s).rot180 (crossingTangle s) :=
+      isotopic_crossingTangle_rot180 s
+    have hto : Isotopic (e.diagram.rot180.mul (crossingTangle s).rot180)
+        (e.diagram.mul (crossingTangle s)) :=
+      .trans (.mul_left ih) (.mul_right hunit)
+    have hcomm : Isotopic (e.diagram.mul (crossingTangle s))
+        ((crossingTangle s).mul e.diagram) :=
+      .trans (.mul_left ih.symm) (.symm (flype_mul s e.diagram))
+    exact .trans hswap (.trans hto hcomm)
 
-/-- Lemma 2 (i)–(iii): a rational tangle is isotopic to its horizontal flip,
-    its vertical flip, and the double inversion `(Tⁱ)ⁱ = (Tʳ)ʳ`. -/
-theorem flipping_lemma (T : TangleDiagram) (h : IsRational T) :
-    Isotopic T T.hflip ∧ Isotopic T T.vflip ∧
-      Isotopic T T.invert.invert ∧ Isotopic T.invert.invert T.rotate.rotate := by
+/-- A rational tangle is isotopic to its planar 180° rotate. -/
+theorem isotopic_rot180 {T : TangleDiagram} (h : IsRational T) :
+    Isotopic T.rot180 T := by
   obtain ⟨e, he⟩ := h
-  obtain ⟨hh, hv⟩ := e.isotopic_flips
-  have hT_h : Isotopic T T.hflip :=
-    .trans he (.trans hh (.symm (.hflip_cong he)))
-  have hT_v : Isotopic T T.vflip :=
-    .trans he (.trans hv (.symm (.vflip_cong he)))
-  refine ⟨hT_h, hT_v, ?_, ?_⟩
-  · rw [invert_invert_eq_hflip_vflip]
-    exact .trans hT_v (.vflip_cong hT_h)
+  exact .trans (.rot180_cong he) (.trans e.isotopic_rot180 he.symm)
+
+/-- Lemma 2 (iii): a rational tangle is isotopic to the double inversion
+    `(Tⁱ)ⁱ = (Tʳ)ʳ`. Horizontal/vertical flips are spatial (`Crossing.switch`)
+    and are not claimed as `Isotopic` generators; the coloring-honest
+    content is `T.rot180 ∼ T`. -/
+theorem flipping_lemma (T : TangleDiagram) (h : IsRational T) :
+    Isotopic T.rot180 T ∧
+      Isotopic T T.invert.invert ∧
+      Isotopic T.invert.invert T.rotate.rotate := by
+  refine ⟨isotopic_rot180 h, ?_, ?_⟩
+  · rw [invert_invert_eq_rot180]
+    exact (isotopic_rot180 h).symm
   · exact .symm (isotopic_planar (planar_rotate_rotate_invert_invert T))
 
 /-! ## Lemma 3: standard form -/
@@ -445,7 +503,7 @@ theorem TwistExpr.toStandard_isotopic (e : TwistExpr) :
     have hflyp : Isotopic (crossingTangle s + e.diagram)
         (e.diagram + crossingTangle s) :=
       .trans (flype_add s e.diagram)
-        (.add_left (isotopic_rot180_of_flips e.isotopic_flips.1 e.isotopic_flips.2))
+        (.add_left e.isotopic_rot180)
     refine .trans hflyp ?_
     simpa [TwistExpr.diagram, TwistExpr.toStandard, StandardExpr.diagram, add_eq_add] using
       Isotopic.add_left ih
@@ -453,7 +511,7 @@ theorem TwistExpr.toStandard_isotopic (e : TwistExpr) :
     have hflyp : Isotopic (crossingTangle s * e.diagram)
         (e.diagram * crossingTangle s) :=
       .trans (flype_mul s e.diagram)
-        (.mul_left (isotopic_rot180_of_flips e.isotopic_flips.1 e.isotopic_flips.2))
+        (.mul_left e.isotopic_rot180)
     refine .trans hflyp ?_
     simpa [TwistExpr.diagram, TwistExpr.toStandard, StandardExpr.diagram, mul_eq_mul] using
       Isotopic.mul_left ih

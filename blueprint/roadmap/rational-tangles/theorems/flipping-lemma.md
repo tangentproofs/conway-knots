@@ -3,12 +3,11 @@ declaration: lemma
 origin: cited
 statement: formalized
 lean: RationalTangles.flipping_lemma
-proof: formalized
 ---
 
 # Flipping lemma
 
-If $T$ is rational, then
+If $T$ is rational, then (Kauffman–Lambropoulou Lemma 2)
 $$
 T\sim T^{h\mathrm{flip}},
 \qquad
@@ -20,9 +19,13 @@ In particular inversion is an operation of order two on rational tangles, so
 the inverse of a rational tangle $T$ may be written $T^{-1}$, and
 $T^r=-T^{-1}$.
 
-The proof is by induction on crossings, using a flype in the product case.
-As a consequence, addition of $[\pm 1]$ and multiplication by $[\pm 1]$
-commute on rational tangles, which is the algebraic form of a rational flype.
+The Lean theorem currently proves the **coloring-honest** fragment: planar
+$T^{\mathrm{rot}180}\sim T$ (signs kept) and therefore
+$T\sim(T^i)^i=(T^r)^r$, together with commutativity of adjoining $[\pm 1]$
+via the sign-preserving flype slide. Horizontal/vertical flip are spatial
+diagram operations (`Crossing.switch`) and are **not** `Isotopic`
+generators, so $T\sim T^{h\mathrm{flip}}$ and $T\sim T^{v\mathrm{flip}}$
+are not obtained as constructors of diagram isotopy.
 
 ## Sources
 

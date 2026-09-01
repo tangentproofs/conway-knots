@@ -72,7 +72,7 @@ theorem isotopic_one_add_negOne_zero :
 theorem isotopic_negOne_add_one_zero :
     Isotopic (negOne.add one) TangleDiagram.zero :=
   .trans (flype_add .neg one) <|
-    .trans (.add_left (isotopic_rot180_of_flips isotopic_one_hflip isotopic_one_vflip))
+    .trans (.add_left isotopic_one_rot180)
       isotopic_one_add_negOne_zero
 
 /-! ## Inversion of twist-form expressions -/
@@ -152,7 +152,7 @@ theorem lemma4_unit (T : TangleDiagram) (h : IsRational T) (s : CrossingSign) :
     Isotopic.mul_left he
   have hR : IsRational (T.mul (crossingTangle s)) :=
     ⟨.mulBottom e s, by simpa [TwistExpr.diagram] using hmul⟩
-  obtain ⟨_, _, hii, _⟩ := flipping_lemma _ hR
+  obtain ⟨_, hii, _⟩ := flipping_lemma _ hR
   have hstep : Isotopic (T.mul (crossingTangle s)).invert.invert
       (T.invert.add (crossingTangle s).invert).invert :=
     .invert_cong (Isotopic.invert_mul T (crossingTangle s))
@@ -160,10 +160,9 @@ theorem lemma4_unit (T : TangleDiagram) (h : IsRational T) (s : CrossingSign) :
       (T.invert.add (crossingTangle s)).invert :=
     .invert_cong (.add_right (Isotopic.invert_unit s).symm)
   have hTinv : IsRational T.invert := isRational_invert ⟨e, he⟩
-  obtain ⟨hTh, hTv, _, _⟩ := flipping_lemma T.invert hTinv
   have hcomm : Isotopic (T.invert.add (crossingTangle s))
       ((crossingTangle s).add T.invert) :=
-    .trans (.add_left (isotopic_rot180_of_flips hTh hTv).symm)
+    .trans (.add_left (isotopic_rot180 hTinv).symm)
       (.symm (flype_add s T.invert))
   exact .trans hii <| .trans hstep <| .trans hunit (.invert_cong hcomm)
 
@@ -279,8 +278,7 @@ theorem isRational_integer (n : Int) : IsRational (integerTangle n) :=
 theorem isotopic_add_crossing_comm {T : TangleDiagram} (h : IsRational T)
     (s : CrossingSign) :
     Isotopic (T.add (crossingTangle s)) ((crossingTangle s).add T) := by
-  obtain ⟨hTh, hTv, _, _⟩ := flipping_lemma T h
-  exact .trans (.add_left (isotopic_rot180_of_flips hTh hTv).symm)
+  exact .trans (.add_left (isotopic_rot180 h).symm)
     (.symm (flype_add s T))
 
 theorem isotopic_add_crossing_right_assoc (T U : TangleDiagram) (s : CrossingSign)
@@ -490,7 +488,7 @@ theorem isRational_cfTangle : ∀ t : List Int, IsCFList t → IsRational (cfTan
 
 theorem isotopic_invert_invert {T : TangleDiagram} (h : IsRational T) :
     Isotopic T.invert.invert T :=
-  (flipping_lemma T h).2.2.1.symm
+  (flipping_lemma T h).2.1.symm
 
 theorem isotopic_cfTangle_zero_cons {t : List Int} (ht : t ≠ []) :
     Isotopic (cfTangle (0 :: t)) (cfTangle t).invert := by
