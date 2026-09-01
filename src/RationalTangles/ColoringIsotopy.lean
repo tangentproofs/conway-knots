@@ -679,6 +679,165 @@ theorem coloring_fraction_infinity_mul (T : TangleDiagram) (col : Nat → Int)
   have hM := ColorMatrix.of_sameEndpoint hs
   exact ⟨col', hc', hM, hM ▸ rfl⟩
 
+/-! ## Nested unit chains vs two-block PD-sums
+
+`T` followed by `n` right-adds of `[±1]` is the same projection as
+`T.add (integerTangle (±n))` after a `+2` arc reindex: the two-block
+right summand is built from `[0]`, whose dummy arcs bump `maxArc` by
+`zero.maxArc + 1 = 2`. This is planar isotopy (no flype).
+-/
+
+/-- Arc map sending a nested right-add of units onto the two-block sum
+    with an integer tangle (the extra `+2` is the dummy `[0]` in the
+    right block). -/
+def addZeroBlockReindex (T : TangleDiagram) (a : Nat) : Nat :=
+  if a ≤ T.maxArc then a else a + 2
+
+theorem addZeroBlockReindex_injective (T : TangleDiagram) :
+    Function.Injective (addZeroBlockReindex T) := by
+  intro a b h
+  unfold addZeroBlockReindex at h
+  split_ifs at h <;> omega
+
+theorem addZeroBlockReindex_le (T : TangleDiagram) {a : Nat}
+    (ha : a ≤ T.maxArc) : addZeroBlockReindex T a = a := by
+  simp [addZeroBlockReindex, ha]
+
+theorem addZeroBlockReindex_gt (T : TangleDiagram) {a : Nat}
+    (ha : T.maxArc < a) : addZeroBlockReindex T a = a + 2 := by
+  have : ¬ a ≤ T.maxArc := Nat.not_le.mpr ha
+  simp [addZeroBlockReindex, this]
+
+theorem Crossing.rename_eq_of_ports {f : Nat → Nat} {C : Crossing}
+    (h0 : f C.a0 = C.a0) (h1 : f C.a1 = C.a1) (h2 : f C.a2 = C.a2)
+    (h3 : f C.a3 = C.a3) : C.rename f = C := by
+  cases C
+  simp [Crossing.rename, h0, h1, h2, h3]
+
+theorem foldl_maxArc_le (cs : List Crossing) (b M : Nat)
+    (hb : b ≤ M) (h : ∀ C ∈ cs, C.maxArc ≤ M) :
+    cs.foldl (fun m C => max m C.maxArc) b ≤ M := by
+  induction cs generalizing b with
+  | nil => simpa [List.foldl] using hb
+  | cons C cs ih =>
+    simp [List.foldl]
+    apply ih
+    · exact Nat.max_le.mpr ⟨hb, h C (List.mem_cons.2 (Or.inl rfl))⟩
+    · intro X hX
+      exact h X (List.mem_cons.2 (Or.inr hX))
+
+theorem maxArc_add_one (T : TangleDiagram) :
+    (T.add one).maxArc = T.maxArc + 3 := by
+  have hNW := maxArc_ge_NW T
+  have hNE := maxArc_ge_NE T
+  have hSE := maxArc_ge_SE T
+  have hSW := maxArc_ge_SW T
+  have hb :
+      max T.NW (max (T.maxArc + 2) (max (T.maxArc + 3) T.SW)) =
+        T.maxArc + 3 := by omega
+  have hT :
+      T.crossings.foldl (fun m C => max m C.maxArc) (T.maxArc + 3) =
+        T.maxArc + 3 := by
+    apply Nat.le_antisymm
+    · exact foldl_maxArc_le _ _ _ (by omega)
+        (fun C hC => le_trans (maxArc_ge_of_mem T hC) (by omega))
+    · exact foldl_maxArc_ge _ _
+  conv => lhs; unfold TangleDiagram.maxArc
+  rw [add_one_crossings, add_one_NW, add_one_NE, add_one_SW, add_one_SE, hb,
+    List.foldl_append, hT]
+  simp [List.foldl, Crossing.maxArc]
+  omega
+
+theorem maxArc_add_negOne (T : TangleDiagram) :
+    (T.add negOne).maxArc = T.maxArc + 3 := by
+  have hNW := maxArc_ge_NW T
+  have hNE := maxArc_ge_NE T
+  have hSE := maxArc_ge_SE T
+  have hSW := maxArc_ge_SW T
+  have hb :
+      max T.NW (max (T.maxArc + 2) (max (T.maxArc + 3) T.SW)) =
+        T.maxArc + 3 := by omega
+  have hT :
+      T.crossings.foldl (fun m C => max m C.maxArc) (T.maxArc + 3) =
+        T.maxArc + 3 := by
+    apply Nat.le_antisymm
+    · exact foldl_maxArc_le _ _ _ (by omega)
+        (fun C hC => le_trans (maxArc_ge_of_mem T hC) (by omega))
+    · exact foldl_maxArc_ge _ _
+  conv => lhs; unfold TangleDiagram.maxArc
+  rw [add_negOne_crossings, add_negOne_NW, add_negOne_NE, add_negOne_SW,
+    add_negOne_SE, hb, List.foldl_append, hT]
+  simp [List.foldl, Crossing.maxArc]
+  omega
+
+theorem addGlue_eq_of_glue_ports (T S S' : TangleDiagram)
+    (hNW : S'.NW = S.NW) (hSW : S'.SW = S.SW) :
+    addGlue T S' = addGlue T S := by
+  funext a
+  simp [addGlue, hNW, hSW]
+
+theorem add_crossings_add_one (T S : TangleDiagram) :
+    (T.add (S.add one)).crossings =
+      (T.add S).crossings ++
+        [Crossing.rename (addGlue T S ∘ addShift T)
+          ⟨S.NE, S.maxArc + 2, S.maxArc + 3, S.SE, CrossingSign.pos⟩] := by
+  have hglue : addGlue T (S.add one) = addGlue T S :=
+    addGlue_eq_of_glue_ports T S (S.add one) (add_one_NW S) (add_one_SW S)
+  rw [add_crossings_append, add_one_crossings, List.map_append,
+    add_crossings_append, hglue]
+  simp [List.map]
+
+theorem add_crossings_add_negOne (T S : TangleDiagram) :
+    (T.add (S.add negOne)).crossings =
+      (T.add S).crossings ++
+        [Crossing.rename (addGlue T S ∘ addShift T)
+          ⟨S.maxArc + 2, S.maxArc + 3, S.SE, S.NE, CrossingSign.neg⟩] := by
+  have hglue : addGlue T (S.add negOne) = addGlue T S :=
+    addGlue_eq_of_glue_ports T S (S.add negOne) (add_negOne_NW S)
+      (add_negOne_SW S)
+  rw [add_crossings_append, add_negOne_crossings, List.map_append,
+    add_crossings_append, hglue]
+  simp [List.map]
+
+theorem addGlue_shift_fresh (T S : TangleDiagram) {k : Nat}
+    (hk : S.maxArc < k) :
+    addGlue T S (k + (T.maxArc + 1)) = k + (T.maxArc + 1) := by
+  have hNW : k ≠ S.NW := by
+    have := maxArc_ge_NW S
+    omega
+  have hSW : k ≠ S.SW := by
+    have := maxArc_ge_SW S
+    omega
+  simp [addGlue, hNW, hSW]
+
+/-- A PD-code rename with matching endpoints is a planar isotopy. -/
+theorem planar_of_rename {D E : TangleDiagram} {f : Nat → Nat}
+    (hinj : Function.Injective f)
+    (hNW : E.NW = f D.NW) (hNE : E.NE = f D.NE) (hSE : E.SE = f D.SE)
+    (hSW : E.SW = f D.SW)
+    (hcs : E.crossings = D.crossings.map (Crossing.rename f)) :
+    PlanarIsotopy D E := by
+  refine ⟨f, hinj, hNW, hNE, hSE, hSW, E.crossings, ?_, List.Perm.rfl⟩
+  rw [hcs]
+  exact pairRel_sameUpToRotation_rfl _
+
+/-- Inversion preserves a rename planar isotopy (`switch` commutes with
+    `rename`; endpoints cycle). -/
+theorem planar_invert_of_rename {D E : TangleDiagram} {f : Nat → Nat}
+    (hinj : Function.Injective f)
+    (hNW : E.NW = f D.NW) (hNE : E.NE = f D.NE) (hSE : E.SE = f D.SE)
+    (hSW : E.SW = f D.SW)
+    (hcs : E.crossings = D.crossings.map (Crossing.rename f)) :
+    PlanarIsotopy D.invert E.invert := by
+  have hcsI :
+      E.invert.crossings = D.invert.crossings.map (Crossing.rename f) := by
+    simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror,
+      hcs, List.map_map, Function.comp, Crossing.switch_rename]
+  refine planar_of_rename hinj ?_ ?_ ?_ ?_ hcsI
+  · simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror, hNE]
+  · simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror, hSE]
+  · simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror, hSW]
+  · simp [TangleDiagram.invert, TangleDiagram.rotate, TangleDiagram.mirror, hNW]
 
 /-! ## Sign-preserving `[±1]` slide (algebraic Figure 5)
 

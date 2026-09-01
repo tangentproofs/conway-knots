@@ -101,8 +101,11 @@ finite nonzero `F` is `coloring_invert_mul_two_rightBottom`, dual to
 invert-add: glue of algebraic-mirror products, transport to the
 PD-mirror, rotate for `(T*S)ⁱ`, and glue of invert colorings for
 `Tⁱ+Sⁱ`. That covers invert-mul of the two vertical blocks when
-`n ≠ 0` (carried value `0`). Nested versus two-block invert-add
-remains distinguished. Invert-mul of `[∞]*[∞]` (`n = 0`) is a dummy
+`n ≠ 0` (carried value `0`). Nested versus two-block uninverted
+PD-sums are `ColoringIsotopy` by `add_zero`/`add_assoc` reindexing
+(`coloringIsotopy_nested_canceling`), so `HasColoringFraction`
+transfers; their inverts are not a `ColoringIsotopy` (`invert_cong`
+is omitted). Invert-mul of `[∞]*[∞]` (`n = 0`) is a dummy
 coloring of `[∞]ⁱ` on both PD-codes (`mul_infinity_eq` /
 `add_infinity_invert_eq`), carried value `0`. Unrestricted
 `flype_slide_*` (no `DiagonalSum`/`hne`) and paths that leave twist
@@ -345,18 +348,6 @@ theorem foldl_maxArc_eq_start_or_mem (cs : List Crossing) (b : Nat) :
       · exact Or.inl (Nat.max_eq_left hb)
       · exact Or.inr ⟨C, List.mem_cons_self, Nat.max_eq_right (Nat.le_of_not_ge hb)⟩
     · exact Or.inr ⟨C', List.mem_cons_of_mem _ hC', hmax⟩
-
-theorem foldl_maxArc_le (cs : List Crossing) (b M : Nat)
-    (hb : b ≤ M) (hC : ∀ C ∈ cs, C.maxArc ≤ M) :
-    cs.foldl (fun m C => max m C.maxArc) b ≤ M := by
-  induction cs generalizing b with
-  | nil => simpa
-  | cons C cs ih =>
-    simp [List.foldl]
-    apply ih
-    · exact Nat.max_le.mpr ⟨hb, hC C List.mem_cons_self⟩
-    · intro C' hC'
-      exact hC C' (List.mem_cons_of_mem _ hC')
 
 theorem max4_eq_or (w x y z : Nat) :
     max w (max x (max y z)) = w ∨ max w (max x (max y z)) = x ∨
@@ -4951,11 +4942,12 @@ integer PD-blocks, not a nested `TwistExpr`. Integer uniqueness gives
 `f([n])=n` and `f([-n])=-n` on each block; glue /
 `coloring_fraction_add` adds those values. Invert-add of the two
 blocks is `coloring_invert_add_two_rightBottom` when `n ≠ 0`, and the
-existing `[0]` invert-add lemmas when `n = 0`. Nested
-`coloring_invert_add_integer_integer` is a different PD-code and is
-not used. Not a `ColoringIsotopy`, and not unrestricted
-`flype_slide`.
+existing `[0]` invert-add lemmas when `n = 0`. The nested unit chain is `ColoringIsotopy` to this two-block sum
+(`coloringIsotopy_nested_add_integerTangle` / `add_assoc`), so
+uninverted `HasColoringFraction` transfers. Invert of the two PD-codes
+is not a `ColoringIsotopy`. Not unrestricted `flype_slide`.
 -/
+
 
 theorem TwistExpr.integerUnits_NW (k : Nat) (s : CrossingSign) :
     (integerUnits k s).diagram.NW = TangleDiagram.zero.NW := by
@@ -4987,6 +4979,18 @@ theorem integerTangle_NW_ne_SW (n : Int) :
     (integerTangle n).NW ≠ (integerTangle n).SW := by
   rw [integerTangle_NW, integerTangle_SW]
   decide
+
+/-- Nested canceling chain and the two-block PD-sum carry the same
+    coloring fraction, by `add_zero`/`add_assoc` reindexing. -/
+theorem HasColoringFraction.two_block_of_nested_canceling (n : Nat)
+    (s : CrossingSign) {v : CFValue}
+    (h : HasColoringFraction
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram v) :
+    HasColoringFraction
+      ((TwistExpr.integerUnits n s).diagram.add
+        (TwistExpr.integerUnits n s.flip).diagram) v :=
+  HasColoringFraction.of_ColoringIsotopy
+    (coloringIsotopy_nested_canceling n s) h
 
 theorem CFValue.ofInt_ne_inf (n : Int) : CFValue.ofInt n ≠ .inf := by
   intro h

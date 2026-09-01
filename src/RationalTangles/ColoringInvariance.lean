@@ -629,6 +629,14 @@ theorem add_negOne_crossings (T : TangleDiagram) :
   rw [negOne_rename_shift]
   simp [TangleDiagram.rename, Crossing.rename]
 
+theorem add_negOne_NW (T : TangleDiagram) : (T.add negOne).NW = T.NW := by
+  unfold TangleDiagram.add
+  rfl
+
+theorem add_negOne_SW (T : TangleDiagram) : (T.add negOne).SW = T.SW := by
+  unfold TangleDiagram.add
+  rfl
+
 theorem IsColored_add_negOne (T : TangleDiagram) (col : Nat → Int)
     (h : T.IsColored col) :
     (T.add negOne).IsColored (colorAddNegOne T col) := by

@@ -2961,6 +2961,77 @@ theorem TwistExpr.appendVertical_diagram (e : TwistExpr) (n : Nat)
     rw [replicate_succ_snoc, List.foldl_append, ih]
     simp [List.foldl]
 
+/-- Nested right-adds of `n` copies of `[s]` onto `T` is the two-block
+    PD-sum `T.add (integerUnits n s)` by reindexing: `add_zero` (the dummy
+    `[0]` of the integer block) and `add_assoc`. This is not a flype. -/
+theorem coloringIsotopy_foldl_add_integerUnits (T : TangleDiagram) (n : Nat)
+    (s : CrossingSign) :
+    ColoringIsotopy
+      ((List.replicate n (crossingTangle s)).foldl TangleDiagram.add T)
+      (T.add (TwistExpr.integerUnits n s).diagram) := by
+  induction n with
+  | zero =>
+    simp only [List.replicate, List.foldl, TwistExpr.integerUnits]
+    change ColoringIsotopy T (T.add TangleDiagram.zero)
+    simpa [add_zero_eq] using ColoringIsotopy.refl T
+  | succ n ih =>
+    have hL :
+        (List.replicate (n + 1) (crossingTangle s)).foldl TangleDiagram.add T =
+          ((List.replicate n (crossingTangle s)).foldl TangleDiagram.add T).add
+            (crossingTangle s) := by
+      rw [replicate_succ_snoc, List.foldl_append, List.foldl_cons, List.foldl_nil]
+    have hS : (TwistExpr.integerUnits (n + 1) s).diagram =
+        (TwistExpr.integerUnits n s).diagram.add (crossingTangle s) :=
+      TwistExpr.integerUnits_succ_diagram n s
+    rw [hL, hS]
+    refine ColoringIsotopy.trans (ColoringIsotopy.add_left ih) ?_
+    exact ColoringIsotopy.add_assoc T (TwistExpr.integerUnits n s).diagram
+      (crossingTangle s)
+
+theorem coloringIsotopy_appendUnits_add_integerUnits (n m : Nat)
+    (s t : CrossingSign) :
+    ColoringIsotopy
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n s) m t).diagram
+      ((TwistExpr.integerUnits n s).diagram.add
+        (TwistExpr.integerUnits m t).diagram) := by
+  simpa only [TwistExpr.appendUnits_diagram] using
+    coloringIsotopy_foldl_add_integerUnits
+      (TwistExpr.integerUnits n s).diagram m t
+
+theorem coloringIsotopy_appendUnits_ofInteger (n : Int) (k : Nat)
+    (t : CrossingSign) :
+    ColoringIsotopy
+      (TwistExpr.appendUnits (TwistExpr.ofInteger n) k t).diagram
+      ((integerTangle n).add (TwistExpr.integerUnits k t).diagram) := by
+  simpa only [TwistExpr.appendUnits_diagram, TwistExpr.ofInteger_diagram] using
+    coloringIsotopy_foldl_add_integerUnits (integerTangle n) k t
+
+theorem integerUnits_neg_diagram (m : Nat) :
+    (TwistExpr.integerUnits m CrossingSign.neg).diagram =
+      integerTangle (-(m : Int)) := by
+  rw [← TwistExpr.ofInteger_diagram]
+  simp only [TwistExpr.ofInteger]
+  split_ifs with h
+  · have : m = 0 := by omega
+    subst this
+    simp [TwistExpr.integerUnits]
+  · simp
+
+theorem coloringIsotopy_nested_add_integerTangle (n m : Nat) :
+    ColoringIsotopy
+      ((List.replicate m RationalTangles.negOne).foldl TangleDiagram.add
+        (integerTangle n))
+      ((integerTangle n).add (integerTangle (-(m : Int)))) := by
+  simpa only [integerUnits_neg_diagram m, crossingTangle] using
+    coloringIsotopy_foldl_add_integerUnits (integerTangle n) m CrossingSign.neg
+
+theorem coloringIsotopy_nested_canceling (n : Nat) (s : CrossingSign) :
+    ColoringIsotopy
+      (TwistExpr.appendUnits (TwistExpr.integerUnits n s) n s.flip).diagram
+      ((TwistExpr.integerUnits n s).diagram.add
+        (TwistExpr.integerUnits n s.flip).diagram) :=
+  coloringIsotopy_appendUnits_add_integerUnits n n s s.flip
+
 theorem TwistExpr.appendUnits_fraction (e : TwistExpr) (n : Nat)
     (s : CrossingSign) :
     (appendUnits e n s).fraction =
