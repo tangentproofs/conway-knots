@@ -175,4 +175,12 @@ theorem invert_zero :
     TangleDiagram.zero.invert = TangleDiagram.infinity :=
   rfl
 
+/-- `[∞]` below `T` is a no-op: the two vertical strands of `[∞]` are glued
+    onto `T.SW` and `T.SE`, which already occupy those boundary ports.
+    This is not `infinity.invert = zero` (those PD-codes differ by a rename). -/
+theorem mul_infinity_eq (T : TangleDiagram) :
+    T.mul TangleDiagram.infinity = T := by
+  unfold TangleDiagram.mul
+  simp [TangleDiagram.infinity, TangleDiagram.rename]
+
 end RationalTangles

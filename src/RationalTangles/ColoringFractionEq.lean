@@ -1380,4 +1380,416 @@ theorem coloring_invert_mul_one_one :
           RationalTangles.one.invert) colR).fraction := by
   simpa only [crossingTangle] using coloring_invert_mul_units .pos .pos
 
+/-! ## Fresh coloring fractions for `invert_add` / `invert_mul` with `[0]`
+    and `[∞]` (no kinks)
+
+`[∞]+[±1]` is excluded: both right ports of `[∞]` are the same arc.
+`infinity.invert` is not rewritten to `zero` (those PD-codes differ by a
+rename). Independent `colorFrom` colorings; inversion still switches
+crossings, so this is not a `ColoringIsotopy` constructor.
+-/
+
+theorem TwistExpr.addRight_zero_fraction (s : CrossingSign) :
+    (TwistExpr.addRight .zero s).fraction = s.cfValue := by
+  simp only [TwistExpr.fraction]
+  exact CFValue.zero_add s.cfValue
+
+theorem TwistExpr.mulBottom_infinity_fraction (s : CrossingSign) :
+    (TwistExpr.mulBottom .infinity s).fraction = s.cfValue.inv := by
+  simp [TwistExpr.fraction, CFValue.inv_inf]
+  rw [show (0 : CFValue) = CFValue.ofRat 0 from rfl, CFValue.zero_add]
+
+theorem coloring_mul_invert_right_unit (T : TangleDiagram) (s : CrossingSign) :
+    ColoringIsotopy (T.mul (crossingTangle s))
+      (T.mul (crossingTangle s).invert) := by
+  have hglue :
+      (crossingTangle s).NW = (crossingTangle s).NE →
+        (crossingTangle s).invert.NW = (crossingTangle s).invert.NE := by
+    intro h
+    exact (crossingTangle_NW_ne_NE s h).elim
+  exact ColoringIsotopy.mul_right (ColoringIsotopy.invert_unit s) hglue
+
+theorem coloring_add_invert_right_unit (T : TangleDiagram) (s : CrossingSign) :
+    ColoringIsotopy (T.add (crossingTangle s))
+      (T.add (crossingTangle s).invert) := by
+  have hglue :
+      (crossingTangle s).NW = (crossingTangle s).SW →
+        (crossingTangle s).invert.NW = (crossingTangle s).invert.SW := by
+    intro h
+    exact (crossingTangle_NW_ne_SW s h).elim
+  exact ColoringIsotopy.add_right (ColoringIsotopy.invert_unit s) hglue
+
+/-- Planar rename swapping arcs `0` and `1`: `[∞]ⁱ` to `[0]` reversed. -/
+theorem planar_zero_infinity_invert :
+    PlanarIsotopy TangleDiagram.zero TangleDiagram.infinity.invert := by
+  refine ⟨swap01, swap01_injective, rfl, rfl, rfl, rfl, [], pairRel_nil, List.Perm.nil⟩
+
+/-- Fresh coloring of `([0]+[±1])ⁱ` and of `[±1]ⁱ * [0]ⁱ`. The product is
+    `[±1]ⁱ * [∞]`, which is the same PD-code as `[±1]ⁱ`. -/
+theorem coloring_invert_add_zero_unit (s : CrossingSign) :
+    ∃ colL colR,
+      ((TangleDiagram.zero.add (crossingTangle s)).invert).IsColored colL ∧
+      (((crossingTangle s).invert.mul TangleDiagram.zero.invert)).IsColored
+        colR ∧
+      (ColorMatrix.of (TangleDiagram.zero.add (crossingTangle s)).invert
+        colL).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).invert.mul TangleDiagram.zero.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.zero.add (crossingTangle s)).invert
+        colL).fraction =
+        (ColorMatrix.of ((crossingTangle s).invert.mul
+          TangleDiagram.zero.invert) colR).fraction := by
+  let eL : TwistExpr := .addRight .zero s
+  have hrbL : eL.rightBottom := trivial
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  have hdiag :
+      eL.diagram = TangleDiagram.zero.add (crossingTangle s) := rfl
+  have hcL' :
+      (TangleDiagram.zero.add (crossingTangle s)).invert.IsColored colL := by
+    simpa only [hdiag] using hcL
+  have hmL' :
+      (ColorMatrix.of (TangleDiagram.zero.add (crossingTangle s)).invert
+        colL).NotMono := by
+    simpa only [hdiag] using hmL
+  have hfL' :
+      (ColorMatrix.of (TangleDiagram.zero.add (crossingTangle s)).invert
+        colL).fraction = eL.fraction.inv := by
+    simpa only [hdiag] using hfL
+  have hR :
+      (crossingTangle s).invert.mul TangleDiagram.zero.invert =
+        (crossingTangle s).invert := by
+    rw [invert_zero, mul_infinity_eq]
+  let eU : TwistExpr := .ofCrossingSign s
+  have hrbU : eU.rightBottom := TwistExpr.ofCrossingSign_rightBottom s
+  let col0 := eU.colorFrom 0 1
+  have hc0 := eU.colorFrom_isColored hrbU 0 1
+  have hm0 := eU.colorFrom_notMono hrbU
+  have hf0 := eU.colorFrom_eq_fraction hrbU
+  have hdiagU : eU.diagram = crossingTangle s :=
+    TwistExpr.ofCrossingSign_diagram s
+  have hstep : ColoringIsotopy (crossingTangle s) (crossingTangle s).invert :=
+    ColoringIsotopy.invert_unit s
+  obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+    coloring_fraction_ColoringIsotopy hstep (by simpa only [hdiagU] using col0)
+      (by simpa only [hdiagU] using hc0)
+  have hmR0 : (ColorMatrix.of (crossingTangle s).invert colR).NotMono := by
+    have hmU : (ColorMatrix.of (crossingTangle s) col0).NotMono := by
+      simpa only [hdiagU] using hm0
+    simpa only [hMat] using hmU
+  refine ⟨colL, colR, hcL', ?_, hmL', ?_, ?_⟩
+  · simpa only [hR] using hcR
+  · simpa only [hR] using hmR0
+  · have hfR :
+        (ColorMatrix.of ((crossingTangle s).invert.mul TangleDiagram.zero.invert)
+          colR).fraction = eU.fraction := by
+      simpa only [hR] using (hfrac.trans (by simpa only [hdiagU] using hf0))
+    rw [hfL', hfR, TwistExpr.addRight_zero_fraction,
+      TwistExpr.ofCrossingSign_fraction, CrossingSign.cfValue_inv]
+
+/-- Fresh coloring of `([±1]+[0])ⁱ` and of `[0]ⁱ * [±1]ⁱ`. Glue of `[∞]`
+    under `[∞]*[±1]` has distinct ports (not a kink). -/
+theorem coloring_invert_add_unit_zero (s : CrossingSign) :
+    ∃ colL colR,
+      (((crossingTangle s).add TangleDiagram.zero).invert).IsColored colL ∧
+      ((TangleDiagram.zero.invert.mul (crossingTangle s).invert)).IsColored
+        colR ∧
+      (ColorMatrix.of ((crossingTangle s).add TangleDiagram.zero).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.zero.invert.mul (crossingTangle s).invert)
+        colR).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).add TangleDiagram.zero).invert
+        colL).fraction =
+        (ColorMatrix.of (TangleDiagram.zero.invert.mul
+          (crossingTangle s).invert) colR).fraction := by
+  have hL :
+      (crossingTangle s).add TangleDiagram.zero = crossingTangle s :=
+    add_zero_eq _
+  let eL : TwistExpr := .ofCrossingSign s
+  have hrbL : eL.rightBottom := TwistExpr.ofCrossingSign_rightBottom s
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  have hdiag : eL.diagram = crossingTangle s :=
+    TwistExpr.ofCrossingSign_diagram s
+  have hcL' :
+      ((crossingTangle s).add TangleDiagram.zero).invert.IsColored colL := by
+    simpa only [hL, hdiag] using hcL
+  have hmL' :
+      (ColorMatrix.of ((crossingTangle s).add TangleDiagram.zero).invert
+        colL).NotMono := by
+    simpa only [hL, hdiag] using hmL
+  have hfL' :
+      (ColorMatrix.of ((crossingTangle s).add TangleDiagram.zero).invert
+        colL).fraction = eL.fraction.inv := by
+    simpa only [hL, hdiag] using hfL
+  let eR : TwistExpr := .mulBottom .infinity s
+  have hrbR : eR.rightBottom := trivial
+  have hdiagR :
+      eR.diagram = TangleDiagram.infinity.mul (crossingTangle s) := rfl
+  let col0 := eR.colorFrom 0 1
+  have hc0 := eR.colorFrom_isColored hrbR 0 1
+  have hm0 := eR.colorFrom_notMono hrbR
+  have hf0 := eR.colorFrom_eq_fraction hrbR
+  have hstep : ColoringIsotopy eR.diagram
+      (TangleDiagram.zero.invert.mul (crossingTangle s).invert) := by
+    simpa only [hdiagR, invert_zero] using
+      coloring_mul_invert_right_unit TangleDiagram.infinity s
+  obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+    coloring_fraction_ColoringIsotopy hstep col0 hc0
+  have hmR : (ColorMatrix.of
+      (TangleDiagram.zero.invert.mul (crossingTangle s).invert) colR).NotMono := by
+    simpa only [hMat] using hm0
+  refine ⟨colL, colR, hcL', hcR, hmL', hmR, ?_⟩
+  have hfR :
+      (ColorMatrix.of (TangleDiagram.zero.invert.mul (crossingTangle s).invert)
+        colR).fraction = eR.fraction :=
+    hfrac.trans hf0
+  rw [hfL', hfR, TwistExpr.ofCrossingSign_fraction,
+    TwistExpr.mulBottom_infinity_fraction]
+
+/-- Fresh coloring of `([∞]*[±1])ⁱ` and of `[∞]ⁱ + [±1]ⁱ`. Glue ports of
+    `[∞]*[±1]` are distinct; `[∞]+[±1]` is not used. -/
+theorem coloring_invert_mul_infinity_unit (s : CrossingSign) :
+    ∃ colL colR,
+      ((TangleDiagram.infinity.mul (crossingTangle s)).invert).IsColored colL ∧
+      ((TangleDiagram.infinity.invert.add (crossingTangle s).invert)).IsColored
+        colR ∧
+      (ColorMatrix.of (TangleDiagram.infinity.mul (crossingTangle s)).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.infinity.invert.add
+        (crossingTangle s).invert) colR).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.infinity.mul (crossingTangle s)).invert
+        colL).fraction =
+        (ColorMatrix.of (TangleDiagram.infinity.invert.add
+          (crossingTangle s).invert) colR).fraction := by
+  let eL : TwistExpr := .mulBottom .infinity s
+  have hrbL : eL.rightBottom := trivial
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  have hdiag :
+      eL.diagram = TangleDiagram.infinity.mul (crossingTangle s) := rfl
+  have hcL' :
+      (TangleDiagram.infinity.mul (crossingTangle s)).invert.IsColored colL := by
+    simpa only [hdiag] using hcL
+  have hmL' :
+      (ColorMatrix.of (TangleDiagram.infinity.mul (crossingTangle s)).invert
+        colL).NotMono := by
+    simpa only [hdiag] using hmL
+  have hfL' :
+      (ColorMatrix.of (TangleDiagram.infinity.mul (crossingTangle s)).invert
+        colL).fraction = eL.fraction.inv := by
+    simpa only [hdiag] using hfL
+  let eR : TwistExpr := .addRight .zero s
+  have hrbR : eR.rightBottom := trivial
+  have hdiagR :
+      eR.diagram = TangleDiagram.zero.add (crossingTangle s) := rfl
+  let col0 := eR.colorFrom 0 1
+  have hc0 := eR.colorFrom_isColored hrbR 0 1
+  have hm0 := eR.colorFrom_notMono hrbR
+  have hf0 := eR.colorFrom_eq_fraction hrbR
+  have hstep : ColoringIsotopy eR.diagram
+      (TangleDiagram.infinity.invert.add (crossingTangle s).invert) := by
+    simpa only [hdiagR] using
+      (ColoringIsotopy.trans
+        (ColoringIsotopy.add_left (S := crossingTangle s)
+          (.isotopy planar_zero_infinity_invert))
+        (coloring_add_invert_right_unit TangleDiagram.infinity.invert s))
+  obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+    coloring_fraction_ColoringIsotopy hstep col0 hc0
+  have hmR : (ColorMatrix.of
+      (TangleDiagram.infinity.invert.add (crossingTangle s).invert)
+        colR).NotMono := by
+    simpa only [hMat] using hm0
+  refine ⟨colL, colR, hcL', hcR, hmL', hmR, ?_⟩
+  have hfR :
+      (ColorMatrix.of (TangleDiagram.infinity.invert.add
+        (crossingTangle s).invert) colR).fraction = eR.fraction :=
+    hfrac.trans hf0
+  rw [hfL', hfR, TwistExpr.mulBottom_infinity_fraction,
+    TwistExpr.addRight_zero_fraction, CFValue.inv_inv]
+
+/-- Fresh coloring of `([±1]*[∞])ⁱ` and of `[±1]ⁱ + [∞]ⁱ`. The product is
+    the same PD-code as `[±1]`. -/
+theorem coloring_invert_mul_unit_infinity (s : CrossingSign) :
+    ∃ colL colR,
+      (((crossingTangle s).mul TangleDiagram.infinity).invert).IsColored colL ∧
+      (((crossingTangle s).invert.add TangleDiagram.infinity.invert)).IsColored
+        colR ∧
+      (ColorMatrix.of ((crossingTangle s).mul TangleDiagram.infinity).invert
+        colL).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).invert.add
+        TangleDiagram.infinity.invert) colR).NotMono ∧
+      (ColorMatrix.of ((crossingTangle s).mul TangleDiagram.infinity).invert
+        colL).fraction =
+        (ColorMatrix.of ((crossingTangle s).invert.add
+          TangleDiagram.infinity.invert) colR).fraction := by
+  have hL :
+      (crossingTangle s).mul TangleDiagram.infinity = crossingTangle s :=
+    mul_infinity_eq _
+  let eL : TwistExpr := .ofCrossingSign s
+  have hrbL : eL.rightBottom := TwistExpr.ofCrossingSign_rightBottom s
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  have hdiag : eL.diagram = crossingTangle s :=
+    TwistExpr.ofCrossingSign_diagram s
+  have hcL' :
+      ((crossingTangle s).mul TangleDiagram.infinity).invert.IsColored colL := by
+    simpa only [hL, hdiag] using hcL
+  have hmL' :
+      (ColorMatrix.of ((crossingTangle s).mul TangleDiagram.infinity).invert
+        colL).NotMono := by
+    simpa only [hL, hdiag] using hmL
+  have hfL' :
+      (ColorMatrix.of ((crossingTangle s).mul TangleDiagram.infinity).invert
+        colL).fraction = eL.fraction.inv := by
+    simpa only [hL, hdiag] using hfL
+  let eU : TwistExpr := .ofCrossingSign s
+  have hrbU : eU.rightBottom := TwistExpr.ofCrossingSign_rightBottom s
+  let col0 := eU.colorFrom 0 1
+  have hc0 := eU.colorFrom_isColored hrbU 0 1
+  have hm0 := eU.colorFrom_notMono hrbU
+  have hf0 := eU.colorFrom_eq_fraction hrbU
+  have hglue0 :
+      TangleDiagram.zero.NW = TangleDiagram.zero.SW →
+        TangleDiagram.infinity.invert.NW = TangleDiagram.infinity.invert.SW := by
+    intro h
+    have h01 : TangleDiagram.zero.NW ≠ TangleDiagram.zero.SW := by decide
+    exact (h01 h).elim
+  have hdiagU : eU.diagram = crossingTangle s :=
+    TwistExpr.ofCrossingSign_diagram s
+  have hstep : ColoringIsotopy eU.diagram
+      ((crossingTangle s).invert.add TangleDiagram.infinity.invert) := by
+    simpa only [hdiagU] using
+      (ColoringIsotopy.trans (ColoringIsotopy.invert_unit s)
+        (ColoringIsotopy.trans
+          (ColoringIsotopy.add_zero_symm (crossingTangle s).invert)
+          (ColoringIsotopy.add_right (.isotopy planar_zero_infinity_invert)
+            hglue0)))
+  obtain ⟨colR, hcR, hMat, hfrac⟩ :=
+    coloring_fraction_ColoringIsotopy hstep col0 hc0
+  have hmR : (ColorMatrix.of
+      ((crossingTangle s).invert.add TangleDiagram.infinity.invert)
+        colR).NotMono := by
+    simpa only [hMat] using hm0
+  refine ⟨colL, colR, hcL', hcR, hmL', hmR, ?_⟩
+  have hfR :
+      (ColorMatrix.of ((crossingTangle s).invert.add
+        TangleDiagram.infinity.invert) colR).fraction = eU.fraction :=
+    hfrac.trans hf0
+  rw [hfL', hfR, TwistExpr.ofCrossingSign_fraction, CrossingSign.cfValue_inv]
+
+theorem coloring_invert_add_zero_one :
+    ∃ colL colR,
+      ((TangleDiagram.zero.add RationalTangles.one).invert).IsColored colL ∧
+      (RationalTangles.one.invert.mul TangleDiagram.zero.invert).IsColored
+        colR ∧
+      (ColorMatrix.of (TangleDiagram.zero.add RationalTangles.one).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (RationalTangles.one.invert.mul TangleDiagram.zero.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.zero.add RationalTangles.one).invert
+        colL).fraction =
+        (ColorMatrix.of (RationalTangles.one.invert.mul
+          TangleDiagram.zero.invert) colR).fraction := by
+  simpa only [crossingTangle] using coloring_invert_add_zero_unit .pos
+
+theorem coloring_invert_add_one_zero :
+    ∃ colL colR,
+      ((RationalTangles.one.add TangleDiagram.zero).invert).IsColored colL ∧
+      (TangleDiagram.zero.invert.mul RationalTangles.one.invert).IsColored
+        colR ∧
+      (ColorMatrix.of (RationalTangles.one.add TangleDiagram.zero).invert
+        colL).NotMono ∧
+      (ColorMatrix.of (TangleDiagram.zero.invert.mul RationalTangles.one.invert)
+        colR).NotMono ∧
+      (ColorMatrix.of (RationalTangles.one.add TangleDiagram.zero).invert
+        colL).fraction =
+        (ColorMatrix.of (TangleDiagram.zero.invert.mul
+          RationalTangles.one.invert) colR).fraction := by
+  simpa only [crossingTangle] using coloring_invert_add_unit_zero .pos
+
+/-- Fresh colorings of `([+1]+[+1])ⁱ` and of the right-and-bottom vertical
+    chain `[∞]*[+1]*[+1]`, both with fraction `1/2`. Not a
+    `ColoringIsotopy` between the diagrams. -/
+theorem coloring_invert_one_add_one_eq_vertical :
+    ∃ colL colR,
+      ((RationalTangles.one.add RationalTangles.one).invert).IsColored colL ∧
+      ((TangleDiagram.infinity.mul RationalTangles.one).mul
+        RationalTangles.one).IsColored colR ∧
+      (ColorMatrix.of (RationalTangles.one.add RationalTangles.one).invert
+        colL).NotMono ∧
+      (ColorMatrix.of ((TangleDiagram.infinity.mul RationalTangles.one).mul
+        RationalTangles.one) colR).NotMono ∧
+      (ColorMatrix.of (RationalTangles.one.add RationalTangles.one).invert
+        colL).fraction =
+        (ColorMatrix.of ((TangleDiagram.infinity.mul RationalTangles.one).mul
+          RationalTangles.one) colR).fraction := by
+  let eL : TwistExpr := .addRight .one .pos
+  have hrbL : eL.rightBottom := trivial
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  let eR : TwistExpr := .mulBottom (.mulBottom .infinity .pos) .pos
+  have hrbR : eR.rightBottom := trivial
+  let colR := eR.colorFrom 0 1
+  have hcR := eR.colorFrom_isColored hrbR 0 1
+  have hmR := eR.colorFrom_notMono hrbR
+  have hfR := eR.colorFrom_eq_fraction hrbR
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, ?_⟩
+  have hL :
+      eL.diagram = RationalTangles.one.add RationalTangles.one := rfl
+  have hR :
+      eR.diagram =
+        (TangleDiagram.infinity.mul RationalTangles.one).mul
+          RationalTangles.one := rfl
+  have hfL' :
+      (ColorMatrix.of (RationalTangles.one.add RationalTangles.one).invert
+        colL).fraction = eL.fraction.inv := by
+    simpa only [hL] using hfL
+  have hfR' :
+      (ColorMatrix.of ((TangleDiagram.infinity.mul RationalTangles.one).mul
+        RationalTangles.one) colR).fraction = eR.fraction := by
+    simpa only [hR] using hfR
+  rw [hfL', hfR']
+  simp [eL, eR, TwistExpr.fraction, CrossingSign.cfValue, CFValue.inv_inf]
+  rw [show (0 : CFValue) = CFValue.ofRat 0 from rfl, CFValue.zero_add]
+
+/-- Fresh colorings of `([+1]+[+1]+[+1])ⁱ` and of `[∞]*[+1]*[+1]*[+1]`,
+    both with fraction `1/3`. -/
+theorem coloring_invert_one_add_one_add_one_eq_vertical :
+    ∃ colL colR,
+      (((RationalTangles.one.add RationalTangles.one).add
+        RationalTangles.one).invert).IsColored colL ∧
+      (((TangleDiagram.infinity.mul RationalTangles.one).mul
+        RationalTangles.one).mul RationalTangles.one).IsColored colR ∧
+      (ColorMatrix.of ((RationalTangles.one.add RationalTangles.one).add
+        RationalTangles.one).invert colL).NotMono ∧
+      (ColorMatrix.of (((TangleDiagram.infinity.mul RationalTangles.one).mul
+        RationalTangles.one).mul RationalTangles.one) colR).NotMono ∧
+      (ColorMatrix.of ((RationalTangles.one.add RationalTangles.one).add
+        RationalTangles.one).invert colL).fraction =
+        (ColorMatrix.of (((TangleDiagram.infinity.mul RationalTangles.one).mul
+          RationalTangles.one).mul RationalTangles.one) colR).fraction := by
+  let eL : TwistExpr := .addRight (.addRight .one .pos) .pos
+  have hrbL : eL.rightBottom := trivial
+  obtain ⟨colL, hcL, hmL, hfL⟩ :=
+    coloring_invert_inv_eq_F_rightBottom_colorFrom eL hrbL
+  let eR : TwistExpr :=
+    .mulBottom (.mulBottom (.mulBottom .infinity .pos) .pos) .pos
+  have hrbR : eR.rightBottom := trivial
+  let colR := eR.colorFrom 0 1
+  have hcR := eR.colorFrom_isColored hrbR 0 1
+  have hmR := eR.colorFrom_notMono hrbR
+  have hfR := eR.colorFrom_eq_fraction hrbR
+  refine ⟨colL, colR, hcL, hcR, hmL, hmR, ?_⟩
+  have hfL' :
+      (ColorMatrix.of ((RationalTangles.one.add RationalTangles.one).add
+        RationalTangles.one).invert colL).fraction = eL.fraction.inv := hfL
+  have hfR' :
+      (ColorMatrix.of (((TangleDiagram.infinity.mul RationalTangles.one).mul
+        RationalTangles.one).mul RationalTangles.one) colR).fraction =
+        eR.fraction := hfR
+  rw [hfL', hfR']
+  simp [eL, eR, TwistExpr.fraction, CrossingSign.cfValue, CFValue.inv_inf]
+  rw [show (0 : CFValue) = CFValue.ofRat 0 from rfl, CFValue.zero_add]
+
 end RationalTangles
