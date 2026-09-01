@@ -105,4 +105,51 @@ theorem isotopic_planar {D E : TangleDiagram} (h : PlanarIsotopy D E) :
     Isotopic D E :=
   .step (.isotopy h)
 
+/-! ## Local flype on PD-code (Figure 5)
+
+A distinguished crossing slides to the opposite side of a neighboring
+2-subtangle `t`. The box `t` is turned 180° (each crossing `rotate180`,
+signs preserved, matching Figure 5). The rest of the diagram is identified
+by an injective arc map `f`. The four tangle endpoints stay fixed up to `f`.
+
+This is the local replacement used for coloring transport. It is not the
+algebraic `Flype` constructor (`t.hflip` / `t.vflip` switches every crossing
+of `t`); reusing `col` after that switch fails `ColoringRule`.
+-/
+
+/-- The flype crossing before/after, with matching sign and a distinguished
+    over-leg `u` and under-leg `w`. External legs are matched by `f`. -/
+structure IsFlypeCrossingSlide (f : Nat → Nat) (FD FE : Crossing)
+    (uD wD uE wE : Nat) : Prop where
+  adjD : FD.adjacentDistinct
+  adjE : FE.adjacentDistinct
+  portsD : FD.portsDistinct
+  portsE : FE.portsDistinct
+  sign : FD.sign = FE.sign
+  huwD : uD ≠ wD
+  huwE : uE ≠ wE
+  overD : FD.isOverArc uD
+  underD : FD.isUnderArc wD
+  overE : FE.isOverArc uE
+  underE : FE.isUnderArc wE
+  u_map : uE = f uD
+  w_map : wE = f wD
+  ext_match : FE.extOverArc uE = f (FD.extOverArc uD)
+  und_match : FE.otherUnderArc wE = f (FD.otherUnderArc wD)
+
+/-- Local flype: one crossing slides over a neighboring subtangle whose
+    crossings are turned 180°, remainder identified by `f`. -/
+def IsLocalFlype (D E : TangleDiagram) : Prop :=
+  ∃ (f : Nat → Nat) (FD FE : Crossing) (tD tE restD restE : List Crossing)
+      (uD wD uE wE : Nat),
+    Function.Injective f ∧
+      IsFlypeCrossingSlide f FD FE uD wD uE wE ∧
+      E.NW = f D.NW ∧ E.NE = f D.NE ∧ E.SE = f D.SE ∧ E.SW = f D.SW ∧
+      D.crossings.Perm (FD :: tD ++ restD) ∧
+      E.crossings.Perm (FE :: tE ++ restE) ∧
+      pairRel Crossing.sameUpToRotation (restD.map (Crossing.rename f)) restE ∧
+      pairRel (fun C Y => (C.rotate180.rename f).sameUpToRotation Y) tD tE ∧
+      (∀ C ∈ restE, ¬ C.memArc uE ∧ ¬ C.memArc wE) ∧
+      (∀ C ∈ tE, ¬ C.memArc uE ∧ ¬ C.memArc wE)
+
 end RationalTangles

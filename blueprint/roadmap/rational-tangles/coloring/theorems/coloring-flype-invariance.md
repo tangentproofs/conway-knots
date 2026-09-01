@@ -1,6 +1,9 @@
 ---
 declaration: lemma
 origin: cited
+statement: formalized
+lean: RationalTangles.coloring_IsLocalFlype
+proof: formalized
 ---
 
 # Coloring invariance under flypes
