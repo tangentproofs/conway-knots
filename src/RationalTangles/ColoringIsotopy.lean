@@ -390,6 +390,110 @@ theorem coloring_invert_unit (s : CrossingSign) (col : Nat → Int)
       simp [SameEndpointColors, crossingTangle, TangleDiagram.invert, TangleDiagram.rotate,
         TangleDiagram.mirror, negOne, one, colorInvertUnit]
 
+/-! ## Left-add of `[0]` as a planar reindexing -/
+
+theorem zero_maxArc : TangleDiagram.zero.maxArc = 1 := by
+  unfold TangleDiagram.maxArc TangleDiagram.zero
+  simp
+
+/-- Arc map sending `T` onto the PD-code of `[0]+T`. Glues `T.NW` to `[0]`'s
+    top strand `0` and `T.SW` to the bottom strand `1`. -/
+def zeroAddReindex (T : TangleDiagram) (a : Nat) : Nat :=
+  if a = T.NW then 0
+  else if a = T.SW then 1
+  else a + 2
+
+theorem zeroAddReindex_eq_glue (T : TangleDiagram) (a : Nat) :
+    addGlue TangleDiagram.zero T (a + (TangleDiagram.zero.maxArc + 1)) =
+      zeroAddReindex T a := by
+  rw [addGlue_shift_eq, zero_maxArc]
+  simp [TangleDiagram.zero, zeroAddReindex]
+
+theorem zeroAddReindex_injective (T : TangleDiagram) :
+    Function.Injective (zeroAddReindex T) := by
+  intro a b h
+  unfold zeroAddReindex at h
+  split_ifs at h <;> omega
+
+theorem pairRel_sameUpToRotation_rfl :
+    ∀ cs : List Crossing, pairRel Crossing.sameUpToRotation cs cs
+  | [] => trivial
+  | _C :: cs => ⟨Or.inl rfl, pairRel_sameUpToRotation_rfl cs⟩
+
+theorem zero_add_crossings_reindex (T : TangleDiagram) :
+    (TangleDiagram.zero.add T).crossings =
+      T.crossings.map (Crossing.rename (zeroAddReindex T)) := by
+  have hfun :
+      addGlue TangleDiagram.zero T ∘ addShift TangleDiagram.zero =
+        zeroAddReindex T := by
+    funext a
+    simpa [addShift, zero_maxArc] using zeroAddReindex_eq_glue T a
+  rw [add_crossings_append, hfun]
+  simp [TangleDiagram.zero]
+
+theorem zero_add_NE_reindex (T : TangleDiagram) :
+    (TangleDiagram.zero.add T).NE = zeroAddReindex T T.NE := by
+  rw [add_NE_rename, zero_maxArc]
+  simp [TangleDiagram.zero, zeroAddReindex]
+
+theorem zero_add_SE_reindex (T : TangleDiagram) :
+    (TangleDiagram.zero.add T).SE = zeroAddReindex T T.SE := by
+  rw [add_SE_rename, zero_maxArc]
+  simp [TangleDiagram.zero, zeroAddReindex]
+
+/-- `[0]+T` is `T` with arcs renamed by `zeroAddReindex`. When `T.NW ≠ T.SW`
+    the four endpoints match this reindexing, so the diagrams are planar
+    isotopic. (If `T.NW = T.SW` then `[0]+T` records an unused SW name `1`
+    while the reindex sends that arc to `0`; coloring still transports.) -/
+theorem planar_zero_add (T : TangleDiagram) (h : T.NW ≠ T.SW) :
+    PlanarIsotopy T (TangleDiagram.zero.add T) := by
+  refine ⟨zeroAddReindex T, zeroAddReindex_injective T, ?_, ?_, ?_, ?_,
+    (TangleDiagram.zero.add T).crossings, ?_, List.Perm.rfl⟩
+  · simp [TangleDiagram.add, TangleDiagram.zero, zeroAddReindex]
+  · exact zero_add_NE_reindex T
+  · exact zero_add_SE_reindex T
+  · simp [TangleDiagram.add, TangleDiagram.zero, zeroAddReindex, h.symm]
+  · rw [zero_add_crossings_reindex]
+    exact pairRel_sameUpToRotation_rfl _
+
+/-- Recolor after the left-add of `[0]`: pull colors back along the
+    reindex, sending the dummy bottom strand `1` of `[0]` to `T.SW`. -/
+def colorZeroAdd (T : TangleDiagram) (col : Nat → Int) (b : Nat) : Int :=
+  if b = 0 then col T.NW
+  else if b = 1 then col T.SW
+  else col (b - 2)
+
+theorem colorZeroAdd_reindex (T : TangleDiagram) (col : Nat → Int) (a : Nat) :
+    colorZeroAdd T col (zeroAddReindex T a) = col a := by
+  unfold zeroAddReindex
+  split_ifs with hNW hSW
+  · simp [colorZeroAdd, hNW]
+  · simp [colorZeroAdd, hSW]
+  · have hne1 : a + 2 ≠ 1 := by omega
+    simp [colorZeroAdd, hne1]
+
+theorem IsColored_colorZeroAdd (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.IsColored col) :
+    (TangleDiagram.zero.add T).IsColored (colorZeroAdd T col) := by
+  intro C hC
+  rw [zero_add_crossings_reindex] at hC
+  obtain ⟨C0, hC0, rfl⟩ := List.mem_map.1 hC
+  rw [ColoringRule_rename]
+  have hfun : colorZeroAdd T col ∘ zeroAddReindex T = col :=
+    funext (colorZeroAdd_reindex T col)
+  simpa [hfun] using hc C0 hC0
+
+theorem coloring_zero_add (T : TangleDiagram) (col : Nat → Int)
+    (hc : T.IsColored col) :
+    ∃ col', (TangleDiagram.zero.add T).IsColored col' ∧
+      SameEndpointColors T (TangleDiagram.zero.add T) col col' := by
+  refine ⟨colorZeroAdd T col, IsColored_colorZeroAdd T col hc, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · simp [colorZeroAdd, TangleDiagram.add, TangleDiagram.zero]
+  · rw [zero_add_NE_reindex, colorZeroAdd_reindex]
+  · rw [zero_add_SE_reindex, colorZeroAdd_reindex]
+  · simp [colorZeroAdd, TangleDiagram.add, TangleDiagram.zero]
+
 /-- Recolor after a coloring-ready isotopy so that endpoint colors (hence
     the color matrix and coloring fraction) are unchanged. -/
 theorem coloring_ColoringIsotopy {D E : TangleDiagram}
@@ -435,6 +539,8 @@ theorem coloring_ColoringIsotopy {D E : TangleDiagram}
     refine ⟨col, ?_, ?_⟩
     · simpa [add_zero_eq] using hc
     · simp [add_zero_eq, SameEndpointColors]
+  | zero_add T =>
+    exact coloring_zero_add T col hc
   | invert_unit s =>
     exact coloring_invert_unit s col hc
 

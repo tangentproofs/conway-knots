@@ -178,8 +178,9 @@ This is *not* `Isotopic`: it omits the sign-preserving slide constructors
 `flype_slide_add`/`flype_slide_mul` (algebraic Figure 5 with `rot180`, not yet
 colored), switched algebraic `Flype`, flip/mirror/invert congruence,
 associativity, transfer, and `ColoringIsotopy.symm`. Indexed R3 is included
-via the local model; `add_zero` and `invert_unit` are included. Invariance
-of `f` is stated for `ColoringIsotopy` rather than for `Isotopic`.
+via the local model; `add_zero`, `zero_add` (planar reindexing of `[0]+T`),
+and `invert_unit` are included. Invariance of `f` is stated for
+`ColoringIsotopy` rather than for `Isotopic`.
 -/
 
 /-- Directed coloring-ready isotopy of 2-tangle diagrams. -/
@@ -211,6 +212,9 @@ inductive ColoringIsotopy : TangleDiagram → TangleDiagram → Prop where
       ColoringIsotopy (T.mul S) (T.mul S')
   /-- `[0]` on the right is a no-op on PD-code. -/
   | add_zero (T : TangleDiagram) : ColoringIsotopy (T.add TangleDiagram.zero) T
+  /-- `[0]` on the left is a planar reindexing of `T`'s PD-code. -/
+  | zero_add (T : TangleDiagram) :
+      ColoringIsotopy T (TangleDiagram.zero.add T)
   /-- Inversion of `[±1]` (the unit of inversion). -/
   | invert_unit (s : CrossingSign) :
       ColoringIsotopy (crossingTangle s) (crossingTangle s).invert
