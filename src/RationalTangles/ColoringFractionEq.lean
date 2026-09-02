@@ -1132,6 +1132,31 @@ theorem TwistExpr.colorFrom_notMono_slideReady (e : TwistExpr) (hok : e.slideRea
       simp [ColorMatrix.NotMono, ColorMatrix.of, ColorMatrix.DiagonalSum] at ih' hd ⊢
       omega
 
+/-- The propagated coloring `colorFrom 0 1` of a `slideReady` twist diagram
+    has coloring fraction equal to the standard-form value. Seed `(0,1)`
+    is non-monochrome on every constructor, including `[0]` and `[∞]`. -/
+theorem TwistExpr.colorFrom_eq_fraction_slideReady (e : TwistExpr)
+    (hok : e.slideReady) :
+    (ColorMatrix.of e.diagram (e.colorFrom 0 1)).fraction =
+      e.toStandard.fraction :=
+  coloring_fraction_eq_F e hok (e.colorFrom 0 1)
+    (e.colorFrom_isColored_slideReady hok 0 1)
+    (e.colorFrom_diagonal_slideReady hok 0 1)
+    (e.colorFrom_notMono_slideReady hok)
+
+/-- Existence of a non-monochrome `DiagonalSum` coloring of a `slideReady`
+    twist diagram, of fraction `toStandard.fraction`. -/
+theorem coloring_fraction_eq_F_slideReady_exists (e : TwistExpr)
+    (hok : e.slideReady) :
+    ∃ col : Nat → Int, e.diagram.IsColored col ∧
+      (ColorMatrix.of e.diagram col).DiagonalSum ∧
+      (ColorMatrix.of e.diagram col).NotMono ∧
+      (ColorMatrix.of e.diagram col).fraction = e.toStandard.fraction :=
+  ⟨e.colorFrom 0 1, e.colorFrom_isColored_slideReady hok 0 1,
+    e.colorFrom_diagonal_slideReady hok 0 1,
+    e.colorFrom_notMono_slideReady hok,
+    e.colorFrom_eq_fraction_slideReady hok⟩
+
 /-- Two `slideReady` twist expressions with the same PD-code have the same
     standard-form evaluation, once a non-monochrome `DiagonalSum` coloring of
     that code is given. Thus `toStandard.fraction` depends on the diagram, not
@@ -1172,6 +1197,35 @@ theorem TwistExpr.fraction_eq_of_diagram_noMulTop
         hok₁ hok₂ hd col hc hdiag hm).trans
       (TwistExpr.fraction_eq_toStandard_of_noMulTop e₂ hn₂).symm)
 
+/-- Two `slideReady` twist expressions with the same PD-code have the same
+    standard-form evaluation. The coloring is `colorFrom 0 1`, which is
+    non-monochrome on this class. Not well-definedness along an `Isotopic`
+    witness of `IsRational`. -/
+theorem TwistExpr.toStandard_fraction_eq_of_diagram_slideReady_colorFrom
+    {e₁ e₂ : TwistExpr}
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady)
+    (hd : e₁.diagram = e₂.diagram) :
+    e₁.toStandard.fraction = e₂.toStandard.fraction :=
+  TwistExpr.toStandard_fraction_eq_of_diagram_slideReady hok₁ hok₂ hd
+    (e₁.colorFrom 0 1)
+    (e₁.colorFrom_isColored_slideReady hok₁ 0 1)
+    (e₁.colorFrom_diagonal_slideReady hok₁ 0 1)
+    (e₁.colorFrom_notMono_slideReady hok₁)
+
+/-- Algebraic `F` agrees on `noMulTop` parses of the same PD-code, using
+    `colorFrom 0 1`. -/
+theorem TwistExpr.fraction_eq_of_diagram_noMulTop_colorFrom
+    {e₁ e₂ : TwistExpr}
+    (hn₁ : e₁.noMulTop) (hn₂ : e₂.noMulTop)
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady)
+    (hd : e₁.diagram = e₂.diagram) :
+    e₁.fraction = e₂.fraction :=
+  TwistExpr.fraction_eq_of_diagram_noMulTop hn₁ hn₂ hok₁ hok₂ hd
+    (e₁.colorFrom 0 1)
+    (e₁.colorFrom_isColored_slideReady hok₁ 0 1)
+    (e₁.colorFrom_diagonal_slideReady hok₁ 0 1)
+    (e₁.colorFrom_notMono_slideReady hok₁)
+
 /-- Two right-and-bottom twist expressions with the same PD-code have the
     same standard-form evaluation. The coloring is `colorFrom 0 1`. -/
 theorem TwistExpr.toStandard_fraction_eq_of_diagram_rightBottom
@@ -1179,13 +1233,9 @@ theorem TwistExpr.toStandard_fraction_eq_of_diagram_rightBottom
     (hr₁ : e₁.rightBottom) (hr₂ : e₂.rightBottom)
     (hd : e₁.diagram = e₂.diagram) :
     e₁.toStandard.fraction = e₂.toStandard.fraction :=
-  TwistExpr.toStandard_fraction_eq_of_diagram_slideReady
+  TwistExpr.toStandard_fraction_eq_of_diagram_slideReady_colorFrom
     (TwistExpr.rightBottom_slideReady e₁ hr₁)
     (TwistExpr.rightBottom_slideReady e₂ hr₂) hd
-    (e₁.colorFrom 0 1)
-    (e₁.colorFrom_isColored hr₁ 0 1)
-    (e₁.colorFrom_diagonal hr₁ 0 1)
-    (e₁.colorFrom_notMono hr₁)
 
 /-- Algebraic `F` is likewise a function of the PD-code on right-and-bottom
     twist expressions. -/
