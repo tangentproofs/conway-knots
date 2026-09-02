@@ -781,7 +781,7 @@
 
 <h1 id="the-fraction-through-integral-coloring-dependency-map">The fraction through integral coloring dependency map</h1>
 <p><a href="../../chapters/rational-tangles.html">Parent map</a> · <a href="../../full.html">Full theorem DAG</a></p>
-<p>This map shows the container's direct articles. Nested containers are collapsed and clickable; dependency edges are rolled up from their leaves. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">19</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">11</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<p>This map shows the container's direct articles. Nested containers are collapsed and clickable; dependency edges are rolled up from their leaves. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">19</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">13</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0["Color matrix"]:::fully_proved
   n1["Coloring fraction"]:::fully_proved
@@ -797,7 +797,7 @@
   n11("Every rational tangle is integrally colorable"):::fully_proved
   n12("Nested unit chains versus two-block PD-sums"):::fully_proved
   n13("Reversible fragment of coloring isotopy"):::fully_proved
-  n14["External chapter: Rational tangles&lt;br/&gt;&lt;small&gt;19 items · 7 fully proved · 10 proved · 1 ready to prove · 1 ready to state&lt;/small&gt;"]:::boundary
+  n14["External chapter: Rational tangles&lt;br/&gt;&lt;small&gt;21 items · 7 fully proved · 12 proved · 1 ready to prove · 1 ready to state&lt;/small&gt;"]:::boundary
   n14 --&gt; n0
   n14 --&gt; n2
   n14 --&gt;|2| n4
@@ -818,7 +818,7 @@
   n0 -.-&gt; n4
   n0 --&gt; n5
   n0 --&gt; n6
-  n1 --&gt;|9| n14
+  n1 --&gt;|11| n14
   n1 --&gt; n5
   n1 --&gt; n7
   n1 --&gt; n13
@@ -831,10 +831,11 @@
   n2 --&gt; n10
   n2 --&gt; n11
   n2 --&gt; n13
+  n3 -.-&gt; n14
   n3 -.-&gt; n5
   n4 -.-&gt; n5
   n4 --&gt; n13
-  n5 -. 4 .-&gt; n14
+  n5 -. 5 .-&gt; n14
   n5 -.-&gt; n7
   n6 --&gt; n14
   n6 -.-&gt; n5
@@ -846,7 +847,9 @@
   n10 -.-&gt; n5
   n10 --&gt; n13
   n11 -.-&gt; n5
+  n12 -.-&gt; n14
   n12 -.-&gt; n5
+  n13 -.-&gt; n14
   n13 -.-&gt; n5
   click n0 "../../../roadmap/rational-tangles/coloring/index.html#definitions-color-matrix" "Color matrix — 1 item · 1 fully proved"
   click n1 "../../../roadmap/rational-tangles/coloring/index.html#definitions-coloring-fraction" "Coloring fraction — 1 item · 1 fully proved"
@@ -862,7 +865,7 @@
   click n11 "../../../roadmap/rational-tangles/coloring/index.html#theorems-integral-colorability" "Every rational tangle is integrally colorable — 1 item · 1 fully proved"
   click n12 "../../../roadmap/rational-tangles/coloring/index.html#theorems-nested-two-block-reindex" "Nested unit chains versus two-block PD-sums — 1 item · 1 fully proved"
   click n13 "../../../roadmap/rational-tangles/coloring/index.html#theorems-reversible-coloring-isotopy" "Reversible fragment of coloring isotopy — 1 item · 1 fully proved"
-  click n14 "../../chapters/rational-tangles.html" "Rational tangles — 19 items · 7 fully proved · 10 proved · 1 ready to prove · 1 ready to state"</div>
+  click n14 "../../chapters/rational-tangles.html" "Rational tangles — 21 items · 7 fully proved · 12 proved · 1 ready to prove · 1 ready to state"</div>
 
 
 

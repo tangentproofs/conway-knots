@@ -781,7 +781,7 @@
 
 <h1 id="reversible-fragment-of-coloring-isotopy-local-context">Reversible fragment of coloring isotopy: local context</h1>
 <p><a href="../../../../../dependencies.html">Project map</a> · <a href="../../../../scopes/rational-tangles/coloring.html">Chapter map</a> · <a href="../../../../full.html">Full theorem DAG</a> · <a href="../../../../../roadmap/rational-tangles/coloring/index.html#theorems-reversible-coloring-isotopy">Open textbook statement</a></p>
-<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">8</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">8</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0["2-tangle and isotopy"]:::fully_proved
   n1["Coloring rule"]:::fully_proved
@@ -792,8 +792,10 @@
   n6("Coloring invariance under Reidemeister III"):::fully_proved
   n7("Reversible fragment of coloring isotopy"):::fully_proved
   n8("Coloring fraction of a rational tangle"):::can_state
+  n9("Uniqueness of the coloring fraction on larger honest classes"):::proved
   n2 --&gt; n8
   n2 --&gt; n7
+  n2 --&gt; n9
   n1 --&gt; n3
   n1 --&gt; n4
   n1 --&gt; n5
@@ -801,6 +803,7 @@
   n1 --&gt; n7
   n3 -.-&gt; n8
   n3 --&gt; n7
+  n8 -.-&gt; n9
   n4 -.-&gt; n8
   n4 --&gt; n7
   n5 -.-&gt; n8
@@ -808,6 +811,7 @@
   n6 -.-&gt; n8
   n6 --&gt; n7
   n7 -.-&gt; n8
+  n7 -.-&gt; n9
   n0 --&gt; n1
   n0 --&gt; n3
   n0 --&gt; n4
@@ -823,7 +827,8 @@
   click n6 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-reidemeister-iii" "Coloring invariance under Reidemeister III — 1 item · 1 fully proved"
   class n7 focus
   click n7 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-reversible-coloring-isotopy" "Reversible fragment of coloring isotopy — 1 item · 1 fully proved"
-  click n8 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"</div>
+  click n8 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to state"
+  click n9 "../../../../../roadmap/rational-tangles/index.html#theorems-coloring-fraction-unique" "Uniqueness of the coloring fraction on larger honest classes — 1 item · 1 proved"</div>
 
 
 
