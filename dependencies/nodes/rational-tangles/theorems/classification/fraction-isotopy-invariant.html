@@ -995,29 +995,28 @@
 
 <h1 id="the-fraction-is-an-isotopy-invariant-local-context">The fraction is an isotopy invariant: local context</h1>
 <p><a href="../../../../../dependencies.html">Project map</a> · <a href="../../../../scopes/rational-tangles/theorems/classification.html">Chapter map</a> · <a href="../../../../full.html">Full theorem DAG</a> · <a href="../../../../../roadmap/rational-tangles/theorems/classification/index.html#fraction-isotopy-invariant">Open textbook statement</a></p>
-<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-stated"></span><span class="bp-legend-label">statement formalized</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Statement is in Lean; the proof is not.</span></div></span></span></p>
+<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">5</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0["2-tangle and isotopy"]:::fully_proved
   n1["Fraction of a rational tangle"]:::fully_proved
-  n2("Coloring fraction of a rational tangle"):::can_prove
-  n3("The fraction is an isotopy invariant"):::stated
-  n4("Same fraction implies isotopic"):::stated
-  n5("Classification of rational tangles"):::can_prove
+  n2("Coloring fraction of a rational tangle"):::fully_proved
+  n3("The fraction is an isotopy invariant"):::fully_proved
+  n4("Classification of rational tangles"):::fully_proved
+  n5("Same fraction implies isotopic"):::can_prove
   n2 -.-&gt; n3
   n1 --&gt; n2
   n1 --&gt; n3
-  n1 --&gt; n4
+  n1 --&gt; n5
   n0 --&gt; n3
-  n3 --&gt; n5
-  n3 -.-&gt; n4
-  n4 --&gt; n5
+  n3 --&gt; n4
+  n3 -.-&gt; n5
   click n0 "../../../../../roadmap/rational-tangles/definitions/index.html#two-tangle-isotopy" "2-tangle and isotopy — 1 item · 1 fully proved"
   click n1 "../../../../../roadmap/rational-tangles/definitions/index.html#tangle-fraction" "Fraction of a rational tangle — 1 item · 1 fully proved"
-  click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to prove"
+  click n2 "../../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 fully proved"
   class n3 focus
-  click n3 "../../../../../roadmap/rational-tangles/theorems/classification/index.html#fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 statement formalized"
-  click n4 "../../../../../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 statement formalized"
-  click n5 "../../../../../roadmap/rational-tangles/theorems/classification/index.html#classification" "Classification of rational tangles — 1 item · 1 ready to prove"</div>
+  click n3 "../../../../../roadmap/rational-tangles/theorems/classification/index.html#fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 fully proved"
+  click n4 "../../../../../roadmap/rational-tangles/theorems/classification/index.html#classification" "Classification of rational tangles — 1 item · 1 fully proved"
+  click n5 "../../../../../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 ready to prove"</div>
 
 
 

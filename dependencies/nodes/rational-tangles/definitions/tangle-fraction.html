@@ -995,28 +995,28 @@
 
 <h1 id="fraction-of-a-rational-tangle-local-context">Fraction of a rational tangle: local context</h1>
 <p><a href="../../../../dependencies.html">Project map</a> · <a href="../../../scopes/rational-tangles/definitions.html">Chapter map</a> · <a href="../../../full.html">Full theorem DAG</a> · <a href="../../../../roadmap/rational-tangles/definitions/index.html#tangle-fraction">Open textbook statement</a></p>
-<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">12</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">3</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-stated"></span><span class="bp-legend-label">statement formalized</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Statement is in Lean; the proof is not.</span></div></span></span></p>
+<p>This local map shows one dependency hop in either direction. The highlighted item is the current focus. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">16</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0["Rational tangle"]:::fully_proved
   n1["Continued fraction form"]:::fully_proved
   n2["Arithmetic continued fraction"]:::fully_proved
   n3["Fraction of a rational tangle"]:::fully_proved
-  n4("Coloring fraction of a rational tangle"):::can_prove
-  n5("Standard-form value of a twist diagram is well-defined"):::proved
-  n6("Standard-form $F$ along coloring isotopy"):::proved
-  n7("The fraction is an isotopy invariant"):::stated
-  n8("Same fraction implies isotopic"):::stated
-  n9("Same fraction implies isotopic diagrams with agreeing colorings"):::proved
-  n10("Canonical diagrams of equal fraction are equal"):::fully_proved
-  n11("Fixed points of the mulTop commutativity equation"):::fully_proved
-  n12("Twist expressions of equal fraction are isotopic"):::fully_proved
+  n4("Coloring fraction of a rational tangle"):::fully_proved
+  n5("Standard-form value of a twist diagram is well-defined"):::fully_proved
+  n6("Standard-form $F$ along coloring isotopy"):::fully_proved
+  n7("The fraction is an isotopy invariant"):::fully_proved
+  n8("Canonical diagrams of equal fraction are equal"):::fully_proved
+  n9("Twist expressions of equal fraction are isotopic"):::fully_proved
+  n10("Same fraction implies isotopic"):::can_prove
+  n11("Same fraction implies isotopic diagrams with agreeing colorings"):::proved
+  n12("Fixed points of the mulTop commutativity equation"):::fully_proved
   n13("Standard values of twist colorings"):::fully_proved
   n14("Diagonal sum on twist diagrams"):::fully_proved
   n15("Coloring fraction equals the standard value"):::fully_proved
   n16("The toStandard path and standard forms"):::fully_proved
   n17("Fresh invert colorings of twists"):::fully_proved
   n4 -.-&gt; n7
-  n4 -.-&gt; n9
+  n4 -.-&gt; n11
   n4 -.-&gt; n6
   n4 -.-&gt; n5
   n2 --&gt; n3
@@ -1026,36 +1026,36 @@
   n0 --&gt; n5
   n3 --&gt; n4
   n3 --&gt; n7
-  n3 --&gt; n9
-  n3 --&gt; n8
-  n3 --&gt; n10
   n3 --&gt; n11
+  n3 --&gt; n10
+  n3 --&gt; n8
+  n3 --&gt; n12
   n3 --&gt; n6
   n3 --&gt; n5
-  n3 --&gt; n12
+  n3 --&gt; n9
   n3 --&gt; n13
   n3 --&gt; n14
   n3 --&gt; n15
   n3 --&gt; n16
   n3 --&gt; n17
-  n7 -.-&gt; n8
+  n7 -.-&gt; n10
+  n10 -.-&gt; n11
   n8 -.-&gt; n9
-  n10 -.-&gt; n12
   n5 -.-&gt; n6
   click n0 "../../../../roadmap/rational-tangles/definitions/index.html#rational-tangle" "Rational tangle — 1 item · 1 fully proved"
   click n1 "../../../../roadmap/rational-tangles/definitions/index.html#continued-fraction-form" "Continued fraction form — 1 item · 1 fully proved"
   click n2 "../../../../roadmap/rational-tangles/definitions/index.html#continued-fraction" "Arithmetic continued fraction — 1 item · 1 fully proved"
   class n3 focus
   click n3 "../../../../roadmap/rational-tangles/definitions/index.html#tangle-fraction" "Fraction of a rational tangle — 1 item · 1 fully proved"
-  click n4 "../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 ready to prove"
-  click n5 "../../../../roadmap/rational-tangles/theorems/forms/index.html#twist-diagram-fraction" "Standard-form value of a twist diagram is well-defined — 1 item · 1 proved"
-  click n6 "../../../../roadmap/rational-tangles/theorems/forms/index.html#twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 proved"
-  click n7 "../../../../roadmap/rational-tangles/theorems/classification/index.html#fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 statement formalized"
-  click n8 "../../../../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 statement formalized"
-  click n9 "../../../../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-colorings" "Same fraction implies isotopic diagrams with agreeing colorings — 1 item · 1 proved"
-  click n10 "../../../../roadmap/rational-tangles/theorems/forms/index.html#canonical-same-fraction" "Canonical diagrams of equal fraction are equal — 1 item · 1 fully proved"
-  click n11 "../../../../roadmap/rational-tangles/theorems/forms/index.html#mulTop-fixed-points" "Fixed points of the mulTop commutativity equation — 1 item · 1 fully proved"
-  click n12 "../../../../roadmap/rational-tangles/theorems/forms/index.html#twist-same-fraction" "Twist expressions of equal fraction are isotopic — 1 item · 1 fully proved"
+  click n4 "../../../../roadmap/rational-tangles/coloring/index.html#theorems-coloring-fraction-properties" "Coloring fraction of a rational tangle — 1 item · 1 fully proved"
+  click n5 "../../../../roadmap/rational-tangles/theorems/forms/index.html#twist-diagram-fraction" "Standard-form value of a twist diagram is well-defined — 1 item · 1 fully proved"
+  click n6 "../../../../roadmap/rational-tangles/theorems/forms/index.html#twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 fully proved"
+  click n7 "../../../../roadmap/rational-tangles/theorems/classification/index.html#fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 fully proved"
+  click n8 "../../../../roadmap/rational-tangles/theorems/forms/index.html#canonical-same-fraction" "Canonical diagrams of equal fraction are equal — 1 item · 1 fully proved"
+  click n9 "../../../../roadmap/rational-tangles/theorems/forms/index.html#twist-same-fraction" "Twist expressions of equal fraction are isotopic — 1 item · 1 fully proved"
+  click n10 "../../../../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 ready to prove"
+  click n11 "../../../../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-colorings" "Same fraction implies isotopic diagrams with agreeing colorings — 1 item · 1 proved"
+  click n12 "../../../../roadmap/rational-tangles/theorems/forms/index.html#mulTop-fixed-points" "Fixed points of the mulTop commutativity equation — 1 item · 1 fully proved"
   click n13 "../../../../roadmap/rational-tangles/theorems/standard-values/index.html#overview" "Standard values of twist colorings — 1 item · 1 fully proved"
   click n14 "../../../../roadmap/rational-tangles/theorems/standard-values/index.html#s1-diagonal" "Diagonal sum on twist diagrams — 1 item · 1 fully proved"
   click n15 "../../../../roadmap/rational-tangles/theorems/standard-values/index.html#s2-agreement" "Coloring fraction equals the standard value — 1 item · 1 fully proved"
