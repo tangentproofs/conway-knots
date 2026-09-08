@@ -1,6 +1,8 @@
 ---
 declaration: theorem
 origin: cited
+statement: formalized
+lean: RationalTangles.theorem4_diagonal_sum RationalTangles.theorem4_diagonal_coloringIsotopy RationalTangles.diagonal_of_ColoringIsotopy_slideReady RationalTangles.diagonal_of_ReversibleColoringIsotopy_slideReady RationalTangles.diagonal_of_ReversibleColoringIsotopy_slideReady_symm RationalTangles.theorem4_additivity RationalTangles.theorem4_neg_inverse RationalTangles.theorem4_mirror_negation RationalTangles.theorem4_inverse RationalTangles.theorem4_standard_agreement RationalTangles.coloring_fraction_agreement_any_isotopy RationalTangles.theorem4_all_rational_agreement RationalTangles.theorem4_standard_coloring_exists RationalTangles.exists_coloring_fraction_reversible_slideReady RationalTangles.exists_coloring_fraction_isotopy_from_slideReady RationalTangles.theorem4_standard_uniqueness
 ---
 
 # Coloring fraction of a rational tangle
@@ -26,6 +28,37 @@ This is Theorem 4 of Kauffman–Lambropoulou §5. The topological invariance in
 (2) uses the Reidemeister and flype coloring lemmas (external strand colors
 can be preserved) together with affine freedom (so $f$ is independent of the
 choice of integral coloring). There is no appeal to Tait.
+
+## Formalization status
+
+Parts (1) and (3)–(7) are formalized as the `theorem4_*` wrappers in
+`ColoringFractionTheorem.lean`, each proved by the lemma named in its
+docstring: (1) diagonal sum on standard forms, now extended to every
+coloring of every diagram `ColoringIsotopy`-related to a `slideReady`
+twist (`diagonal_of_ColoringIsotopy_slideReady` and the two
+`ReversibleColoringIsotopy` variants in `DiagonalSumGeneral.lean`); (3)
+additivity (plus the `coloring_fraction_mul` dual); (4) `-1/F` on
+mirror-invert; (5) `-F` on the mirror; (6) `1/F` on the inverse;
+(7) agreement/existence/uniqueness on standard forms and `slideReady`
+twists, plus all-rational agreement on the coloring-ready neighborhood
+(`theorem4_all_rational_agreement`: every non-monochrome coloring of a
+diagram `ColoringIsotopy`-related to a `slideReady` twist has fraction
+$F$) and existence there in the reversible direction (the `colorFrom`
+coloring transports forward along the symmetric path;
+`exists_coloring_fraction_reversible_slideReady` — one-way
+`ColoringIsotopy` from the twist cannot supply source colorings, so the
+reversible hypothesis is sharp — while one-way paths *toward* a diagram
+do supply them (`exists_coloring_fraction_isotopy_from_slideReady`). Diagonal sum on an arbitrary rational diagram (transport along
+unrestricted `flype_slide_*` or the switch-based generators, or
+`addLeft`/`mulTop` without port hypotheses) remains outstanding — and
+the port side is now known-sharp, not merely unproved. Part (2) is formalized
+generator-by-generator (affine freedom, Reidemeister I–III, flypes,
+colorability — see proof dependencies); the single-statement assembly
+"for every isotopy" is not claimed, since transport along unrestricted
+`flype_slide_*` and switch-based generators is outstanding. Part (7) past
+the coloring-ready neighborhood — arbitrary rational diagrams related only
+by a full-`Isotopic` witness, or non-`slideReady` parses — is likewise
+outstanding for the same reason.
 
 Sketch, following the paper. Colorings of $[0]$ and $[1]$ give
 $f([0])=0/1$, $f([\infty])=1/0$, $f([1])=1$, so (7) follows from (3), (5)
@@ -67,6 +100,6 @@ $T'\sim -T$ by the flipping lemma. Property (6) is (4) and (5).
 - [Left product by the vertical trivial tangle is planar reindexing](coloring-infinity-mul.md)
 - [Nested unit chains versus two-block PD-sums](nested-two-block-reindex.md)
 - [Reversible fragment of coloring isotopy](reversible-coloring-isotopy.md)
-- [Flipping lemma](../../theorems/flipping-lemma.md)
+- [Flipping lemma](flipping-lemma.md)
 - [Flip](../../definitions/flip.md)
 - [Integer and vertical tangles](../../definitions/integer-tangle.md)

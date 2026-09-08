@@ -36,4 +36,4 @@ along coloring-ready isotopy.
 ## Proof depends on
 
 - [Coloring fraction of a rational tangle](../coloring/theorems/coloring-fraction-properties.md)
-- [Standard-form $F$ along coloring isotopy](twist-coloring-isotopy-fraction.md)
+- [Standard-form $F$ along coloring isotopy](forms/twist-coloring-isotopy-fraction.md)

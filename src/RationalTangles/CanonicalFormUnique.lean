@@ -173,4 +173,73 @@ theorem IsTwistForm.toStandard_fraction_unique_slideReady {T : TangleDiagram}
   exact TwistExpr.toStandard_fraction_eq_of_diagram_slideReady
     hok₁ hok₂ hT₂ col hc hdiag hm
 
+/-- Same, with every coloring hypothesis discharged by `colorFrom 0 1`:
+    `slideReady` parses of one PD-code agree on the standard-form value,
+    no coloring input needed. -/
+theorem IsTwistForm.toStandard_fraction_unique_slideReady_colorFrom
+    {T : TangleDiagram} {e₁ e₂ : TwistExpr}
+    (hT₁ : T = e₁.diagram) (hT₂ : T = e₂.diagram)
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady) :
+    e₁.toStandard.fraction = e₂.toStandard.fraction :=
+  TwistExpr.toStandard_fraction_eq_of_diagram_slideReady_colorFrom
+    hok₁ hok₂ (hT₁.symm.trans hT₂)
+
+/-- Same as `IsTwistForm.fraction_unique`, for algebraic `F` on `noMulTop`
+    `slideReady` parses: the coloring hypotheses discharge by `colorFrom`,
+    using `fraction_eq_toStandard_of_noMulTop` on each side. -/
+theorem IsTwistForm.fraction_unique_slideReady_noMulTop
+    {T : TangleDiagram} {e₁ e₂ : TwistExpr}
+    (hT₁ : T = e₁.diagram) (hT₂ : T = e₂.diagram)
+    (hn₁ : e₁.noMulTop) (hn₂ : e₂.noMulTop)
+    (hok₁ : e₁.slideReady) (hok₂ : e₂.slideReady) :
+    e₁.fraction = e₂.fraction :=
+  TwistExpr.fraction_eq_of_diagram_noMulTop_colorFrom
+    hn₁ hn₂ hok₁ hok₂ (hT₁.symm.trans hT₂)
+
+/-- On rightBottom parses, the arithmetical fraction is a function of the
+    PD-code: existence from any parse, uniqueness by `fraction_unique`.
+    Relational formulation, so no choice principle is needed. -/
+theorem IsTwistForm.exists_unique_fraction_rightBottom {T : TangleDiagram}
+    {e : TwistExpr} (hT : T = e.diagram) (hr : e.rightBottom) :
+    ∃! v : CFValue, ∃ e' : TwistExpr,
+      e'.rightBottom ∧ T = e'.diagram ∧ e'.fraction = v := by
+  refine ⟨e.fraction, ⟨e, hr, hT, rfl⟩, ?_⟩
+  rintro v ⟨e', hr', hT', hf'⟩
+  exact hf'.symm.trans (IsTwistForm.fraction_unique hT hT' hr hr').symm
+
+/-- Diagram-level Theorem 3 for rightBottom-parseable diagrams: same
+    fraction implies isotopic. Not Theorem 3 in full (arbitrary rational
+    diagrams, arbitrary parses). -/
+theorem IsTwistForm.same_fraction_isotopic_rightBottom {T S : TangleDiagram}
+    {e₁ e₂ : TwistExpr} (hT : T = e₁.diagram) (hS : S = e₂.diagram)
+    (hr₁ : e₁.rightBottom) (hr₂ : e₂.rightBottom)
+    (hf : e₁.fraction = e₂.fraction) : Isotopic T S := by
+  subst hT
+  subst hS
+  exact twist_same_fraction_isotopic_of_rightBottom hr₁ hr₂ hf
+
+/-- On `noMulTop` `slideReady` parses, the arithmetical fraction is a
+    function of the PD-code (`colorFrom` discharge needs `slideReady`;
+    `noMulTop` aligns algebraic `F` with the standard value). -/
+theorem IsTwistForm.exists_unique_fraction_noMulTop {T : TangleDiagram}
+    {e : TwistExpr} (hT : T = e.diagram) (hn : e.noMulTop)
+    (hok : e.slideReady) :
+    ∃! v : CFValue, ∃ e' : TwistExpr,
+      e'.noMulTop ∧ e'.slideReady ∧ T = e'.diagram ∧ e'.fraction = v := by
+  refine ⟨e.fraction, ⟨e, hn, hok, hT, rfl⟩, ?_⟩
+  rintro v ⟨e', hn', hok', hT', hf'⟩
+  exact hf'.symm.trans
+    (TwistExpr.fraction_eq_of_diagram_noMulTop_colorFrom
+      hn hn' hok hok' (hT.symm.trans hT')).symm
+
+/-- Diagram-level Theorem 3 for `noMulTop`-parseable diagrams (needs only
+    `noMulTop`; the standard value agrees there unconditionally). -/
+theorem IsTwistForm.same_fraction_isotopic_noMulTop {T S : TangleDiagram}
+    {e₁ e₂ : TwistExpr} (hT : T = e₁.diagram) (hS : S = e₂.diagram)
+    (hn₁ : e₁.noMulTop) (hn₂ : e₂.noMulTop)
+    (hf : e₁.fraction = e₂.fraction) : Isotopic T S := by
+  subst hT
+  subst hS
+  exact twist_same_fraction_isotopic_of_noMulTop hn₁ hn₂ hf
+
 end RationalTangles

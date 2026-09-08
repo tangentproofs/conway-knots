@@ -34,4 +34,4 @@ summands, unrestricted flype slides, and paths that leave twist form.
 
 ## Proof depends on
 
-- [Standard-form $F$ along coloring isotopy](twist-coloring-isotopy-fraction.md)
+- [Standard-form $F$ along coloring isotopy](forms/twist-coloring-isotopy-fraction.md)

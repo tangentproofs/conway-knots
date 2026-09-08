@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.ReversibleColoringIsotopy RationalTangles.ReversibleColoringIsotopy.toColoringIsotopy RationalTangles.ReversibleColoringIsotopy.symm RationalTangles.ColoringIsotopy.symm_of_reversible RationalTangles.coloring_ReversibleColoringIsotopy RationalTangles.HasColoringFraction.of_ReversibleColoringIsotopy RationalTangles.HasColoringFraction.of_ReversibleColoringIsotopy_symm RationalTangles.IsLocalFlype.symm RationalTangles.IsReidemeisterIIILocal.symm RationalTangles.coloring_IsLocalFlype_rev RationalTangles.coloring_IsReidemeisterIIILocal_rev RationalTangles.ColoringIsotopy.add_right_rev RationalTangles.ColoringIsotopy.mul_right_rev RationalTangles.coloring_add_right_rev RationalTangles.coloring_mul_right_rev RationalTangles.ColoringIsotopy.zero_add_rev RationalTangles.coloring_zero_add_rev
+lean: RationalTangles.ColoringIsotopy.symm_of_reversible RationalTangles.coloring_ReversibleColoringIsotopy
 proof: formalized
 ---
 
@@ -29,6 +29,17 @@ reverses by feeding the converse identification to the same constructor.
 
 This article does not claim isotopy invariance of $f$, and it is not
 Theorem 2.
+
+## Split into pull-request-sized nodes
+
+The remaining results live in:
+
+- [Reversible coloring isotopy, core](reversible/b1-core.md)
+- [Carrying colorings along reversible isotopy](reversible/b2-transport.md)
+- [Local flype and R3 symmetries](reversible/b3a-local-symmetries.md)
+- [Reverse colorings for local moves](reversible/b3b-local-reverse-colorings.md)
+- [Reverse one-way glue](reversible/b4-glue-reverse.md)
+- [Reverse zero-add](reversible/b5-zero-reverse.md)
 
 ## Sources
 

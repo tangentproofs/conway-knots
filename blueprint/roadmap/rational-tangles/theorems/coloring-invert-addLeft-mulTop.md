@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.coloring_mirror_addLeft RationalTangles.coloring_invert_inv_addLeft RationalTangles.coloring_invert_inv_eq_F_addLeft RationalTangles.coloring_invert_inv_eq_F_addLeft_colorFrom RationalTangles.coloring_invert_inv_any_addLeft RationalTangles.coloring_fraction_unique_invert_addLeft RationalTangles.coloring_mirror_any_eq_neg_F_addLeft RationalTangles.coloring_fraction_unique_mirror_addLeft RationalTangles.coloring_mirror_mulTop RationalTangles.coloring_invert_inv_mulTop RationalTangles.coloring_invert_inv_eq_F_mulTop RationalTangles.coloring_invert_inv_eq_F_mulTop_colorFrom RationalTangles.coloring_invert_inv_any_mulTop RationalTangles.coloring_fraction_unique_invert_mulTop RationalTangles.coloring_mirror_any_eq_neg_F_mulTop RationalTangles.coloring_fraction_unique_mirror_mulTop RationalTangles.HasColoringFraction.invert_addLeft RationalTangles.HasColoringFraction.mirror_addLeft RationalTangles.HasColoringFraction.invert_mulTop RationalTangles.HasColoringFraction.mirror_mulTop
+lean: RationalTangles.HasColoringFraction.invert_addLeft RationalTangles.HasColoringFraction.mirror_addLeft
 proof: formalized
 ---
 
@@ -23,6 +23,14 @@ the glue ports coincide.
 
 This is not Theorem 2, Theorem 3, or Theorem 4. It is uniqueness of $f$
 after invert (and after mirror) on these two honest classes.
+
+## Split into pull-request-sized nodes
+
+The remaining results live in:
+
+- [Invert and mirror on addLeft](addLeft-mulTop/d1-addLeft.md)
+- [Invert and mirror on mulTop](addLeft-mulTop/d2-mulTop.md)
+- [Existence on addLeft and mulTop](addLeft-mulTop/d3-existence.md)
 
 ## Sources
 

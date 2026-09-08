@@ -21,17 +21,7 @@ and flips are characteristic isotopies used to reach standard, continued-
 fraction, and canonical form. The fraction $F(T)$ is the arithmetical
 evaluation of the twist form.
 
-- [Reidemeister moves](definitions/reidemeister-moves.md)
-- [2-tangle and isotopy](definitions/two-tangle-isotopy.md)
-- [Integer and vertical tangles](definitions/integer-tangle.md)
-- [Rational tangle](definitions/rational-tangle.md)
-- [Flype](definitions/flype.md)
-- [Flip](definitions/flip.md)
-- [Standard form](definitions/standard-form.md)
-- [Continued fraction form](definitions/continued-fraction-form.md)
-- [Canonical form of a rational tangle](definitions/canonical-form.md)
-- [Arithmetic continued fraction](definitions/continued-fraction.md)
-- [Fraction of a rational tangle](definitions/tangle-fraction.md)
+The [foundations chapter](definitions/README.md) holds the definitions.
 
 ## Forms
 
@@ -41,25 +31,9 @@ continued fraction of a rational has a unique canonical form (Proposition 3),
 which is the numerical counterpart of the tangle canonical form and is used
 in Theorem 3.
 
-- [Flipping lemma](theorems/flipping-lemma.md)
-- [Every rational tangle has a standard form](theorems/standard-form-exists.md)
-- [Every rational tangle has a continued fraction form](theorems/continued-fraction-form-exists.md)
-- [Every rational tangle isotopes to canonical form](theorems/canonical-form-exists.md)
-- [Unique canonical continued fraction](theorems/continued-fraction-canonical.md)
-- [Canonical diagrams of equal fraction are equal](theorems/canonical-same-fraction.md)
-- [Twist expressions of equal fraction are isotopic](theorems/twist-same-fraction.md)
-- [Standard-form value of a twist diagram is well-defined](theorems/twist-diagram-fraction.md)
-- [Standard-form $F$ along coloring isotopy](theorems/twist-coloring-isotopy-fraction.md)
-- [Uniqueness of the coloring fraction on larger honest classes](theorems/coloring-fraction-unique.md)
-- [Coloring fraction after invert on slide-ready diagrams](theorems/coloring-invert-cong-slideReady.md)
-- [Coloring fraction after invert on addLeft and mulTop](theorems/coloring-invert-addLeft-mulTop.md)
-- [Invert-add with a trivial horizontal summand](theorems/coloring-invert-add-zero.md)
-- [Invert-mul of two right-and-bottom diagrams](theorems/coloring-invert-mul-two-rightBottom.md)
-- [Coloring fraction after mirror on slide-ready diagrams](theorems/coloring-mirror-cong-slideReady.md)
-- [Figure 14 at the coloring fraction on slide-ready diagrams](theorems/coloring-transfer-odd-slideReady.md)
-- [Standard-form $F$ along slide-ready coloring paths](theorems/slideReady-isotopy-fraction.md)
-- [Coloring fraction of rotated unit sums and products](theorems/coloring-rot180-add-units.md)
-- [Coloring fraction after 180° rotation on slide-ready diagrams](theorems/coloring-rot180-cong-slideReady.md)
+The [normal-forms chapter](theorems/forms/README.md) proves the forms, and
+the [toolkit chapter](theorems/README.md) holds the slideReady coloring-fraction
+lemmas feeding the coloring fraction.
 
 ## Coloring
 
@@ -71,16 +45,7 @@ The [coloring chapter](coloring/README.md) develops the integral coloring of
 Theorem 2 follows from Theorem 4 ($f$ invariant and $f=F$). Theorem 3 is
 unchanged from §4. Theorem 1 is their conjunction.
 
-- [The fraction is an isotopy invariant](theorems/fraction-isotopy-invariant.md)
-- [Same fraction implies isotopic](theorems/same-fraction-isotopic.md)
-- [Classification of rational tangles](theorems/classification.md)
-
-## Unused alternate (not on the classification path)
-
-The §4 flyping proof of Theorem 2, which uses the Tait conjecture as
-background, is retained as exposition and is marked out of the coverage
-contract for this milestone. Nothing on the path to Theorem 1 depends on
-these articles.
-
-- [Tait flyping conjecture](theorems/tait-flyping.md)
-- [Alternating rational tangles related by flypes](theorems/alternating-flypes.md)
+The [classification chapter](theorems/classification/README.md) holds the
+three capstone results. The §4 flyping alternate (Tait background) lives in
+the [toolkit chapter](theorems/README.md) as exposition, marked out of the
+coverage contract for this milestone.

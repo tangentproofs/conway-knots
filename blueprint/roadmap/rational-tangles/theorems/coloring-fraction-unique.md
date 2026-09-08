@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.coloring_fraction_unique_slideReady RationalTangles.coloring_fraction_unique_rightBottom RationalTangles.coloring_fraction_unique_addLeft RationalTangles.coloring_fraction_unique_mulTop RationalTangles.TwistExpr.colorFrom_fraction_eq RationalTangles.TwistExpr.colorFrom_eq_fraction_addLeft_affine RationalTangles.TwistExpr.colorFrom_eq_fraction_mulTop_affine RationalTangles.HasColoringFraction.addLeft RationalTangles.HasColoringFraction.mulTop RationalTangles.coloring_fraction_eq_F_of_ColoringIsotopy_slideReady RationalTangles.coloring_fraction_unique_ColoringIsotopy_slideReady RationalTangles.coloring_fraction_eq_F_of_ReversibleColoringIsotopy_slideReady RationalTangles.coloring_fraction_eq_F_of_ReversibleColoringIsotopy_slideReady_symm RationalTangles.coloring_fraction_unique_ReversibleColoringIsotopy_slideReady RationalTangles.coloring_fraction_unique_ReversibleColoringIsotopy_slideReady_symm RationalTangles.coloring_fraction_integerTangle_add RationalTangles.coloring_fraction_unique_integerTangle_add RationalTangles.coloring_exists_integerTangle_add RationalTangles.HasColoringFraction.integerTangle_add
+lean: RationalTangles.coloring_fraction_unique_slideReady RationalTangles.coloring_fraction_unique_rightBottom
 proof: formalized
 ---
 
@@ -44,6 +44,15 @@ are omitted, and are not added to `ColoringIsotopy`.
 This article does not claim isotopy invariance of the arithmetical
 fraction.
 
+## Split into pull-request-sized nodes
+
+The remaining results live in:
+
+- [Uniqueness core on honest classes](uniqueness/c1-core.md)
+- [Uniqueness along isotopy transfer](uniqueness/c2-isotopy-transfer.md)
+- [Uniqueness on integer-tangle sums](uniqueness/c3-integerTangle.md)
+- [Existence on addLeft and mulTop](uniqueness/c4-existence.md)
+
 ## Sources
 
 - [Kauffman–Lambropoulou Theorem 4](../../../sources/kauffman-lambropoulou.md#theorem-4)
@@ -60,4 +69,4 @@ fraction.
 - [Affine freedom of coloring](../coloring/theorems/coloring-affine.md)
 - [Nested unit chains versus two-block PD-sums](../coloring/theorems/nested-two-block-reindex.md)
 - [Reversible fragment of coloring isotopy](../coloring/theorems/reversible-coloring-isotopy.md)
-- [Standard-form $F$ along coloring isotopy](twist-coloring-isotopy-fraction.md)
+- [Standard-form $F$ along coloring isotopy](forms/twist-coloring-isotopy-fraction.md)

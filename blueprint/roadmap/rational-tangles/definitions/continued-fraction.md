@@ -1,5 +1,5 @@
 ---
-declaration: def
+declaration: structure
 origin: cited
 statement: formalized
 lean: RationalTangles.ArithmeticCF

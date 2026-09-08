@@ -1,5 +1,5 @@
 ---
-declaration: def
+declaration: inductive
 origin: bridged
 statement: formalized
 lean: RationalTangles.ReidemeisterMove

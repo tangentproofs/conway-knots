@@ -20,6 +20,10 @@ import RationalTangles.ColoringStandard
 import RationalTangles.ColoringToStandard
 import RationalTangles.ColoringFractionEq
 import RationalTangles.ColorFractionUnique
+import RationalTangles.DiagonalSumGeneral
+import RationalTangles.MulTopNormalize
+import RationalTangles.InvertAddZeroGeneral
+import RationalTangles.ColoringFractionTheorem
 import RationalTangles.ColorFraction
 import RationalTangles.Rational
 import RationalTangles.StandardForm

@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.coloring_invert_add_slideReady_zero RationalTangles.coloring_invert_add_zero_slideReady RationalTangles.HasColoringFraction.invert_add_slideReady_zero RationalTangles.HasColoringFraction.invert_add_zero_slideReady RationalTangles.planar_zero_add_invert
+lean: RationalTangles.HasColoringFraction.invert_add_right_zero RationalTangles.HasColoringFraction.invert_add_left_zero
 proof: formalized
 ---
 
@@ -19,9 +19,28 @@ that reindex is planar when $T.\mathrm{NW}\neq T.\mathrm{SW}$. Fresh
 colorings of $([0]+T)^{i}$ agree with $T^{i}*[0]^{i}$ (again a no-op after
 `invert_zero` and `mul_infinity_eq`), both at $F(T)^{-1}$.
 
+Transport from a coloring of $T^{i}$ is fully general over arbitrary
+diagrams with no port or diagonal hypotheses
+(`HasColoringFraction.invert_add_right_zero` /
+`invert_add_left_zero`): $(T+[0])^{i}$ is $T^{i}$ by `add_zero_eq`, and
+$([0]+T)^{i}$ is a reindex of $T^{i}$ (`coloring_fraction_invert_zero_add`).
+On `slideReady` twists every non-monochrome coloring of $T^{i}$ has
+fraction $F^{-1}$, so both sides carry the standard value
+(`*_any_slideReady`, plus existence versions). A variant taking a coloring
+of $T$ rather than $T^{i}$ is not claimed: it would need transport across a
+single `Crossing.switch`, which holds only for units, double mirrors, and
+the `slideReady` algebraic-mirror comparisons.
+
 This is not a `ColoringIsotopy` constructor: invert-add switches crossings.
 It is not unrestricted `flype_slide`, not `invert_cong` on
 `ColoringIsotopy`, and not Theorem 2.
+
+## Split into pull-request-sized nodes
+
+The remaining results live in:
+
+- [Right summand $[0]$](invert-add-zero/g1-right-zero.md)
+- [Left summand $[0]$](invert-add-zero/g2-left-zero.md)
 
 ## Sources
 

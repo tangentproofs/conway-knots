@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.coloring_invert_add_units RationalTangles.coloring_invert_mul_units RationalTangles.coloring_invert_add_one_one RationalTangles.coloring_invert_mul_one_one RationalTangles.coloring_invert_add_zero_unit RationalTangles.coloring_invert_add_unit_zero RationalTangles.coloring_invert_mul_infinity_unit RationalTangles.coloring_invert_mul_unit_infinity RationalTangles.coloring_invert_add_zero_one RationalTangles.coloring_invert_add_one_zero RationalTangles.coloring_invert_one_add_one_eq_vertical RationalTangles.coloring_invert_one_add_one_add_one_eq_vertical RationalTangles.coloring_invert_integerUnits_eq_verticalUnits RationalTangles.coloring_invert_integer_eq_vertical RationalTangles.verticalTwists RationalTangles.coloring_invert_add_integerUnits_unit RationalTangles.coloring_invert_add_integerUnits RationalTangles.coloring_invert_add_integer_one RationalTangles.coloring_invert_addRight_unit RationalTangles.coloring_invert_add_integerUnits_flip RationalTangles.coloring_invert_add_integerUnits_flip_zero RationalTangles.coloring_invert_add_integer_negOne RationalTangles.coloring_invert_add_neg_integer_one RationalTangles.coloring_invert_mul_verticalUnits_unit RationalTangles.coloring_invert_mul_verticalUnits RationalTangles.coloring_invert_verticalUnits_eq_integerUnits RationalTangles.coloring_invert_vertical_eq_integer RationalTangles.coloring_invert_add_integerUnits_integerUnits RationalTangles.coloring_invert_add_integer_integer RationalTangles.coloring_invert_add_ofInteger_integerUnits RationalTangles.coloring_invert_add_integerUnits_integerUnits_flip RationalTangles.coloring_invert_add_integer_neg_integer RationalTangles.coloring_invert_add_slideReady RationalTangles.coloring_invert_mul_slideReady RationalTangles.coloring_fraction_mulTop_one RationalTangles.coloring_fraction_mulTop_negOne RationalTangles.twist_coloring_diagonal_invert_slideReady RationalTangles.coloring_fraction_mul RationalTangles.ColorMatrix.fraction_mul_glue RationalTangles.ColorMatrix.NotMono_affine RationalTangles.ColorMatrix.DiagonalSum_affine RationalTangles.CFValue.neg_negInv RationalTangles.ColorMatrix.of_colorGlueAdd RationalTangles.ColorMatrix.of_colorGlueMul RationalTangles.TwistExpr.colorFrom_NE_ne_SE_of_ne_inf RationalTangles.coloring_affine_match_add RationalTangles.coloring_affine_match_mul RationalTangles.colorAddRight_colorGlueAdd RationalTangles.colorMulBottom_colorGlueMul RationalTangles.coloring_glue_add_finite RationalTangles.coloring_glue_mul_finite RationalTangles.coloring_add_two_rightBottom RationalTangles.coloring_pd_mirror_of_colorFrom RationalTangles.coloring_mirror_add_two RationalTangles.coloring_invert_add_two_rightBottom RationalTangles.HasColoringFraction.invert_add_two_rightBottom RationalTangles.ColorMatrix.NE_ne_SE_of_fraction_ne_inf RationalTangles.ColorMatrix.NE_ne_NW_of_fraction_finite_ne_zero RationalTangles.TangleDiagram.invert_SE RationalTangles.TangleDiagram.invert_SW RationalTangles.CFValue.inv_eq_zero_iff RationalTangles.CFValue.inv_eq_inf_iff RationalTangles.CFValue.neg_eq_inf_iff
+lean: RationalTangles.coloring_invert_add_integerUnits_integerUnits
 proof: formalized
 ---
 
@@ -86,6 +86,28 @@ restriction of a glue coloring is `colorAddRight` (resp. `colorMulBottom`).
 `T.add S` is still not a `TwistExpr`, so this is not a `SlideReadyIsotopy`
 constructor. Skip `0`/`∞`. This is not unrestricted `flype_slide`, and it is
 not Theorem 2.
+
+## Split into pull-request-sized nodes
+
+The remaining results live in:
+
+- [Invert-add and invert-mul of unit tangles](invert-units/a1-unit-add-mul-base.md)
+- [Invert-add with a zero or unit edge](invert-units/a2-zero-unit-edges.md)
+- [Invert-mul with an infinity factor](invert-units/a3-infinity-unit.md)
+- [Vertical twist identifications](invert-units/a4-vertical-identifications.md)
+- [Invert-add of integer chains, positive part](invert-units/a5-integer-chains-add.md)
+- [Integer chains with signs and products](invert-units/a6-integer-chains-mul.md)
+- [Invert-add of two integer tangles](invert-units/a7-integer-integer.md)
+- [Invert-add on slideReady diagrams](invert-units/a8a-invert-add-slideReady.md)
+- [Invert-mul on slideReady diagrams](invert-units/a8b-invert-mul-slideReady.md)
+- [Unit top products and the invert diagonal](invert-units/a9-mulTop-one.md)
+- [Color-matrix product rule](glue/a10-matrix-mul.md)
+- [Glue matrices and affine matching](glue/a11-glue-matrices.md)
+- [Glued colorings of sums](glue/a12a-glue-add-finite.md)
+- [Glued colorings of products](glue/a12b-glue-mul-finite.md)
+- [Two-block sums and PD-mirrors](glue/a13a-two-block-pieces.md)
+- [Invert-add of two right-and-bottom blocks](glue/a13b-invert-add-two-block.md)
+- [Port and value case helpers](glue/a14-port-helpers.md)
 
 ## Sources
 

@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.TwistExpr.toStandard_transfer_odd RationalTangles.TwistExpr.toStandard_transfer_odd_neg RationalTangles.coloring_mirror_invert_any_eq_negInv_F_slideReady RationalTangles.coloring_transfer_odd_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady
+lean: RationalTangles.coloring_transfer_odd_slideReady
 proof: formalized
 ---
 
@@ -24,6 +24,14 @@ $(T+[+1])*[-1]\sim[-1]+(-T)^{i}$ is the same comparison with
 $f= -1 - 1/F$.
 
 This is not Theorem 2, Theorem 3, or Theorem 4. Kinks are excluded.
+
+## Split into pull-request-sized nodes
+
+The remaining results live in:
+
+- [Standard values of transfer diagrams](transfer/e1-tostandard.md)
+- [Mirror-invert fraction on slideReady diagrams](transfer/e2-mirror-invert.md)
+- [Figure 14 transfer at the fraction level](transfer/e3-transfer.md)
 
 ## Sources
 

@@ -14,7 +14,7 @@ or `OUT`.
 
 | Area | Coverage | Evidence |
 | --- | --- | --- |
-| Rational tangle classification via coloring (Kauffman–Lambropoulou §§2–3, §5 Theorem 4, Theorems 2–3, Theorem 1) | `DECOMPOSED` | [Classification theorem](../roadmap/rational-tangles/theorems/classification.md) in the [Rational tangles](../roadmap/rational-tangles/README.md) chapter, proved through the [coloring fraction](../roadmap/rational-tangles/coloring/theorems/coloring-fraction-properties.md) |
+| Rational tangle classification via coloring (Kauffman–Lambropoulou §§2–3, §5 Theorem 4, Theorems 2–3, Theorem 1) | `DECOMPOSED` | [Classification theorem](../roadmap/rational-tangles/theorems/classification/classification.md) in the [Rational tangles](../roadmap/rational-tangles/README.md) chapter, proved through the [coloring fraction](../roadmap/rational-tangles/coloring/theorems/coloring-fraction-properties.md) |
 | Tait flyping / Proposition 4 proof of Theorem 2 | `OUT` | Unused alternate; [Tait](../roadmap/rational-tangles/theorems/tait-flyping.md) and [Proposition 4](../roadmap/rational-tangles/theorems/alternating-flypes.md) remain as exposition and are not dependencies of Theorem 1 |
 | Remainder of §5 (Theorem 5, Kauffman–Harary coloring conjecture, open integrally colorable tangles) | `OUT` | Not used in Theorem 1 |
 | Schubert classification of rational knots | `DEFERRED` | Sequel to this paper (Kauffman–Lambropoulou [17]); not Theorem 1 |

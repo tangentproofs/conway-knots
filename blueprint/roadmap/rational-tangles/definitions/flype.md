@@ -1,5 +1,5 @@
 ---
-declaration: def
+declaration: inductive
 origin: cited
 statement: formalized
 lean: RationalTangles.Flype

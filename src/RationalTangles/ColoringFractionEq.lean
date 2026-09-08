@@ -1797,6 +1797,124 @@ theorem CFValue.invert_add_units (a b : CrossingSign) :
   rw [CrossingSign.cfValue_inv]
   rw [CFValue.add_comm b.cfValue a.cfValue]
 
+/-- The `mulTop` commutativity hypothesis holds when the inner fraction is
+    `±1` (the fixed points of `inv`): both sides reduce to `s ± 1` up to
+    `add_comm`, using `s⁻¹ = s`. -/
+theorem TwistExpr.mulTop_comm_of_unit_fraction (e : TwistExpr)
+    (s : CrossingSign)
+    (hF : e.fraction = 1 ∨ e.fraction = CFValue.ofInt (-1)) :
+    (s.cfValue.inv.add e.fraction).inv =
+      (e.fraction.inv.add s.cfValue).inv := by
+  congr 1
+  rcases hF with hF | hF
+  · rw [hF, CrossingSign.cfValue_inv s, CFValue.inv_one]
+    exact CFValue.add_comm _ _
+  · rw [hF, CrossingSign.cfValue_inv s, CFValue.inv_ofInt_negOne]
+    exact CFValue.add_comm _ _
+
+/-- `mulTop` preserves algebraic `F` relative to `toStandard` once the
+    inner expression does, when the inner fraction is `±1`. -/
+theorem TwistExpr.fraction_eq_toStandard_mulTop_of_unit_fraction
+    (e : TwistExpr) (s : CrossingSign)
+    (ih : e.fraction = e.toStandard.fraction)
+    (hF : e.fraction = 1 ∨ e.fraction = CFValue.ofInt (-1)) :
+    (TwistExpr.mulTop e s).fraction =
+      (TwistExpr.mulTop e s).toStandard.fraction :=
+  TwistExpr.fraction_eq_toStandard_mulTop e s ih
+    (TwistExpr.mulTop_comm_of_unit_fraction e s hF)
+
+/-- The equation fails at F = 0, for either sign, by direct computation. -/
+theorem TwistExpr.mulTop_comm_zero_false (s : CrossingSign) :
+    Not (((s.cfValue.inv.add (0 : CFValue)).inv =
+      ((0 : CFValue).inv.add s.cfValue).inv)) := by
+  cases s <;> simp [CrossingSign.cfValue, CFValue.inv, CFValue.add, CFValue.neg, CFValue.ofInt]
+
+/-- The equation fails at F = inf, for either sign, by direct computation. -/
+theorem TwistExpr.mulTop_comm_inf_false (s : CrossingSign) :
+    Not (((s.cfValue.inv.add CFValue.inf).inv =
+      (CFValue.inf.inv.add s.cfValue).inv)) := by
+  cases s <;> simp [CrossingSign.cfValue, CFValue.inv, CFValue.add, CFValue.neg, CFValue.ofInt]
+
+/-- Necessity, per sign (hence jointly over both crossing signs): the
+    mulTop commutativity equation forces F to be +1 or -1
+    over all of CFValue. Apply inv-injectivity (involution), then
+    case analysis: 0 and @inf@ fall by computation, and a finite
+    nonzero q satisfies q = q⁻¹, i.e. q² = 1. -/
+theorem TwistExpr.mulTop_comm_necessity (s : CrossingSign) (F : CFValue)
+    (h : (s.cfValue.inv.add F).inv = (F.inv.add s.cfValue).inv) :
+    F = 1 ∨ F = CFValue.ofInt (-1) := by
+  have hinj : Function.Injective CFValue.inv := by
+    intro a b hab
+    have h2 := congrArg CFValue.inv hab
+    simpa [CFValue.inv_inv] using h2
+  have hEq : s.cfValue.add F = F.inv.add s.cfValue := by
+    have h2 := hinj h
+    simpa [CrossingSign.cfValue_inv] using h2
+  cases s with
+  | pos =>
+    cases F with
+    | inf => exact absurd hEq (by simp [CrossingSign.cfValue, CFValue.inv, CFValue.add, CFValue.neg, CFValue.ofInt])
+    | ofRat q =>
+      by_cases hq : q = 0
+      · subst hq
+        exact absurd hEq (by simp [CrossingSign.cfValue, CFValue.inv, CFValue.add, CFValue.neg, CFValue.ofInt])
+      · have hinv : (CFValue.ofRat q).inv = CFValue.ofRat q⁻¹ := by simp [CFValue.inv, hq]
+        rw [hinv] at hEq
+        have hEq2 : (CFValue.ofRat (1 : Rat)).add (CFValue.ofRat q) =
+            (CFValue.ofRat q⁻¹).add (CFValue.ofRat (1 : Rat)) := hEq
+        simp only [CFValue.add] at hEq2
+        have hRat : (1 : Rat) + q = q⁻¹ + 1 := CFValue.ofRat.inj hEq2
+        have hqq : q = q⁻¹ := by linarith
+        have h1 : q * q⁻¹ = 1 := mul_inv_cancel₀ hq
+        rw [← hqq] at h1
+        have hfac : (q - 1) * (q + 1) = 0 := by
+          have hexpand : (q - 1) * (q + 1) = q * q - 1 := by
+            rw [sub_mul, mul_add, one_mul, mul_one]
+            linarith
+          rw [hexpand, h1, sub_self]
+        rcases mul_eq_zero.mp hfac with hc | hc
+        · left
+          have hq1 : q = 1 := by linarith
+          subst hq1
+          rfl
+        · right
+          have hqm : q = -1 := by linarith
+          subst hqm
+          rfl
+  | neg =>
+    cases F with
+    | inf => exact absurd hEq (by simp [CrossingSign.cfValue, CFValue.inv, CFValue.add, CFValue.neg, CFValue.ofInt])
+    | ofRat q =>
+      by_cases hq : q = 0
+      · subst hq
+        exact absurd hEq (by simp [CrossingSign.cfValue, CFValue.inv, CFValue.add, CFValue.neg, CFValue.ofInt])
+      · have hinv : (CFValue.ofRat q).inv = CFValue.ofRat q⁻¹ := by simp [CFValue.inv, hq]
+        rw [hinv] at hEq
+        simp only [CrossingSign.cfValue] at hEq
+        have hEq2 : (CFValue.ofInt (-1)).add (CFValue.ofRat q) =
+            (CFValue.ofRat q⁻¹).add (CFValue.ofInt (-1)) := hEq
+        simp only [CFValue.ofInt, CFValue.add] at hEq2
+        have hRat : (-1 : Rat) + q = q⁻¹ + -1 := by
+          have h2 := CFValue.ofRat.inj hEq2
+          simpa [Int.cast_neg, Int.cast_one] using h2
+        have hqq : q = q⁻¹ := by linarith
+        have h1 : q * q⁻¹ = 1 := mul_inv_cancel₀ hq
+        rw [← hqq] at h1
+        have hfac : (q - 1) * (q + 1) = 0 := by
+          have hexpand : (q - 1) * (q + 1) = q * q - 1 := by
+            rw [sub_mul, mul_add, one_mul, mul_one]
+            linarith
+          rw [hexpand, h1, sub_self]
+        rcases mul_eq_zero.mp hfac with hc | hc
+        · left
+          have hq1 : q = 1 := by linarith
+          subst hq1
+          rfl
+        · right
+          have hqm : q = -1 := by linarith
+          subst hqm
+          rfl
+
 theorem TwistExpr.addRight_ofCrossingSign_fraction (s t : CrossingSign) :
     (TwistExpr.addRight (TwistExpr.ofCrossingSign s) t).fraction =
       s.cfValue.add t.cfValue := by
@@ -3364,6 +3482,18 @@ theorem StandardExpr.natAbs_intSign (n : Int) :
   · rw [CrossingSign.toInt_neg, Int.mul_neg, Int.mul_one]
     omega
 
+/-- Fresh invert coloring of a standard-form diagram has fraction `1/F`.
+    Discharges `coloring_invert_inv_standard` by `colorFrom 0 1`. -/
+theorem coloring_invert_inv_eq_F_standard_colorFrom (e : StandardExpr) :
+    ∃ col', e.diagram.invert.IsColored col' ∧
+      (ColorMatrix.of e.diagram.invert col').NotMono ∧
+      (ColorMatrix.of e.diagram.invert col').fraction = e.fraction.inv := by
+  obtain ⟨col', hc', hm', hf⟩ :=
+    coloring_invert_inv_standard e (e.colorFrom 0 1)
+      (e.colorFrom_isColored 0 1) e.colorFrom_notMono
+  refine ⟨col', hc', hm', hf.trans (congrArg CFValue.inv ?_)⟩
+  exact e.colorFrom_eq_fraction
+
 mutual
   def StandardExpr.foldAdd (e : StandardExpr) : List Int → StandardExpr
     | [] => e
@@ -3506,18 +3636,6 @@ theorem StandardExpr.ofTerms_invertTerms :
       simp [appendVertical]
     · rw [ofTerms_cons]
       simp [appendUnits]
-
-/-- Fresh invert coloring of a standard-form diagram has fraction `1/F`.
-    Discharges `coloring_invert_inv_standard` by `colorFrom 0 1`. -/
-theorem coloring_invert_inv_eq_F_standard_colorFrom (e : StandardExpr) :
-    ∃ col', e.diagram.invert.IsColored col' ∧
-      (ColorMatrix.of e.diagram.invert col').NotMono ∧
-      (ColorMatrix.of e.diagram.invert col').fraction = e.fraction.inv := by
-  obtain ⟨col', hc', hm', hf⟩ :=
-    coloring_invert_inv_standard e (e.colorFrom 0 1)
-      (e.colorFrom_isColored 0 1) e.colorFrom_notMono
-  refine ⟨col', hc', hm', hf.trans (congrArg CFValue.inv ?_)⟩
-  exact e.colorFrom_eq_fraction
 
 /-- Fresh colorings of `e.diagram.invert` and of the right-and-bottom
     inverted continued-fraction diagram `ofInvTerms e.toTerms`. -/

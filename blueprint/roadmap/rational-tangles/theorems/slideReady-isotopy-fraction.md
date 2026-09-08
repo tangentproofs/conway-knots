@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.HasColoringFraction RationalTangles.SlideReadyIsotopy RationalTangles.HasColoringFraction.colorFrom_slideReady RationalTangles.SlideReadyIsotopy.has_fraction RationalTangles.TwistExpr.toStandard_fraction_SlideReadyIsotopy RationalTangles.TwistExpr.toStandard_fraction_eq_SlideReadyIsotopy_value RationalTangles.StandardExpr.fraction_SlideReadyIsotopy RationalTangles.coloring_rot180_any_eq_F_slideReady RationalTangles.coloring_rot180_slideReady RationalTangles.coloring_flype_slide_add_slideReady RationalTangles.coloring_flype_slide_mul_slideReady RationalTangles.coloring_transfer_odd_neg_slideReady RationalTangles.coloring_rot180_add_slideReady RationalTangles.coloring_rot180_mul_slideReady RationalTangles.coloring_rot180_cong_SlideReadyIsotopy RationalTangles.SlideReadyIsotopy.rot180_cong RationalTangles.HasColoringFraction.of_ColoringIsotopy RationalTangles.HasColoringFraction.rot180_diagonal RationalTangles.HasColoringFraction.invert_slideReady RationalTangles.HasColoringFraction.mirror_slideReady RationalTangles.HasColoringFraction.rot180_slideReady RationalTangles.HasColoringFraction.flype_slide_add RationalTangles.HasColoringFraction.flype_slide_mul RationalTangles.HasColoringFraction.transfer_odd_slideReady RationalTangles.HasColoringFraction.transfer_odd_neg_slideReady RationalTangles.HasColoringFraction.invert_add_two_rightBottom RationalTangles.ColoringIsotopy.of_ReidemeisterMove
+lean: RationalTangles.SlideReadyIsotopy.has_fraction
 proof: formalized
 ---
 
@@ -55,6 +55,18 @@ preserve the value. Induction along `Isotopic` is blocked by the
 unrestricted constructors `flype_slide_add` and `flype_slide_mul`; it is
 not claimed, and this is not Theorem 2.
 
+## Split into pull-request-sized nodes
+
+The remaining results live in:
+
+- [SlideReady isotopy, core definitions](slideReady/f1-core.md)
+- [Standard values along slideReady isotopy](slideReady/f3-standard-values.md)
+- [Planar rotation at the fraction level](slideReady/f4-rot180.md)
+- [Restricted flype slides at the fraction level](slideReady/f5-flype-slide.md)
+- [Transfer at HasColoringFraction level](slideReady/f6-transfer.md)
+- [Invert, mirror, and isotopy lift](slideReady/f7-invert-mirror.md)
+- [Invert-add of a right-and-bottom block](slideReady/f8-invert-add-block.md)
+
 ## Sources
 
 - [Kauffman–Lambropoulou Theorem 4](../../../sources/kauffman-lambropoulou.md#theorem-4)
@@ -68,7 +80,7 @@ not claimed, and this is not Theorem 2.
 
 ## Proof depends on
 
-- [Standard-form $F$ along coloring isotopy](twist-coloring-isotopy-fraction.md)
+- [Standard-form $F$ along coloring isotopy](forms/twist-coloring-isotopy-fraction.md)
 - [Coloring fraction after invert on slide-ready diagrams](coloring-invert-cong-slideReady.md)
 - [Coloring fraction after mirror on slide-ready diagrams](coloring-mirror-cong-slideReady.md)
 - [Figure 14 at the coloring fraction on slide-ready diagrams](coloring-transfer-odd-slideReady.md)

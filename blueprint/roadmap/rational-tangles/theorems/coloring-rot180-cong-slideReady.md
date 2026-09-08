@@ -33,5 +33,5 @@ isotopy. It is not invariance of $F$ along arbitrary `Isotopic`.
 
 ## Proof depends on
 
-- [Standard-form $F$ along coloring isotopy](twist-coloring-isotopy-fraction.md)
+- [Standard-form $F$ along coloring isotopy](forms/twist-coloring-isotopy-fraction.md)
 - [Coloring fraction of rotated unit sums and products](coloring-rot180-add-units.md)

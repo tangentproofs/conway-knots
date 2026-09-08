@@ -2,7 +2,7 @@
 declaration: theorem
 origin: bridged
 statement: formalized
-lean: RationalTangles.coloring_mirror_any_eq_neg_F_slideReady RationalTangles.coloring_mirror_cong_slideReady
+lean: RationalTangles.coloring_mirror_any_eq_neg_F_slideReady RationalTangles.coloring_mirror_cong_slideReady RationalTangles.not_coloring_mirror_transport
 proof: formalized
 ---
 
@@ -17,7 +17,10 @@ If two `slideReady` expressions are related by `ColoringIsotopy`, they
 share $F$, so fresh PD-mirror colorings share $-F$. That is the
 fraction-level content of `mirror_cong` on this class. Colorings are not
 transported across crossing switch, and `mirror_cong` is not added to
-`ColoringIsotopy`.
+`ColoringIsotopy` — and this wall is sharp, not merely unproved: on
+$[+1]$ no coloring of the PD-mirror reproduces any fixed coloring's
+endpoint colors (`not_coloring_mirror_transport`, via the `sharpCol`
+witness, whose boundary colors violate the switched rule).
 
 This is not Theorem 2, Theorem 3, or Theorem 4.
 
@@ -33,4 +36,4 @@ This is not Theorem 2, Theorem 3, or Theorem 4.
 ## Proof depends on
 
 - [Coloring fraction after invert on slide-ready diagrams](coloring-invert-cong-slideReady.md)
-- [Standard-form $F$ along coloring isotopy](twist-coloring-isotopy-fraction.md)
+- [Standard-form $F$ along coloring isotopy](forms/twist-coloring-isotopy-fraction.md)
