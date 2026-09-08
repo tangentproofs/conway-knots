@@ -1,0 +1,1463 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/roadmap/rational-tangles/theorems/forms/index.html">
+      
+      
+        <link rel="prev" href="../../definitions/index.html">
+      
+      
+        <link rel="next" href="../index.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Normal forms - Conway knots</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#results" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="Conway knots" class="md-header__button md-logo" aria-label="Conway knots" data-md-component="logo">
+      
+  <img src="../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Conway knots
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Normal forms
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tangentproofs/conway-knots" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../dependencies.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Graph
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="Conway knots" class="md-nav__button md-logo" aria-label="Conway knots" data-md-component="logo">
+      
+  <img src="../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Conway knots
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tangentproofs/conway-knots" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../coverage/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--in-progress"></span>
+  
+
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rational tangles roadmap
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rational tangles roadmap
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rational tangles
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rational tangles
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../definitions/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tangle foundations
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_2_2" id="__nav_2_1_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_1_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tangle foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Normal forms
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Normal forms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coloring-fraction toolkit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../coloring/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The fraction through integral coloring
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_2_4" id="__nav_2_1_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_1_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The fraction through integral coloring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../classification/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graph
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dependencies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependency maps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dependencies/full.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full theorem DAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../structure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vault structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="normal-forms">Normal forms</h1>
+<p>Standard form, continued-fraction form, and canonical form are reached by
+flypes (as isotopies proved in the paper, not via Tait). The arithmetic
+continued fraction of a rational has a unique canonical form (Proposition 3),
+which is the numerical counterpart of the tangle canonical form and is used
+in Theorem 3.</p>
+<div class="bp-progress-overview"><div class="bp-progress-kicker">Formalization progress</div><div class="bp-progress-total">9 results</div><div class="bp-progress-states"><span class="bp-progress-state"><span class="bp-swatch bp-swatch-fully_proved"></span><strong>7</strong> fully proved</span><span class="bp-progress-state"><span class="bp-swatch bp-swatch-proved"></span><strong>2</strong> proved</span></div></div>
+
+<h2 id="results">Results</h2>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="standard-form-exists">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Lemma</span><span class="bp-thmlabel">12</span><span class="bp-thmtitle">Every rational tangle has a standard form</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/FlippingLemma.lean#L550" aria-label="View RationalTangles.standard_form_exists in Lean source" title="View RationalTangles.standard_form_exists in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/standard-form-exists.html" aria-label="Open local dependency context for Every rational tangle has a standard form" title="Open local dependency context for Every rational tangle has a standard form"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/standard-form-exists.md" aria-label="Edit the Markdown source for Every rational tangle has a standard form" title="Edit the Markdown source for Every rational tangle has a standard form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#standard-form-exists">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every rational tangle can be brought via isotopy to standard form.</p>
+<p>Starting from twist form, horizontal and vertical rational flypes (and the
+commutativity supplied by the flipping lemma) move all horizontal twists to
+the right and all vertical twists to the bottom.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#lemma-3">Kauffman–Lambropoulou Lemma 3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#standard-form">Definition 6 (Standard form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#flype">Inductive 3 (Flype)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../coloring/index.html#theorems-flipping-lemma">Lemma 8 (Flipping lemma)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#continued-fraction-form-exists">Theorem 52 (Every rational tangle has a continued fraction form)</a> · <a class="bp-ref bp-ref-proved" href="#twist-diagram-fraction">Theorem 46 (Standard-form value of a twist diagram is well-defined)</a> · <a class="bp-ref bp-ref-fully_proved" href="#twist-same-fraction">Theorem 68 (Twist expressions of equal fraction are isotopic)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="continued-fraction-form-exists">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">52</span><span class="bp-thmtitle">Every rational tangle has a continued fraction form</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ContinuedFractionFormExists.lean#L634" aria-label="View RationalTangles.continued_fraction_form_exists in Lean source" title="View RationalTangles.continued_fraction_form_exists in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/continued-fraction-form-exists.html" aria-label="Open local dependency context for Every rational tangle has a continued fraction form" title="Open local dependency context for Every rational tangle has a continued fraction form"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/continued-fraction-form-exists.md" aria-label="Edit the Markdown source for Every rational tangle has a continued fraction form" title="Edit the Markdown source for Every rational tangle has a continued fraction form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#continued-fraction-form-exists">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every rational tangle can be written in continued fraction form.</p>
+<p>The argument reduces to standard form (Lemma 3) and then applies the
+isotopy identities of Lemma 4,
+$$
+T\ast[n]^{-1} \;\sim\; \bigl([n]+T^{-1}\bigr)^{-1},
+$$
+repeatedly, converting a standard-form tangle into
+<span class="arithmatex">\([[a_1],\ldots,[a_n]]\)</span>. Thus continued-fraction form and standard form are
+equivalent presentations.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_1">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#proposition-1">Kauffman–Lambropoulou Proposition 1</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#continued-fraction-form">Definition 7 (Continued fraction form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#standard-form-exists">Lemma 12 (Every rational tangle has a standard form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#canonical-form-exists">Theorem 53 (Every rational tangle isotopes to canonical form)</a> · <a class="bp-ref bp-ref-fully_proved" href="#canonical-same-fraction">Theorem 66 (Canonical diagrams of equal fraction are equal)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="canonical-form-exists">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">53</span><span class="bp-thmtitle">Every rational tangle isotopes to canonical form</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormExists.lean#L831" aria-label="View RationalTangles.canonical_form_exists in Lean source" title="View RationalTangles.canonical_form_exists in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/canonical-form-exists.html" aria-label="Open local dependency context for Every rational tangle isotopes to canonical form" title="Open local dependency context for Every rational tangle isotopes to canonical form"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/canonical-form-exists.md" aria-label="Edit the Markdown source for Every rational tangle isotopes to canonical form" title="Edit the Markdown source for Every rational tangle isotopes to canonical form"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#canonical-form-exists">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every rational tangle can be isotoped to canonical form: an alternating
+continued-fraction form of odd length.</p>
+<p>If a continued-fraction vector is not termwise of one sign, a transfer move
+(Figure 14) together with flypes and flips removes a mixed-sign adjacent pair
+and reduces the sum of absolute values of the entries, so induction produces
+an alternating tangle. Length is then made odd by splitting the last term as
+in Definition 6.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_2">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#proposition-2">Kauffman–Lambropoulou Proposition 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#canonical-form">Definition 9 (Canonical form of a rational tangle)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#continued-fraction-form-exists">Theorem 52 (Every rational tangle has a continued fraction form)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#flype">Inductive 3 (Flype)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../coloring/index.html#theorems-flipping-lemma">Lemma 8 (Flipping lemma)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-stated" href="../classification/index.html#same-fraction-isotopic">Theorem 54 (Same fraction implies isotopic)</a> · <a class="bp-ref bp-ref-fully_proved" href="#canonical-same-fraction">Theorem 66 (Canonical diagrams of equal fraction are equal)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="continued-fraction-canonical">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">51</span><span class="bp-thmtitle">Unique canonical continued fraction</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ContinuedFractionCanonical.lean#L465" aria-label="View RationalTangles.continued_fraction_canonical in Lean source" title="View RationalTangles.continued_fraction_canonical in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ContinuedFractionCanonical.lean#L885" aria-label="View RationalTangles.continued_fraction_canonical_unique in Lean source" title="View RationalTangles.continued_fraction_canonical_unique in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ContinuedFractionCanonical.lean#L850" aria-label="View RationalTangles.canonicalCF_unique in Lean source" title="View RationalTangles.canonicalCF_unique in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/continued-fraction-canonical.html" aria-label="Open local dependency context for Unique canonical continued fraction" title="Open local dependency context for Unique canonical continued fraction"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/continued-fraction-canonical.md" aria-label="Edit the Markdown source for Unique canonical continued fraction" title="Edit the Markdown source for Unique canonical continued fraction"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#continued-fraction-canonical">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every continued fraction <span class="arithmatex">\([a_1,a_2,\ldots,a_n]\)</span> can be transformed to a
+<strong>unique</strong> canonical form, with sign generically equal to the sign of the
+first non-zero term.</p>
+<p>The reduction copies the transfer arithmetic of Proposition 2: mixed-sign
+adjacent terms are rewritten so that the sum of absolute values of the
+entries drops by one. The remaining uniqueness is Euclid's algorithm
+(Kauffman–Lambropoulou, end of the proof of Proposition 3). Even length is
+reduced to odd length by the last-term identities of Remark 5.</p>
+<p>This is the arithmetic counterpart of the tangle canonical form, and is the
+unicity of continued-fraction form used in Theorem 3.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_3">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#proposition-3">Kauffman–Lambropoulou Proposition 3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#continued-fraction">Structure 2 (Arithmetic continued fraction)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-stated" href="../classification/index.html#same-fraction-isotopic">Theorem 54 (Same fraction implies isotopic)</a> · <a class="bp-ref bp-ref-fully_proved" href="#canonical-same-fraction">Theorem 66 (Canonical diagrams of equal fraction are equal)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="canonical-same-fraction">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">66</span><span class="bp-thmtitle">Canonical diagrams of equal fraction are equal</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ContinuedFractionCanonical.lean#L897" aria-label="View RationalTangles.canonical_tangle_eq_of_value in Lean source" title="View RationalTangles.canonical_tangle_eq_of_value in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormExists.lean#L841" aria-label="View RationalTangles.canonical_tangle_isotopic_of_value in Lean source" title="View RationalTangles.canonical_tangle_isotopic_of_value in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L32" aria-label="View RationalTangles.StandardExpr.isotopic_canonicalCF in Lean source" title="View RationalTangles.StandardExpr.isotopic_canonicalCF in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L39" aria-label="View RationalTangles.standard_same_fraction_isotopic in Lean source" title="View RationalTangles.standard_same_fraction_isotopic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/canonical-same-fraction.html" aria-label="Open local dependency context for Canonical diagrams of equal fraction are equal" title="Open local dependency context for Canonical diagrams of equal fraction are equal"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/canonical-same-fraction.md" aria-label="Edit the Markdown source for Canonical diagrams of equal fraction are equal" title="Edit the Markdown source for Canonical diagrams of equal fraction are equal"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#canonical-same-fraction">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Two tangles already in <em>canonical</em> continued-fraction form with the same
+arithmetic value are the same diagram: uniqueness of the odd-length one-sign
+expansion (Proposition 3) supplies a unique <code>canonicalCF q</code>, so both diagrams
+are <code>(canonicalCF q).tangle</code> and hence isotopic. The remaining canonical
+form of value <span class="arithmatex">\(\infty\)</span> is <span class="arithmatex">\([\infty]\)</span>.</p>
+<p>A standard-form expression with finite fraction <span class="arithmatex">\(q\)</span> isotopes to that unique
+diagram. The reduction is the transfer / last-term rewrite of Proposition 2,
+shown to preserve the arithmetic value, so the resulting canonical expansion
+is <code>canonicalCF q</code> rather than an unspecified alternating tangle. Two standard
+forms of the same finite fraction are therefore isotopic (and likewise for
+value <span class="arithmatex">\(\infty\)</span>).</p>
+<p>This is strictly smaller than Theorem 3: it does not apply to an arbitrary
+rational tangle, and it does not claim that <span class="arithmatex">\(F\)</span> is invariant under leftover
+<code>Isotopic</code> generators.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_4">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#proposition-3">Kauffman–Lambropoulou Proposition 3</a></li>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#proposition-2">Kauffman–Lambropoulou Proposition 2</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#canonical-form">Definition 9 (Canonical form of a rational tangle)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#tangle-fraction">Definition 8 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#standard-form">Definition 6 (Standard form)</a> · <a class="bp-ref bp-ref-fully_proved" href="#continued-fraction-canonical">Theorem 51 (Unique canonical continued fraction)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#canonical-form-exists">Theorem 53 (Every rational tangle isotopes to canonical form)</a> · <a class="bp-ref bp-ref-fully_proved" href="#continued-fraction-form-exists">Theorem 52 (Every rational tangle has a continued fraction form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#twist-same-fraction">Theorem 68 (Twist expressions of equal fraction are isotopic)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="twist-same-fraction">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">68</span><span class="bp-thmtitle">Twist expressions of equal fraction are isotopic</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L80" aria-label="View RationalTangles.standard_same_CFValue_isotopic in Lean source" title="View RationalTangles.standard_same_CFValue_isotopic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L107" aria-label="View RationalTangles.twist_same_toStandard_fraction_isotopic in Lean source" title="View RationalTangles.twist_same_toStandard_fraction_isotopic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L119" aria-label="View RationalTangles.twist_same_fraction_isotopic in Lean source" title="View RationalTangles.twist_same_fraction_isotopic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L126" aria-label="View RationalTangles.twist_same_fraction_isotopic_of_noMulTop in Lean source" title="View RationalTangles.twist_same_fraction_isotopic_of_noMulTop in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L92" aria-label="View RationalTangles.TwistExpr.isotopic_canonicalCF in Lean source" title="View RationalTangles.TwistExpr.isotopic_canonicalCF in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/twist-same-fraction.html" aria-label="Open local dependency context for Twist expressions of equal fraction are isotopic" title="Open local dependency context for Twist expressions of equal fraction are isotopic"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/twist-same-fraction.md" aria-label="Edit the Markdown source for Twist expressions of equal fraction are isotopic" title="Edit the Markdown source for Twist expressions of equal fraction are isotopic"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#twist-same-fraction">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Two <em>twist-form expressions</em> with the same arithmetical fraction <span class="arithmatex">\(F\)</span> have
+isotopic diagrams, provided each expression's <span class="arithmatex">\(F\)</span> agrees with the
+right-and-bottom evaluation of <code>toStandard</code>.</p>
+<p>The diagrams first isotope to standard form by the slides already in
+<code>toStandard_isotopic</code> (horizontal and vertical rational flypes, including
+left addition and top multiplication). Standard forms of a given finite
+value (or of <span class="arithmatex">\(\infty\)</span>) then isotope to one another by uniqueness of the
+canonical continued fraction. Algebraic <span class="arithmatex">\(F\)</span> equals that standard-form
+value on every expression that never uses a top product: addition is
+commutative, so left addition is allowed, while the Conway product is
+not commutative.</p>
+<p>This is strictly smaller than Theorem 3. It does not apply to an arbitrary
+rational diagram (an <code>Isotopic</code> witness of <code>IsRational</code>), and it does not
+claim that <span class="arithmatex">\(F\)</span> is well-defined along leftover <code>Isotopic</code> generators.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_5">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#theorem-3">Kauffman–Lambropoulou Theorem 3</a></li>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#proposition-3">Kauffman–Lambropoulou Proposition 3</a></li>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#lemma-3">Kauffman–Lambropoulou Lemma 3</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#tangle-fraction">Definition 8 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#standard-form">Definition 6 (Standard form)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#canonical-form">Definition 9 (Canonical form of a rational tangle)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#canonical-same-fraction">Theorem 66 (Canonical diagrams of equal fraction are equal)</a> · <a class="bp-ref bp-ref-fully_proved" href="#standard-form-exists">Lemma 12 (Every rational tangle has a standard form)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-proved" id="twist-diagram-fraction">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">46</span><span class="bp-thmtitle">Standard-form value of a twist diagram is well-defined</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1165" aria-label="View RationalTangles.TwistExpr.toStandard_fraction_eq_of_diagram_slideReady in Lean source" title="View RationalTangles.TwistExpr.toStandard_fraction_eq_of_diagram_slideReady in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1231" aria-label="View RationalTangles.TwistExpr.toStandard_fraction_eq_of_diagram_rightBottom in Lean source" title="View RationalTangles.TwistExpr.toStandard_fraction_eq_of_diagram_rightBottom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1242" aria-label="View RationalTangles.TwistExpr.fraction_eq_of_diagram_rightBottom in Lean source" title="View RationalTangles.TwistExpr.fraction_eq_of_diagram_rightBottom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1185" aria-label="View RationalTangles.TwistExpr.fraction_eq_of_diagram_noMulTop in Lean source" title="View RationalTangles.TwistExpr.fraction_eq_of_diagram_noMulTop in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1253" aria-label="View RationalTangles.StandardExpr.fraction_eq_of_diagram in Lean source" title="View RationalTangles.StandardExpr.fraction_eq_of_diagram in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L145" aria-label="View RationalTangles.IsTwistForm.toStandard_fraction_unique in Lean source" title="View RationalTangles.IsTwistForm.toStandard_fraction_unique in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L179" aria-label="View RationalTangles.IsTwistForm.toStandard_fraction_unique_slideReady_colorFrom in Lean source" title="View RationalTangles.IsTwistForm.toStandard_fraction_unique_slideReady_colorFrom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1217" aria-label="View RationalTangles.TwistExpr.fraction_eq_of_diagram_noMulTop_colorFrom in Lean source" title="View RationalTangles.TwistExpr.fraction_eq_of_diagram_noMulTop_colorFrom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/CanonicalFormUnique.lean#L190" aria-label="View RationalTangles.IsTwistForm.fraction_unique_slideReady_noMulTop in Lean source" title="View RationalTangles.IsTwistForm.fraction_unique_slideReady_noMulTop in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1803" aria-label="View RationalTangles.TwistExpr.mulTop_comm_of_unit_fraction in Lean source" title="View RationalTangles.TwistExpr.mulTop_comm_of_unit_fraction in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1817" aria-label="View RationalTangles.TwistExpr.fraction_eq_toStandard_mulTop_of_unit_fraction in Lean source" title="View RationalTangles.TwistExpr.fraction_eq_toStandard_mulTop_of_unit_fraction in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/MulTopNormalize.lean#L155" aria-label="View RationalTangles.TwistExpr.unitMulTop in Lean source" title="View RationalTangles.TwistExpr.unitMulTop in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/MulTopNormalize.lean#L165" aria-label="View RationalTangles.TwistExpr.toNoMulTop_fraction_of_unitMulTop in Lean source" title="View RationalTangles.TwistExpr.toNoMulTop_fraction_of_unitMulTop in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/MulTopNormalize.lean#L196" aria-label="View RationalTangles.TwistExpr.exists_noMulTop_fraction_isotopic in Lean source" title="View RationalTangles.TwistExpr.exists_noMulTop_fraction_isotopic in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/twist-diagram-fraction.html" aria-label="Open local dependency context for Standard-form value of a twist diagram is well-defined" title="Open local dependency context for Standard-form value of a twist diagram is well-defined"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/twist-diagram-fraction.md" aria-label="Edit the Markdown source for Standard-form value of a twist diagram is well-defined" title="Edit the Markdown source for Standard-form value of a twist diagram is well-defined"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#twist-diagram-fraction">#</a><span class="bp-mark" title="proved">●<span class="bp-mark-label">proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>If two twist-form expressions denote the <em>same</em> PD-code, they have the same
+standard-form evaluation <code>toStandard.fraction</code>, once each expression is
+<code>slideReady</code> and a non-monochrome coloring of that code satisfies the
+diagonal-sum rule. The coloring fraction of the diagram equals each
+expression's standard-form value, so that value is a function of the diagram
+rather than of the expression tree.</p>
+<p>On right-and-bottom expressions the coloring is constructed by propagating
+two initial strand colors, so no extra coloring hypothesis remains, and
+algebraic <span class="arithmatex">\(F\)</span> agrees with the standard-form value. On <code>noMulTop</code>
+<code>slideReady</code> expressions the coloring hypotheses likewise discharge by
+<code>colorFrom</code>, for both the standard-form and the algebraic value. The
+<code>mulTop</code> commutativity hypothesis itself holds when the inner fraction
+is <code>±1</code> (the fixed points of <code>inv</code>: both sides reduce to <code>s ± 1</code>),
+so <code>mulTop</code> over a unit-fraction twist preserves algebraic <code>F</code> — and on
+the <code>unitMulTop</code> subclass (every top product over a <code>±1</code> inner) the
+<code>toNoMulTop</code> normalization preserves algebraic <code>F</code> throughout, giving a
+<code>noMulTop</code> expression with identical <code>F</code> for Theorem 3.</p>
+<p>A diagram that <em>is</em> a twist-form PD-code may therefore be assigned this
+standard-form value via any right-and-bottom parse. An <code>IsRational</code> witness
+is an isotopy to a twist diagram, not PD-code equality; assigning <span class="arithmatex">\(F\)</span> to an
+arbitrary rational diagram still requires isotopy invariance (Theorem 2).</p>
+<p>This is not Theorem 2, Theorem 3, or Theorem 4.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_6">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#definition-8">Kauffman–Lambropoulou Definition 8</a></li>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#theorem-4">Kauffman–Lambropoulou Theorem 4</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#tangle-fraction">Definition 8 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#standard-form">Definition 6 (Standard form)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#rational-tangle">Definition 5 (Rational tangle)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-can_prove" href="../../coloring/index.html#theorems-coloring-fraction-properties">Theorem 3 (Coloring fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-fully_proved" href="#standard-form-exists">Lemma 12 (Every rational tangle has a standard form)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-proved" href="#twist-coloring-isotopy-fraction">Theorem 47 (Standard-form $F$ along coloring isotopy)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-proved" id="twist-coloring-isotopy-fraction">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">47</span><span class="bp-thmtitle">Standard-form $F$ along coloring isotopy</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1299" aria-label="View RationalTangles.TwistExpr.toStandard_fraction_ColoringIsotopy in Lean source" title="View RationalTangles.TwistExpr.toStandard_fraction_ColoringIsotopy in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1319" aria-label="View RationalTangles.TwistExpr.fraction_ColoringIsotopy_noMulTop in Lean source" title="View RationalTangles.TwistExpr.fraction_ColoringIsotopy_noMulTop in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/DiagonalSumGeneral.lean#L54" aria-label="View RationalTangles.TwistExpr.fraction_ColoringIsotopy_noMulTop_colorFrom in Lean source" title="View RationalTangles.TwistExpr.fraction_ColoringIsotopy_noMulTop_colorFrom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1335" aria-label="View RationalTangles.TwistExpr.fraction_ColoringIsotopy_rightBottom in Lean source" title="View RationalTangles.TwistExpr.fraction_ColoringIsotopy_rightBottom in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/twist-coloring-isotopy-fraction.html" aria-label="Open local dependency context for Standard-form $F$ along coloring isotopy" title="Open local dependency context for Standard-form $F$ along coloring isotopy"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/twist-coloring-isotopy-fraction.md" aria-label="Edit the Markdown source for Standard-form $F$ along coloring isotopy" title="Edit the Markdown source for Standard-form $F$ along coloring isotopy"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#twist-coloring-isotopy-fraction">#</a><span class="bp-mark" title="proved">●<span class="bp-mark-label">proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>If two <code>slideReady</code> twist-form expressions are related by <code>ColoringIsotopy</code>
+and the source admits a non-monochrome coloring that satisfies the diagonal
+sum rule, then they have the same standard-form evaluation
+<code>toStandard.fraction</code>. The coloring fraction of each diagram equals that
+value, and coloring fraction is already invariant along <code>ColoringIsotopy</code>.</p>
+<p>On expressions with no top product the same conclusion holds for algebraic
+<span class="arithmatex">\(F\)</span>. On right-and-bottom expressions the coloring is <code>colorFrom</code>, so no
+extra coloring hypothesis remains; the <code>colorFrom</code> discharge now also
+covers all <code>noMulTop</code> <code>slideReady</code> expressions
+(<code>fraction_ColoringIsotopy_noMulTop_colorFrom</code>).</p>
+<p>This is not Theorem 2: <code>ColoringIsotopy</code> does not include unrestricted
+Figure 14 transfers, flype-slides, or <code>invert_cong</code>, and it is not full
+diagram isotopy. Assigning <span class="arithmatex">\(F\)</span> to an arbitrary rational diagram still
+requires isotopy invariance of <span class="arithmatex">\(F\)</span>.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_7">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#definition-8">Kauffman–Lambropoulou Definition 8</a></li>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#theorem-4">Kauffman–Lambropoulou Theorem 4</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#tangle-fraction">Definition 8 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#standard-form">Definition 6 (Standard form)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../coloring/index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a></span></div>
+<div class="bp-row"><span class="bp-key">Proof uses</span><span class="bp-value"><a class="bp-ref bp-ref-proved" href="#twist-diagram-fraction">Theorem 46 (Standard-form value of a twist diagram is well-defined)</a> · <a class="bp-ref bp-ref-can_prove" href="../../coloring/index.html#theorems-coloring-fraction-properties">Theorem 3 (Coloring fraction of a rational tangle)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-proved" href="../index.html#coloring-fraction-unique">Theorem 57 (Uniqueness of the coloring fraction on larger honest classes)</a> · <a class="bp-ref bp-ref-proved" href="../index.html#coloring-invert-cong-slideReady">Theorem 48 (Coloring fraction after invert on slide-ready diagrams)</a> · <a class="bp-ref bp-ref-proved" href="../index.html#coloring-mirror-cong-slideReady">Theorem 60 (Coloring fraction after mirror on slide-ready diagrams)</a> · <a class="bp-ref bp-ref-proved" href="../index.html#coloring-rot180-add-units">Theorem 63 (Coloring fraction of rotated unit sums and products)</a> · <a class="bp-ref bp-ref-proved" href="../index.html#coloring-rot180-cong-slideReady">Theorem 64 (Coloring fraction after 180° rotation on slide-ready diagrams)</a> · <a class="bp-ref bp-ref-proved" href="../index.html#slideReady-isotopy-fraction">Theorem 74 (Standard-form $F$ along slide-ready coloring paths)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="mulTop-fixed-points">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">67</span><span class="bp-thmtitle">Fixed points of the mulTop commutativity equation</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1827" aria-label="View RationalTangles.TwistExpr.mulTop_comm_zero_false in Lean source" title="View RationalTangles.TwistExpr.mulTop_comm_zero_false in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1833" aria-label="View RationalTangles.TwistExpr.mulTop_comm_inf_false in Lean source" title="View RationalTangles.TwistExpr.mulTop_comm_inf_false in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/src/RationalTangles/ColoringFractionEq.lean#L1843" aria-label="View RationalTangles.TwistExpr.mulTop_comm_necessity in Lean source" title="View RationalTangles.TwistExpr.mulTop_comm_necessity in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../dependencies/nodes/rational-tangles/theorems/forms/mulTop-fixed-points.html" aria-label="Open local dependency context for Fixed points of the mulTop commutativity equation" title="Open local dependency context for Fixed points of the mulTop commutativity equation"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/roadmap/rational-tangles/theorems/forms/mulTop-fixed-points.md" aria-label="Edit the Markdown source for Fixed points of the mulTop commutativity equation" title="Edit the Markdown source for Fixed points of the mulTop commutativity equation"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#mulTop-fixed-points">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The <code>mulTop</code> commutativity equation <span class="arithmatex">\((s^{-1}+F)^{-1}=(F^{-1}+s)^{-1}\)</span> holds
+exactly at <span class="arithmatex">\(F=\pm 1\)</span> (per sign, hence jointly): <span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(\infty\)</span> fail by
+direct computation, and for finite nonzero values injectivity of <code>inv</code>
+reduces the equation to <span class="arithmatex">\(q=q^{-1}\)</span>, i.e. <span class="arithmatex">\(q^2=1\)</span>. Together with the
+sufficiency direction, the unit-fraction hypothesis for <code>mulTop</code>
+normalization is therefore both necessary and sufficient on finite
+values — blocker (b) is closed on the finiteness fragment.</p>
+</div>
+<div class="bp-thmnotes">
+<h6 id="sources_8">Sources</h6>
+<ul>
+<li><a href="https://github.com/tangentproofs/conway-knots/blob/30546f1194c5b9b0456049c80fe1835733c5f463/blueprint/sources/kauffman-lambropoulou.md#definition-8">Kauffman–Lambropoulou Definition 8</a></li>
+</ul>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#tangle-fraction">Definition 8 (Fraction of a rational tangle)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../definitions/index.html#standard-form">Definition 6 (Standard form)</a></span></div>
+</div>
+</details>
+</div>
+<nav class="bp-book-nav" aria-label="Blueprint chapters"><a class="bp-book-nav-link bp-book-nav-previous" href="../../definitions/index.html"><span class="bp-book-nav-direction"><span aria-hidden="true">←</span> Previous</span><span class="bp-book-nav-title">Tangle foundations</span></a><a class="bp-book-nav-link bp-book-nav-next" href="../index.html"><span class="bp-book-nav-direction"><span aria-hidden="true">→</span> Next</span><span class="bp-book-nav-title">Coloring-fraction toolkit</span></a></nav>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/tangentproofs/conway-knots">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+      
+        <script src="../../../../javascripts/blueprint-mermaid.js"></script>
+      
+    
+  </body>
+</html>
