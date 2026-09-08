@@ -13,8 +13,8 @@ import RationalTangles.DiagonalSumGeneral
 
 Paper-numbered wrappers around the proved Theorem 4 fragments
 (Kauffman–Lambropoulou §5, Theorem 4): each statement below is one part of
-the theorem, proved by the lemma named in its proof. The invariance assembly
-(part 2) and the all-rational agreement (part 7) are not claimed here; see
+the theorem, proved by the lemma named in its proof. The single-statement
+invariance assembly (part 2, "for every isotopy") is not claimed here; see
 the blueprint node for the exact boundary.
 -/
 

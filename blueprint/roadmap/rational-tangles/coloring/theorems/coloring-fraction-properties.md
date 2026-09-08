@@ -2,7 +2,8 @@
 declaration: theorem
 origin: cited
 statement: formalized
-lean: RationalTangles.theorem4_diagonal_sum RationalTangles.theorem4_diagonal_coloringIsotopy RationalTangles.diagonal_of_ColoringIsotopy_slideReady RationalTangles.diagonal_of_ReversibleColoringIsotopy_slideReady RationalTangles.diagonal_of_ReversibleColoringIsotopy_slideReady_symm RationalTangles.theorem4_additivity RationalTangles.theorem4_neg_inverse RationalTangles.theorem4_mirror_negation RationalTangles.theorem4_inverse RationalTangles.theorem4_standard_agreement RationalTangles.coloring_fraction_agreement_any_isotopy RationalTangles.theorem4_all_rational_agreement RationalTangles.theorem4_standard_coloring_exists RationalTangles.exists_coloring_fraction_reversible_slideReady RationalTangles.exists_coloring_fraction_isotopy_from_slideReady RationalTangles.theorem4_standard_uniqueness
+lean: RationalTangles.theorem4_diagonal_sum RationalTangles.theorem4_diagonal_coloringIsotopy RationalTangles.diagonal_of_ColoringIsotopy_slideReady RationalTangles.diagonal_of_ReversibleColoringIsotopy_slideReady RationalTangles.diagonal_of_ReversibleColoringIsotopy_slideReady_symm RationalTangles.theorem4_additivity RationalTangles.coloring_fraction_mul RationalTangles.theorem4_neg_inverse RationalTangles.theorem4_mirror_negation RationalTangles.theorem4_inverse RationalTangles.theorem4_standard_agreement RationalTangles.coloring_fraction_agreement_any_isotopy RationalTangles.theorem4_all_rational_agreement RationalTangles.theorem4_standard_coloring_exists RationalTangles.exists_coloring_fraction_reversible_slideReady RationalTangles.exists_coloring_fraction_isotopy_from_slideReady RationalTangles.theorem4_standard_uniqueness
+proof: formalized
 ---
 
 # Coloring fraction of a rational tangle
@@ -34,16 +35,20 @@ choice of integral coloring). There is no appeal to Tait.
 Parts (1) and (3)–(7) are formalized as the `theorem4_*` wrappers in
 `ColoringFractionTheorem.lean`, each proved by the lemma named in its
 docstring: (1) diagonal sum on standard forms, now extended to every
-coloring of every diagram `ColoringIsotopy`-related to a `slideReady`
-twist (`diagonal_of_ColoringIsotopy_slideReady` and the two
-`ReversibleColoringIsotopy` variants in `DiagonalSumGeneral.lean`); (3)
-additivity (plus the `coloring_fraction_mul` dual); (4) `-1/F` on
-mirror-invert; (5) `-F` on the mirror; (6) `1/F` on the inverse;
+coloring of every diagram with a `ColoringIsotopy` path from the diagram
+to a `slideReady` twist (`diagonal_of_ColoringIsotopy_slideReady` and the
+two `ReversibleColoringIsotopy` variants in `DiagonalSumGeneral.lean`); (3)
+additivity under the glue-port (`S.NW ≠ S.SW`) and diagonal hypotheses
+(plus the `coloring_fraction_mul` dual, with its own glue-port and
+diagonal hypotheses); (4) `-1/F` on mirror-invert of `slideReady` twists;
+(5) `-F` on the mirror of `slideReady` twists; (6) `1/F` carried by the
+inverse of `slideReady` twists (existence, via `HasColoringFraction`);
 (7) agreement/existence/uniqueness on standard forms and `slideReady`
 twists, plus all-rational agreement on the coloring-ready neighborhood
 (`theorem4_all_rational_agreement`: every non-monochrome coloring of a
-diagram `ColoringIsotopy`-related to a `slideReady` twist has fraction
-$F$) and existence there in the reversible direction (the `colorFrom`
+diagram with a `ColoringIsotopy` path from the diagram to a `slideReady`
+twist has fraction $F$) and existence there in the reversible direction
+(the `colorFrom`
 coloring transports forward along the symmetric path;
 `exists_coloring_fraction_reversible_slideReady` — one-way
 `ColoringIsotopy` from the twist cannot supply source colorings, so the

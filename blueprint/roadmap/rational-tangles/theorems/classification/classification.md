@@ -3,6 +3,7 @@ declaration: theorem
 origin: cited
 statement: formalized
 lean: RationalTangles.rational_classification_fragment
+proof: formalized
 ---
 
 # Classification of rational tangles
@@ -22,9 +23,12 @@ Formalized on the proved fragment
 `noMulTop` `slideReady` twists, algebraic fractions agree (forward
 invariance, via `colorFrom`) and equal fractions give isotopic diagrams
 (reconstruction). The forward direction rests on [the coloring-ready
-invariance assembly](fraction-isotopy-invariant.md); the converse on
-[the same-fraction results](same-fraction-isotopic.md) for
-`noMulTop`/`rightBottom` parses.
+invariance assembly](fraction-isotopy-invariant.md), via the
+`noMulTop` `colorFrom` discharge
+(`fraction_ColoringIsotopy_noMulTop_colorFrom`); the converse on the
+`noMulTop` twist same-fraction reconstruction
+(`twist_same_fraction_isotopic_of_noMulTop`). The general
+same-fraction node is parked and is not used.
 
 Beyond the fragment: full `Isotopic` invariance in either direction is
 not claimed. Unrestricted `flype_slide_*` and the switch-based
@@ -32,7 +36,8 @@ generators are unproved, and several transports are refuted outright —
 matrix-preserving mirror transport ([mirror refutation](../coloring-mirror-cong-slideReady.md)),
 invert transport on two crossings ([invert refutation](../slideReady/f7-invert-mirror.md)),
 and the diagonal rule without port hypotheses ([diagonal sharpness](../standard-values/s1-diagonal.md)).
-So this node is not yet marked proved.
+So this node is marked proved on the `ColoringIsotopy`/`noMulTop`/`slideReady`
+fragment only.
 
 Note 2 then records the bijection: if $T=[[a_1],\ldots,[a_n]]$ and
 $p/q=[a_1,\ldots,a_n]$, one may write $T=[p/q]$ without ambiguity. Rational
@@ -49,4 +54,9 @@ target.
 ## Depends on
 
 - [The fraction is an isotopy invariant](fraction-isotopy-invariant.md)
-- [Same fraction implies isotopic](same-fraction-isotopic.md)
+- [Twist expressions of equal fraction are isotopic](../forms/twist-same-fraction.md)
+
+## Proof depends on
+
+- [Standard-form $F$ along coloring isotopy](../forms/twist-coloring-isotopy-fraction.md)
+- [Twist expressions of equal fraction are isotopic](../forms/twist-same-fraction.md)

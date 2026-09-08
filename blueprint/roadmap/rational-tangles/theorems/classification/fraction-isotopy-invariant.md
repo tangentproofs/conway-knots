@@ -3,6 +3,7 @@ declaration: theorem
 origin: cited
 statement: formalized
 lean: RationalTangles.coloring_affine RationalTangles.ColorMatrix.fraction_affine RationalTangles.coloring_IsReidemeisterI RationalTangles.coloring_IsReidemeisterII RationalTangles.coloring_IsReidemeisterIIILocal RationalTangles.coloring_IsLocalFlype RationalTangles.rational_integrally_colorable RationalTangles.standard_form_fraction_unique RationalTangles.coloring_fraction_unique_slideReady RationalTangles.coloring_fraction_invariant_ColoringIsotopy
+proof: formalized
 ---
 
 # The fraction is an isotopy invariant
@@ -20,16 +21,16 @@ There is no appeal to the Tait flyping conjecture or to Proposition 4.
 ## Formalization status
 
 Formalized generator-by-generator: affine freedom, coloring transport along
-Reidemeister I–III and local flypes, colorability, and uniqueness of the
-fraction on standard forms and `slideReady` twists — assembled into one
-statement on the coloring-ready fragment
+Reidemeister I–II, local Reidemeister III, and local flypes, colorability,
+and uniqueness of the fraction on standard forms and `slideReady`
+twists — assembled into one statement on the coloring-ready fragment
 (`coloring_fraction_invariant_ColoringIsotopy`: standard-form agreement
 plus carried-fraction transfer along `ColoringIsotopy` between
-`slideReady` twists). The single-statement
+`slideReady` twists, both ends `slideReady`). The single-statement
 assembly "for every `Isotopic` witness" is not claimed: transport along
 unrestricted `flype_slide_*` and the switch-based generators
 (`invert_cong`, `invert_add`, `invert_mul`, `mirror_cong`) is outstanding,
-so this node is not yet marked proved.
+so this node is marked proved on the coloring-ready fragment only.
 
 ## Sources
 
