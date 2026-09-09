@@ -34,7 +34,11 @@ outstanding for the unrestricted `mulTop` case is algebraic
 hypothesis is now discharged when the inner fraction is `±1`
 (`mulTop_comm_of_unit_fraction`, claimed with the twist-diagram
 fraction results) — and coloring transport along the
-normalization path, so this node is not yet marked proved.
+normalization path, so this node is not yet marked proved. The
+boundary is now sharp, not merely outstanding: the agreement
+hypotheses are necessary in general, since a `mulTop` node over
+inner fraction `2` has algebraic `F = 1/3` against standard-form
+`2/3` (see [the fixed-point sharpness](../forms/mulTop-fixed-points.md)).
 
 On right-and-bottom parses the fraction is a function of the PD-code
 (`exists_unique_fraction_rightBottom`, relationally, so no choice

@@ -11,6 +11,7 @@ Invert-add and invert-mul with unit, integer, and vertical-twist pieces, one pul
 - [Unrestricted four-unit invert-add value](a21-four-unit-value.md)
 - [Unrestricted five-unit invert-add value](a22-five-unit-value.md)
 - [Unit-chain PD-code invariants](a23-unit-chain-invariants.md)
+- [Unrestricted negative three-unit invert-add value](a24-neg-three-unit-value.md)
 - [Invert-add with a zero or unit edge](a2-zero-unit-edges.md)
 - [Invert-mul with an infinity factor](a3-infinity-unit.md)
 - [Vertical twist identifications](a4-vertical-identifications.md)

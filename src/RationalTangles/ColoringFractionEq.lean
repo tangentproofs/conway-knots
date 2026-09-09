@@ -1915,6 +1915,37 @@ theorem TwistExpr.mulTop_comm_necessity (s : CrossingSign) (F : CFValue)
           subst hqm
           rfl
 
+/-- Sharpness for `twist_same_fraction_isotopic`: algebraic `F` of a
+    `mulTop` node over inner fraction `2` is `1/3`, while the
+    standard-form evaluation is `2/3`. The agreement hypotheses cannot
+    be dropped in general. -/
+theorem TwistExpr.mulTop_two_inner_ne_toStandard :
+    ¬ ((TwistExpr.mulTop (TwistExpr.addRight .one .pos) .pos).fraction =
+      (TwistExpr.mulTop (TwistExpr.addRight .one .pos) .pos).toStandard.fraction) := by
+  have hF : (TwistExpr.mulTop (TwistExpr.addRight .one .pos) .pos).fraction =
+      CFValue.ofRat (1/3 : Rat) := by
+    simp only [TwistExpr.fraction, CrossingSign.cfValue]
+    simp [CFValue.add, CFValue.inv]
+    rw [if_neg (by norm_num)]
+    congr 1
+    norm_num
+  have hS : (TwistExpr.mulTop (TwistExpr.addRight .one .pos) .pos).toStandard.fraction =
+      CFValue.ofRat (2/3 : Rat) := by
+    have e1 : (1 : CFValue) = CFValue.ofRat 1 := rfl
+    have e0 : (0 : CFValue) = CFValue.ofRat 0 := rfl
+    simp only [TwistExpr.toStandard, StandardExpr.fraction, e1, e0,
+      CFValue.add_ofRat, CFValue.inv]
+    rw [if_neg (by norm_num)]
+    rw [CFValue.add_ofRat]
+    dsimp only
+    rw [if_neg (by norm_num)]
+    congr 1
+    norm_num
+  rw [hF, hS]
+  intro h
+  have hRat : (1/3 : Rat) = 2/3 := CFValue.ofRat.inj h
+  norm_num at hRat
+
 theorem TwistExpr.addRight_ofCrossingSign_fraction (s t : CrossingSign) :
     (TwistExpr.addRight (TwistExpr.ofCrossingSign s) t).fraction =
       s.cfValue.add t.cfValue := by

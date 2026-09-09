@@ -1984,4 +1984,139 @@ theorem unitChain_invert_succ_crossings (n : Nat) :
       [⟨3 * n + 8, 3 * n + 9, 3 * n + 6, 3 * n + 5,
         CrossingSign.neg⟩] := rfl
   rw [h1, h5, unitChain_add_crossings n, List.map_append, ← h4, hmap]
+
+/-- Every non-monochrome coloring of ([-1]+[-1]+[-1]) inv has fraction
+    -1/3: the three switched rules force numerator d and denominator -3d
+    for nonzero d. -/
+theorem coloring_fraction_invert_add_negOne_negOne_negOne (col : Nat → Int)
+    (hc : ((((crossingTangle CrossingSign.neg).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).invert).IsColored col)
+    (hm : (ColorMatrix.of
+      ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert) col).NotMono) :
+    (ColorMatrix.of
+      ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert) col).fraction =
+      CFValue.ofRat (-1/3 : Rat) := by
+  have m1 : (⟨2, 3, 0, 1, CrossingSign.pos⟩ : Crossing) ∈
+      ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert.crossings) := by
+    decide
+  have m2 : (⟨6, 2, 1, 5, CrossingSign.pos⟩ : Crossing) ∈
+      ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert.crossings) := by
+    decide
+  have m3 : (⟨9, 6, 5, 8, CrossingSign.pos⟩ : Crossing) ∈
+      ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert.crossings) := by
+    decide
+  have hr1 := hc _ m1
+  have hr2 := hc _ m2
+  have hr3 := hc _ m3
+  obtain ⟨e1a, e1b⟩ := hr1
+  obtain ⟨e2a, e2b⟩ := hr2
+  obtain ⟨e3a, e3b⟩ := hr3
+  have hmRw : Not ((col 8 = col 9) ∧ (col 9 = col 3)) := hm
+  have hnum : col 9 - col 8 = col 2 - col 1 := by linarith
+  have hden3 : col 9 - col 3 = -(3 * (col 2 - col 1)) := by linarith
+  have hd : col 2 - col 1 ≠ 0 := by
+    intro hz0
+    have c89 : col 8 = col 9 := by linarith
+    have c93 : col 9 = col 3 := by linarith
+    exact hmRw ⟨c89, c93⟩
+  have hden : col 9 - col 3 ≠ 0 := by
+    rw [hden3, neg_ne_zero]
+    exact mul_ne_zero (by norm_num) hd
+  have hnumR : ((col 9 - col 8 : Int) : Rat) =
+      ((col 2 - col 1 : Int) : Rat) := by
+    exact_mod_cast hnum
+  have hdenR : ((col 9 - col 3 : Int) : Rat) =
+      ((-(3 * (col 2 - col 1)) : Int) : Rat) := by
+    exact_mod_cast hden3
+  have hdR : ((col 2 - col 1 : Int) : Rat) ≠ 0 :=
+    Int.cast_ne_zero.mpr hd
+  have hval : ((col 9 - col 8 : Int) : Rat) /
+      ((col 9 - col 3 : Int) : Rat) = -1 / 3 := by
+    have h3 : (3 : Int) * (col 2 - col 1) ≠ 0 :=
+      mul_ne_zero (by norm_num) hd
+    have h3ne : ((-(3 * (col 2 - col 1)) : Int) : Rat) ≠ 0 := by
+      have h3n : (-(3 * (col 2 - col 1)) : Int) ≠ 0 := neg_ne_zero.mpr h3
+      exact_mod_cast h3n
+    rw [hnumR, hdenR, div_eq_iff h3ne]
+    push_cast
+    ring
+  have hfrac : (ColorMatrix.of
+      ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert) col).fraction =
+      CFValue.ofRat (((col 9 - col 8 : Int) : Rat) /
+        ((col 9 - col 3 : Int) : Rat)) := by
+    show (if col 9 - col 3 = 0 then CFValue.inf
+      else CFValue.ofRat
+        (Rat.divInt (col 9 - col 8) (col 9 - col 3))) =
+      CFValue.ofRat (((col 9 - col 8 : Int) : Rat) /
+        ((col 9 - col 3 : Int) : Rat))
+    rw [if_neg hden, Rat.divInt_eq_div]
+  rw [hfrac, hval]
+
+/-- Witness coloring with fraction -1/3 on ([-1]+[-1]+[-1]) inv. -/
+def sharpColAddNegThree : Nat → Int := fun a =>
+  if a = 0 then 2 else if a = 1 then 1 else if a = 2 then 2
+  else if a = 3 then 3 else if a = 5 then 0 else if a = 6 then 1
+  else if a = 8 then -1 else if a = 9 then 0 else 0
+
+/-- ([-1]+[-1]+[-1]) inv carries value -1/3. -/
+theorem HasColoringFraction.invert_add_negOne_negOne_negOne :
+    HasColoringFraction
+      ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert)
+      (CFValue.ofRat (-1/3 : Rat)) := by
+  have hcs : ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert.crossings) =
+      [⟨2, 3, 0, 1, CrossingSign.pos⟩, ⟨6, 2, 1, 5, CrossingSign.pos⟩,
+        ⟨9, 6, 5, 8, CrossingSign.pos⟩] := by
+    decide
+  have hM : ColorMatrix.of
+      ((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert) sharpColAddNegThree =
+      ⟨-1, 0, 2, 3⟩ := by
+    rfl
+  refine ⟨sharpColAddNegThree, ?_, ?_, ?_⟩
+  · intro C hC
+    rw [hcs] at hC
+    simp only [List.mem_cons, List.not_mem_nil, or_false] at hC
+    rcases hC with rfl | rfl | rfl
+    · show sharpColAddNegThree 2 = sharpColAddNegThree 0 ∧
+        sharpColAddNegThree 3 + sharpColAddNegThree 1 =
+          2 * sharpColAddNegThree 2
+      exact ⟨by decide, by decide⟩
+    · show sharpColAddNegThree 6 = sharpColAddNegThree 1 ∧
+        sharpColAddNegThree 2 + sharpColAddNegThree 5 =
+          2 * sharpColAddNegThree 6
+      exact ⟨by decide, by decide⟩
+    · show sharpColAddNegThree 9 = sharpColAddNegThree 5 ∧
+        sharpColAddNegThree 6 + sharpColAddNegThree 8 =
+          2 * sharpColAddNegThree 9
+      exact ⟨by decide, by decide⟩
+  · rw [hM]
+    unfold ColorMatrix.NotMono
+    decide
+  · rw [hM]
+    show (if (0 : Int) - 3 = 0 then CFValue.inf
+      else CFValue.ofRat (Rat.divInt (0 - -1) (0 - 3))) =
+      CFValue.ofRat (-1/3 : Rat)
+    rw [if_neg (by norm_num)]
+    have hdiv : Rat.divInt (0 - -1) (0 - 3) = (-1/3 : Rat) := by
+      rw [Rat.divInt_eq_div]
+      norm_num
+    rw [hdiv]
 end RationalTangles
