@@ -1014,7 +1014,7 @@
 
 <h1 id="full-theorem-dependency-graph">Full theorem dependency graph</h1>
 <p><a href="../dependencies.html">Project map</a></p>
-<p>150 nodes · 408 dependencies. Arrows point from a prerequisite to what depends on it; dashed arrows are needed only by proofs. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">127</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">21</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<p>293 nodes · 759 dependencies. Arrows point from a prerequisite to what depends on it; dashed arrows are needed only by proofs. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">263</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">28</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0("Rational tangles"):::can_state
   n1("The fraction through integral coloring"):::can_state
@@ -1064,108 +1064,251 @@
   n45("Unrestricted four-unit invert-add value"):::fully_proved
   n46("Unrestricted five-unit invert-add value"):::fully_proved
   n47("Unit-chain PD-code invariants"):::fully_proved
-  n48("Unrestricted negative three-unit invert-add value"):::fully_proved
-  n49("Invert-mul with an infinity factor"):::fully_proved
-  n50("Vertical twist identifications"):::fully_proved
-  n51("Invert-add of integer chains, positive part"):::fully_proved
-  n52("Integer chains with signs and products"):::fully_proved
-  n53("Invert-add of two integer tangles"):::fully_proved
-  n54("Invert-add on slideReady diagrams"):::fully_proved
-  n55("Invert-mul on slideReady diagrams"):::fully_proved
-  n56("Unit top products and the invert diagonal"):::fully_proved
-  n57("Reversible isotopy pieces"):::can_state
-  n58("Reversible coloring isotopy, core"):::fully_proved
-  n59("Carrying colorings along reversible isotopy"):::fully_proved
-  n60("Local flype and R3 symmetries"):::fully_proved
-  n61("Reverse colorings for local moves"):::fully_proved
-  n62("Reverse one-way glue"):::fully_proved
-  n63("Reverse zero-add"):::fully_proved
-  n64("Tangle foundations"):::can_state
-  n65["Canonical form of a rational tangle"]:::fully_proved
-  n66("Coloring-fraction toolkit"):::can_state
-  n67("Invert and mirror on constructors"):::can_state
-  n68("Invert and mirror on addLeft"):::fully_proved
-  n69("Invert and mirror on mulTop"):::fully_proved
-  n70("Existence on addLeft and mulTop"):::fully_proved
-  n71("Tait flyping conjecture"):::can_state
-  n72("Alternating rational tangles related by flypes"):::can_state
-  n73("Canceling chains"):::can_state
-  n74("Two canceling units"):::fully_proved
-  n75("Nested canceling chains, fractions and existence"):::fully_proved
-  n76("Invert-add of nested canceling chains"):::fully_proved
-  n77("Mixed-sign canceling pieces"):::fully_proved
-  n78("Invert-add of $[1]+[-1]$ spelled out"):::fully_proved
-  n79("Mixed-sign invert-mul products at infinity"):::fully_proved
-  n80("Every rational tangle has a standard form"):::fully_proved
-  n81("Standard-form value of a twist diagram is well-defined"):::fully_proved
-  n82("Standard-form $F$ along coloring isotopy"):::fully_proved
-  n83("Coloring fraction after invert on slide-ready diagrams"):::fully_proved
-  n84("Invert-add of canceling chains"):::fully_proved
-  n85("Classification"):::can_state
-  n86("The fraction is an isotopy invariant"):::fully_proved
-  n87("Unique canonical continued fraction"):::fully_proved
-  n88("Every rational tangle has a continued fraction form"):::fully_proved
-  n89("Every rational tangle isotopes to canonical form"):::fully_proved
-  n90("Canonical diagrams of equal fraction are equal"):::fully_proved
-  n91("Twist expressions of equal fraction are isotopic"):::fully_proved
-  n92("Classification of rational tangles"):::fully_proved
-  n93("Same fraction implies isotopic"):::can_prove
-  n94("Same fraction implies isotopic diagrams with agreeing colorings"):::proved
-  n95("Uniqueness of the coloring fraction on larger honest classes"):::fully_proved
-  n96("Invert-add with a trivial infinite summand"):::fully_proved
-  n97("Invert-add with a trivial horizontal summand"):::fully_proved
-  n98("Coloring fraction after mirror on slide-ready diagrams"):::fully_proved
-  n99("Coloring fraction after invert on addLeft and mulTop"):::fully_proved
-  n100("Invert-mul of two right-and-bottom diagrams"):::fully_proved
-  n101("Coloring fraction of rotated unit sums and products"):::fully_proved
-  n102("Coloring fraction after 180° rotation on slide-ready diagrams"):::fully_proved
-  n103("Figure 14 at the coloring fraction on slide-ready diagrams"):::fully_proved
-  n104("Normal forms"):::can_state
-  n105("Fixed points of the mulTop commutativity equation"):::fully_proved
-  n106("Invert-add with a trivial infinite summand"):::can_state
-  n107("Invert-add with a right summand $[\infty]$"):::fully_proved
-  n108("Invert-add with a left summand $[\infty]$"):::fully_proved
-  n109("Invert-mul with $[\infty]$ and the reindex machinery"):::fully_proved
-  n110("Invert-add with a trivial summand"):::can_state
-  n111("Invert-add with a right summand $[0]$"):::fully_proved
-  n112("Invert-add with a left summand $[0]$"):::fully_proved
-  n113("SlideReady isotopy pieces"):::can_state
-  n114("Standard-form $F$ along slide-ready coloring paths"):::fully_proved
-  n115("SlideReady isotopy, core definitions"):::fully_proved
-  n116("Coloring transport along mulTop normalization"):::fully_proved
-  n117("Unrestricted slides on two-unit diagrams"):::fully_proved
-  n118("Unrestricted slides on negative two-unit diagrams"):::fully_proved
-  n119("Unrestricted slides on mixed-sign two-unit diagrams"):::fully_proved
-  n120("Standard values along slideReady isotopy"):::fully_proved
-  n121("Planar rotation at the fraction level"):::fully_proved
-  n122("Restricted flype slides at the fraction level"):::fully_proved
-  n123("Transfer at HasColoringFraction level"):::fully_proved
-  n124("Invert, mirror, and isotopy lift"):::fully_proved
-  n125("Invert-add of a right-and-bottom block"):::fully_proved
-  n126("Restricted flype slides with isotopy-related summands"):::fully_proved
-  n127("Standard values of twist colorings"):::can_state
-  n128("Standard values of twist colorings"):::fully_proved
-  n129("Diagonal sum on twist diagrams"):::fully_proved
-  n130("Coloring fraction equals the standard value"):::fully_proved
-  n131("The toStandard path and standard forms"):::fully_proved
-  n132("Fresh invert colorings of twists"):::fully_proved
-  n133("Transfer pieces"):::can_state
-  n134("Standard values of transfer diagrams"):::fully_proved
-  n135("Mirror-invert fraction on slideReady diagrams"):::fully_proved
-  n136("Figure 14 transfer at the fraction level, negative case"):::fully_proved
-  n137("Canceling two-block sums and products"):::can_state
-  n138("Canceling two-block sums and products"):::fully_proved
-  n139("Two-block integer sums"):::fully_proved
-  n140("Invert-add of two-block integer sums"):::fully_proved
-  n141("Two-block vertical products, fractions"):::fully_proved
-  n142("Two-block vertical products, existence"):::fully_proved
-  n143("Invert-mul of two-block vertical products"):::fully_proved
-  n144("Uniqueness pieces"):::can_state
-  n145("Uniqueness core on honest classes"):::fully_proved
-  n146("Uniqueness along isotopy transfer"):::fully_proved
-  n147("Uniqueness on integer-tangle sums"):::fully_proved
-  n148("Existence on addLeft and mulTop"):::fully_proved
-  n149("Rational tangles roadmap"):::can_state
+  n48("Unit-chain transfer lemmas and rung zero"):::fully_proved
+  n49("Inductive universal over the positive unit chain"):::fully_proved
+  n50("Witnesses for every rung of the positive unit chain"):::fully_proved
+  n51("Invert-mul with an infinity factor"):::fully_proved
+  n52("Vertical twist identifications"):::fully_proved
+  n53("Invert-add of integer chains, positive part"):::fully_proved
+  n54("Integer chains with signs and products"):::fully_proved
+  n55("Invert-add of two integer tangles"):::fully_proved
+  n56("Invert-add on slideReady diagrams"):::fully_proved
+  n57("Invert-mul on slideReady diagrams"):::fully_proved
+  n58("Unit top products and the invert diagonal"):::fully_proved
+  n59("Negative invert-add ladder"):::can_state
+  n60("Unrestricted negative three-unit invert-add value"):::fully_proved
+  n61("Unrestricted negative four-unit invert-add value"):::fully_proved
+  n62("Unrestricted negative five-unit invert-add value"):::fully_proved
+  n63("Unrestricted negative six-unit invert-add universal"):::fully_proved
+  n64("Unrestricted negative six-unit invert-add existence"):::fully_proved
+  n65("Unrestricted negative seven-unit invert-add universal"):::fully_proved
+  n66("Unrestricted negative seven-unit invert-add existence"):::fully_proved
+  n67("Unrestricted negative eight-unit invert-add universal"):::fully_proved
+  n68("Unrestricted negative eight-unit invert-add existence"):::fully_proved
+  n69("Unrestricted negative nine-unit invert-add universal"):::fully_proved
+  n70("Unrestricted negative nine-unit invert-add existence"):::fully_proved
+  n71("Negative invert-add ladder: factored rungs"):::can_state
+  n72("Negative invert-add ladder: factored rungs five"):::can_state
+  n73("Negative thirty-two-unit invert-add rule preliminaries"):::fully_proved
+  n74("Negative thirty-two-unit fraction-value preliminary"):::fully_proved
+  n75("Unrestricted negative thirty-two-unit invert-add universal"):::fully_proved
+  n76["Negative thirty-two-unit invert-add witness coloring"]:::fully_proved
+  n77("Negative thirty-two-unit witness rule preliminaries"):::fully_proved
+  n78("Unrestricted negative thirty-two-unit invert-add existence"):::fully_proved
+  n79("Negative thirty-three-unit invert-add rule preliminaries"):::fully_proved
+  n80("Negative thirty-three-unit fraction-value preliminary"):::fully_proved
+  n81("Unrestricted negative thirty-three-unit invert-add universal"):::fully_proved
+  n82["Negative thirty-three-unit invert-add witness coloring"]:::fully_proved
+  n83("Negative thirty-three-unit witness rule preliminaries"):::fully_proved
+  n84("Unrestricted negative thirty-three-unit invert-add existence"):::fully_proved
+  n85("Negative thirty-four-unit invert-add rule preliminaries"):::fully_proved
+  n86("Negative thirty-four-unit fraction-value preliminary"):::fully_proved
+  n87("Unrestricted negative thirty-four-unit invert-add universal"):::fully_proved
+  n88["Negative thirty-four-unit invert-add witness coloring"]:::fully_proved
+  n89("Negative thirty-four-unit witness rule preliminaries"):::fully_proved
+  n90("Unrestricted negative thirty-four-unit invert-add existence"):::fully_proved
+  n91("Negative invert-add ladder: factored rungs four"):::can_state
+  n92("Negative twenty-nine-unit invert-add rule preliminaries"):::fully_proved
+  n93("Negative twenty-nine-unit fraction-value preliminary"):::fully_proved
+  n94("Unrestricted negative twenty-nine-unit invert-add universal"):::fully_proved
+  n95["Negative twenty-nine-unit invert-add witness coloring"]:::fully_proved
+  n96("Negative twenty-nine-unit witness rule preliminaries"):::fully_proved
+  n97("Unrestricted negative twenty-nine-unit invert-add existence"):::fully_proved
+  n98("Negative thirty-unit invert-add rule preliminaries"):::fully_proved
+  n99("Negative thirty-unit fraction-value preliminary"):::fully_proved
+  n100("Unrestricted negative thirty-unit invert-add universal"):::fully_proved
+  n101["Negative thirty-unit invert-add witness coloring"]:::fully_proved
+  n102("Negative thirty-unit witness rule preliminaries"):::fully_proved
+  n103("Unrestricted negative thirty-unit invert-add existence"):::fully_proved
+  n104("Negative thirty-one-unit invert-add rule preliminaries"):::fully_proved
+  n105("Negative thirty-one-unit fraction-value preliminary"):::fully_proved
+  n106("Unrestricted negative thirty-one-unit invert-add universal"):::fully_proved
+  n107["Negative thirty-one-unit invert-add witness coloring"]:::fully_proved
+  n108("Negative thirty-one-unit witness rule preliminaries"):::fully_proved
+  n109("Unrestricted negative thirty-one-unit invert-add existence"):::fully_proved
+  n110("Negative invert-add ladder: factored rungs six"):::can_state
+  n111("Negative thirty-five-unit invert-add rule preliminaries"):::fully_proved
+  n112("Negative thirty-five-unit fraction-value preliminary"):::fully_proved
+  n113("Unrestricted negative thirty-five-unit invert-add universal"):::fully_proved
+  n114["Negative thirty-five-unit invert-add witness coloring"]:::fully_proved
+  n115("Negative thirty-five-unit witness rule preliminaries"):::fully_proved
+  n116("Unrestricted negative thirty-five-unit invert-add existence"):::fully_proved
+  n117("Negative thirty-six-unit invert-add rule preliminaries"):::fully_proved
+  n118("Negative thirty-six-unit fraction-value preliminary"):::fully_proved
+  n119("Unrestricted negative thirty-six-unit invert-add universal"):::fully_proved
+  n120["Negative thirty-six-unit invert-add witness coloring"]:::fully_proved
+  n121("Negative thirty-six-unit witness rule preliminaries"):::fully_proved
+  n122("Negative thirty-six-unit witness-value computation"):::fully_proved
+  n123("Unrestricted negative thirty-six-unit invert-add existence"):::fully_proved
+  n124("Negative thirty-seven-unit invert-add rule preliminaries"):::fully_proved
+  n125("Negative thirty-seven-unit fraction-value preliminary"):::fully_proved
+  n126("Unrestricted negative thirty-seven-unit invert-add universal"):::fully_proved
+  n127["Negative thirty-seven-unit invert-add witness coloring"]:::fully_proved
+  n128("Negative thirty-seven-unit witness rule preliminaries"):::fully_proved
+  n129("Negative thirty-seven-unit witness-value computation"):::fully_proved
+  n130("Unrestricted negative thirty-seven-unit invert-add existence"):::fully_proved
+  n131("Negative invert-add ladder: factored rungs three"):::can_state
+  n132("Negative twenty-four-unit invert-add rule preliminaries"):::fully_proved
+  n133("Unrestricted negative twenty-four-unit invert-add universal"):::fully_proved
+  n134["Negative twenty-four-unit invert-add witness coloring"]:::fully_proved
+  n135("Unrestricted negative twenty-four-unit invert-add existence"):::fully_proved
+  n136("Negative twenty-five-unit invert-add rule preliminaries"):::fully_proved
+  n137("Unrestricted negative twenty-five-unit invert-add universal"):::fully_proved
+  n138["Negative twenty-five-unit invert-add witness coloring"]:::fully_proved
+  n139("Unrestricted negative twenty-five-unit invert-add existence"):::fully_proved
+  n140("Negative twenty-six-unit invert-add rule preliminaries"):::fully_proved
+  n141("Unrestricted negative twenty-six-unit invert-add universal"):::fully_proved
+  n142["Negative twenty-six-unit invert-add witness coloring"]:::fully_proved
+  n143("Negative twenty-six-unit witness rule preliminaries"):::fully_proved
+  n144("Unrestricted negative twenty-six-unit invert-add existence"):::fully_proved
+  n145("Negative twenty-seven-unit invert-add rule preliminaries"):::fully_proved
+  n146("Unrestricted negative twenty-seven-unit invert-add universal"):::fully_proved
+  n147["Negative twenty-seven-unit invert-add witness coloring"]:::fully_proved
+  n148("Negative twenty-seven-unit witness rule preliminaries"):::fully_proved
+  n149("Unrestricted negative twenty-seven-unit invert-add existence"):::fully_proved
+  n150("Negative twenty-eight-unit invert-add rule preliminaries"):::fully_proved
+  n151("Unrestricted negative twenty-eight-unit invert-add universal"):::fully_proved
+  n152["Negative twenty-eight-unit invert-add witness coloring"]:::fully_proved
+  n153("Negative twenty-eight-unit witness rule preliminaries"):::fully_proved
+  n154("Unrestricted negative twenty-eight-unit invert-add existence"):::fully_proved
+  n155("Negative invert-add ladder: factored rungs two"):::can_state
+  n156("Negative eighteen-unit invert-add rule preliminaries"):::fully_proved
+  n157("Unrestricted negative eighteen-unit invert-add universal"):::fully_proved
+  n158("Unrestricted negative eighteen-unit invert-add existence"):::fully_proved
+  n159("Negative nineteen-unit invert-add rule preliminaries"):::fully_proved
+  n160("Unrestricted negative nineteen-unit invert-add universal"):::fully_proved
+  n161("Unrestricted negative nineteen-unit invert-add existence"):::fully_proved
+  n162("Negative twenty-unit invert-add rule preliminaries"):::fully_proved
+  n163("Unrestricted negative twenty-unit invert-add universal"):::fully_proved
+  n164("Unrestricted negative twenty-unit invert-add existence"):::fully_proved
+  n165("Negative twenty-one-unit invert-add rule preliminaries"):::fully_proved
+  n166("Unrestricted negative twenty-one-unit invert-add universal"):::fully_proved
+  n167("Unrestricted negative twenty-one-unit invert-add existence"):::fully_proved
+  n168("Negative twenty-two-unit invert-add rule preliminaries"):::fully_proved
+  n169("Unrestricted negative twenty-two-unit invert-add universal"):::fully_proved
+  n170["Negative twenty-two-unit invert-add witness coloring"]:::fully_proved
+  n171("Unrestricted negative twenty-two-unit invert-add existence"):::fully_proved
+  n172("Negative twenty-three-unit invert-add rule preliminaries"):::fully_proved
+  n173("Unrestricted negative twenty-three-unit invert-add universal"):::fully_proved
+  n174["Negative twenty-three-unit invert-add witness coloring"]:::fully_proved
+  n175("Unrestricted negative twenty-three-unit invert-add existence"):::fully_proved
+  n176("Negative ten-unit invert-add rule preliminaries"):::fully_proved
+  n177("Unrestricted negative ten-unit invert-add universal"):::fully_proved
+  n178("Unrestricted negative ten-unit invert-add existence"):::fully_proved
+  n179("Negative eleven-unit invert-add rule preliminaries"):::fully_proved
+  n180("Unrestricted negative eleven-unit invert-add universal"):::fully_proved
+  n181("Unrestricted negative eleven-unit invert-add existence"):::fully_proved
+  n182("Negative twelve-unit invert-add rule preliminaries"):::fully_proved
+  n183("Unrestricted negative twelve-unit invert-add universal"):::fully_proved
+  n184("Unrestricted negative twelve-unit invert-add existence"):::fully_proved
+  n185("Negative thirteen-unit invert-add rule preliminaries"):::fully_proved
+  n186("Unrestricted negative thirteen-unit invert-add universal"):::fully_proved
+  n187("Unrestricted negative thirteen-unit invert-add existence"):::fully_proved
+  n188("Negative fourteen-unit invert-add rule preliminaries"):::fully_proved
+  n189("Unrestricted negative fourteen-unit invert-add universal"):::fully_proved
+  n190("Unrestricted negative fourteen-unit invert-add existence"):::fully_proved
+  n191("Negative fifteen-unit invert-add rule preliminaries"):::fully_proved
+  n192("Unrestricted negative fifteen-unit invert-add universal"):::fully_proved
+  n193("Unrestricted negative fifteen-unit invert-add existence"):::fully_proved
+  n194("Negative sixteen-unit invert-add rule preliminaries"):::fully_proved
+  n195("Unrestricted negative sixteen-unit invert-add universal"):::fully_proved
+  n196("Unrestricted negative sixteen-unit invert-add existence"):::fully_proved
+  n197("Negative seventeen-unit invert-add rule preliminaries"):::fully_proved
+  n198("Unrestricted negative seventeen-unit invert-add universal"):::fully_proved
+  n199("Unrestricted negative seventeen-unit invert-add existence"):::fully_proved
+  n200("Reversible isotopy pieces"):::can_state
+  n201("Reversible coloring isotopy, core"):::fully_proved
+  n202("Carrying colorings along reversible isotopy"):::fully_proved
+  n203("Local flype and R3 symmetries"):::fully_proved
+  n204("Reverse colorings for local moves"):::fully_proved
+  n205("Reverse one-way glue"):::fully_proved
+  n206("Reverse zero-add"):::fully_proved
+  n207("Tangle foundations"):::can_state
+  n208["Canonical form of a rational tangle"]:::fully_proved
+  n209("Coloring-fraction toolkit"):::can_state
+  n210("Invert and mirror on constructors"):::can_state
+  n211("Invert and mirror on addLeft"):::fully_proved
+  n212("Invert and mirror on mulTop"):::fully_proved
+  n213("Existence on addLeft and mulTop"):::fully_proved
+  n214("Tait flyping conjecture"):::can_state
+  n215("Alternating rational tangles related by flypes"):::can_state
+  n216("Canceling chains"):::can_state
+  n217("Two canceling units"):::fully_proved
+  n218("Nested canceling chains, fractions and existence"):::fully_proved
+  n219("Invert-add of nested canceling chains"):::fully_proved
+  n220("Mixed-sign canceling pieces"):::fully_proved
+  n221("Invert-add of $[1]+[-1]$ spelled out"):::fully_proved
+  n222("Mixed-sign invert-mul products at infinity"):::fully_proved
+  n223("Every rational tangle has a standard form"):::fully_proved
+  n224("Standard-form value of a twist diagram is well-defined"):::fully_proved
+  n225("Standard-form $F$ along coloring isotopy"):::fully_proved
+  n226("Coloring fraction after invert on slide-ready diagrams"):::fully_proved
+  n227("Invert-add of canceling chains"):::fully_proved
+  n228("Classification"):::can_state
+  n229("The fraction is an isotopy invariant"):::fully_proved
+  n230("Unique canonical continued fraction"):::fully_proved
+  n231("Every rational tangle has a continued fraction form"):::fully_proved
+  n232("Every rational tangle isotopes to canonical form"):::fully_proved
+  n233("Canonical diagrams of equal fraction are equal"):::fully_proved
+  n234("Twist expressions of equal fraction are isotopic"):::fully_proved
+  n235("Classification of rational tangles"):::fully_proved
+  n236("Same fraction implies isotopic"):::can_prove
+  n237("Same fraction implies isotopic diagrams with agreeing colorings"):::proved
+  n238("Uniqueness of the coloring fraction on larger honest classes"):::fully_proved
+  n239("Invert-add with a trivial infinite summand"):::fully_proved
+  n240("Invert-add with a trivial horizontal summand"):::fully_proved
+  n241("Coloring fraction after mirror on slide-ready diagrams"):::fully_proved
+  n242("Coloring fraction after invert on addLeft and mulTop"):::fully_proved
+  n243("Invert-mul of two right-and-bottom diagrams"):::fully_proved
+  n244("Coloring fraction of rotated unit sums and products"):::fully_proved
+  n245("Coloring fraction after 180° rotation on slide-ready diagrams"):::fully_proved
+  n246("Figure 14 at the coloring fraction on slide-ready diagrams"):::fully_proved
+  n247("Normal forms"):::can_state
+  n248("Fixed points of the mulTop commutativity equation"):::fully_proved
+  n249("Invert-add with a trivial infinite summand"):::can_state
+  n250("Invert-add with a right summand $[\infty]$"):::fully_proved
+  n251("Invert-add with a left summand $[\infty]$"):::fully_proved
+  n252("Invert-mul with $[\infty]$ and the reindex machinery"):::fully_proved
+  n253("Invert-add with a trivial summand"):::can_state
+  n254("Invert-add with a right summand $[0]$"):::fully_proved
+  n255("Invert-add with a left summand $[0]$"):::fully_proved
+  n256("SlideReady isotopy pieces"):::can_state
+  n257("Standard-form $F$ along slide-ready coloring paths"):::fully_proved
+  n258("SlideReady isotopy, core definitions"):::fully_proved
+  n259("Coloring transport along mulTop normalization"):::fully_proved
+  n260("Unrestricted slides on two-unit diagrams"):::fully_proved
+  n261("Unrestricted slides on negative two-unit diagrams"):::fully_proved
+  n262("Unrestricted slides on mixed-sign two-unit diagrams"):::fully_proved
+  n263("Standard values along slideReady isotopy"):::fully_proved
+  n264("Planar rotation at the fraction level"):::fully_proved
+  n265("Restricted flype slides at the fraction level"):::fully_proved
+  n266("Transfer at HasColoringFraction level"):::fully_proved
+  n267("Invert, mirror, and isotopy lift"):::fully_proved
+  n268("Invert-add of a right-and-bottom block"):::fully_proved
+  n269("Restricted flype slides with isotopy-related summands"):::fully_proved
+  n270("Standard values of twist colorings"):::can_state
+  n271("Standard values of twist colorings"):::fully_proved
+  n272("Diagonal sum on twist diagrams"):::fully_proved
+  n273("Coloring fraction equals the standard value"):::fully_proved
+  n274("The toStandard path and standard forms"):::fully_proved
+  n275("Fresh invert colorings of twists"):::fully_proved
+  n276("Transfer pieces"):::can_state
+  n277("Standard values of transfer diagrams"):::fully_proved
+  n278("Mirror-invert fraction on slideReady diagrams"):::fully_proved
+  n279("Figure 14 transfer at the fraction level, negative case"):::fully_proved
+  n280("Canceling two-block sums and products"):::can_state
+  n281("Canceling two-block sums and products"):::fully_proved
+  n282("Two-block integer sums"):::fully_proved
+  n283("Invert-add of two-block integer sums"):::fully_proved
+  n284("Two-block vertical products, fractions"):::fully_proved
+  n285("Two-block vertical products, existence"):::fully_proved
+  n286("Invert-mul of two-block vertical products"):::fully_proved
+  n287("Uniqueness pieces"):::can_state
+  n288("Uniqueness core on honest classes"):::fully_proved
+  n289("Uniqueness along isotopy transfer"):::fully_proved
+  n290("Uniqueness on integer-tangle sums"):::fully_proved
+  n291("Existence on addLeft and mulTop"):::fully_proved
+  n292("Rational tangles roadmap"):::can_state
   n5 --&gt; n6
   n5 --&gt; n7
   n5 -.-&gt; n11
@@ -1200,40 +1343,58 @@
   n6 --&gt; n54
   n6 --&gt; n55
   n6 --&gt; n56
-  n6 --&gt; n23
+  n6 --&gt; n57
   n6 --&gt; n58
-  n6 --&gt; n59
   n6 --&gt; n60
   n6 --&gt; n61
   n6 --&gt; n62
   n6 --&gt; n63
+  n6 --&gt; n64
+  n6 --&gt; n65
+  n6 --&gt; n66
+  n6 --&gt; n67
   n6 --&gt; n68
   n6 --&gt; n69
   n6 --&gt; n70
+  n6 --&gt; n73
   n6 --&gt; n74
   n6 --&gt; n75
   n6 --&gt; n76
   n6 --&gt; n77
   n6 --&gt; n78
   n6 --&gt; n79
+  n6 --&gt; n80
+  n6 --&gt; n81
+  n6 --&gt; n82
+  n6 --&gt; n83
   n6 --&gt; n84
+  n6 --&gt; n85
+  n6 --&gt; n86
+  n6 --&gt; n87
+  n6 --&gt; n88
+  n6 --&gt; n89
+  n6 --&gt; n90
+  n6 --&gt; n92
+  n6 --&gt; n93
   n6 --&gt; n94
   n6 --&gt; n95
   n6 --&gt; n96
   n6 --&gt; n97
-  n6 --&gt; n99
-  n6 --&gt; n83
-  n6 --&gt; n100
   n6 --&gt; n98
+  n6 --&gt; n99
+  n6 --&gt; n100
   n6 --&gt; n101
   n6 --&gt; n102
   n6 --&gt; n103
-  n6 --&gt; n82
+  n6 --&gt; n104
+  n6 --&gt; n105
+  n6 --&gt; n106
   n6 --&gt; n107
   n6 --&gt; n108
   n6 --&gt; n109
   n6 --&gt; n111
   n6 --&gt; n112
+  n6 --&gt; n113
   n6 --&gt; n114
   n6 --&gt; n115
   n6 --&gt; n116
@@ -1247,24 +1408,142 @@
   n6 --&gt; n124
   n6 --&gt; n125
   n6 --&gt; n126
+  n6 --&gt; n127
   n6 --&gt; n128
   n6 --&gt; n129
   n6 --&gt; n130
-  n6 --&gt; n131
   n6 --&gt; n132
+  n6 --&gt; n133
   n6 --&gt; n134
   n6 --&gt; n135
   n6 --&gt; n136
+  n6 --&gt; n137
   n6 --&gt; n138
   n6 --&gt; n139
   n6 --&gt; n140
   n6 --&gt; n141
   n6 --&gt; n142
   n6 --&gt; n143
+  n6 --&gt; n144
   n6 --&gt; n145
   n6 --&gt; n146
   n6 --&gt; n147
   n6 --&gt; n148
+  n6 --&gt; n149
+  n6 --&gt; n150
+  n6 --&gt; n151
+  n6 --&gt; n152
+  n6 --&gt; n153
+  n6 --&gt; n154
+  n6 --&gt; n156
+  n6 --&gt; n157
+  n6 --&gt; n158
+  n6 --&gt; n159
+  n6 --&gt; n160
+  n6 --&gt; n161
+  n6 --&gt; n162
+  n6 --&gt; n163
+  n6 --&gt; n164
+  n6 --&gt; n165
+  n6 --&gt; n166
+  n6 --&gt; n167
+  n6 --&gt; n168
+  n6 --&gt; n169
+  n6 --&gt; n170
+  n6 --&gt; n171
+  n6 --&gt; n172
+  n6 --&gt; n173
+  n6 --&gt; n174
+  n6 --&gt; n175
+  n6 --&gt; n176
+  n6 --&gt; n177
+  n6 --&gt; n178
+  n6 --&gt; n179
+  n6 --&gt; n180
+  n6 --&gt; n181
+  n6 --&gt; n182
+  n6 --&gt; n183
+  n6 --&gt; n184
+  n6 --&gt; n185
+  n6 --&gt; n186
+  n6 --&gt; n187
+  n6 --&gt; n188
+  n6 --&gt; n189
+  n6 --&gt; n190
+  n6 --&gt; n191
+  n6 --&gt; n192
+  n6 --&gt; n193
+  n6 --&gt; n194
+  n6 --&gt; n195
+  n6 --&gt; n196
+  n6 --&gt; n197
+  n6 --&gt; n198
+  n6 --&gt; n199
+  n6 --&gt; n23
+  n6 --&gt; n201
+  n6 --&gt; n202
+  n6 --&gt; n203
+  n6 --&gt; n204
+  n6 --&gt; n205
+  n6 --&gt; n206
+  n6 --&gt; n211
+  n6 --&gt; n212
+  n6 --&gt; n213
+  n6 --&gt; n217
+  n6 --&gt; n218
+  n6 --&gt; n219
+  n6 --&gt; n220
+  n6 --&gt; n221
+  n6 --&gt; n222
+  n6 --&gt; n227
+  n6 --&gt; n237
+  n6 --&gt; n238
+  n6 --&gt; n239
+  n6 --&gt; n240
+  n6 --&gt; n242
+  n6 --&gt; n226
+  n6 --&gt; n243
+  n6 --&gt; n241
+  n6 --&gt; n244
+  n6 --&gt; n245
+  n6 --&gt; n246
+  n6 --&gt; n225
+  n6 --&gt; n250
+  n6 --&gt; n251
+  n6 --&gt; n252
+  n6 --&gt; n254
+  n6 --&gt; n255
+  n6 --&gt; n257
+  n6 --&gt; n258
+  n6 --&gt; n259
+  n6 --&gt; n260
+  n6 --&gt; n261
+  n6 --&gt; n262
+  n6 --&gt; n263
+  n6 --&gt; n264
+  n6 --&gt; n265
+  n6 --&gt; n266
+  n6 --&gt; n267
+  n6 --&gt; n268
+  n6 --&gt; n269
+  n6 --&gt; n271
+  n6 --&gt; n272
+  n6 --&gt; n273
+  n6 --&gt; n274
+  n6 --&gt; n275
+  n6 --&gt; n277
+  n6 --&gt; n278
+  n6 --&gt; n279
+  n6 --&gt; n281
+  n6 --&gt; n282
+  n6 --&gt; n283
+  n6 --&gt; n284
+  n6 --&gt; n285
+  n6 --&gt; n286
+  n6 --&gt; n288
+  n6 --&gt; n289
+  n6 --&gt; n290
+  n6 --&gt; n291
   n4 --&gt; n5
   n4 --&gt; n7
   n4 --&gt; n11
@@ -1274,122 +1553,201 @@
   n4 --&gt; n20
   n4 --&gt; n17
   n4 --&gt; n23
-  n4 --&gt; n58
-  n4 --&gt; n59
-  n4 --&gt; n60
-  n4 --&gt; n61
-  n4 --&gt; n62
-  n4 --&gt; n63
+  n4 --&gt; n201
+  n4 --&gt; n202
+  n4 --&gt; n203
+  n4 --&gt; n204
+  n4 --&gt; n205
+  n4 --&gt; n206
   n7 -.-&gt; n25
-  n7 -.-&gt; n95
+  n7 -.-&gt; n238
   n11 -.-&gt; n25
   n11 --&gt; n23
-  n11 --&gt; n58
-  n11 --&gt; n59
-  n11 --&gt; n60
-  n11 --&gt; n61
-  n11 --&gt; n62
-  n11 --&gt; n63
+  n11 --&gt; n201
+  n11 --&gt; n202
+  n11 --&gt; n203
+  n11 --&gt; n204
+  n11 --&gt; n205
+  n11 --&gt; n206
   n25 -.-&gt; n26
-  n25 -.-&gt; n86
-  n25 -.-&gt; n94
-  n25 -.-&gt; n95
-  n25 -.-&gt; n83
-  n25 -.-&gt; n82
-  n25 -.-&gt; n81
+  n25 -.-&gt; n229
+  n25 -.-&gt; n237
+  n25 -.-&gt; n238
+  n25 -.-&gt; n226
+  n25 -.-&gt; n225
+  n25 -.-&gt; n224
   n21 -.-&gt; n25
-  n21 --&gt; n74
-  n21 --&gt; n75
-  n21 --&gt; n76
-  n21 --&gt; n77
-  n21 --&gt; n78
-  n21 --&gt; n84
-  n21 --&gt; n96
-  n21 --&gt; n97
-  n21 --&gt; n107
-  n21 --&gt; n108
-  n21 --&gt; n109
-  n21 --&gt; n111
-  n21 --&gt; n112
-  n21 --&gt; n138
-  n21 --&gt; n139
-  n21 --&gt; n140
-  n21 --&gt; n141
-  n21 --&gt; n142
-  n21 --&gt; n143
-  n26 -.-&gt; n100
-  n26 -.-&gt; n114
+  n21 --&gt; n217
+  n21 --&gt; n218
+  n21 --&gt; n219
+  n21 --&gt; n220
+  n21 --&gt; n221
+  n21 --&gt; n227
+  n21 --&gt; n239
+  n21 --&gt; n240
+  n21 --&gt; n250
+  n21 --&gt; n251
+  n21 --&gt; n252
+  n21 --&gt; n254
+  n21 --&gt; n255
+  n21 --&gt; n281
+  n21 --&gt; n282
+  n21 --&gt; n283
+  n21 --&gt; n284
+  n21 --&gt; n285
+  n21 --&gt; n286
+  n26 -.-&gt; n243
+  n26 -.-&gt; n257
   n18 -.-&gt; n25
   n18 --&gt; n23
-  n18 --&gt; n58
-  n18 --&gt; n59
-  n18 --&gt; n60
-  n18 --&gt; n61
-  n18 --&gt; n62
-  n18 --&gt; n63
+  n18 --&gt; n201
+  n18 --&gt; n202
+  n18 --&gt; n203
+  n18 --&gt; n204
+  n18 --&gt; n205
+  n18 --&gt; n206
   n19 -.-&gt; n25
   n19 --&gt; n23
-  n19 --&gt; n58
-  n19 --&gt; n59
-  n19 --&gt; n60
-  n19 --&gt; n61
-  n19 --&gt; n62
-  n19 --&gt; n63
+  n19 --&gt; n201
+  n19 --&gt; n202
+  n19 --&gt; n203
+  n19 --&gt; n204
+  n19 --&gt; n205
+  n19 --&gt; n206
   n20 -.-&gt; n25
   n20 --&gt; n23
-  n20 --&gt; n58
-  n20 --&gt; n59
-  n20 --&gt; n60
-  n20 --&gt; n61
-  n20 --&gt; n62
-  n20 --&gt; n63
+  n20 --&gt; n201
+  n20 --&gt; n202
+  n20 --&gt; n203
+  n20 --&gt; n204
+  n20 --&gt; n205
+  n20 --&gt; n206
   n24 -.-&gt; n25
-  n24 -.-&gt; n72
-  n24 -.-&gt; n89
-  n24 -.-&gt; n80
+  n24 -.-&gt; n215
+  n24 -.-&gt; n232
+  n24 -.-&gt; n223
   n17 -.-&gt; n25
+  n73 --&gt; n75
+  n74 --&gt; n75
+  n76 --&gt; n77
+  n76 --&gt; n78
+  n77 --&gt; n78
+  n79 --&gt; n81
+  n80 --&gt; n81
+  n82 --&gt; n83
+  n82 --&gt; n84
+  n83 --&gt; n84
+  n85 --&gt; n87
+  n86 --&gt; n87
+  n88 --&gt; n89
+  n88 --&gt; n90
+  n89 --&gt; n90
+  n92 --&gt; n94
+  n93 --&gt; n94
+  n95 --&gt; n96
+  n95 --&gt; n97
+  n96 --&gt; n97
+  n98 --&gt; n100
+  n99 --&gt; n100
+  n101 --&gt; n102
+  n101 --&gt; n103
+  n102 --&gt; n103
+  n104 --&gt; n106
+  n105 --&gt; n106
+  n107 --&gt; n108
+  n107 --&gt; n109
+  n108 --&gt; n109
+  n111 --&gt; n113
+  n112 --&gt; n113
+  n114 --&gt; n115
+  n114 --&gt; n116
+  n115 --&gt; n116
+  n117 --&gt; n119
+  n118 --&gt; n119
+  n120 --&gt; n121
+  n120 --&gt; n123
+  n121 --&gt; n123
+  n122 --&gt; n123
+  n124 --&gt; n126
+  n125 --&gt; n126
+  n127 --&gt; n128
+  n127 --&gt; n130
+  n128 --&gt; n130
+  n129 --&gt; n130
+  n132 --&gt; n133
+  n134 --&gt; n135
+  n136 --&gt; n137
+  n138 --&gt; n139
+  n140 --&gt; n141
+  n142 --&gt; n143
+  n142 --&gt; n144
+  n143 --&gt; n144
+  n145 --&gt; n146
+  n147 --&gt; n148
+  n147 --&gt; n149
+  n148 --&gt; n149
+  n150 --&gt; n151
+  n152 --&gt; n153
+  n152 --&gt; n154
+  n153 --&gt; n154
+  n156 --&gt; n157
+  n159 --&gt; n160
+  n162 --&gt; n163
+  n165 --&gt; n166
+  n168 --&gt; n169
+  n170 --&gt; n171
+  n172 --&gt; n173
+  n174 --&gt; n175
+  n176 --&gt; n177
+  n179 --&gt; n180
+  n182 --&gt; n183
+  n185 --&gt; n186
+  n188 --&gt; n189
+  n191 --&gt; n192
+  n194 --&gt; n195
+  n197 --&gt; n198
   n22 -.-&gt; n25
-  n22 -.-&gt; n95
+  n22 -.-&gt; n238
   n23 -.-&gt; n25
-  n23 -.-&gt; n95
-  n65 --&gt; n93
-  n65 --&gt; n89
-  n65 --&gt; n90
-  n65 --&gt; n91
+  n23 -.-&gt; n238
+  n208 --&gt; n236
+  n208 --&gt; n232
+  n208 --&gt; n233
+  n208 --&gt; n234
   n15 --&gt; n16
-  n15 --&gt; n87
-  n14 --&gt; n65
+  n15 --&gt; n230
+  n14 --&gt; n208
   n14 --&gt; n16
-  n14 --&gt; n88
+  n14 --&gt; n231
   n10 -.-&gt; n11
   n10 -.-&gt; n25
   n10 --&gt; n24
-  n10 -.-&gt; n72
+  n10 -.-&gt; n215
   n9 --&gt; n11
   n9 --&gt; n21
   n9 --&gt; n24
-  n9 --&gt; n72
-  n9 --&gt; n101
-  n9 --&gt; n103
-  n9 -.-&gt; n89
-  n9 -.-&gt; n80
-  n9 --&gt; n114
-  n9 --&gt; n115
-  n9 --&gt; n116
-  n9 --&gt; n117
-  n9 --&gt; n118
-  n9 --&gt; n119
-  n9 --&gt; n120
-  n9 --&gt; n121
-  n9 --&gt; n122
-  n9 --&gt; n123
-  n9 --&gt; n124
-  n9 --&gt; n125
-  n9 --&gt; n126
-  n9 --&gt; n71
-  n9 --&gt; n134
-  n9 --&gt; n135
-  n9 --&gt; n136
+  n9 --&gt; n215
+  n9 --&gt; n244
+  n9 --&gt; n246
+  n9 -.-&gt; n232
+  n9 -.-&gt; n223
+  n9 --&gt; n257
+  n9 --&gt; n258
+  n9 --&gt; n259
+  n9 --&gt; n260
+  n9 --&gt; n261
+  n9 --&gt; n262
+  n9 --&gt; n263
+  n9 --&gt; n264
+  n9 --&gt; n265
+  n9 --&gt; n266
+  n9 --&gt; n267
+  n9 --&gt; n268
+  n9 --&gt; n269
+  n9 --&gt; n214
+  n9 --&gt; n277
+  n9 --&gt; n278
+  n9 --&gt; n279
   n8 -.-&gt; n25
   n8 --&gt; n21
   n8 --&gt; n26
@@ -1422,99 +1780,235 @@
   n8 --&gt; n54
   n8 --&gt; n55
   n8 --&gt; n56
-  n8 --&gt; n22
-  n8 --&gt; n14
-  n8 --&gt; n9
-  n8 --&gt; n12
+  n8 --&gt; n57
+  n8 --&gt; n58
+  n8 --&gt; n60
+  n8 --&gt; n61
+  n8 --&gt; n62
+  n8 --&gt; n63
+  n8 --&gt; n64
+  n8 --&gt; n65
+  n8 --&gt; n66
+  n8 --&gt; n67
+  n8 --&gt; n68
+  n8 --&gt; n69
+  n8 --&gt; n70
+  n8 --&gt; n73
   n8 --&gt; n74
   n8 --&gt; n75
   n8 --&gt; n76
   n8 --&gt; n77
   n8 --&gt; n78
   n8 --&gt; n79
+  n8 --&gt; n80
+  n8 --&gt; n81
+  n8 --&gt; n82
+  n8 --&gt; n83
   n8 --&gt; n84
+  n8 --&gt; n85
+  n8 --&gt; n86
+  n8 --&gt; n87
+  n8 --&gt; n88
+  n8 --&gt; n89
+  n8 --&gt; n90
+  n8 --&gt; n92
+  n8 --&gt; n93
+  n8 --&gt; n94
   n8 --&gt; n95
   n8 --&gt; n96
   n8 --&gt; n97
+  n8 --&gt; n98
+  n8 --&gt; n99
   n8 --&gt; n100
+  n8 --&gt; n101
+  n8 --&gt; n102
+  n8 --&gt; n103
+  n8 --&gt; n104
+  n8 --&gt; n105
+  n8 --&gt; n106
   n8 --&gt; n107
   n8 --&gt; n108
   n8 --&gt; n109
   n8 --&gt; n111
   n8 --&gt; n112
+  n8 --&gt; n113
+  n8 --&gt; n114
+  n8 --&gt; n115
+  n8 --&gt; n116
+  n8 --&gt; n117
+  n8 --&gt; n118
+  n8 --&gt; n119
+  n8 --&gt; n120
+  n8 --&gt; n121
+  n8 --&gt; n122
+  n8 --&gt; n123
+  n8 --&gt; n124
+  n8 --&gt; n125
+  n8 --&gt; n126
+  n8 --&gt; n127
+  n8 --&gt; n128
+  n8 --&gt; n129
+  n8 --&gt; n130
+  n8 --&gt; n132
+  n8 --&gt; n133
+  n8 --&gt; n134
+  n8 --&gt; n135
+  n8 --&gt; n136
+  n8 --&gt; n137
   n8 --&gt; n138
   n8 --&gt; n139
   n8 --&gt; n140
   n8 --&gt; n141
   n8 --&gt; n142
   n8 --&gt; n143
+  n8 --&gt; n144
   n8 --&gt; n145
   n8 --&gt; n146
   n8 --&gt; n147
   n8 --&gt; n148
+  n8 --&gt; n149
+  n8 --&gt; n150
+  n8 --&gt; n151
+  n8 --&gt; n152
+  n8 --&gt; n153
+  n8 --&gt; n154
+  n8 --&gt; n156
+  n8 --&gt; n157
+  n8 --&gt; n158
+  n8 --&gt; n159
+  n8 --&gt; n160
+  n8 --&gt; n161
+  n8 --&gt; n162
+  n8 --&gt; n163
+  n8 --&gt; n164
+  n8 --&gt; n165
+  n8 --&gt; n166
+  n8 --&gt; n167
+  n8 --&gt; n168
+  n8 --&gt; n169
+  n8 --&gt; n170
+  n8 --&gt; n171
+  n8 --&gt; n172
+  n8 --&gt; n173
+  n8 --&gt; n174
+  n8 --&gt; n175
+  n8 --&gt; n176
+  n8 --&gt; n177
+  n8 --&gt; n178
+  n8 --&gt; n179
+  n8 --&gt; n180
+  n8 --&gt; n181
+  n8 --&gt; n182
+  n8 --&gt; n183
+  n8 --&gt; n184
+  n8 --&gt; n185
+  n8 --&gt; n186
+  n8 --&gt; n187
+  n8 --&gt; n188
+  n8 --&gt; n189
+  n8 --&gt; n190
+  n8 --&gt; n191
+  n8 --&gt; n192
+  n8 --&gt; n193
+  n8 --&gt; n194
+  n8 --&gt; n195
+  n8 --&gt; n196
+  n8 --&gt; n197
+  n8 --&gt; n198
+  n8 --&gt; n199
+  n8 --&gt; n22
+  n8 --&gt; n14
+  n8 --&gt; n9
+  n8 --&gt; n12
+  n8 --&gt; n217
+  n8 --&gt; n218
+  n8 --&gt; n219
+  n8 --&gt; n220
+  n8 --&gt; n221
+  n8 --&gt; n222
+  n8 --&gt; n227
+  n8 --&gt; n238
+  n8 --&gt; n239
+  n8 --&gt; n240
+  n8 --&gt; n243
+  n8 --&gt; n250
+  n8 --&gt; n251
+  n8 --&gt; n252
+  n8 --&gt; n254
+  n8 --&gt; n255
+  n8 --&gt; n281
+  n8 --&gt; n282
+  n8 --&gt; n283
+  n8 --&gt; n284
+  n8 --&gt; n285
+  n8 --&gt; n286
+  n8 --&gt; n288
+  n8 --&gt; n289
+  n8 --&gt; n290
+  n8 --&gt; n291
   n12 --&gt; n25
   n12 --&gt; n24
   n12 --&gt; n17
   n12 --&gt; n13
   n12 --&gt; n16
-  n12 --&gt; n72
-  n12 --&gt; n81
+  n12 --&gt; n215
+  n12 --&gt; n224
   n2 --&gt; n18
   n2 --&gt; n19
   n2 --&gt; n20
   n2 --&gt; n3
   n13 --&gt; n14
-  n13 --&gt; n68
-  n13 --&gt; n69
-  n13 --&gt; n70
-  n13 --&gt; n94
-  n13 --&gt; n95
-  n13 --&gt; n99
-  n13 --&gt; n83
-  n13 --&gt; n98
-  n13 --&gt; n102
-  n13 --&gt; n90
-  n13 --&gt; n105
-  n13 --&gt; n80
-  n13 --&gt; n82
-  n13 --&gt; n81
-  n13 --&gt; n91
-  n13 --&gt; n114
-  n13 --&gt; n115
-  n13 --&gt; n116
-  n13 --&gt; n117
-  n13 --&gt; n118
-  n13 --&gt; n119
-  n13 --&gt; n120
-  n13 --&gt; n121
-  n13 --&gt; n122
-  n13 --&gt; n123
-  n13 --&gt; n124
-  n13 --&gt; n125
-  n13 --&gt; n126
-  n13 --&gt; n128
-  n13 --&gt; n129
-  n13 --&gt; n130
-  n13 --&gt; n131
-  n13 --&gt; n132
-  n13 --&gt; n145
-  n13 --&gt; n146
-  n13 --&gt; n147
-  n13 --&gt; n148
+  n13 --&gt; n211
+  n13 --&gt; n212
+  n13 --&gt; n213
+  n13 --&gt; n237
+  n13 --&gt; n238
+  n13 --&gt; n242
+  n13 --&gt; n226
+  n13 --&gt; n241
+  n13 --&gt; n245
+  n13 --&gt; n233
+  n13 --&gt; n248
+  n13 --&gt; n223
+  n13 --&gt; n225
+  n13 --&gt; n224
+  n13 --&gt; n234
+  n13 --&gt; n257
+  n13 --&gt; n258
+  n13 --&gt; n259
+  n13 --&gt; n260
+  n13 --&gt; n261
+  n13 --&gt; n262
+  n13 --&gt; n263
+  n13 --&gt; n264
+  n13 --&gt; n265
+  n13 --&gt; n266
+  n13 --&gt; n267
+  n13 --&gt; n268
+  n13 --&gt; n269
+  n13 --&gt; n271
+  n13 --&gt; n272
+  n13 --&gt; n273
+  n13 --&gt; n274
+  n13 --&gt; n275
+  n13 --&gt; n288
+  n13 --&gt; n289
+  n13 --&gt; n290
+  n13 --&gt; n291
   n16 --&gt; n25
-  n16 --&gt; n86
-  n16 --&gt; n94
-  n16 --&gt; n93
-  n16 --&gt; n90
-  n16 --&gt; n105
-  n16 --&gt; n82
-  n16 --&gt; n81
-  n16 --&gt; n91
-  n16 --&gt; n128
-  n16 --&gt; n129
-  n16 --&gt; n130
-  n16 --&gt; n131
-  n16 --&gt; n132
+  n16 --&gt; n229
+  n16 --&gt; n237
+  n16 --&gt; n236
+  n16 --&gt; n233
+  n16 --&gt; n248
+  n16 --&gt; n225
+  n16 --&gt; n224
+  n16 --&gt; n234
+  n16 --&gt; n271
+  n16 --&gt; n272
+  n16 --&gt; n273
+  n16 --&gt; n274
+  n16 --&gt; n275
   n3 --&gt; n5
   n3 --&gt; n4
   n3 --&gt; n11
@@ -1524,56 +2018,56 @@
   n3 --&gt; n20
   n3 --&gt; n22
   n3 --&gt; n23
-  n3 --&gt; n58
-  n3 --&gt; n59
-  n3 --&gt; n60
-  n3 --&gt; n61
-  n3 --&gt; n62
-  n3 --&gt; n63
+  n3 --&gt; n201
+  n3 --&gt; n202
+  n3 --&gt; n203
+  n3 --&gt; n204
+  n3 --&gt; n205
+  n3 --&gt; n206
   n3 --&gt; n10
   n3 --&gt; n9
   n3 --&gt; n8
-  n3 --&gt; n86
-  n3 --&gt; n71
-  n86 --&gt; n92
-  n86 -.-&gt; n93
-  n93 -.-&gt; n94
-  n95 -.-&gt; n99
-  n83 -.-&gt; n84
-  n83 -.-&gt; n97
-  n83 -.-&gt; n99
-  n83 -.-&gt; n100
-  n83 -.-&gt; n98
-  n83 -.-&gt; n103
-  n83 -.-&gt; n114
-  n83 -.-&gt; n138
-  n98 -.-&gt; n99
-  n98 -.-&gt; n103
-  n98 -.-&gt; n114
-  n101 -.-&gt; n102
-  n101 -.-&gt; n114
-  n102 -.-&gt; n114
-  n103 -.-&gt; n114
-  n89 -.-&gt; n93
-  n89 -.-&gt; n90
-  n90 -.-&gt; n91
-  n87 --&gt; n93
-  n87 --&gt; n90
-  n88 -.-&gt; n89
-  n88 -.-&gt; n90
-  n80 -.-&gt; n88
-  n80 -.-&gt; n81
-  n80 -.-&gt; n91
-  n82 -.-&gt; n92
-  n82 -.-&gt; n95
-  n82 -.-&gt; n83
-  n82 -.-&gt; n98
-  n82 -.-&gt; n101
-  n82 -.-&gt; n102
-  n82 -.-&gt; n114
-  n81 -.-&gt; n82
-  n91 --&gt; n92
-  n71 -.-&gt; n72
+  n3 --&gt; n229
+  n3 --&gt; n214
+  n229 --&gt; n235
+  n229 -.-&gt; n236
+  n236 -.-&gt; n237
+  n238 -.-&gt; n242
+  n226 -.-&gt; n227
+  n226 -.-&gt; n240
+  n226 -.-&gt; n242
+  n226 -.-&gt; n243
+  n226 -.-&gt; n241
+  n226 -.-&gt; n246
+  n226 -.-&gt; n257
+  n226 -.-&gt; n281
+  n241 -.-&gt; n242
+  n241 -.-&gt; n246
+  n241 -.-&gt; n257
+  n244 -.-&gt; n245
+  n244 -.-&gt; n257
+  n245 -.-&gt; n257
+  n246 -.-&gt; n257
+  n232 -.-&gt; n236
+  n232 -.-&gt; n233
+  n233 -.-&gt; n234
+  n230 --&gt; n236
+  n230 --&gt; n233
+  n231 -.-&gt; n232
+  n231 -.-&gt; n233
+  n223 -.-&gt; n231
+  n223 -.-&gt; n224
+  n223 -.-&gt; n234
+  n225 -.-&gt; n235
+  n225 -.-&gt; n238
+  n225 -.-&gt; n226
+  n225 -.-&gt; n241
+  n225 -.-&gt; n244
+  n225 -.-&gt; n245
+  n225 -.-&gt; n257
+  n224 -.-&gt; n225
+  n234 --&gt; n235
+  n214 -.-&gt; n215
   click n0 "../roadmap/rational-tangles/index.html" "Rational tangles — 1 item · 1 ready to state"
   click n1 "../roadmap/rational-tangles/coloring/index.html" "The fraction through integral coloring — 1 item · 1 ready to state"
   click n2 "../roadmap/rational-tangles/definitions/index.html#reidemeister-moves" "Reidemeister moves — 1 item · 1 fully proved"
@@ -1622,108 +2116,251 @@
   click n45 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a21-four-unit-value" "Unrestricted four-unit invert-add value — 1 item · 1 fully proved"
   click n46 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a22-five-unit-value" "Unrestricted five-unit invert-add value — 1 item · 1 fully proved"
   click n47 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a23-unit-chain-invariants" "Unit-chain PD-code invariants — 1 item · 1 fully proved"
-  click n48 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a24-neg-three-unit-value" "Unrestricted negative three-unit invert-add value — 1 item · 1 fully proved"
-  click n49 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a3-infinity-unit" "Invert-mul with an infinity factor — 1 item · 1 fully proved"
-  click n50 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a4-vertical-identifications" "Vertical twist identifications — 1 item · 1 fully proved"
-  click n51 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a5-integer-chains-add" "Invert-add of integer chains, positive part — 1 item · 1 fully proved"
-  click n52 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a6-integer-chains-mul" "Integer chains with signs and products — 1 item · 1 fully proved"
-  click n53 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a7-integer-integer" "Invert-add of two integer tangles — 1 item · 1 fully proved"
-  click n54 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a8a-invert-add-slideReady" "Invert-add on slideReady diagrams — 1 item · 1 fully proved"
-  click n55 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a8b-invert-mul-slideReady" "Invert-mul on slideReady diagrams — 1 item · 1 fully proved"
-  click n56 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a9-mulTop-one" "Unit top products and the invert diagonal — 1 item · 1 fully proved"
-  click n57 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html" "Reversible isotopy pieces — 1 item · 1 ready to state"
-  click n58 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b1-core" "Reversible coloring isotopy, core — 1 item · 1 fully proved"
-  click n59 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b2-transport" "Carrying colorings along reversible isotopy — 1 item · 1 fully proved"
-  click n60 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b3a-local-symmetries" "Local flype and R3 symmetries — 1 item · 1 fully proved"
-  click n61 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b3b-local-reverse-colorings" "Reverse colorings for local moves — 1 item · 1 fully proved"
-  click n62 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b4-glue-reverse" "Reverse one-way glue — 1 item · 1 fully proved"
-  click n63 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b5-zero-reverse" "Reverse zero-add — 1 item · 1 fully proved"
-  click n64 "../roadmap/rational-tangles/definitions/index.html" "Tangle foundations — 1 item · 1 ready to state"
-  click n65 "../roadmap/rational-tangles/definitions/index.html#canonical-form" "Canonical form of a rational tangle — 1 item · 1 fully proved"
-  click n66 "../roadmap/rational-tangles/theorems/index.html" "Coloring-fraction toolkit — 1 item · 1 ready to state"
-  click n67 "../roadmap/rational-tangles/theorems/addLeft-mulTop/index.html" "Invert and mirror on constructors — 1 item · 1 ready to state"
-  click n68 "../roadmap/rational-tangles/theorems/addLeft-mulTop/index.html#d1-addLeft" "Invert and mirror on addLeft — 1 item · 1 fully proved"
-  click n69 "../roadmap/rational-tangles/theorems/addLeft-mulTop/index.html#d2-mulTop" "Invert and mirror on mulTop — 1 item · 1 fully proved"
-  click n70 "../roadmap/rational-tangles/theorems/addLeft-mulTop/index.html#d3-existence" "Existence on addLeft and mulTop — 1 item · 1 fully proved"
-  click n71 "../roadmap/rational-tangles/theorems/index.html#tait-flyping" "Tait flyping conjecture — 1 item · 1 ready to state"
-  click n72 "../roadmap/rational-tangles/theorems/index.html#alternating-flypes" "Alternating rational tangles related by flypes — 1 item · 1 ready to state"
-  click n73 "../roadmap/rational-tangles/theorems/canceling-chains/index.html" "Canceling chains — 1 item · 1 ready to state"
-  click n74 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n1-two-units" "Two canceling units — 1 item · 1 fully proved"
-  click n75 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n2-nested-fractions" "Nested canceling chains, fractions and existence — 1 item · 1 fully proved"
-  click n76 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n3-nested-invert-add" "Invert-add of nested canceling chains — 1 item · 1 fully proved"
-  click n77 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n4-mixed-sign" "Mixed-sign canceling pieces — 1 item · 1 fully proved"
-  click n78 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n5-one-negOne" "Invert-add of $[1]+[-1]$ spelled out — 1 item · 1 fully proved"
-  click n79 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n6-mixed-products" "Mixed-sign invert-mul products at infinity — 1 item · 1 fully proved"
-  click n80 "../roadmap/rational-tangles/theorems/forms/index.html#standard-form-exists" "Every rational tangle has a standard form — 1 item · 1 fully proved"
-  click n81 "../roadmap/rational-tangles/theorems/forms/index.html#twist-diagram-fraction" "Standard-form value of a twist diagram is well-defined — 1 item · 1 fully proved"
-  click n82 "../roadmap/rational-tangles/theorems/forms/index.html#twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 fully proved"
-  click n83 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-cong-slideReady" "Coloring fraction after invert on slide-ready diagrams — 1 item · 1 fully proved"
-  click n84 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#overview" "Invert-add of canceling chains — 1 item · 1 fully proved"
-  click n85 "../roadmap/rational-tangles/theorems/classification/index.html" "Classification — 1 item · 1 ready to state"
-  click n86 "../roadmap/rational-tangles/theorems/classification/index.html#fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 fully proved"
-  click n87 "../roadmap/rational-tangles/theorems/forms/index.html#continued-fraction-canonical" "Unique canonical continued fraction — 1 item · 1 fully proved"
-  click n88 "../roadmap/rational-tangles/theorems/forms/index.html#continued-fraction-form-exists" "Every rational tangle has a continued fraction form — 1 item · 1 fully proved"
-  click n89 "../roadmap/rational-tangles/theorems/forms/index.html#canonical-form-exists" "Every rational tangle isotopes to canonical form — 1 item · 1 fully proved"
-  click n90 "../roadmap/rational-tangles/theorems/forms/index.html#canonical-same-fraction" "Canonical diagrams of equal fraction are equal — 1 item · 1 fully proved"
-  click n91 "../roadmap/rational-tangles/theorems/forms/index.html#twist-same-fraction" "Twist expressions of equal fraction are isotopic — 1 item · 1 fully proved"
-  click n92 "../roadmap/rational-tangles/theorems/classification/index.html#classification" "Classification of rational tangles — 1 item · 1 fully proved"
-  click n93 "../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 ready to prove"
-  click n94 "../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-colorings" "Same fraction implies isotopic diagrams with agreeing colorings — 1 item · 1 proved"
-  click n95 "../roadmap/rational-tangles/theorems/index.html#coloring-fraction-unique" "Uniqueness of the coloring fraction on larger honest classes — 1 item · 1 fully proved"
-  click n96 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-add-infinity" "Invert-add with a trivial infinite summand — 1 item · 1 fully proved"
-  click n97 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-add-zero" "Invert-add with a trivial horizontal summand — 1 item · 1 fully proved"
-  click n98 "../roadmap/rational-tangles/theorems/index.html#coloring-mirror-cong-slideReady" "Coloring fraction after mirror on slide-ready diagrams — 1 item · 1 fully proved"
-  click n99 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-addLeft-mulTop" "Coloring fraction after invert on addLeft and mulTop — 1 item · 1 fully proved"
-  click n100 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-mul-two-rightBottom" "Invert-mul of two right-and-bottom diagrams — 1 item · 1 fully proved"
-  click n101 "../roadmap/rational-tangles/theorems/index.html#coloring-rot180-add-units" "Coloring fraction of rotated unit sums and products — 1 item · 1 fully proved"
-  click n102 "../roadmap/rational-tangles/theorems/index.html#coloring-rot180-cong-slideReady" "Coloring fraction after 180° rotation on slide-ready diagrams — 1 item · 1 fully proved"
-  click n103 "../roadmap/rational-tangles/theorems/index.html#coloring-transfer-odd-slideReady" "Figure 14 at the coloring fraction on slide-ready diagrams — 1 item · 1 fully proved"
-  click n104 "../roadmap/rational-tangles/theorems/forms/index.html" "Normal forms — 1 item · 1 ready to state"
-  click n105 "../roadmap/rational-tangles/theorems/forms/index.html#mulTop-fixed-points" "Fixed points of the mulTop commutativity equation — 1 item · 1 fully proved"
-  click n106 "../roadmap/rational-tangles/theorems/invert-add-infinity/index.html" "Invert-add with a trivial infinite summand — 1 item · 1 ready to state"
-  click n107 "../roadmap/rational-tangles/theorems/invert-add-infinity/index.html#g1-right-infinity" "Invert-add with a right summand $[\infty]$ — 1 item · 1 fully proved"
-  click n108 "../roadmap/rational-tangles/theorems/invert-add-infinity/index.html#g2-left-infinity" "Invert-add with a left summand $[\infty]$ — 1 item · 1 fully proved"
-  click n109 "../roadmap/rational-tangles/theorems/invert-add-infinity/index.html#g3-mul-infinity" "Invert-mul with $[\infty]$ and the reindex machinery — 1 item · 1 fully proved"
-  click n110 "../roadmap/rational-tangles/theorems/invert-add-zero/index.html" "Invert-add with a trivial summand — 1 item · 1 ready to state"
-  click n111 "../roadmap/rational-tangles/theorems/invert-add-zero/index.html#g1-right-zero" "Invert-add with a right summand $[0]$ — 1 item · 1 fully proved"
-  click n112 "../roadmap/rational-tangles/theorems/invert-add-zero/index.html#g2-left-zero" "Invert-add with a left summand $[0]$ — 1 item · 1 fully proved"
-  click n113 "../roadmap/rational-tangles/theorems/slideReady/index.html" "SlideReady isotopy pieces — 1 item · 1 ready to state"
-  click n114 "../roadmap/rational-tangles/theorems/index.html#slideReady-isotopy-fraction" "Standard-form $F$ along slide-ready coloring paths — 1 item · 1 fully proved"
-  click n115 "../roadmap/rational-tangles/theorems/slideReady/index.html#f1-core" "SlideReady isotopy, core definitions — 1 item · 1 fully proved"
-  click n116 "../roadmap/rational-tangles/theorems/slideReady/index.html#f10-tonomultop-coloring" "Coloring transport along mulTop normalization — 1 item · 1 fully proved"
-  click n117 "../roadmap/rational-tangles/theorems/slideReady/index.html#f11-slides-2unit" "Unrestricted slides on two-unit diagrams — 1 item · 1 fully proved"
-  click n118 "../roadmap/rational-tangles/theorems/slideReady/index.html#f12-slides-2unit-neg" "Unrestricted slides on negative two-unit diagrams — 1 item · 1 fully proved"
-  click n119 "../roadmap/rational-tangles/theorems/slideReady/index.html#f13-slides-2unit-mixed" "Unrestricted slides on mixed-sign two-unit diagrams — 1 item · 1 fully proved"
-  click n120 "../roadmap/rational-tangles/theorems/slideReady/index.html#f3-standard-values" "Standard values along slideReady isotopy — 1 item · 1 fully proved"
-  click n121 "../roadmap/rational-tangles/theorems/slideReady/index.html#f4-rot180" "Planar rotation at the fraction level — 1 item · 1 fully proved"
-  click n122 "../roadmap/rational-tangles/theorems/slideReady/index.html#f5-flype-slide" "Restricted flype slides at the fraction level — 1 item · 1 fully proved"
-  click n123 "../roadmap/rational-tangles/theorems/slideReady/index.html#f6-transfer" "Transfer at HasColoringFraction level — 1 item · 1 fully proved"
-  click n124 "../roadmap/rational-tangles/theorems/slideReady/index.html#f7-invert-mirror" "Invert, mirror, and isotopy lift — 1 item · 1 fully proved"
-  click n125 "../roadmap/rational-tangles/theorems/slideReady/index.html#f8-invert-add-block" "Invert-add of a right-and-bottom block — 1 item · 1 fully proved"
-  click n126 "../roadmap/rational-tangles/theorems/slideReady/index.html#f9-isotopy-slides" "Restricted flype slides with isotopy-related summands — 1 item · 1 fully proved"
-  click n127 "../roadmap/rational-tangles/theorems/standard-values/index.html" "Standard values of twist colorings — 1 item · 1 ready to state"
-  click n128 "../roadmap/rational-tangles/theorems/standard-values/index.html#overview" "Standard values of twist colorings — 1 item · 1 fully proved"
-  click n129 "../roadmap/rational-tangles/theorems/standard-values/index.html#s1-diagonal" "Diagonal sum on twist diagrams — 1 item · 1 fully proved"
-  click n130 "../roadmap/rational-tangles/theorems/standard-values/index.html#s2-agreement" "Coloring fraction equals the standard value — 1 item · 1 fully proved"
-  click n131 "../roadmap/rational-tangles/theorems/standard-values/index.html#s3-standard-path" "The toStandard path and standard forms — 1 item · 1 fully proved"
-  click n132 "../roadmap/rational-tangles/theorems/standard-values/index.html#s4-twist-invert" "Fresh invert colorings of twists — 1 item · 1 fully proved"
-  click n133 "../roadmap/rational-tangles/theorems/transfer/index.html" "Transfer pieces — 1 item · 1 ready to state"
-  click n134 "../roadmap/rational-tangles/theorems/transfer/index.html#e1-tostandard" "Standard values of transfer diagrams — 1 item · 1 fully proved"
-  click n135 "../roadmap/rational-tangles/theorems/transfer/index.html#e2-mirror-invert" "Mirror-invert fraction on slideReady diagrams — 1 item · 1 fully proved"
-  click n136 "../roadmap/rational-tangles/theorems/transfer/index.html#e3-transfer" "Figure 14 transfer at the fraction level, negative case — 1 item · 1 fully proved"
-  click n137 "../roadmap/rational-tangles/theorems/two-block/index.html" "Canceling two-block sums and products — 1 item · 1 ready to state"
-  click n138 "../roadmap/rational-tangles/theorems/two-block/index.html#overview" "Canceling two-block sums and products — 1 item · 1 fully proved"
-  click n139 "../roadmap/rational-tangles/theorems/two-block/index.html#t1-sums" "Two-block integer sums — 1 item · 1 fully proved"
-  click n140 "../roadmap/rational-tangles/theorems/two-block/index.html#t2-sums-invert" "Invert-add of two-block integer sums — 1 item · 1 fully proved"
-  click n141 "../roadmap/rational-tangles/theorems/two-block/index.html#t3-vertical-fractions" "Two-block vertical products, fractions — 1 item · 1 fully proved"
-  click n142 "../roadmap/rational-tangles/theorems/two-block/index.html#t4-vertical-existence" "Two-block vertical products, existence — 1 item · 1 fully proved"
-  click n143 "../roadmap/rational-tangles/theorems/two-block/index.html#t5-vertical-invert-mul" "Invert-mul of two-block vertical products — 1 item · 1 fully proved"
-  click n144 "../roadmap/rational-tangles/theorems/uniqueness/index.html" "Uniqueness pieces — 1 item · 1 ready to state"
-  click n145 "../roadmap/rational-tangles/theorems/uniqueness/index.html#c1-core" "Uniqueness core on honest classes — 1 item · 1 fully proved"
-  click n146 "../roadmap/rational-tangles/theorems/uniqueness/index.html#c2-isotopy-transfer" "Uniqueness along isotopy transfer — 1 item · 1 fully proved"
-  click n147 "../roadmap/rational-tangles/theorems/uniqueness/index.html#c3-integerTangle" "Uniqueness on integer-tangle sums — 1 item · 1 fully proved"
-  click n148 "../roadmap/rational-tangles/theorems/uniqueness/index.html#c4-existence" "Existence on addLeft and mulTop — 1 item · 1 fully proved"
-  click n149 "../roadmap/index.html" "Rational tangles roadmap — 1 item · 1 ready to state"</div>
+  click n48 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a25a-unit-chain-collapse" "Unit-chain transfer lemmas and rung zero — 1 item · 1 fully proved"
+  click n49 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a25b-unit-chain-universal" "Inductive universal over the positive unit chain — 1 item · 1 fully proved"
+  click n50 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a25c-unit-chain-existence" "Witnesses for every rung of the positive unit chain — 1 item · 1 fully proved"
+  click n51 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a3-infinity-unit" "Invert-mul with an infinity factor — 1 item · 1 fully proved"
+  click n52 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a4-vertical-identifications" "Vertical twist identifications — 1 item · 1 fully proved"
+  click n53 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a5-integer-chains-add" "Invert-add of integer chains, positive part — 1 item · 1 fully proved"
+  click n54 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a6-integer-chains-mul" "Integer chains with signs and products — 1 item · 1 fully proved"
+  click n55 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a7-integer-integer" "Invert-add of two integer tangles — 1 item · 1 fully proved"
+  click n56 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a8a-invert-add-slideReady" "Invert-add on slideReady diagrams — 1 item · 1 fully proved"
+  click n57 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a8b-invert-mul-slideReady" "Invert-mul on slideReady diagrams — 1 item · 1 fully proved"
+  click n58 "../roadmap/rational-tangles/coloring/theorems/invert-units/index.html#a9-mulTop-one" "Unit top products and the invert diagonal — 1 item · 1 fully proved"
+  click n59 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html" "Negative invert-add ladder — 1 item · 1 ready to state"
+  click n60 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a24-neg-three-unit-value" "Unrestricted negative three-unit invert-add value — 1 item · 1 fully proved"
+  click n61 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a26-neg-four-unit-value" "Unrestricted negative four-unit invert-add value — 1 item · 1 fully proved"
+  click n62 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a27-neg-five-unit-value" "Unrestricted negative five-unit invert-add value — 1 item · 1 fully proved"
+  click n63 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a28a-neg-six-unit-universal" "Unrestricted negative six-unit invert-add universal — 1 item · 1 fully proved"
+  click n64 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a28b-neg-six-unit-existence" "Unrestricted negative six-unit invert-add existence — 1 item · 1 fully proved"
+  click n65 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a29a-neg-seven-unit-universal" "Unrestricted negative seven-unit invert-add universal — 1 item · 1 fully proved"
+  click n66 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a29b-neg-seven-unit-existence" "Unrestricted negative seven-unit invert-add existence — 1 item · 1 fully proved"
+  click n67 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a30a-neg-eight-unit-universal" "Unrestricted negative eight-unit invert-add universal — 1 item · 1 fully proved"
+  click n68 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a30b-neg-eight-unit-existence" "Unrestricted negative eight-unit invert-add existence — 1 item · 1 fully proved"
+  click n69 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a31a-neg-nine-unit-universal" "Unrestricted negative nine-unit invert-add universal — 1 item · 1 fully proved"
+  click n70 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/index.html#a31b-neg-nine-unit-existence" "Unrestricted negative nine-unit invert-add existence — 1 item · 1 fully proved"
+  click n71 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html" "Negative invert-add ladder: factored rungs — 1 item · 1 ready to state"
+  click n72 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html" "Negative invert-add ladder: factored rungs five — 1 item · 1 ready to state"
+  click n73 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a54-neg-thirty-two-unit-preliminaries" "Negative thirty-two-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n74 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a54a-neg-thirty-two-unit-fraction-value" "Negative thirty-two-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n75 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a54b-neg-thirty-two-unit-universal" "Unrestricted negative thirty-two-unit invert-add universal — 1 item · 1 fully proved"
+  click n76 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a54c-neg-thirty-two-unit-witness" "Negative thirty-two-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n77 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a54d-neg-thirty-two-unit-witness-rules" "Negative thirty-two-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n78 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a54e-neg-thirty-two-unit-existence" "Unrestricted negative thirty-two-unit invert-add existence — 1 item · 1 fully proved"
+  click n79 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a55-neg-thirty-three-unit-preliminaries" "Negative thirty-three-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n80 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a55a-neg-thirty-three-unit-fraction-value" "Negative thirty-three-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n81 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a55b-neg-thirty-three-unit-universal" "Unrestricted negative thirty-three-unit invert-add universal — 1 item · 1 fully proved"
+  click n82 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a55c-neg-thirty-three-unit-witness" "Negative thirty-three-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n83 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a55d-neg-thirty-three-unit-witness-rules" "Negative thirty-three-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n84 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a55e-neg-thirty-three-unit-existence" "Unrestricted negative thirty-three-unit invert-add existence — 1 item · 1 fully proved"
+  click n85 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a56-neg-thirty-four-unit-preliminaries" "Negative thirty-four-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n86 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a56a-neg-thirty-four-unit-fraction-value" "Negative thirty-four-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n87 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a56b-neg-thirty-four-unit-universal" "Unrestricted negative thirty-four-unit invert-add universal — 1 item · 1 fully proved"
+  click n88 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a56c-neg-thirty-four-unit-witness" "Negative thirty-four-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n89 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a56d-neg-thirty-four-unit-witness-rules" "Negative thirty-four-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n90 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-five/index.html#a56e-neg-thirty-four-unit-existence" "Unrestricted negative thirty-four-unit invert-add existence — 1 item · 1 fully proved"
+  click n91 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html" "Negative invert-add ladder: factored rungs four — 1 item · 1 ready to state"
+  click n92 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a51-neg-twenty-nine-unit-preliminaries" "Negative twenty-nine-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n93 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a51a-neg-twenty-nine-unit-fraction-value" "Negative twenty-nine-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n94 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a51b-neg-twenty-nine-unit-universal" "Unrestricted negative twenty-nine-unit invert-add universal — 1 item · 1 fully proved"
+  click n95 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a51c-neg-twenty-nine-unit-witness" "Negative twenty-nine-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n96 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a51d-neg-twenty-nine-unit-witness-rules" "Negative twenty-nine-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n97 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a51e-neg-twenty-nine-unit-existence" "Unrestricted negative twenty-nine-unit invert-add existence — 1 item · 1 fully proved"
+  click n98 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a52-neg-thirty-unit-preliminaries" "Negative thirty-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n99 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a52a-neg-thirty-unit-fraction-value" "Negative thirty-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n100 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a52b-neg-thirty-unit-universal" "Unrestricted negative thirty-unit invert-add universal — 1 item · 1 fully proved"
+  click n101 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a52c-neg-thirty-unit-witness" "Negative thirty-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n102 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a52d-neg-thirty-unit-witness-rules" "Negative thirty-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n103 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a52e-neg-thirty-unit-existence" "Unrestricted negative thirty-unit invert-add existence — 1 item · 1 fully proved"
+  click n104 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a53-neg-thirty-one-unit-preliminaries" "Negative thirty-one-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n105 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a53a-neg-thirty-one-unit-fraction-value" "Negative thirty-one-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n106 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a53b-neg-thirty-one-unit-universal" "Unrestricted negative thirty-one-unit invert-add universal — 1 item · 1 fully proved"
+  click n107 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a53c-neg-thirty-one-unit-witness" "Negative thirty-one-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n108 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a53d-neg-thirty-one-unit-witness-rules" "Negative thirty-one-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n109 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-four/index.html#a53e-neg-thirty-one-unit-existence" "Unrestricted negative thirty-one-unit invert-add existence — 1 item · 1 fully proved"
+  click n110 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html" "Negative invert-add ladder: factored rungs six — 1 item · 1 ready to state"
+  click n111 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a57-neg-thirty-five-unit-preliminaries" "Negative thirty-five-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n112 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a57a-neg-thirty-five-unit-fraction-value" "Negative thirty-five-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n113 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a57b-neg-thirty-five-unit-universal" "Unrestricted negative thirty-five-unit invert-add universal — 1 item · 1 fully proved"
+  click n114 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a57c-neg-thirty-five-unit-witness" "Negative thirty-five-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n115 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a57d-neg-thirty-five-unit-witness-rules" "Negative thirty-five-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n116 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a57e-neg-thirty-five-unit-existence" "Unrestricted negative thirty-five-unit invert-add existence — 1 item · 1 fully proved"
+  click n117 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a58-neg-thirty-six-unit-preliminaries" "Negative thirty-six-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n118 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a58a-neg-thirty-six-unit-fraction-value" "Negative thirty-six-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n119 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a58b-neg-thirty-six-unit-universal" "Unrestricted negative thirty-six-unit invert-add universal — 1 item · 1 fully proved"
+  click n120 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a58c-neg-thirty-six-unit-witness" "Negative thirty-six-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n121 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a58d-neg-thirty-six-unit-witness-rules" "Negative thirty-six-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n122 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a58e-neg-thirty-six-unit-witness-value" "Negative thirty-six-unit witness-value computation — 1 item · 1 fully proved"
+  click n123 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a58f-neg-thirty-six-unit-existence" "Unrestricted negative thirty-six-unit invert-add existence — 1 item · 1 fully proved"
+  click n124 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a59-neg-thirty-seven-unit-preliminaries" "Negative thirty-seven-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n125 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a59a-neg-thirty-seven-unit-fraction-value" "Negative thirty-seven-unit fraction-value preliminary — 1 item · 1 fully proved"
+  click n126 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a59b-neg-thirty-seven-unit-universal" "Unrestricted negative thirty-seven-unit invert-add universal — 1 item · 1 fully proved"
+  click n127 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a59c-neg-thirty-seven-unit-witness" "Negative thirty-seven-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n128 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a59d-neg-thirty-seven-unit-witness-rules" "Negative thirty-seven-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n129 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a59e-neg-thirty-seven-unit-witness-value" "Negative thirty-seven-unit witness-value computation — 1 item · 1 fully proved"
+  click n130 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-six/index.html#a59f-neg-thirty-seven-unit-existence" "Unrestricted negative thirty-seven-unit invert-add existence — 1 item · 1 fully proved"
+  click n131 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html" "Negative invert-add ladder: factored rungs three — 1 item · 1 ready to state"
+  click n132 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a46-neg-twenty-four-unit-preliminaries" "Negative twenty-four-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n133 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a46a-neg-twenty-four-unit-universal" "Unrestricted negative twenty-four-unit invert-add universal — 1 item · 1 fully proved"
+  click n134 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a46b-neg-twenty-four-unit-witness" "Negative twenty-four-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n135 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a46c-neg-twenty-four-unit-existence" "Unrestricted negative twenty-four-unit invert-add existence — 1 item · 1 fully proved"
+  click n136 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a47-neg-twenty-five-unit-preliminaries" "Negative twenty-five-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n137 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a47a-neg-twenty-five-unit-universal" "Unrestricted negative twenty-five-unit invert-add universal — 1 item · 1 fully proved"
+  click n138 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a47b-neg-twenty-five-unit-witness" "Negative twenty-five-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n139 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a47c-neg-twenty-five-unit-existence" "Unrestricted negative twenty-five-unit invert-add existence — 1 item · 1 fully proved"
+  click n140 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a48-neg-twenty-six-unit-preliminaries" "Negative twenty-six-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n141 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a48a-neg-twenty-six-unit-universal" "Unrestricted negative twenty-six-unit invert-add universal — 1 item · 1 fully proved"
+  click n142 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a48b-neg-twenty-six-unit-witness" "Negative twenty-six-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n143 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a48c-neg-twenty-six-unit-witness-rules" "Negative twenty-six-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n144 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a48d-neg-twenty-six-unit-existence" "Unrestricted negative twenty-six-unit invert-add existence — 1 item · 1 fully proved"
+  click n145 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a49-neg-twenty-seven-unit-preliminaries" "Negative twenty-seven-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n146 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a49a-neg-twenty-seven-unit-universal" "Unrestricted negative twenty-seven-unit invert-add universal — 1 item · 1 fully proved"
+  click n147 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a49b-neg-twenty-seven-unit-witness" "Negative twenty-seven-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n148 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a49c-neg-twenty-seven-unit-witness-rules" "Negative twenty-seven-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n149 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a49d-neg-twenty-seven-unit-existence" "Unrestricted negative twenty-seven-unit invert-add existence — 1 item · 1 fully proved"
+  click n150 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a50-neg-twenty-eight-unit-preliminaries" "Negative twenty-eight-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n151 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a50a-neg-twenty-eight-unit-universal" "Unrestricted negative twenty-eight-unit invert-add universal — 1 item · 1 fully proved"
+  click n152 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a50b-neg-twenty-eight-unit-witness" "Negative twenty-eight-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n153 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a50c-neg-twenty-eight-unit-witness-rules" "Negative twenty-eight-unit witness rule preliminaries — 1 item · 1 fully proved"
+  click n154 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html#a50d-neg-twenty-eight-unit-existence" "Unrestricted negative twenty-eight-unit invert-add existence — 1 item · 1 fully proved"
+  click n155 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html" "Negative invert-add ladder: factored rungs two — 1 item · 1 ready to state"
+  click n156 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a40-neg-eighteen-unit-preliminaries" "Negative eighteen-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n157 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a40a-neg-eighteen-unit-universal" "Unrestricted negative eighteen-unit invert-add universal — 1 item · 1 fully proved"
+  click n158 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a40b-neg-eighteen-unit-existence" "Unrestricted negative eighteen-unit invert-add existence — 1 item · 1 fully proved"
+  click n159 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a41-neg-nineteen-unit-preliminaries" "Negative nineteen-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n160 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a41a-neg-nineteen-unit-universal" "Unrestricted negative nineteen-unit invert-add universal — 1 item · 1 fully proved"
+  click n161 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a41b-neg-nineteen-unit-existence" "Unrestricted negative nineteen-unit invert-add existence — 1 item · 1 fully proved"
+  click n162 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a42-neg-twenty-unit-preliminaries" "Negative twenty-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n163 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a42a-neg-twenty-unit-universal" "Unrestricted negative twenty-unit invert-add universal — 1 item · 1 fully proved"
+  click n164 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a42b-neg-twenty-unit-existence" "Unrestricted negative twenty-unit invert-add existence — 1 item · 1 fully proved"
+  click n165 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a43-neg-twenty-one-unit-preliminaries" "Negative twenty-one-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n166 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a43a-neg-twenty-one-unit-universal" "Unrestricted negative twenty-one-unit invert-add universal — 1 item · 1 fully proved"
+  click n167 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a43b-neg-twenty-one-unit-existence" "Unrestricted negative twenty-one-unit invert-add existence — 1 item · 1 fully proved"
+  click n168 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a44-neg-twenty-two-unit-preliminaries" "Negative twenty-two-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n169 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a44a-neg-twenty-two-unit-universal" "Unrestricted negative twenty-two-unit invert-add universal — 1 item · 1 fully proved"
+  click n170 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a44b-neg-twenty-two-unit-witness" "Negative twenty-two-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n171 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a44c-neg-twenty-two-unit-existence" "Unrestricted negative twenty-two-unit invert-add existence — 1 item · 1 fully proved"
+  click n172 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a45-neg-twenty-three-unit-preliminaries" "Negative twenty-three-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n173 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a45a-neg-twenty-three-unit-universal" "Unrestricted negative twenty-three-unit invert-add universal — 1 item · 1 fully proved"
+  click n174 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a45b-neg-twenty-three-unit-witness" "Negative twenty-three-unit invert-add witness coloring — 1 item · 1 fully proved"
+  click n175 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-two/index.html#a45c-neg-twenty-three-unit-existence" "Unrestricted negative twenty-three-unit invert-add existence — 1 item · 1 fully proved"
+  click n176 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a32-neg-ten-unit-preliminaries" "Negative ten-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n177 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a32a-neg-ten-unit-universal" "Unrestricted negative ten-unit invert-add universal — 1 item · 1 fully proved"
+  click n178 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a32b-neg-ten-unit-existence" "Unrestricted negative ten-unit invert-add existence — 1 item · 1 fully proved"
+  click n179 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a33-neg-eleven-unit-preliminaries" "Negative eleven-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n180 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a33a-neg-eleven-unit-universal" "Unrestricted negative eleven-unit invert-add universal — 1 item · 1 fully proved"
+  click n181 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a33b-neg-eleven-unit-existence" "Unrestricted negative eleven-unit invert-add existence — 1 item · 1 fully proved"
+  click n182 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a34-neg-twelve-unit-preliminaries" "Negative twelve-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n183 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a34a-neg-twelve-unit-universal" "Unrestricted negative twelve-unit invert-add universal — 1 item · 1 fully proved"
+  click n184 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a34b-neg-twelve-unit-existence" "Unrestricted negative twelve-unit invert-add existence — 1 item · 1 fully proved"
+  click n185 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a35-neg-thirteen-unit-preliminaries" "Negative thirteen-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n186 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a35a-neg-thirteen-unit-universal" "Unrestricted negative thirteen-unit invert-add universal — 1 item · 1 fully proved"
+  click n187 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a35b-neg-thirteen-unit-existence" "Unrestricted negative thirteen-unit invert-add existence — 1 item · 1 fully proved"
+  click n188 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a36-neg-fourteen-unit-preliminaries" "Negative fourteen-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n189 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a36a-neg-fourteen-unit-universal" "Unrestricted negative fourteen-unit invert-add universal — 1 item · 1 fully proved"
+  click n190 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a36b-neg-fourteen-unit-existence" "Unrestricted negative fourteen-unit invert-add existence — 1 item · 1 fully proved"
+  click n191 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a37-neg-fifteen-unit-preliminaries" "Negative fifteen-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n192 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a37a-neg-fifteen-unit-universal" "Unrestricted negative fifteen-unit invert-add universal — 1 item · 1 fully proved"
+  click n193 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a37b-neg-fifteen-unit-existence" "Unrestricted negative fifteen-unit invert-add existence — 1 item · 1 fully proved"
+  click n194 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a38-neg-sixteen-unit-preliminaries" "Negative sixteen-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n195 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a38a-neg-sixteen-unit-universal" "Unrestricted negative sixteen-unit invert-add universal — 1 item · 1 fully proved"
+  click n196 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a38b-neg-sixteen-unit-existence" "Unrestricted negative sixteen-unit invert-add existence — 1 item · 1 fully proved"
+  click n197 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a39-neg-seventeen-unit-preliminaries" "Negative seventeen-unit invert-add rule preliminaries — 1 item · 1 fully proved"
+  click n198 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a39a-neg-seventeen-unit-universal" "Unrestricted negative seventeen-unit invert-add universal — 1 item · 1 fully proved"
+  click n199 "../roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs/index.html#a39b-neg-seventeen-unit-existence" "Unrestricted negative seventeen-unit invert-add existence — 1 item · 1 fully proved"
+  click n200 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html" "Reversible isotopy pieces — 1 item · 1 ready to state"
+  click n201 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b1-core" "Reversible coloring isotopy, core — 1 item · 1 fully proved"
+  click n202 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b2-transport" "Carrying colorings along reversible isotopy — 1 item · 1 fully proved"
+  click n203 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b3a-local-symmetries" "Local flype and R3 symmetries — 1 item · 1 fully proved"
+  click n204 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b3b-local-reverse-colorings" "Reverse colorings for local moves — 1 item · 1 fully proved"
+  click n205 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b4-glue-reverse" "Reverse one-way glue — 1 item · 1 fully proved"
+  click n206 "../roadmap/rational-tangles/coloring/theorems/reversible/index.html#b5-zero-reverse" "Reverse zero-add — 1 item · 1 fully proved"
+  click n207 "../roadmap/rational-tangles/definitions/index.html" "Tangle foundations — 1 item · 1 ready to state"
+  click n208 "../roadmap/rational-tangles/definitions/index.html#canonical-form" "Canonical form of a rational tangle — 1 item · 1 fully proved"
+  click n209 "../roadmap/rational-tangles/theorems/index.html" "Coloring-fraction toolkit — 1 item · 1 ready to state"
+  click n210 "../roadmap/rational-tangles/theorems/addLeft-mulTop/index.html" "Invert and mirror on constructors — 1 item · 1 ready to state"
+  click n211 "../roadmap/rational-tangles/theorems/addLeft-mulTop/index.html#d1-addLeft" "Invert and mirror on addLeft — 1 item · 1 fully proved"
+  click n212 "../roadmap/rational-tangles/theorems/addLeft-mulTop/index.html#d2-mulTop" "Invert and mirror on mulTop — 1 item · 1 fully proved"
+  click n213 "../roadmap/rational-tangles/theorems/addLeft-mulTop/index.html#d3-existence" "Existence on addLeft and mulTop — 1 item · 1 fully proved"
+  click n214 "../roadmap/rational-tangles/theorems/index.html#tait-flyping" "Tait flyping conjecture — 1 item · 1 ready to state"
+  click n215 "../roadmap/rational-tangles/theorems/index.html#alternating-flypes" "Alternating rational tangles related by flypes — 1 item · 1 ready to state"
+  click n216 "../roadmap/rational-tangles/theorems/canceling-chains/index.html" "Canceling chains — 1 item · 1 ready to state"
+  click n217 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n1-two-units" "Two canceling units — 1 item · 1 fully proved"
+  click n218 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n2-nested-fractions" "Nested canceling chains, fractions and existence — 1 item · 1 fully proved"
+  click n219 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n3-nested-invert-add" "Invert-add of nested canceling chains — 1 item · 1 fully proved"
+  click n220 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n4-mixed-sign" "Mixed-sign canceling pieces — 1 item · 1 fully proved"
+  click n221 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n5-one-negOne" "Invert-add of $[1]+[-1]$ spelled out — 1 item · 1 fully proved"
+  click n222 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#n6-mixed-products" "Mixed-sign invert-mul products at infinity — 1 item · 1 fully proved"
+  click n223 "../roadmap/rational-tangles/theorems/forms/index.html#standard-form-exists" "Every rational tangle has a standard form — 1 item · 1 fully proved"
+  click n224 "../roadmap/rational-tangles/theorems/forms/index.html#twist-diagram-fraction" "Standard-form value of a twist diagram is well-defined — 1 item · 1 fully proved"
+  click n225 "../roadmap/rational-tangles/theorems/forms/index.html#twist-coloring-isotopy-fraction" "Standard-form $F$ along coloring isotopy — 1 item · 1 fully proved"
+  click n226 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-cong-slideReady" "Coloring fraction after invert on slide-ready diagrams — 1 item · 1 fully proved"
+  click n227 "../roadmap/rational-tangles/theorems/canceling-chains/index.html#overview" "Invert-add of canceling chains — 1 item · 1 fully proved"
+  click n228 "../roadmap/rational-tangles/theorems/classification/index.html" "Classification — 1 item · 1 ready to state"
+  click n229 "../roadmap/rational-tangles/theorems/classification/index.html#fraction-isotopy-invariant" "The fraction is an isotopy invariant — 1 item · 1 fully proved"
+  click n230 "../roadmap/rational-tangles/theorems/forms/index.html#continued-fraction-canonical" "Unique canonical continued fraction — 1 item · 1 fully proved"
+  click n231 "../roadmap/rational-tangles/theorems/forms/index.html#continued-fraction-form-exists" "Every rational tangle has a continued fraction form — 1 item · 1 fully proved"
+  click n232 "../roadmap/rational-tangles/theorems/forms/index.html#canonical-form-exists" "Every rational tangle isotopes to canonical form — 1 item · 1 fully proved"
+  click n233 "../roadmap/rational-tangles/theorems/forms/index.html#canonical-same-fraction" "Canonical diagrams of equal fraction are equal — 1 item · 1 fully proved"
+  click n234 "../roadmap/rational-tangles/theorems/forms/index.html#twist-same-fraction" "Twist expressions of equal fraction are isotopic — 1 item · 1 fully proved"
+  click n235 "../roadmap/rational-tangles/theorems/classification/index.html#classification" "Classification of rational tangles — 1 item · 1 fully proved"
+  click n236 "../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-isotopic" "Same fraction implies isotopic — 1 item · 1 ready to prove"
+  click n237 "../roadmap/rational-tangles/theorems/classification/index.html#same-fraction-colorings" "Same fraction implies isotopic diagrams with agreeing colorings — 1 item · 1 proved"
+  click n238 "../roadmap/rational-tangles/theorems/index.html#coloring-fraction-unique" "Uniqueness of the coloring fraction on larger honest classes — 1 item · 1 fully proved"
+  click n239 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-add-infinity" "Invert-add with a trivial infinite summand — 1 item · 1 fully proved"
+  click n240 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-add-zero" "Invert-add with a trivial horizontal summand — 1 item · 1 fully proved"
+  click n241 "../roadmap/rational-tangles/theorems/index.html#coloring-mirror-cong-slideReady" "Coloring fraction after mirror on slide-ready diagrams — 1 item · 1 fully proved"
+  click n242 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-addLeft-mulTop" "Coloring fraction after invert on addLeft and mulTop — 1 item · 1 fully proved"
+  click n243 "../roadmap/rational-tangles/theorems/index.html#coloring-invert-mul-two-rightBottom" "Invert-mul of two right-and-bottom diagrams — 1 item · 1 fully proved"
+  click n244 "../roadmap/rational-tangles/theorems/index.html#coloring-rot180-add-units" "Coloring fraction of rotated unit sums and products — 1 item · 1 fully proved"
+  click n245 "../roadmap/rational-tangles/theorems/index.html#coloring-rot180-cong-slideReady" "Coloring fraction after 180° rotation on slide-ready diagrams — 1 item · 1 fully proved"
+  click n246 "../roadmap/rational-tangles/theorems/index.html#coloring-transfer-odd-slideReady" "Figure 14 at the coloring fraction on slide-ready diagrams — 1 item · 1 fully proved"
+  click n247 "../roadmap/rational-tangles/theorems/forms/index.html" "Normal forms — 1 item · 1 ready to state"
+  click n248 "../roadmap/rational-tangles/theorems/forms/index.html#mulTop-fixed-points" "Fixed points of the mulTop commutativity equation — 1 item · 1 fully proved"
+  click n249 "../roadmap/rational-tangles/theorems/invert-add-infinity/index.html" "Invert-add with a trivial infinite summand — 1 item · 1 ready to state"
+  click n250 "../roadmap/rational-tangles/theorems/invert-add-infinity/index.html#g1-right-infinity" "Invert-add with a right summand $[\infty]$ — 1 item · 1 fully proved"
+  click n251 "../roadmap/rational-tangles/theorems/invert-add-infinity/index.html#g2-left-infinity" "Invert-add with a left summand $[\infty]$ — 1 item · 1 fully proved"
+  click n252 "../roadmap/rational-tangles/theorems/invert-add-infinity/index.html#g3-mul-infinity" "Invert-mul with $[\infty]$ and the reindex machinery — 1 item · 1 fully proved"
+  click n253 "../roadmap/rational-tangles/theorems/invert-add-zero/index.html" "Invert-add with a trivial summand — 1 item · 1 ready to state"
+  click n254 "../roadmap/rational-tangles/theorems/invert-add-zero/index.html#g1-right-zero" "Invert-add with a right summand $[0]$ — 1 item · 1 fully proved"
+  click n255 "../roadmap/rational-tangles/theorems/invert-add-zero/index.html#g2-left-zero" "Invert-add with a left summand $[0]$ — 1 item · 1 fully proved"
+  click n256 "../roadmap/rational-tangles/theorems/slideReady/index.html" "SlideReady isotopy pieces — 1 item · 1 ready to state"
+  click n257 "../roadmap/rational-tangles/theorems/index.html#slideReady-isotopy-fraction" "Standard-form $F$ along slide-ready coloring paths — 1 item · 1 fully proved"
+  click n258 "../roadmap/rational-tangles/theorems/slideReady/index.html#f1-core" "SlideReady isotopy, core definitions — 1 item · 1 fully proved"
+  click n259 "../roadmap/rational-tangles/theorems/slideReady/index.html#f10-tonomultop-coloring" "Coloring transport along mulTop normalization — 1 item · 1 fully proved"
+  click n260 "../roadmap/rational-tangles/theorems/slideReady/index.html#f11-slides-2unit" "Unrestricted slides on two-unit diagrams — 1 item · 1 fully proved"
+  click n261 "../roadmap/rational-tangles/theorems/slideReady/index.html#f12-slides-2unit-neg" "Unrestricted slides on negative two-unit diagrams — 1 item · 1 fully proved"
+  click n262 "../roadmap/rational-tangles/theorems/slideReady/index.html#f13-slides-2unit-mixed" "Unrestricted slides on mixed-sign two-unit diagrams — 1 item · 1 fully proved"
+  click n263 "../roadmap/rational-tangles/theorems/slideReady/index.html#f3-standard-values" "Standard values along slideReady isotopy — 1 item · 1 fully proved"
+  click n264 "../roadmap/rational-tangles/theorems/slideReady/index.html#f4-rot180" "Planar rotation at the fraction level — 1 item · 1 fully proved"
+  click n265 "../roadmap/rational-tangles/theorems/slideReady/index.html#f5-flype-slide" "Restricted flype slides at the fraction level — 1 item · 1 fully proved"
+  click n266 "../roadmap/rational-tangles/theorems/slideReady/index.html#f6-transfer" "Transfer at HasColoringFraction level — 1 item · 1 fully proved"
+  click n267 "../roadmap/rational-tangles/theorems/slideReady/index.html#f7-invert-mirror" "Invert, mirror, and isotopy lift — 1 item · 1 fully proved"
+  click n268 "../roadmap/rational-tangles/theorems/slideReady/index.html#f8-invert-add-block" "Invert-add of a right-and-bottom block — 1 item · 1 fully proved"
+  click n269 "../roadmap/rational-tangles/theorems/slideReady/index.html#f9-isotopy-slides" "Restricted flype slides with isotopy-related summands — 1 item · 1 fully proved"
+  click n270 "../roadmap/rational-tangles/theorems/standard-values/index.html" "Standard values of twist colorings — 1 item · 1 ready to state"
+  click n271 "../roadmap/rational-tangles/theorems/standard-values/index.html#overview" "Standard values of twist colorings — 1 item · 1 fully proved"
+  click n272 "../roadmap/rational-tangles/theorems/standard-values/index.html#s1-diagonal" "Diagonal sum on twist diagrams — 1 item · 1 fully proved"
+  click n273 "../roadmap/rational-tangles/theorems/standard-values/index.html#s2-agreement" "Coloring fraction equals the standard value — 1 item · 1 fully proved"
+  click n274 "../roadmap/rational-tangles/theorems/standard-values/index.html#s3-standard-path" "The toStandard path and standard forms — 1 item · 1 fully proved"
+  click n275 "../roadmap/rational-tangles/theorems/standard-values/index.html#s4-twist-invert" "Fresh invert colorings of twists — 1 item · 1 fully proved"
+  click n276 "../roadmap/rational-tangles/theorems/transfer/index.html" "Transfer pieces — 1 item · 1 ready to state"
+  click n277 "../roadmap/rational-tangles/theorems/transfer/index.html#e1-tostandard" "Standard values of transfer diagrams — 1 item · 1 fully proved"
+  click n278 "../roadmap/rational-tangles/theorems/transfer/index.html#e2-mirror-invert" "Mirror-invert fraction on slideReady diagrams — 1 item · 1 fully proved"
+  click n279 "../roadmap/rational-tangles/theorems/transfer/index.html#e3-transfer" "Figure 14 transfer at the fraction level, negative case — 1 item · 1 fully proved"
+  click n280 "../roadmap/rational-tangles/theorems/two-block/index.html" "Canceling two-block sums and products — 1 item · 1 ready to state"
+  click n281 "../roadmap/rational-tangles/theorems/two-block/index.html#overview" "Canceling two-block sums and products — 1 item · 1 fully proved"
+  click n282 "../roadmap/rational-tangles/theorems/two-block/index.html#t1-sums" "Two-block integer sums — 1 item · 1 fully proved"
+  click n283 "../roadmap/rational-tangles/theorems/two-block/index.html#t2-sums-invert" "Invert-add of two-block integer sums — 1 item · 1 fully proved"
+  click n284 "../roadmap/rational-tangles/theorems/two-block/index.html#t3-vertical-fractions" "Two-block vertical products, fractions — 1 item · 1 fully proved"
+  click n285 "../roadmap/rational-tangles/theorems/two-block/index.html#t4-vertical-existence" "Two-block vertical products, existence — 1 item · 1 fully proved"
+  click n286 "../roadmap/rational-tangles/theorems/two-block/index.html#t5-vertical-invert-mul" "Invert-mul of two-block vertical products — 1 item · 1 fully proved"
+  click n287 "../roadmap/rational-tangles/theorems/uniqueness/index.html" "Uniqueness pieces — 1 item · 1 ready to state"
+  click n288 "../roadmap/rational-tangles/theorems/uniqueness/index.html#c1-core" "Uniqueness core on honest classes — 1 item · 1 fully proved"
+  click n289 "../roadmap/rational-tangles/theorems/uniqueness/index.html#c2-isotopy-transfer" "Uniqueness along isotopy transfer — 1 item · 1 fully proved"
+  click n290 "../roadmap/rational-tangles/theorems/uniqueness/index.html#c3-integerTangle" "Uniqueness on integer-tangle sums — 1 item · 1 fully proved"
+  click n291 "../roadmap/rational-tangles/theorems/uniqueness/index.html#c4-existence" "Existence on addLeft and mulTop — 1 item · 1 fully proved"
+  click n292 "../roadmap/index.html" "Rational tangles roadmap — 1 item · 1 ready to state"</div>
 
 
 

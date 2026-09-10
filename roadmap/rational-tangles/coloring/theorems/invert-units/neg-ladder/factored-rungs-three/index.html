@@ -1,0 +1,1693 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tangentproofs.github.io/conway-knots/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/index.html">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../../../assets/autoform.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Negative invert-add ladder: factored rungs three - Conway knots</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Plus+Jakarta+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Plus Jakarta Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../../../stylesheets/blueprint.css">
+    
+    <script>__md_scope=new URL("../../../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nodes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../../../../index.html" title="Conway knots" class="md-header__button md-logo" aria-label="Conway knots" data-md-component="logo">
+      
+  <img src="../../../../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Conway knots
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Negative invert-add ladder: factored rungs three
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tangentproofs/conway-knots" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Book
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../../../dependencies.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Graph
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../../../../index.html" title="Conway knots" class="md-nav__button md-logo" aria-label="Conway knots" data-md-component="logo">
+      
+  <img src="../../../../../../../assets/autoform.svg" alt="logo">
+
+    </a>
+    Conway knots
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tangentproofs/conway-knots" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../../../coverage/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--in-progress"></span>
+  
+
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rational tangles roadmap
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rational tangles roadmap
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rational tangles
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Rational tangles
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../definitions/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tangle foundations
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_2_2" id="__nav_2_1_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_1_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tangle foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../theorems/forms/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Normal forms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../theorems/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coloring-fraction toolkit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The fraction through integral coloring
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_1_2_4" id="__nav_2_1_2_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_1_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    The fraction through integral coloring
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../theorems/classification/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graph
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../../dependencies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependency maps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../../dependencies/full.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full theorem DAG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../../structure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vault structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nodes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="negative-invert-add-ladder-factored-rungs-three">Negative invert-add ladder: factored rungs three</h1>
+<p>Rungs twenty-four and above of the negative unit ladder, each split into rule
+preliminaries, universal, and existence nodes (the flat universal would
+otherwise exceed the span limit). Opened as the sequel of the
+<a href="../factored-rungs-two/index.html">factored-rungs-two sub-chapter</a>: a further
+quartet cannot fit there (21 + 4 = 25 &gt; the 24-article limit), so new rungs
+go here; the mathematics is unchanged.</p>
+<div class="bp-progress-overview"><div class="bp-progress-kicker">Formalization progress</div><div class="bp-progress-total">5 definitions · 18 results</div><div class="bp-progress-states"><span class="bp-progress-state"><span class="bp-swatch bp-swatch-fully_proved"></span><strong>23</strong> fully proved</span></div></div>
+
+<h2 id="nodes">Nodes</h2>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a46-neg-twenty-four-unit-preliminaries">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">90</span><span class="bp-thmtitle">Negative twenty-four-unit invert-add rule preliminaries</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L9206" aria-label="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source" title="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a46-neg-twenty-four-unit-preliminaries.html" aria-label="Open local dependency context for Negative twenty-four-unit invert-add rule preliminaries" title="Open local dependency context for Negative twenty-four-unit invert-add rule preliminaries"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a46-neg-twenty-four-unit-preliminaries.md" aria-label="Edit the Markdown source for Negative twenty-four-unit invert-add rule preliminaries" title="Edit the Markdown source for Negative twenty-four-unit invert-add rule preliminaries"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a46-neg-twenty-four-unit-preliminaries">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Shared membership and rule-equation preliminaries for the twenty-four-unit
+inverted sum <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>:
+a single <code>decide</code> fixes the twenty-four switched crossings
+<code>⟨2,3,0,1,pos⟩ … ⟨72,69,68,71,pos⟩</code> (the twenty-fourth base crossing
+⟨71,72,69,68,neg⟩ rejoins the prior rung's fresh arcs 69/68 per the
+add-gluing pattern, switching to ⟨72,69,68,71,pos⟩ on the +3 arc
+pattern), and each coloring rule is read off as its arc equation.
+Factored out because the flat nine-unit universal already spans
+197/200 lines: the rung-twenty-four universal is claimed over this lemma and
+stays small. At this rung depth the preliminaries elaborate at
+<code>set_option maxRecDepth 4096</code> while the universal and existence need 8192
+(the witness def is a plain
+if-else chain and needs none). Proof part of the parent
+topic; see that page for the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a46a-neg-twenty-four-unit-universal">Theorem 91 (Unrestricted negative twenty-four-unit invert-add universal)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a46a-neg-twenty-four-unit-universal">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">91</span><span class="bp-thmtitle">Unrestricted negative twenty-four-unit invert-add universal</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L9328" aria-label="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a46a-neg-twenty-four-unit-universal.html" aria-label="Open local dependency context for Unrestricted negative twenty-four-unit invert-add universal" title="Open local dependency context for Unrestricted negative twenty-four-unit invert-add universal"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a46a-neg-twenty-four-unit-universal.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-four-unit invert-add universal" title="Edit the Markdown source for Unrestricted negative twenty-four-unit invert-add universal"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a46a-neg-twenty-four-unit-universal">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every non-monochrome coloring of <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>
+has fraction <code>-1/24</code> (universal): the twenty-four switched rules force numerator
+<code>d</code> and denominator <code>-24d</code> for nonzero <code>d</code>, with no <code>DiagonalSum</code> or port
+inputs. The negative units are mirror-switches of the positive ones, so
+the arc wirings — and the sign of the denominator multiple — differ from
+the positive-ladder case; the nonzero transfer additionally needs
+<code>neg_ne_zero</code> since the denominator multiple is negative. Proved over
+the factored rule preliminaries (same <code>decide</code> + <code>linarith</code> machinery),
+which keeps this node well under the span limit. At this rung depth the
+invert expression needs <code>set_option maxRecDepth 8192</code> to elaborate.
+Evaluated directly. Proof part of the parent topic; see that page for
+the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a46-neg-twenty-four-unit-preliminaries">Theorem 90 (Negative twenty-four-unit invert-add rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" id="a46b-neg-twenty-four-unit-witness">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">18</span><span class="bp-thmtitle">Negative twenty-four-unit invert-add witness coloring</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L9494" aria-label="View RationalTangles.sharpColAddNegTwentyFour in Lean source" title="View RationalTangles.sharpColAddNegTwentyFour in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a46b-neg-twenty-four-unit-witness.html" aria-label="Open local dependency context for Negative twenty-four-unit invert-add witness coloring" title="Open local dependency context for Negative twenty-four-unit invert-add witness coloring"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a46b-neg-twenty-four-unit-witness.md" aria-label="Edit the Markdown source for Negative twenty-four-unit invert-add witness coloring" title="Edit the Markdown source for Negative twenty-four-unit invert-add witness coloring"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a46b-neg-twenty-four-unit-witness">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The explicit <code>sharpColAddNegTwentyFour</code> witness coloring for the
+twenty-four-unit inverted sum, extending the twenty-three-unit coloring by
+the forced pair <code>(-22,-21)</code> on the fresh arcs <code>71/72</code>. Split into its own
+node for size: at this rung depth the def-plus-fraction-computation block
+projects past ~190 lines, so the witness definition is claimed here and
+the fraction computation lives in the companion existence node. A plain
+if-else chain over arc indices; it elaborates with no <code>maxRecDepth</code>
+override. Statement part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a46c-neg-twenty-four-unit-existence">Theorem 92 (Unrestricted negative twenty-four-unit invert-add existence)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a46c-neg-twenty-four-unit-existence">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">92</span><span class="bp-thmtitle">Unrestricted negative twenty-four-unit invert-add existence</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L9513" aria-label="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a46c-neg-twenty-four-unit-existence.html" aria-label="Open local dependency context for Unrestricted negative twenty-four-unit invert-add existence" title="Open local dependency context for Unrestricted negative twenty-four-unit invert-add existence"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a46c-neg-twenty-four-unit-existence.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-four-unit invert-add existence" title="Edit the Markdown source for Unrestricted negative twenty-four-unit invert-add existence"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a46c-neg-twenty-four-unit-existence">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The twenty-four-unit inverted sum admits a non-monochrome integral coloring
+carrying <code>-1/24</code>, via the explicit <code>sharpColAddNegTwentyFour</code> witness: the
+matrix computation gives <code>⟨-22,-21,2,3⟩</code>, the twenty-four switched rules
+are discharged by <code>decide</code>, and <code>1/-24</code> normalizes to <code>-1/24</code>.
+The witness definition itself is claimed in the companion witness node
+(split for size); this node carries the fraction computation over it.
+Size note: the twenty-four <code>show</code> blocks are written in 3-line form (the
+<code>B = 2 * C</code> continuation joined onto one line, whitespace-only) — the old
+4-line form projects the audit span to ~202, past the 200 limit, while the
+joined form holds it at ~185 with identical proof tokens. At this rung
+depth the invert expression needs <code>set_option maxRecDepth 8192</code> to
+elaborate. Proof part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a46b-neg-twenty-four-unit-witness">Definition 18 (Negative twenty-four-unit invert-add witness coloring)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a47-neg-twenty-five-unit-preliminaries">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">93</span><span class="bp-thmtitle">Negative twenty-five-unit invert-add rule preliminaries</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L9702" aria-label="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source" title="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a47-neg-twenty-five-unit-preliminaries.html" aria-label="Open local dependency context for Negative twenty-five-unit invert-add rule preliminaries" title="Open local dependency context for Negative twenty-five-unit invert-add rule preliminaries"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a47-neg-twenty-five-unit-preliminaries.md" aria-label="Edit the Markdown source for Negative twenty-five-unit invert-add rule preliminaries" title="Edit the Markdown source for Negative twenty-five-unit invert-add rule preliminaries"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a47-neg-twenty-five-unit-preliminaries">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Shared membership and rule-equation preliminaries for the twenty-five-unit
+inverted sum <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>:
+a single <code>decide</code> fixes the twenty-five switched crossings
+<code>⟨2,3,0,1,pos⟩ … ⟨75,72,71,74,pos⟩</code> (the twenty-fifth base crossing
+⟨74,75,72,71,neg⟩ rejoins the prior rung's fresh arcs 72/71 per the
+add-gluing pattern, switching to ⟨75,72,71,74,pos⟩ on the +3 arc
+pattern), and each coloring rule is read off as its arc equation.
+Factored out because the flat nine-unit universal already spans
+197/200 lines: the rung-twenty-five universal is claimed over this lemma and
+stays small. At this rung depth the preliminaries elaborate at
+<code>set_option maxRecDepth 4096</code> while the universal and existence need 8192
+(the witness def is a plain
+if-else chain and needs none). Proof part of the parent
+topic; see that page for the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a47a-neg-twenty-five-unit-universal">Theorem 94 (Unrestricted negative twenty-five-unit invert-add universal)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a47a-neg-twenty-five-unit-universal">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">94</span><span class="bp-thmtitle">Unrestricted negative twenty-five-unit invert-add universal</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L9829" aria-label="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a47a-neg-twenty-five-unit-universal.html" aria-label="Open local dependency context for Unrestricted negative twenty-five-unit invert-add universal" title="Open local dependency context for Unrestricted negative twenty-five-unit invert-add universal"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a47a-neg-twenty-five-unit-universal.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-five-unit invert-add universal" title="Edit the Markdown source for Unrestricted negative twenty-five-unit invert-add universal"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a47a-neg-twenty-five-unit-universal">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every non-monochrome coloring of <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>
+has fraction <code>-1/25</code> (universal): the twenty-five switched rules force numerator
+<code>d</code> and denominator <code>-25d</code> for nonzero <code>d</code>, with no <code>DiagonalSum</code> or port
+inputs. The negative units are mirror-switches of the positive ones, so
+the arc wirings — and the sign of the denominator multiple — differ from
+the positive-ladder case; the nonzero transfer additionally needs
+<code>neg_ne_zero</code> since the denominator multiple is negative. Proved over
+the factored rule preliminaries (same <code>decide</code> + <code>linarith</code> machinery),
+which keeps this node well under the span limit. At this rung depth the
+invert expression needs <code>set_option maxRecDepth 8192</code> to elaborate.
+Evaluated directly. Proof part of the parent topic; see that page for
+the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a47-neg-twenty-five-unit-preliminaries">Theorem 93 (Negative twenty-five-unit invert-add rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" id="a47b-neg-twenty-five-unit-witness">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">19</span><span class="bp-thmtitle">Negative twenty-five-unit invert-add witness coloring</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10000" aria-label="View RationalTangles.sharpColAddNegTwentyFive in Lean source" title="View RationalTangles.sharpColAddNegTwentyFive in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a47b-neg-twenty-five-unit-witness.html" aria-label="Open local dependency context for Negative twenty-five-unit invert-add witness coloring" title="Open local dependency context for Negative twenty-five-unit invert-add witness coloring"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a47b-neg-twenty-five-unit-witness.md" aria-label="Edit the Markdown source for Negative twenty-five-unit invert-add witness coloring" title="Edit the Markdown source for Negative twenty-five-unit invert-add witness coloring"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a47b-neg-twenty-five-unit-witness">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The explicit <code>sharpColAddNegTwentyFive</code> witness coloring for the
+twenty-five-unit inverted sum, extending the twenty-four-unit coloring by
+the forced pair <code>(-23,-22)</code> on the fresh arcs <code>74/75</code>. Split into its own
+node for size: at this rung depth the def-plus-fraction-computation block
+projects past ~190 lines, so the witness definition is claimed here and
+the fraction computation lives in the companion existence node. A plain
+if-else chain over arc indices; it elaborates with no <code>maxRecDepth</code>
+override. Statement part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a47c-neg-twenty-five-unit-existence">Theorem 95 (Unrestricted negative twenty-five-unit invert-add existence)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a47c-neg-twenty-five-unit-existence">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">95</span><span class="bp-thmtitle">Unrestricted negative twenty-five-unit invert-add existence</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10019" aria-label="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a47c-neg-twenty-five-unit-existence.html" aria-label="Open local dependency context for Unrestricted negative twenty-five-unit invert-add existence" title="Open local dependency context for Unrestricted negative twenty-five-unit invert-add existence"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a47c-neg-twenty-five-unit-existence.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-five-unit invert-add existence" title="Edit the Markdown source for Unrestricted negative twenty-five-unit invert-add existence"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a47c-neg-twenty-five-unit-existence">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The twenty-five-unit inverted sum admits a non-monochrome integral coloring
+carrying <code>-1/25</code>, via the explicit <code>sharpColAddNegTwentyFive</code> witness: the
+matrix computation gives <code>⟨-23,-22,2,3⟩</code>, the twenty-five switched rules
+are discharged by <code>decide</code>, and <code>1/-25</code> normalizes to <code>-1/25</code>.
+The witness definition itself is claimed in the companion witness node
+(split for size); this node carries the fraction computation over it.
+Size note: the twenty-five <code>show</code> blocks are written in 3-line form (the
+<code>B = 2 * C</code> continuation joined onto one line, whitespace-only) — the old
+4-line form projects the audit span to ~202, past the 200 limit, while the
+joined form holds it at ~194 with identical proof tokens. At this rung
+depth the invert expression needs <code>set_option maxRecDepth 8192</code> to
+elaborate. Proof part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a47b-neg-twenty-five-unit-witness">Definition 19 (Negative twenty-five-unit invert-add witness coloring)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a48-neg-twenty-six-unit-preliminaries">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">96</span><span class="bp-thmtitle">Negative twenty-six-unit invert-add rule preliminaries</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10215" aria-label="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source" title="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48-neg-twenty-six-unit-preliminaries.html" aria-label="Open local dependency context for Negative twenty-six-unit invert-add rule preliminaries" title="Open local dependency context for Negative twenty-six-unit invert-add rule preliminaries"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48-neg-twenty-six-unit-preliminaries.md" aria-label="Edit the Markdown source for Negative twenty-six-unit invert-add rule preliminaries" title="Edit the Markdown source for Negative twenty-six-unit invert-add rule preliminaries"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a48-neg-twenty-six-unit-preliminaries">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Shared membership and rule-equation preliminaries for the twenty-six-unit
+inverted sum <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>:
+a single <code>decide</code> fixes the twenty-six switched crossings
+<code>⟨2,3,0,1,pos⟩ … ⟨78,75,74,77,pos⟩</code> (the twenty-sixth base crossing
+⟨77,78,75,74,neg⟩ rejoins the prior rung's fresh arcs 75/74 per the
+add-gluing pattern, switching to ⟨78,75,74,77,pos⟩ on the +3 arc
+pattern), and each coloring rule is read off as its arc equation.
+Factored out because the flat nine-unit universal already spans
+197/200 lines: the rung-twenty-six universal is claimed over this lemma and
+stays small. At this rung depth the preliminaries elaborate at
+<code>set_option maxRecDepth 4096</code> while the universal and existence need 8192
+(the witness def is a plain
+if-else chain and needs none). Proof part of the parent
+topic; see that page for the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a48a-neg-twenty-six-unit-universal">Theorem 97 (Unrestricted negative twenty-six-unit invert-add universal)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a48a-neg-twenty-six-unit-universal">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">97</span><span class="bp-thmtitle">Unrestricted negative twenty-six-unit invert-add universal</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10347" aria-label="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48a-neg-twenty-six-unit-universal.html" aria-label="Open local dependency context for Unrestricted negative twenty-six-unit invert-add universal" title="Open local dependency context for Unrestricted negative twenty-six-unit invert-add universal"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48a-neg-twenty-six-unit-universal.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-six-unit invert-add universal" title="Edit the Markdown source for Unrestricted negative twenty-six-unit invert-add universal"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a48a-neg-twenty-six-unit-universal">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every non-monochrome coloring of <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>
+has fraction <code>-1/26</code> (universal): the twenty-six switched rules force numerator
+<code>d</code> and denominator <code>-26d</code> for nonzero <code>d</code>, with no <code>DiagonalSum</code> or port
+inputs. The negative units are mirror-switches of the positive ones, so
+the arc wirings — and the sign of the denominator multiple — differ from
+the positive-ladder case; the nonzero transfer additionally needs
+<code>neg_ne_zero</code> since the denominator multiple is negative. Proved over
+the factored rule preliminaries (same <code>decide</code> + <code>linarith</code> machinery),
+which keeps this node well under the span limit. At this rung depth the
+invert expression needs <code>set_option maxRecDepth 8192</code> to elaborate.
+Evaluated directly. Proof part of the parent topic; see that page for
+the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a48-neg-twenty-six-unit-preliminaries">Theorem 96 (Negative twenty-six-unit invert-add rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" id="a48b-neg-twenty-six-unit-witness">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">20</span><span class="bp-thmtitle">Negative twenty-six-unit invert-add witness coloring</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10523" aria-label="View RationalTangles.sharpColAddNegTwentySix in Lean source" title="View RationalTangles.sharpColAddNegTwentySix in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48b-neg-twenty-six-unit-witness.html" aria-label="Open local dependency context for Negative twenty-six-unit invert-add witness coloring" title="Open local dependency context for Negative twenty-six-unit invert-add witness coloring"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48b-neg-twenty-six-unit-witness.md" aria-label="Edit the Markdown source for Negative twenty-six-unit invert-add witness coloring" title="Edit the Markdown source for Negative twenty-six-unit invert-add witness coloring"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a48b-neg-twenty-six-unit-witness">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The explicit <code>sharpColAddNegTwentySix</code> witness coloring for the
+twenty-six-unit inverted sum, extending the twenty-five-unit coloring by
+the forced pair <code>(-24,-23)</code> on the fresh arcs <code>77/78</code>. Split into its own
+node for size: at this rung depth the def-plus-fraction-computation block
+projects past ~190 lines, so the witness definition is claimed here and
+the fraction computation lives in the companion existence node. A plain
+if-else chain over arc indices; it elaborates with no <code>maxRecDepth</code>
+override. Statement part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a48c-neg-twenty-six-unit-witness-rules">Theorem 98 (Negative twenty-six-unit witness rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="#a48d-neg-twenty-six-unit-existence">Theorem 99 (Unrestricted negative twenty-six-unit invert-add existence)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a48c-neg-twenty-six-unit-witness-rules">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">98</span><span class="bp-thmtitle">Negative twenty-six-unit witness rule preliminaries</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10544" aria-label="View RationalTangles.sharpColAddNegTwentySix_witness_rules in Lean source" title="View RationalTangles.sharpColAddNegTwentySix_witness_rules in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48c-neg-twenty-six-unit-witness-rules.html" aria-label="Open local dependency context for Negative twenty-six-unit witness rule preliminaries" title="Open local dependency context for Negative twenty-six-unit witness rule preliminaries"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48c-neg-twenty-six-unit-witness-rules.md" aria-label="Edit the Markdown source for Negative twenty-six-unit witness rule preliminaries" title="Edit the Markdown source for Negative twenty-six-unit witness rule preliminaries"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a48c-neg-twenty-six-unit-witness-rules">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Arc equations for the twenty-six-unit witness coloring
+<code>sharpColAddNegTwentySix</code>: the conjunction of the twenty-six switched-crossing
+equations (each <code>W a = W c ∧ W b + W d = 2 * W a</code> pair discharged by
+<code>decide</code>), factored into its own node so the existence computation stays
+under the span limit. Without this split the rung-twenty-six existence
+projects to ~201-203 lines (the twenty-six 3-line <code>show</code> blocks plus the
+<code>hcs</code>/<code>hM</code>/<code>NotMono</code>/fraction parts); with the rule discharges living
+here, the existence node keeps only the <code>hcs</code>-list <code>decide</code>, the <code>hM</code>
+<code>rfl</code>, the <code>NotMono</code> <code>decide</code>, and the fraction normalization (~150
+lines). Carries <code>set_option maxRecDepth 4096</code>, matching the crossings
+preliminaries. Proof part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a48b-neg-twenty-six-unit-witness">Definition 20 (Negative twenty-six-unit invert-add witness coloring)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a48d-neg-twenty-six-unit-existence">Theorem 99 (Unrestricted negative twenty-six-unit invert-add existence)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a48d-neg-twenty-six-unit-existence">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">99</span><span class="bp-thmtitle">Unrestricted negative twenty-six-unit invert-add existence</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10626" aria-label="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48d-neg-twenty-six-unit-existence.html" aria-label="Open local dependency context for Unrestricted negative twenty-six-unit invert-add existence" title="Open local dependency context for Unrestricted negative twenty-six-unit invert-add existence"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a48d-neg-twenty-six-unit-existence.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-six-unit invert-add existence" title="Edit the Markdown source for Unrestricted negative twenty-six-unit invert-add existence"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a48d-neg-twenty-six-unit-existence">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The twenty-six-unit inverted sum admits a non-monochrome integral coloring
+carrying <code>-1/26</code>, via the explicit <code>sharpColAddNegTwentySix</code> witness: the
+matrix computation gives <code>⟨-24,-23,2,3⟩</code>, the twenty-six switched rules
+are discharged through the witness-rules preliminary (obtained as
+<code>w1 … w26</code> and applied per crossing, one line each), and <code>1/-26</code>
+normalizes to <code>-1/26</code>.
+The witness definition itself is claimed in the companion witness node,
+and the arc equations in the companion witness-rules node (split for
+size); this node carries the fraction computation over both.
+Size note: the twenty-six per-crossing steps are one-line <code>exact wN</code>
+applications over the factored preliminary — the old inline 3-line <code>show</code>
+form projects the audit span past the 200 limit at this rung depth, while
+the factored form holds it at ~151 with identical proof content. At this
+rung depth the invert expression needs <code>set_option maxRecDepth 8192</code> to
+elaborate. Proof part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a48b-neg-twenty-six-unit-witness">Definition 20 (Negative twenty-six-unit invert-add witness coloring)</a> · <a class="bp-ref bp-ref-fully_proved" href="#a48c-neg-twenty-six-unit-witness-rules">Theorem 98 (Negative twenty-six-unit witness rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a49-neg-twenty-seven-unit-preliminaries">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">100</span><span class="bp-thmtitle">Negative twenty-seven-unit invert-add rule preliminaries</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10779" aria-label="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source" title="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49-neg-twenty-seven-unit-preliminaries.html" aria-label="Open local dependency context for Negative twenty-seven-unit invert-add rule preliminaries" title="Open local dependency context for Negative twenty-seven-unit invert-add rule preliminaries"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49-neg-twenty-seven-unit-preliminaries.md" aria-label="Edit the Markdown source for Negative twenty-seven-unit invert-add rule preliminaries" title="Edit the Markdown source for Negative twenty-seven-unit invert-add rule preliminaries"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a49-neg-twenty-seven-unit-preliminaries">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Shared membership and rule-equation preliminaries for the twenty-seven-unit
+inverted sum <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>:
+a single <code>decide</code> fixes the twenty-seven switched crossings
+<code>⟨2,3,0,1,pos⟩ … ⟨81,78,77,80,pos⟩</code> (the twenty-seventh base crossing
+⟨80,81,78,77,neg⟩ rejoins the prior rung's fresh arcs 78/77 per the
+add-gluing pattern, switching to ⟨81,78,77,80,pos⟩ on the +3 arc
+pattern), and each coloring rule is read off as its arc equation.
+Factored out because the flat nine-unit universal already spans
+197/200 lines: the rung-twenty-seven universal is claimed over this lemma and
+stays small. At this rung depth the preliminaries elaborate at
+<code>set_option maxRecDepth 4096</code> while the universal and existence need 8192
+(the witness def is a plain
+if-else chain and needs none). Proof part of the parent
+topic; see that page for the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a49a-neg-twenty-seven-unit-universal">Theorem 101 (Unrestricted negative twenty-seven-unit invert-add universal)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a49a-neg-twenty-seven-unit-universal">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">101</span><span class="bp-thmtitle">Unrestricted negative twenty-seven-unit invert-add universal</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L10916" aria-label="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49a-neg-twenty-seven-unit-universal.html" aria-label="Open local dependency context for Unrestricted negative twenty-seven-unit invert-add universal" title="Open local dependency context for Unrestricted negative twenty-seven-unit invert-add universal"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49a-neg-twenty-seven-unit-universal.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-seven-unit invert-add universal" title="Edit the Markdown source for Unrestricted negative twenty-seven-unit invert-add universal"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a49a-neg-twenty-seven-unit-universal">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every non-monochrome coloring of <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>
+has fraction <code>-1/27</code> (universal): the twenty-seven switched rules force numerator
+<code>d</code> and denominator <code>-27d</code> for nonzero <code>d</code>, with no <code>DiagonalSum</code> or port
+inputs. The negative units are mirror-switches of the positive ones, so
+the arc wirings — and the sign of the denominator multiple — differ from
+the positive-ladder case; the nonzero transfer additionally needs
+<code>neg_ne_zero</code> since the denominator multiple is negative. Proved over
+the factored rule preliminaries (same <code>decide</code> + <code>linarith</code> machinery),
+which keeps this node well under the span limit. At this rung depth the
+invert expression needs <code>set_option maxRecDepth 8192</code> to elaborate.
+Evaluated directly. Proof part of the parent topic; see that page for
+the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a49-neg-twenty-seven-unit-preliminaries">Theorem 100 (Negative twenty-seven-unit invert-add rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" id="a49b-neg-twenty-seven-unit-witness">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">21</span><span class="bp-thmtitle">Negative twenty-seven-unit invert-add witness coloring</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L11097" aria-label="View RationalTangles.sharpColAddNegTwentySeven in Lean source" title="View RationalTangles.sharpColAddNegTwentySeven in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49b-neg-twenty-seven-unit-witness.html" aria-label="Open local dependency context for Negative twenty-seven-unit invert-add witness coloring" title="Open local dependency context for Negative twenty-seven-unit invert-add witness coloring"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49b-neg-twenty-seven-unit-witness.md" aria-label="Edit the Markdown source for Negative twenty-seven-unit invert-add witness coloring" title="Edit the Markdown source for Negative twenty-seven-unit invert-add witness coloring"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a49b-neg-twenty-seven-unit-witness">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The explicit <code>sharpColAddNegTwentySeven</code> witness coloring for the
+twenty-seven-unit inverted sum, extending the twenty-six-unit coloring by
+the forced pair <code>(-25,-24)</code> on the fresh arcs <code>80/81</code>. Split into its own
+node for size: at this rung depth the def-plus-fraction-computation block
+projects past ~190 lines, so the witness definition is claimed here and
+the fraction computation lives in the companion existence node. A plain
+if-else chain over arc indices; it elaborates with no <code>maxRecDepth</code>
+override. Statement part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a49c-neg-twenty-seven-unit-witness-rules">Theorem 102 (Negative twenty-seven-unit witness rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="#a49d-neg-twenty-seven-unit-existence">Theorem 103 (Unrestricted negative twenty-seven-unit invert-add existence)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a49c-neg-twenty-seven-unit-witness-rules">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">102</span><span class="bp-thmtitle">Negative twenty-seven-unit witness rule preliminaries</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L11118" aria-label="View RationalTangles.sharpColAddNegTwentySeven_witness_rules in Lean source" title="View RationalTangles.sharpColAddNegTwentySeven_witness_rules in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49c-neg-twenty-seven-unit-witness-rules.html" aria-label="Open local dependency context for Negative twenty-seven-unit witness rule preliminaries" title="Open local dependency context for Negative twenty-seven-unit witness rule preliminaries"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49c-neg-twenty-seven-unit-witness-rules.md" aria-label="Edit the Markdown source for Negative twenty-seven-unit witness rule preliminaries" title="Edit the Markdown source for Negative twenty-seven-unit witness rule preliminaries"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a49c-neg-twenty-seven-unit-witness-rules">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Arc equations for the twenty-seven-unit witness coloring
+<code>sharpColAddNegTwentySeven</code>: the conjunction of the twenty-seven switched-crossing
+equations (each <code>W a = W c ∧ W b + W d = 2 * W a</code> pair discharged by
+<code>decide</code>), factored into its own node so the existence computation stays
+under the span limit. Without this split the rung-twenty-seven existence
+projects past the 200 limit (the twenty-seven one-line <code>exact</code> steps plus the
+<code>hcs</code>/<code>hM</code>/<code>NotMono</code>/fraction parts); with the rule discharges living
+here, the existence node keeps only the <code>hcs</code>-list <code>decide</code>, the <code>hM</code>
+<code>rfl</code>, the <code>NotMono</code> <code>decide</code>, and the fraction normalization (~155
+lines). Carries <code>set_option maxRecDepth 4096</code>, matching the crossings
+preliminaries. Proof part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a49b-neg-twenty-seven-unit-witness">Definition 21 (Negative twenty-seven-unit invert-add witness coloring)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a49d-neg-twenty-seven-unit-existence">Theorem 103 (Unrestricted negative twenty-seven-unit invert-add existence)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a49d-neg-twenty-seven-unit-existence">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">103</span><span class="bp-thmtitle">Unrestricted negative twenty-seven-unit invert-add existence</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L11203" aria-label="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49d-neg-twenty-seven-unit-existence.html" aria-label="Open local dependency context for Unrestricted negative twenty-seven-unit invert-add existence" title="Open local dependency context for Unrestricted negative twenty-seven-unit invert-add existence"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a49d-neg-twenty-seven-unit-existence.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-seven-unit invert-add existence" title="Edit the Markdown source for Unrestricted negative twenty-seven-unit invert-add existence"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a49d-neg-twenty-seven-unit-existence">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The twenty-seven-unit inverted sum admits a non-monochrome integral coloring
+carrying <code>-1/27</code>, via the explicit <code>sharpColAddNegTwentySeven</code> witness: the
+matrix computation gives <code>⟨-25,-24,2,3⟩</code>, the twenty-seven switched rules
+are discharged through the witness-rules preliminary (obtained as
+<code>w1 … w27</code> and applied per crossing, one line each), and <code>1/-27</code>
+normalizes to <code>-1/27</code>.
+The witness definition itself is claimed in the companion witness node,
+and the arc equations in the companion witness-rules node (split for
+size); this node carries the fraction computation over both.
+Size note: the twenty-seven per-crossing steps are one-line <code>exact wN</code>
+applications over the factored preliminary — the old inline 3-line <code>show</code>
+form projects the audit span past the 200 limit at this rung depth, while
+the factored form holds it at ~155 with identical proof content. At this
+rung depth the invert expression needs <code>set_option maxRecDepth 8192</code> to
+elaborate. Proof part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a49b-neg-twenty-seven-unit-witness">Definition 21 (Negative twenty-seven-unit invert-add witness coloring)</a> · <a class="bp-ref bp-ref-fully_proved" href="#a49c-neg-twenty-seven-unit-witness-rules">Theorem 102 (Negative twenty-seven-unit witness rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a50-neg-twenty-eight-unit-preliminaries">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">104</span><span class="bp-thmtitle">Negative twenty-eight-unit invert-add rule preliminaries</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L11361" aria-label="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source" title="View RationalTangles.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50-neg-twenty-eight-unit-preliminaries.html" aria-label="Open local dependency context for Negative twenty-eight-unit invert-add rule preliminaries" title="Open local dependency context for Negative twenty-eight-unit invert-add rule preliminaries"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50-neg-twenty-eight-unit-preliminaries.md" aria-label="Edit the Markdown source for Negative twenty-eight-unit invert-add rule preliminaries" title="Edit the Markdown source for Negative twenty-eight-unit invert-add rule preliminaries"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a50-neg-twenty-eight-unit-preliminaries">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Shared membership and rule-equation preliminaries for the twenty-eight-unit
+inverted sum <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>:
+a single <code>decide</code> fixes the twenty-eight switched crossings
+<code>⟨2,3,0,1,pos⟩ … ⟨84,81,80,83,pos⟩</code> (the twenty-eighth base crossing
+⟨83,84,81,80,neg⟩ rejoins the prior rung's fresh arcs 81/80 per the
+add-gluing pattern, switching to ⟨84,81,80,83,pos⟩ on the +3 arc
+pattern), and each coloring rule is read off as its arc equation.
+Factored out because the flat nine-unit universal already spans
+197/200 lines: the rung-twenty-eight universal is claimed over this lemma and
+stays small. At this rung depth the preliminaries elaborate at
+<code>set_option maxRecDepth 4096</code> while the universal and existence need 8192
+(the witness def is a plain
+if-else chain and needs none). Proof part of the parent
+topic; see that page for the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a50a-neg-twenty-eight-unit-universal">Theorem 105 (Unrestricted negative twenty-eight-unit invert-add universal)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a50a-neg-twenty-eight-unit-universal">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">105</span><span class="bp-thmtitle">Unrestricted negative twenty-eight-unit invert-add universal</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L11503" aria-label="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50a-neg-twenty-eight-unit-universal.html" aria-label="Open local dependency context for Unrestricted negative twenty-eight-unit invert-add universal" title="Open local dependency context for Unrestricted negative twenty-eight-unit invert-add universal"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50a-neg-twenty-eight-unit-universal.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-eight-unit invert-add universal" title="Edit the Markdown source for Unrestricted negative twenty-eight-unit invert-add universal"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a50a-neg-twenty-eight-unit-universal">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Every non-monochrome coloring of <code>([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])ⁱ</code>
+has fraction <code>-1/28</code> (universal): the twenty-eight switched rules force numerator
+<code>d</code> and denominator <code>-28d</code> for nonzero <code>d</code>, with no <code>DiagonalSum</code> or port
+inputs. The negative units are mirror-switches of the positive ones, so
+the arc wirings — and the sign of the denominator multiple — differ from
+the positive-ladder case; the nonzero transfer additionally needs
+<code>neg_ne_zero</code> since the denominator multiple is negative. Proved over
+the factored rule preliminaries (same <code>decide</code> + <code>linarith</code> machinery),
+which keeps this node well under the span limit. At this rung depth the
+invert expression needs <code>set_option maxRecDepth 8192</code> to elaborate.
+Evaluated directly. Proof part of the parent topic; see that page for
+the mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a50-neg-twenty-eight-unit-preliminaries">Theorem 104 (Negative twenty-eight-unit invert-add rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-definition bp-fully_proved" id="a50b-neg-twenty-eight-unit-witness">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Definition</span><span class="bp-thmlabel">22</span><span class="bp-thmtitle">Negative twenty-eight-unit invert-add witness coloring</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L11689" aria-label="View RationalTangles.sharpColAddNegTwentyEight in Lean source" title="View RationalTangles.sharpColAddNegTwentyEight in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50b-neg-twenty-eight-unit-witness.html" aria-label="Open local dependency context for Negative twenty-eight-unit invert-add witness coloring" title="Open local dependency context for Negative twenty-eight-unit invert-add witness coloring"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50b-neg-twenty-eight-unit-witness.md" aria-label="Edit the Markdown source for Negative twenty-eight-unit invert-add witness coloring" title="Edit the Markdown source for Negative twenty-eight-unit invert-add witness coloring"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a50b-neg-twenty-eight-unit-witness">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The explicit <code>sharpColAddNegTwentyEight</code> witness coloring for the
+twenty-eight-unit inverted sum, extending the twenty-seven-unit coloring by
+the forced pair <code>(-26,-25)</code> on the fresh arcs <code>83/84</code>. Split into its own
+node for size: at this rung depth the def-plus-fraction-computation block
+projects past ~190 lines, so the witness definition is claimed here and
+the fraction computation lives in the companion existence node. A plain
+if-else chain over arc indices; it elaborates with no <code>maxRecDepth</code>
+override. Statement part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a50c-neg-twenty-eight-unit-witness-rules">Theorem 106 (Negative twenty-eight-unit witness rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="#a50d-neg-twenty-eight-unit-existence">Theorem 107 (Unrestricted negative twenty-eight-unit invert-add existence)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a50c-neg-twenty-eight-unit-witness-rules">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">106</span><span class="bp-thmtitle">Negative twenty-eight-unit witness rule preliminaries</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L11710" aria-label="View RationalTangles.sharpColAddNegTwentyEight_witness_rules in Lean source" title="View RationalTangles.sharpColAddNegTwentyEight_witness_rules in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50c-neg-twenty-eight-unit-witness-rules.html" aria-label="Open local dependency context for Negative twenty-eight-unit witness rule preliminaries" title="Open local dependency context for Negative twenty-eight-unit witness rule preliminaries"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50c-neg-twenty-eight-unit-witness-rules.md" aria-label="Edit the Markdown source for Negative twenty-eight-unit witness rule preliminaries" title="Edit the Markdown source for Negative twenty-eight-unit witness rule preliminaries"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a50c-neg-twenty-eight-unit-witness-rules">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>Arc equations for the twenty-eight-unit witness coloring
+<code>sharpColAddNegTwentyEight</code>: the conjunction of the twenty-eight switched-crossing
+equations (each <code>W a = W c ∧ W b + W d = 2 * W a</code> pair discharged by
+<code>decide</code>), factored into its own node so the existence computation stays
+under the span limit. Without this split the rung-twenty-eight existence
+projects past the 200 limit (the twenty-eight one-line <code>exact</code> steps plus the
+<code>hcs</code>/<code>hM</code>/<code>NotMono</code>/fraction parts); with the rule discharges living
+here, the existence node keeps only the <code>hcs</code>-list <code>decide</code>, the <code>hM</code>
+<code>rfl</code>, the <code>NotMono</code> <code>decide</code>, and the fraction normalization (~162
+lines). Carries <code>set_option maxRecDepth 4096</code>, matching the crossings
+preliminaries. Proof part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a50b-neg-twenty-eight-unit-witness">Definition 22 (Negative twenty-eight-unit invert-add witness coloring)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+<div class="bp-row"><span class="bp-key">Used by</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a50d-neg-twenty-eight-unit-existence">Theorem 107 (Unrestricted negative twenty-eight-unit invert-add existence)</a></span></div>
+</div>
+</details>
+</div>
+<div class="bp-thmwrapper theorem-style-plain bp-fully_proved" id="a50d-neg-twenty-eight-unit-existence">
+<div class="bp-thmheading">
+<span class="bp-thmcaption">Theorem</span><span class="bp-thmlabel">107</span><span class="bp-thmtitle">Unrestricted negative twenty-eight-unit invert-add existence</span><span class="bp-code-links"><a class="bp-code-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/src/RationalTangles/DiagonalSumGeneral.lean#L11798" aria-label="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source" title="View RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne in Lean source"><svg class="bp-code-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m8 9-3 3 3 3M16 9l3 3-3 3M14 5l-4 14"/></svg></a></span><a class="bp-context-link" href="../../../../../../../dependencies/nodes/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50d-neg-twenty-eight-unit-existence.html" aria-label="Open local dependency context for Unrestricted negative twenty-eight-unit invert-add existence" title="Open local dependency context for Unrestricted negative twenty-eight-unit invert-add existence"><svg class="bp-context-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="6" r="2.25"/><circle cx="18" cy="18" r="2.25"/><path d="m8 11 7.8-4M8 13l7.8 4"/></svg></a><a class="bp-source-link" href="https://github.com/tangentproofs/conway-knots/blob/cf0cd161b380e7c1fd80729461a27043a515e40d/blueprint/roadmap/rational-tangles/coloring/theorems/invert-units/neg-ladder/factored-rungs-three/a50d-neg-twenty-eight-unit-existence.md" aria-label="Edit the Markdown source for Unrestricted negative twenty-eight-unit invert-add existence" title="Edit the Markdown source for Unrestricted negative twenty-eight-unit invert-add existence"><svg class="bp-source-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h9l7 7v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M13 4v7h7"/></svg></a><a class="bp-permalink" href="#a50d-neg-twenty-eight-unit-existence">#</a><span class="bp-mark" title="fully proved">✓<span class="bp-mark-label">fully proved</span></span>
+</div>
+<div class="bp-thmcontent">
+<p>The twenty-eight-unit inverted sum admits a non-monochrome integral coloring
+carrying <code>-1/28</code>, via the explicit <code>sharpColAddNegTwentyEight</code> witness: the
+matrix computation gives <code>⟨-26,-25,2,3⟩</code>, the twenty-eight switched rules
+are discharged through the witness-rules preliminary (obtained as
+<code>w1 … w28</code> and applied per crossing, one line each), and <code>1/-28</code>
+normalizes to <code>-1/28</code>.
+The witness definition itself is claimed in the companion witness node,
+and the arc equations in the companion witness-rules node (split for
+size); this node carries the fraction computation over both.
+Size note: the twenty-eight per-crossing steps are one-line <code>exact wN</code>
+applications over the factored preliminary — the old inline 3-line <code>show</code>
+form projects the audit span past the 200 limit at this rung depth, while
+the factored form holds it at ~162 with identical proof content. At this
+rung depth the invert expression needs <code>set_option maxRecDepth 8192</code> to
+elaborate. Proof part of the parent topic; see that page for the
+mathematical context.</p>
+</div>
+<details class="bp-dependencies">
+<summary>Dependencies</summary>
+<div class="bp-dependency-body">
+<div class="bp-row"><span class="bp-key">Statement uses</span><span class="bp-value"><a class="bp-ref bp-ref-fully_proved" href="#a50b-neg-twenty-eight-unit-witness">Definition 22 (Negative twenty-eight-unit invert-add witness coloring)</a> · <a class="bp-ref bp-ref-fully_proved" href="#a50c-neg-twenty-eight-unit-witness-rules">Theorem 106 (Negative twenty-eight-unit witness rule preliminaries)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../index.html#definitions-coloring-fraction">Definition 2 (Coloring fraction)</a> · <a class="bp-ref bp-ref-fully_proved" href="../../../../../definitions/index.html#integer-tangle">Definition 3 (Integer and vertical tangles)</a></span></div>
+</div>
+</details>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+        Developed with
+        <a href="https://github.com/facebookresearch/autoform-bot">AutoformBot</a>.
+        
+        <a href="https://github.com/tangentproofs/conway-knots">Formalization source</a>.
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest"], "search": "../../../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+      
+        <script src="../../../../../../../javascripts/blueprint-mermaid.js"></script>
+      
+    
+  </body>
+</html>
