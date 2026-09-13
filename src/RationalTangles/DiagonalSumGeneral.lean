@@ -18603,4 +18603,856 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
   · rw [hM]
     exact sharpColAddNegThirtySeven_witness_value.2
 
+set_option maxRecDepth 4096 in
+/-- Rule equations for the thirty-eight-unit negative invert-add: each switched crossing forces its
+    coloring equation. Factored so the rung-thirty-eight universal stays under the span limit. -/
+theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules
+    (col : Nat → Int)
+    (hc : (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).invert).IsColored col) :
+    (col 2 = col 0 ∧ col 3 + col 1 = 2 * col 2) ∧
+    (col 6 = col 1 ∧ col 2 + col 5 = 2 * col 6) ∧
+    (col 9 = col 5 ∧ col 6 + col 8 = 2 * col 9) ∧
+    (col 12 = col 8 ∧ col 9 + col 11 = 2 * col 12) ∧
+    (col 15 = col 11 ∧ col 12 + col 14 = 2 * col 15) ∧
+    (col 18 = col 14 ∧ col 15 + col 17 = 2 * col 18) ∧
+    (col 21 = col 17 ∧ col 18 + col 20 = 2 * col 21) ∧
+    (col 24 = col 20 ∧ col 21 + col 23 = 2 * col 24) ∧
+    (col 27 = col 23 ∧ col 24 + col 26 = 2 * col 27) ∧
+    (col 30 = col 26 ∧ col 27 + col 29 = 2 * col 30) ∧
+    (col 33 = col 29 ∧ col 30 + col 32 = 2 * col 33) ∧
+    (col 36 = col 32 ∧ col 33 + col 35 = 2 * col 36) ∧
+    (col 39 = col 35 ∧ col 36 + col 38 = 2 * col 39) ∧
+    (col 42 = col 38 ∧ col 39 + col 41 = 2 * col 42) ∧
+    (col 45 = col 41 ∧ col 42 + col 44 = 2 * col 45) ∧
+    (col 48 = col 44 ∧ col 45 + col 47 = 2 * col 48) ∧
+    (col 51 = col 47 ∧ col 48 + col 50 = 2 * col 51) ∧
+    (col 54 = col 50 ∧ col 51 + col 53 = 2 * col 54) ∧
+    (col 57 = col 53 ∧ col 54 + col 56 = 2 * col 57) ∧
+    (col 60 = col 56 ∧ col 57 + col 59 = 2 * col 60) ∧
+    (col 63 = col 59 ∧ col 60 + col 62 = 2 * col 63) ∧
+    (col 66 = col 62 ∧ col 63 + col 65 = 2 * col 66) ∧
+    (col 69 = col 65 ∧ col 66 + col 68 = 2 * col 69) ∧
+    (col 72 = col 68 ∧ col 69 + col 71 = 2 * col 72) ∧
+    (col 75 = col 71 ∧ col 72 + col 74 = 2 * col 75) ∧
+    (col 78 = col 74 ∧ col 75 + col 77 = 2 * col 78) ∧
+    (col 81 = col 77 ∧ col 78 + col 80 = 2 * col 81) ∧
+(col 84 = col 80 ∧ col 81 + col 83 = 2 * col 84) ∧
+(col 87 = col 83 ∧ col 84 + col 86 = 2 * col 87) ∧
+(col 90 = col 86 ∧ col 87 + col 89 = 2 * col 90) ∧
+(col 93 = col 89 ∧ col 90 + col 92 = 2 * col 93) ∧
+(col 96 = col 92 ∧ col 93 + col 95 = 2 * col 96) ∧
+(col 99 = col 95 ∧ col 96 + col 98 = 2 * col 99) ∧
+(col 102 = col 98 ∧ col 99 + col 101 = 2 * col 102) ∧
+(col 105 = col 101 ∧ col 102 + col 104 = 2 * col 105) ∧
+(col 108 = col 104 ∧ col 105 + col 107 = 2 * col 108) ∧
+(col 111 = col 107 ∧ col 108 + col 110 = 2 * col 111) ∧
+(col 114 = col 110 ∧ col 111 + col 113 = 2 * col 114) := by
+  have hcs : (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).invert.crossings) =
+      [⟨2, 3, 0, 1, CrossingSign.pos⟩, ⟨6, 2, 1, 5, CrossingSign.pos⟩,
+        ⟨9, 6, 5, 8, CrossingSign.pos⟩, ⟨12, 9, 8, 11, CrossingSign.pos⟩,
+        ⟨15, 12, 11, 14, CrossingSign.pos⟩, ⟨18, 15, 14, 17, CrossingSign.pos⟩,
+        ⟨21, 18, 17, 20, CrossingSign.pos⟩, ⟨24, 21, 20, 23, CrossingSign.pos⟩,
+        ⟨27, 24, 23, 26, CrossingSign.pos⟩, ⟨30, 27, 26, 29, CrossingSign.pos⟩,
+        ⟨33, 30, 29, 32, CrossingSign.pos⟩, ⟨36, 33, 32, 35, CrossingSign.pos⟩,
+        ⟨39, 36, 35, 38, CrossingSign.pos⟩, ⟨42, 39, 38, 41, CrossingSign.pos⟩,
+        ⟨45, 42, 41, 44, CrossingSign.pos⟩,
+        ⟨48, 45, 44, 47, CrossingSign.pos⟩,
+        ⟨51, 48, 47, 50, CrossingSign.pos⟩,
+        ⟨54, 51, 50, 53, CrossingSign.pos⟩,
+        ⟨57, 54, 53, 56, CrossingSign.pos⟩,
+        ⟨60, 57, 56, 59, CrossingSign.pos⟩,
+        ⟨63, 60, 59, 62, CrossingSign.pos⟩,
+        ⟨66, 63, 62, 65, CrossingSign.pos⟩,
+        ⟨69, 66, 65, 68, CrossingSign.pos⟩,
+        ⟨72, 69, 68, 71, CrossingSign.pos⟩,
+        ⟨75, 72, 71, 74, CrossingSign.pos⟩,
+        ⟨78, 75, 74, 77, CrossingSign.pos⟩,
+        ⟨81, 78, 77, 80, CrossingSign.pos⟩,
+        ⟨84, 81, 80, 83, CrossingSign.pos⟩,
+        ⟨87, 84, 83, 86, CrossingSign.pos⟩,
+        ⟨90, 87, 86, 89, CrossingSign.pos⟩,
+        ⟨93, 90, 89, 92, CrossingSign.pos⟩,
+        ⟨96, 93, 92, 95, CrossingSign.pos⟩,
+        ⟨99, 96, 95, 98, CrossingSign.pos⟩,
+        ⟨102, 99, 98, 101, CrossingSign.pos⟩,
+        ⟨105, 102, 101, 104, CrossingSign.pos⟩,
+        ⟨108, 105, 104, 107, CrossingSign.pos⟩,
+        ⟨111, 108, 107, 110, CrossingSign.pos⟩,
+        ⟨114, 111, 110, 113, CrossingSign.pos⟩] := by
+    decide
+  simp only [TangleDiagram.IsColored, hcs] at hc
+  exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
+    hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
+    hc ⟨9, 6, 5, 8, CrossingSign.pos⟩ (by decide),
+    hc ⟨12, 9, 8, 11, CrossingSign.pos⟩ (by decide),
+    hc ⟨15, 12, 11, 14, CrossingSign.pos⟩ (by decide),
+    hc ⟨18, 15, 14, 17, CrossingSign.pos⟩ (by decide),
+    hc ⟨21, 18, 17, 20, CrossingSign.pos⟩ (by decide),
+    hc ⟨24, 21, 20, 23, CrossingSign.pos⟩ (by decide),
+    hc ⟨27, 24, 23, 26, CrossingSign.pos⟩ (by decide),
+    hc ⟨30, 27, 26, 29, CrossingSign.pos⟩ (by decide),
+    hc ⟨33, 30, 29, 32, CrossingSign.pos⟩ (by decide),
+    hc ⟨36, 33, 32, 35, CrossingSign.pos⟩ (by decide),
+    hc ⟨39, 36, 35, 38, CrossingSign.pos⟩ (by decide),
+    hc ⟨42, 39, 38, 41, CrossingSign.pos⟩ (by decide),
+    hc ⟨45, 42, 41, 44, CrossingSign.pos⟩ (by decide),
+    hc ⟨48, 45, 44, 47, CrossingSign.pos⟩ (by decide),
+    hc ⟨51, 48, 47, 50, CrossingSign.pos⟩ (by decide),
+    hc ⟨54, 51, 50, 53, CrossingSign.pos⟩ (by decide),
+    hc ⟨57, 54, 53, 56, CrossingSign.pos⟩ (by decide),
+    hc ⟨60, 57, 56, 59, CrossingSign.pos⟩ (by decide),
+    hc ⟨63, 60, 59, 62, CrossingSign.pos⟩ (by decide),
+    hc ⟨66, 63, 62, 65, CrossingSign.pos⟩ (by decide),
+    hc ⟨69, 66, 65, 68, CrossingSign.pos⟩ (by decide),
+    hc ⟨72, 69, 68, 71, CrossingSign.pos⟩ (by decide),
+    hc ⟨75, 72, 71, 74, CrossingSign.pos⟩ (by decide),
+    hc ⟨78, 75, 74, 77, CrossingSign.pos⟩ (by decide),
+    hc ⟨81, 78, 77, 80, CrossingSign.pos⟩ (by decide),
+    hc ⟨84, 81, 80, 83, CrossingSign.pos⟩ (by decide),
+    hc ⟨87, 84, 83, 86, CrossingSign.pos⟩ (by decide),
+    hc ⟨90, 87, 86, 89, CrossingSign.pos⟩ (by decide),
+    hc ⟨93, 90, 89, 92, CrossingSign.pos⟩ (by decide),
+    hc ⟨96, 93, 92, 95, CrossingSign.pos⟩ (by decide),
+    hc ⟨99, 96, 95, 98, CrossingSign.pos⟩ (by decide),
+    hc ⟨102, 99, 98, 101, CrossingSign.pos⟩ (by decide),
+    hc ⟨105, 102, 101, 104, CrossingSign.pos⟩ (by decide),
+    hc ⟨108, 105, 104, 107, CrossingSign.pos⟩ (by decide),
+    hc ⟨111, 108, 107, 110, CrossingSign.pos⟩ (by decide),
+    hc ⟨114, 111, 110, 113, CrossingSign.pos⟩ (by decide)⟩
+set_option maxRecDepth 8192 in
+/-- Fraction value for the thirty-eight-unit negative invert-add: the thirty-eight
+    switched rule equations force numerator d and denominator -37d for nonzero d.
+    Factored from the rung-thirty-eight universal (same witness-rules precedent) so the
+    universal stays under the span limit. -/
+theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_fraction_value
+    (col : Nat → Int)
+    (hrules : (col 2 = col 0 ∧ col 3 + col 1 = 2 * col 2) ∧
+    (col 6 = col 1 ∧ col 2 + col 5 = 2 * col 6) ∧
+    (col 9 = col 5 ∧ col 6 + col 8 = 2 * col 9) ∧
+    (col 12 = col 8 ∧ col 9 + col 11 = 2 * col 12) ∧
+    (col 15 = col 11 ∧ col 12 + col 14 = 2 * col 15) ∧
+    (col 18 = col 14 ∧ col 15 + col 17 = 2 * col 18) ∧
+    (col 21 = col 17 ∧ col 18 + col 20 = 2 * col 21) ∧
+    (col 24 = col 20 ∧ col 21 + col 23 = 2 * col 24) ∧
+    (col 27 = col 23 ∧ col 24 + col 26 = 2 * col 27) ∧
+    (col 30 = col 26 ∧ col 27 + col 29 = 2 * col 30) ∧
+    (col 33 = col 29 ∧ col 30 + col 32 = 2 * col 33) ∧
+    (col 36 = col 32 ∧ col 33 + col 35 = 2 * col 36) ∧
+    (col 39 = col 35 ∧ col 36 + col 38 = 2 * col 39) ∧
+    (col 42 = col 38 ∧ col 39 + col 41 = 2 * col 42) ∧
+    (col 45 = col 41 ∧ col 42 + col 44 = 2 * col 45) ∧
+    (col 48 = col 44 ∧ col 45 + col 47 = 2 * col 48) ∧
+    (col 51 = col 47 ∧ col 48 + col 50 = 2 * col 51) ∧
+    (col 54 = col 50 ∧ col 51 + col 53 = 2 * col 54) ∧
+    (col 57 = col 53 ∧ col 54 + col 56 = 2 * col 57) ∧
+    (col 60 = col 56 ∧ col 57 + col 59 = 2 * col 60) ∧
+    (col 63 = col 59 ∧ col 60 + col 62 = 2 * col 63) ∧
+    (col 66 = col 62 ∧ col 63 + col 65 = 2 * col 66) ∧
+    (col 69 = col 65 ∧ col 66 + col 68 = 2 * col 69) ∧
+    (col 72 = col 68 ∧ col 69 + col 71 = 2 * col 72) ∧
+    (col 75 = col 71 ∧ col 72 + col 74 = 2 * col 75) ∧
+    (col 78 = col 74 ∧ col 75 + col 77 = 2 * col 78) ∧
+    (col 81 = col 77 ∧ col 78 + col 80 = 2 * col 81) ∧
+(col 84 = col 80 ∧ col 81 + col 83 = 2 * col 84) ∧
+(col 87 = col 83 ∧ col 84 + col 86 = 2 * col 87) ∧
+(col 90 = col 86 ∧ col 87 + col 89 = 2 * col 90) ∧
+(col 93 = col 89 ∧ col 90 + col 92 = 2 * col 93) ∧
+(col 96 = col 92 ∧ col 93 + col 95 = 2 * col 96) ∧
+(col 99 = col 95 ∧ col 96 + col 98 = 2 * col 99) ∧
+(col 102 = col 98 ∧ col 99 + col 101 = 2 * col 102) ∧
+(col 105 = col 101 ∧ col 102 + col 104 = 2 * col 105) ∧
+(col 108 = col 104 ∧ col 105 + col 107 = 2 * col 108) ∧
+(col 111 = col 107 ∧ col 108 + col 110 = 2 * col 111) ∧
+(col 114 = col 110 ∧ col 111 + col 113 = 2 * col 114))
+    (hmRw : Not ((col 113 = col 114) ∧ (col 114 = col 3))) :
+    (col 114 - col 3 ≠ 0) ∧ (((col 114 - col 113 : Int) : Rat) /
+      ((col 114 - col 3 : Int) : Rat) = -1 / 38) := by
+  obtain ⟨r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36, r37, r38⟩ := hrules
+  obtain ⟨e1a, e1b⟩ := r1
+  obtain ⟨e2a, e2b⟩ := r2
+  obtain ⟨e3a, e3b⟩ := r3
+  obtain ⟨e4a, e4b⟩ := r4
+  obtain ⟨e5a, e5b⟩ := r5
+  obtain ⟨e6a, e6b⟩ := r6
+  obtain ⟨e7a, e7b⟩ := r7
+  obtain ⟨e8a, e8b⟩ := r8
+  obtain ⟨e9a, e9b⟩ := r9
+  obtain ⟨e10a, e10b⟩ := r10
+  obtain ⟨e11a, e11b⟩ := r11
+  obtain ⟨e12a, e12b⟩ := r12
+  obtain ⟨e13a, e13b⟩ := r13
+  obtain ⟨e14a, e14b⟩ := r14
+  obtain ⟨e15a, e15b⟩ := r15
+  obtain ⟨e16a, e16b⟩ := r16
+  obtain ⟨e17a, e17b⟩ := r17
+  obtain ⟨e18a, e18b⟩ := r18
+  obtain ⟨e19a, e19b⟩ := r19
+  obtain ⟨e20a, e20b⟩ := r20
+  obtain ⟨e21a, e21b⟩ := r21
+  obtain ⟨e22a, e22b⟩ := r22
+  obtain ⟨e23a, e23b⟩ := r23
+  obtain ⟨e24a, e24b⟩ := r24
+  obtain ⟨e25a, e25b⟩ := r25
+  obtain ⟨e26a, e26b⟩ := r26
+  obtain ⟨e27a, e27b⟩ := r27
+  obtain ⟨e28a, e28b⟩ := r28
+  obtain ⟨e29a, e29b⟩ := r29
+  obtain ⟨e30a, e30b⟩ := r30
+  obtain ⟨e31a, e31b⟩ := r31
+  obtain ⟨e32a, e32b⟩ := r32
+  obtain ⟨e33a, e33b⟩ := r33
+  obtain ⟨e34a, e34b⟩ := r34
+  obtain ⟨e35a, e35b⟩ := r35
+  obtain ⟨e36a, e36b⟩ := r36
+  obtain ⟨e37a, e37b⟩ := r37
+  obtain ⟨e38a, e38b⟩ := r38
+  have hnum : col 114 - col 113 = col 2 - col 1 := by linarith
+  have hden38 : col 114 - col 3 = -(38 * (col 2 - col 1)) := by linarith
+  have hd : col 2 - col 1 ≠ 0 := by
+    intro hz0
+    have c113114 : col 113 = col 114 := by linarith
+    have c1143 : col 114 = col 3 := by linarith
+    exact hmRw ⟨c113114, c1143⟩
+  have hden : col 114 - col 3 ≠ 0 := by
+    rw [hden38, neg_ne_zero]
+    exact mul_ne_zero (by norm_num) hd
+  have hnumR : ((col 114 - col 113 : Int) : Rat) =
+      ((col 2 - col 1 : Int) : Rat) := by
+    exact_mod_cast hnum
+  have hdenR : ((col 114 - col 3 : Int) : Rat) =
+      ((-(38 * (col 2 - col 1)) : Int) : Rat) := by
+    exact_mod_cast hden38
+  have hval : ((col 114 - col 113 : Int) : Rat) /
+      ((col 114 - col 3 : Int) : Rat) = -1 / 38 := by
+    have h38 : (38 : Int) * (col 2 - col 1) ≠ 0 :=
+      mul_ne_zero (by norm_num) hd
+    have h38ne : ((-(38 * (col 2 - col 1)) : Int) : Rat) ≠ 0 := by
+      have h38n : (-(38 * (col 2 - col 1)) : Int) ≠ 0 := neg_ne_zero.mpr h38
+      exact_mod_cast h38n
+    rw [hnumR, hdenR, div_eq_iff h38ne]
+    push_cast
+    ring
+  exact ⟨hden, hval⟩
+
+set_option maxRecDepth 16384 in
+/-- Every non-monochrome coloring of ([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1])
+    inv has fraction -1/38: the thirty-eight switched rules force numerator d and denominator
+    -37d for nonzero d. Proved over the factored rule preliminaries (crossings plus fraction
+    value, same decide + linarith machinery), which keeps this node well under the span limit. -/
+theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne (col : Nat → Int)
+    (hc : (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).add
+      (crossingTangle CrossingSign.neg)).invert).IsColored col)
+    (hm : (ColorMatrix.of
+      (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert) col).NotMono) :
+    (ColorMatrix.of
+      (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert) col).fraction =
+      CFValue.ofRat (-1/38 : Rat) := by
+  have hrules := invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_rules
+    col hc
+  have hmRw : Not ((col 113 = col 114) ∧ (col 114 = col 3)) := hm
+  obtain ⟨hden, hval⟩ := coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_fraction_value col hrules hmRw
+  have hfrac : (ColorMatrix.of
+      (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert) col).fraction =
+      CFValue.ofRat (((col 114 - col 113 : Int) : Rat) /
+        ((col 114 - col 3 : Int) : Rat)) := by
+    show (if col 114 - col 3 = 0 then CFValue.inf
+      else CFValue.ofRat
+        (Rat.divInt (col 114 - col 113) (col 114 - col 3))) =
+      CFValue.ofRat (((col 114 - col 113 : Int) : Rat) /
+        ((col 114 - col 3 : Int) : Rat))
+    rw [if_neg hden, Rat.divInt_eq_div]
+  rw [hfrac, hval]
+
+/-- Witness coloring with fraction -1/38 on ([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]) inv. -/
+def sharpColAddNegThirtyEight : Nat → Int := fun a =>
+  if a = 0 then 2 else if a = 1 then 1 else if a = 2 then 2
+  else if a = 3 then 3 else if a = 5 then 0 else if a = 6 then 1
+  else if a = 8 then -1 else if a = 9 then 0 else if a = 11 then -2
+  else if a = 12 then -1 else if a = 14 then -3 else if a = 15 then -2
+  else if a = 17 then -4 else if a = 18 then -3
+  else if a = 20 then -5 else if a = 21 then -4
+  else if a = 23 then -6 else if a = 24 then -5
+  else if a = 26 then -7 else if a = 27 then -6
+  else if a = 29 then -8 else if a = 30 then -7
+  else if a = 32 then -9 else if a = 33 then -8
+  else if a = 35 then -10 else if a = 36 then -9
+  else if a = 38 then -11 else if a = 39 then -10
+  else if a = 41 then -12 else if a = 42 then -11
+  else if a = 44 then -13 else if a = 45 then -12
+  else if a = 47 then -14 else if a = 48 then -13 else if a = 50 then -15 else if a = 51 then -14 else if a = 53 then -16 else if a = 54 then -15 else if a = 56 then -17 else if a = 57 then -16 else if a = 59 then -18 else if a = 60 then -17 else if a = 62 then -19 else if a = 63 then -18 else if a = 65 then -20 else if a = 66 then -19 else if a = 68 then -21 else if a = 69 then -20 else if a = 71 then -22 else if a = 72 then -21 else if a = 74 then -23 else if a = 75 then -22 else if a = 77 then -24 else if a = 78 then -23 else if a = 80 then -25 else if a = 81 then -24 else if a = 83 then -26 else if a = 84 then -25 else if a = 86 then -27 else if a = 87 then -26 else if a = 89 then -28 else if a = 90 then -27 else if a = 92 then -29 else if a = 93 then -28 else if a = 95 then -30 else if a = 96 then -29 else if a = 98 then -31 else if a = 99 then -30 else if a = 101 then -32 else if a = 102 then -31 else if a = 104 then -33 else if a = 105 then -32 else if a = 107 then -34 else if a = 108 then -33 else if a = 110 then -35 else if a = 111 then -34 else if a = 113 then -36 else if a = 114 then -35 else 0
+
+set_option maxRecDepth 4096 in
+/-- Arc equations for the thirty-eight-unit witness coloring: each switched crossing
+    forces its equation on `sharpColAddNegThirtyEight`. Factored so the rung-thirty-eight
+    existence stays under the span limit. -/
+theorem sharpColAddNegThirtyEight_witness_rules :
+    (sharpColAddNegThirtyEight 2 = sharpColAddNegThirtyEight 0 ∧
+      sharpColAddNegThirtyEight 3 + sharpColAddNegThirtyEight 1 = 2 * sharpColAddNegThirtyEight 2) ∧
+    (sharpColAddNegThirtyEight 6 = sharpColAddNegThirtyEight 1 ∧
+      sharpColAddNegThirtyEight 2 + sharpColAddNegThirtyEight 5 = 2 * sharpColAddNegThirtyEight 6) ∧
+    (sharpColAddNegThirtyEight 9 = sharpColAddNegThirtyEight 5 ∧
+      sharpColAddNegThirtyEight 6 + sharpColAddNegThirtyEight 8 = 2 * sharpColAddNegThirtyEight 9) ∧
+    (sharpColAddNegThirtyEight 12 = sharpColAddNegThirtyEight 8 ∧
+      sharpColAddNegThirtyEight 9 + sharpColAddNegThirtyEight 11 = 2 * sharpColAddNegThirtyEight 12) ∧
+    (sharpColAddNegThirtyEight 15 = sharpColAddNegThirtyEight 11 ∧
+      sharpColAddNegThirtyEight 12 + sharpColAddNegThirtyEight 14 = 2 * sharpColAddNegThirtyEight 15) ∧
+    (sharpColAddNegThirtyEight 18 = sharpColAddNegThirtyEight 14 ∧
+      sharpColAddNegThirtyEight 15 + sharpColAddNegThirtyEight 17 = 2 * sharpColAddNegThirtyEight 18) ∧
+    (sharpColAddNegThirtyEight 21 = sharpColAddNegThirtyEight 17 ∧
+      sharpColAddNegThirtyEight 18 + sharpColAddNegThirtyEight 20 = 2 * sharpColAddNegThirtyEight 21) ∧
+    (sharpColAddNegThirtyEight 24 = sharpColAddNegThirtyEight 20 ∧
+      sharpColAddNegThirtyEight 21 + sharpColAddNegThirtyEight 23 = 2 * sharpColAddNegThirtyEight 24) ∧
+    (sharpColAddNegThirtyEight 27 = sharpColAddNegThirtyEight 23 ∧
+      sharpColAddNegThirtyEight 24 + sharpColAddNegThirtyEight 26 = 2 * sharpColAddNegThirtyEight 27) ∧
+    (sharpColAddNegThirtyEight 30 = sharpColAddNegThirtyEight 26 ∧
+      sharpColAddNegThirtyEight 27 + sharpColAddNegThirtyEight 29 = 2 * sharpColAddNegThirtyEight 30) ∧
+    (sharpColAddNegThirtyEight 33 = sharpColAddNegThirtyEight 29 ∧
+      sharpColAddNegThirtyEight 30 + sharpColAddNegThirtyEight 32 = 2 * sharpColAddNegThirtyEight 33) ∧
+    (sharpColAddNegThirtyEight 36 = sharpColAddNegThirtyEight 32 ∧
+      sharpColAddNegThirtyEight 33 + sharpColAddNegThirtyEight 35 = 2 * sharpColAddNegThirtyEight 36) ∧
+    (sharpColAddNegThirtyEight 39 = sharpColAddNegThirtyEight 35 ∧
+      sharpColAddNegThirtyEight 36 + sharpColAddNegThirtyEight 38 = 2 * sharpColAddNegThirtyEight 39) ∧
+    (sharpColAddNegThirtyEight 42 = sharpColAddNegThirtyEight 38 ∧
+      sharpColAddNegThirtyEight 39 + sharpColAddNegThirtyEight 41 = 2 * sharpColAddNegThirtyEight 42) ∧
+    (sharpColAddNegThirtyEight 45 = sharpColAddNegThirtyEight 41 ∧
+      sharpColAddNegThirtyEight 42 + sharpColAddNegThirtyEight 44 = 2 * sharpColAddNegThirtyEight 45) ∧
+    (sharpColAddNegThirtyEight 48 = sharpColAddNegThirtyEight 44 ∧
+      sharpColAddNegThirtyEight 45 + sharpColAddNegThirtyEight 47 = 2 * sharpColAddNegThirtyEight 48) ∧
+    (sharpColAddNegThirtyEight 51 = sharpColAddNegThirtyEight 47 ∧
+      sharpColAddNegThirtyEight 48 + sharpColAddNegThirtyEight 50 = 2 * sharpColAddNegThirtyEight 51) ∧
+    (sharpColAddNegThirtyEight 54 = sharpColAddNegThirtyEight 50 ∧
+      sharpColAddNegThirtyEight 51 + sharpColAddNegThirtyEight 53 = 2 * sharpColAddNegThirtyEight 54) ∧
+    (sharpColAddNegThirtyEight 57 = sharpColAddNegThirtyEight 53 ∧
+      sharpColAddNegThirtyEight 54 + sharpColAddNegThirtyEight 56 = 2 * sharpColAddNegThirtyEight 57) ∧
+    (sharpColAddNegThirtyEight 60 = sharpColAddNegThirtyEight 56 ∧
+      sharpColAddNegThirtyEight 57 + sharpColAddNegThirtyEight 59 = 2 * sharpColAddNegThirtyEight 60) ∧
+    (sharpColAddNegThirtyEight 63 = sharpColAddNegThirtyEight 59 ∧
+      sharpColAddNegThirtyEight 60 + sharpColAddNegThirtyEight 62 = 2 * sharpColAddNegThirtyEight 63) ∧
+    (sharpColAddNegThirtyEight 66 = sharpColAddNegThirtyEight 62 ∧
+      sharpColAddNegThirtyEight 63 + sharpColAddNegThirtyEight 65 = 2 * sharpColAddNegThirtyEight 66) ∧
+    (sharpColAddNegThirtyEight 69 = sharpColAddNegThirtyEight 65 ∧
+      sharpColAddNegThirtyEight 66 + sharpColAddNegThirtyEight 68 = 2 * sharpColAddNegThirtyEight 69) ∧
+    (sharpColAddNegThirtyEight 72 = sharpColAddNegThirtyEight 68 ∧
+      sharpColAddNegThirtyEight 69 + sharpColAddNegThirtyEight 71 = 2 * sharpColAddNegThirtyEight 72) ∧
+    (sharpColAddNegThirtyEight 75 = sharpColAddNegThirtyEight 71 ∧
+      sharpColAddNegThirtyEight 72 + sharpColAddNegThirtyEight 74 = 2 * sharpColAddNegThirtyEight 75) ∧
+    (sharpColAddNegThirtyEight 78 = sharpColAddNegThirtyEight 74 ∧
+      sharpColAddNegThirtyEight 75 + sharpColAddNegThirtyEight 77 = 2 * sharpColAddNegThirtyEight 78) ∧
+    (sharpColAddNegThirtyEight 81 = sharpColAddNegThirtyEight 77 ∧
+      sharpColAddNegThirtyEight 78 + sharpColAddNegThirtyEight 80 = 2 * sharpColAddNegThirtyEight 81) ∧
+    (sharpColAddNegThirtyEight 84 = sharpColAddNegThirtyEight 80 ∧
+      sharpColAddNegThirtyEight 81 + sharpColAddNegThirtyEight 83 = 2 * sharpColAddNegThirtyEight 84) ∧
+    (sharpColAddNegThirtyEight 87 = sharpColAddNegThirtyEight 83 ∧
+      sharpColAddNegThirtyEight 84 + sharpColAddNegThirtyEight 86 = 2 * sharpColAddNegThirtyEight 87) ∧
+    (sharpColAddNegThirtyEight 90 = sharpColAddNegThirtyEight 86 ∧
+      sharpColAddNegThirtyEight 87 + sharpColAddNegThirtyEight 89 = 2 * sharpColAddNegThirtyEight 90) ∧
+    (sharpColAddNegThirtyEight 93 = sharpColAddNegThirtyEight 89 ∧
+      sharpColAddNegThirtyEight 90 + sharpColAddNegThirtyEight 92 = 2 * sharpColAddNegThirtyEight 93) ∧
+    (sharpColAddNegThirtyEight 96 = sharpColAddNegThirtyEight 92 ∧
+      sharpColAddNegThirtyEight 93 + sharpColAddNegThirtyEight 95 = 2 * sharpColAddNegThirtyEight 96) ∧
+    (sharpColAddNegThirtyEight 99 = sharpColAddNegThirtyEight 95 ∧
+      sharpColAddNegThirtyEight 96 + sharpColAddNegThirtyEight 98 = 2 * sharpColAddNegThirtyEight 99) ∧
+    (sharpColAddNegThirtyEight 102 = sharpColAddNegThirtyEight 98 ∧
+      sharpColAddNegThirtyEight 99 + sharpColAddNegThirtyEight 101 = 2 * sharpColAddNegThirtyEight 102) ∧
+    (sharpColAddNegThirtyEight 105 = sharpColAddNegThirtyEight 101 ∧
+      sharpColAddNegThirtyEight 102 + sharpColAddNegThirtyEight 104 = 2 * sharpColAddNegThirtyEight 105) ∧
+    (sharpColAddNegThirtyEight 108 = sharpColAddNegThirtyEight 104 ∧
+      sharpColAddNegThirtyEight 105 + sharpColAddNegThirtyEight 107 = 2 * sharpColAddNegThirtyEight 108) ∧
+    (sharpColAddNegThirtyEight 111 = sharpColAddNegThirtyEight 107 ∧
+      sharpColAddNegThirtyEight 108 + sharpColAddNegThirtyEight 110 = 2 * sharpColAddNegThirtyEight 111) ∧
+    (sharpColAddNegThirtyEight 114 = sharpColAddNegThirtyEight 110 ∧
+      sharpColAddNegThirtyEight 111 + sharpColAddNegThirtyEight 113 = 2 * sharpColAddNegThirtyEight 114) := by
+  exact ⟨⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩,
+    ⟨by decide, by decide⟩⟩
+
+/-- Matrix-side value computation for the thirty-eight-unit negative witness: the
+    witness matrix `⟨-36,-35,2,3⟩` (identified by the existence `hM`) is
+    non-monochrome and carries `-1/38`. Factored from the rung-thirty-eight
+    existence (same witness-rules precedent) so the existence stays under the
+    span limit. -/
+theorem sharpColAddNegThirtyEight_witness_value :
+    (⟨-36, -35, 2, 3⟩ : ColorMatrix).NotMono ∧
+    (⟨-36, -35, 2, 3⟩ : ColorMatrix).fraction = CFValue.ofRat (-1/38 : Rat) := by
+  refine ⟨?_, ?_⟩
+  · unfold ColorMatrix.NotMono
+    decide
+  · show (if (-35 : Int) - 3 = 0 then CFValue.inf
+      else CFValue.ofRat (Rat.divInt (-35 - -36) (-35 - 3))) =
+      CFValue.ofRat (-1/38 : Rat)
+    rw [if_neg (by norm_num)]
+    have hdiv : Rat.divInt (-35 - -36) (-35 - 3) = (-1/38 : Rat) := by
+      rw [Rat.divInt_eq_div]
+      norm_num
+    rw [hdiv]
+
+set_option maxRecDepth 16384 in
+/-- Existence-head preliminary for the thirty-eight-unit negative invert-add: the
+    crossing-list equation plus the tangle-to-matrix bridge over the witness
+    coloring. Factored from the rung-thirty-eight existence (same witness-value
+    precedent) so the existence stays under the span limit. -/
+theorem sharpColAddNegThirtyEight_existence_head :
+    (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert.crossings) =
+      [⟨2, 3, 0, 1, CrossingSign.pos⟩, ⟨6, 2, 1, 5, CrossingSign.pos⟩,
+        ⟨9, 6, 5, 8, CrossingSign.pos⟩, ⟨12, 9, 8, 11, CrossingSign.pos⟩,
+        ⟨15, 12, 11, 14, CrossingSign.pos⟩, ⟨18, 15, 14, 17, CrossingSign.pos⟩,
+        ⟨21, 18, 17, 20, CrossingSign.pos⟩, ⟨24, 21, 20, 23, CrossingSign.pos⟩,
+        ⟨27, 24, 23, 26, CrossingSign.pos⟩, ⟨30, 27, 26, 29, CrossingSign.pos⟩,
+        ⟨33, 30, 29, 32, CrossingSign.pos⟩, ⟨36, 33, 32, 35, CrossingSign.pos⟩,
+        ⟨39, 36, 35, 38, CrossingSign.pos⟩, ⟨42, 39, 38, 41, CrossingSign.pos⟩,
+        ⟨45, 42, 41, 44, CrossingSign.pos⟩,
+        ⟨48, 45, 44, 47, CrossingSign.pos⟩,
+        ⟨51, 48, 47, 50, CrossingSign.pos⟩,
+        ⟨54, 51, 50, 53, CrossingSign.pos⟩,
+        ⟨57, 54, 53, 56, CrossingSign.pos⟩,
+        ⟨60, 57, 56, 59, CrossingSign.pos⟩,
+        ⟨63, 60, 59, 62, CrossingSign.pos⟩,
+        ⟨66, 63, 62, 65, CrossingSign.pos⟩,
+        ⟨69, 66, 65, 68, CrossingSign.pos⟩,
+        ⟨72, 69, 68, 71, CrossingSign.pos⟩,
+        ⟨75, 72, 71, 74, CrossingSign.pos⟩,
+        ⟨78, 75, 74, 77, CrossingSign.pos⟩,
+        ⟨81, 78, 77, 80, CrossingSign.pos⟩,
+        ⟨84, 81, 80, 83, CrossingSign.pos⟩,
+        ⟨87, 84, 83, 86, CrossingSign.pos⟩,
+        ⟨90, 87, 86, 89, CrossingSign.pos⟩,
+        ⟨93, 90, 89, 92, CrossingSign.pos⟩,
+        ⟨96, 93, 92, 95, CrossingSign.pos⟩,
+        ⟨99, 96, 95, 98, CrossingSign.pos⟩,
+        ⟨102, 99, 98, 101, CrossingSign.pos⟩,
+        ⟨105, 102, 101, 104, CrossingSign.pos⟩,
+        ⟨108, 105, 104, 107, CrossingSign.pos⟩,
+        ⟨111, 108, 107, 110, CrossingSign.pos⟩,
+        ⟨114, 111, 110, 113, CrossingSign.pos⟩] ∧
+    (ColorMatrix.of
+      (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert) sharpColAddNegThirtyEight =
+      ⟨-36, -35, 2, 3⟩) := by
+  refine ⟨?_, ?_⟩
+  · decide
+  · rfl
+
+set_option maxRecDepth 16384 in
+/-- ([-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]+[-1]) inv carries value -1/38. -/
+theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne :
+    HasColoringFraction
+      (((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).add
+        (crossingTangle CrossingSign.neg)).invert)
+      (CFValue.ofRat (-1/38 : Rat)) := by
+  obtain ⟨hcs, hM⟩ := sharpColAddNegThirtyEight_existence_head
+  have hw := sharpColAddNegThirtyEight_witness_rules
+  obtain ⟨w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19, w20, w21, w22, w23, w24, w25, w26, w27, w28, w29, w30, w31, w32, w33, w34, w35, w36, w37, w38⟩ := hw
+  refine ⟨sharpColAddNegThirtyEight, ?_, ?_, ?_⟩
+  · intro C hC
+    rw [hcs] at hC
+    simp only [List.mem_cons, List.not_mem_nil, or_false] at hC
+    rcases hC with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+    · exact w1
+    · exact w2
+    · exact w3
+    · exact w4
+    · exact w5
+    · exact w6
+    · exact w7
+    · exact w8
+    · exact w9
+    · exact w10
+    · exact w11
+    · exact w12
+    · exact w13
+    · exact w14
+    · exact w15
+    · exact w16
+    · exact w17
+    · exact w18
+    · exact w19
+    · exact w20
+    · exact w21
+    · exact w22
+    · exact w23
+    · exact w24
+    · exact w25
+    · exact w26
+    · exact w27
+    · exact w28
+    · exact w29
+    · exact w30
+    · exact w31
+    · exact w32
+    · exact w33
+    · exact w34
+    · exact w35
+    · exact w36
+    · exact w37
+    · exact w38
+  · rw [hM]
+    exact sharpColAddNegThirtyEight_witness_value.1
+  · rw [hM]
+    exact sharpColAddNegThirtyEight_witness_value.2
+
 end RationalTangles
