@@ -1,0 +1,33 @@
+---
+declaration: theorem
+origin: bridged
+statement: formalized
+lean: RationalTangles.HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne
+proof: formalized
+---
+
+# Unrestricted negative thirty-four-unit invert-add existence
+
+The thirty-four-unit inverted sum admits a non-monochrome integral coloring
+carrying `-1/34`, via the explicit `sharpColAddNegThirtyFour` witness: the
+matrix computation gives `⟨-32,-31,2,3⟩`, the thirty-four switched rules
+are discharged through the witness-rules preliminary (obtained as
+`w1 … w34` and applied per crossing, one line each), and `1/-34`
+normalizes to `-1/34`.
+The witness definition itself is claimed in the companion witness node,
+and the arc equations in the companion witness-rules node (split for
+size); this node carries the fraction computation over both.
+Size note: the thirty-four per-crossing steps are one-line `exact wN`
+applications over the factored preliminary — the old inline 3-line `show`
+form projects the audit span past the 200 limit at this rung depth, while
+the factored form holds it at ~191 with identical proof content. At this
+rung depth the invert expression needs `set_option maxRecDepth 8192` to
+elaborate. Proof part of the parent topic; see that page for the
+mathematical context.
+
+## Depends on
+
+- [Negative thirty-four-unit invert-add witness coloring](a56c-neg-thirty-four-unit-witness.md)
+- [Negative thirty-four-unit witness rule preliminaries](a56d-neg-thirty-four-unit-witness-rules.md)
+- [Coloring fraction](../../../../definitions/coloring-fraction.md)
+- [Integer and vertical tangles](../../../../../definitions/integer-tangle.md)

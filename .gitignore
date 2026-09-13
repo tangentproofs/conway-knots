@@ -2,3 +2,6 @@
 site/
 site-src/
 *.log
+# Local-only: machine-specific opencode config and WSL helper scripts.
+/opencode.json
+/scripts/

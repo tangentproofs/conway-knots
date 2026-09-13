@@ -21,5 +21,5 @@ context.
 
 ## Depends on
 
-- [Coloring fraction](../../definitions/coloring-fraction.md)
-- [Integer and vertical tangles](../../../definitions/integer-tangle.md)
+- [Coloring fraction](../../../definitions/coloring-fraction.md)
+- [Integer and vertical tangles](../../../../definitions/integer-tangle.md)
