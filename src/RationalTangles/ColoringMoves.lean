@@ -4,10 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Michal Wallace
 -/
 
-import Mathlib.Tactic.FinCases
-import Mathlib.Tactic.Linarith
 import RationalTangles.Coloring
-import RationalTangles.Flype
 
 /-!
 # Coloring invariance under Reidemeister moves and flypes

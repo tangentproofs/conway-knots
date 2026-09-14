@@ -5,7 +5,6 @@ Authors: Michal Wallace
 -/
 
 import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.SplitIfs
 import RationalTangles.Tangle
 
 /-!

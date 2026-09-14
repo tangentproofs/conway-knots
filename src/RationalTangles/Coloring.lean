@@ -6,7 +6,6 @@ Authors: Michal Wallace
 
 import Init.Data.Rat.Lemmas
 import Mathlib.Logic.Function.Basic
-import Mathlib.Tactic.FinCases
 import Mathlib.Tactic.FieldSimp
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.Ring

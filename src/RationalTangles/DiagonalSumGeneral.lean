@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Michal Wallace
 -/
 import RationalTangles.ColorFractionUnique
+import Mathlib.Tactic.LinearCombination
 import RationalTangles.CanonicalFormUnique
 
 /-!
@@ -670,7 +671,7 @@ theorem coloring_flype_slide_add_one_one (col : Nat → Int)
   have hcs : (((crossingTangle CrossingSign.pos).add
         (crossingTangle CrossingSign.pos)).crossings) =
       [⟨0, 1, 2, 3, CrossingSign.pos⟩, ⟨1, 5, 6, 2, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hcsR : (((crossingTangle CrossingSign.pos).rot180.add
         (crossingTangle CrossingSign.pos)).crossings) =
       [⟨2, 3, 0, 1, CrossingSign.pos⟩, ⟨3, 5, 6, 0, CrossingSign.pos⟩] := by
@@ -3949,12 +3950,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e9a, e9b⟩ := r9
   obtain ⟨e10a, e10b⟩ := r10
   have hmRw : Not ((col 29 = col 30) ∧ (col 30 = col 3)) := hm
-  have hnum : col 30 - col 29 = col 2 - col 1 := by linarith
-  have hden10 : col 30 - col 3 = -(10 * (col 2 - col 1)) := by linarith
+  have hnum : col 30 - col 29 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b
+  have hden10 : col 30 - col 3 = -(10 * (col 2 - col 1)) := by
+    linear_combination e9b + e10a + 9*e2a + 8*e2b + 8*e3a + 7*e3b + 7*e4a + 6*e4b + 6*e5a + 5*e5b + 5*e6a + 4*e6b + 4*e7a + 3*e7b + 3*e8a + 2*e8b + 2*e9a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c2930 : col 29 = col 30 := by linarith
-    have c303 : col 30 = col 3 := by linarith
+    have c2930 : col 29 = col 30 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b - hz0
+    have c303 : col 30 = col 3 := by
+      linear_combination e9b + e10a + 9*e2a + 8*e2b + 8*e3a + 7*e3b + 7*e4a + 6*e4b + 6*e5a + 5*e5b + 5*e6a + 4*e6b + 4*e7a + 3*e7b + 3*e8a + 2*e8b + 2*e9a + -10*hz0 - e1b
     exact hmRw ⟨c2930, c303⟩
   have hden : col 30 - col 3 ≠ 0 := by
     rw [hden10, neg_ne_zero]
@@ -4224,12 +4229,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e10a, e10b⟩ := r10
   obtain ⟨e11a, e11b⟩ := r11
   have hmRw : Not ((col 32 = col 33) ∧ (col 33 = col 3)) := hm
-  have hnum : col 33 - col 32 = col 2 - col 1 := by linarith
-  have hden11 : col 33 - col 3 = -(11 * (col 2 - col 1)) := by linarith
+  have hnum : col 33 - col 32 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b
+  have hden11 : col 33 - col 3 = -(11 * (col 2 - col 1)) := by
+    linear_combination e10b + e11a + 10*e2a + 9*e2b + 9*e3a + 8*e3b + 8*e4a + 7*e4b + 7*e5a + 6*e5b + 6*e6a + 5*e6b + 5*e7a + 4*e7b + 4*e8a + 3*e8b + 3*e9a + 2*e9b + 2*e10a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c3233 : col 32 = col 33 := by linarith
-    have c333 : col 33 = col 3 := by linarith
+    have c3233 : col 32 = col 33 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b - hz0
+    have c333 : col 33 = col 3 := by
+      linear_combination e10b + e11a + 10*e2a + 9*e2b + 9*e3a + 8*e3b + 8*e4a + 7*e4b + 7*e5a + 6*e5b + 6*e6a + 5*e6b + 5*e7a + 4*e7b + 4*e8a + 3*e8b + 3*e9a + 2*e9b + 2*e10a + -11*hz0 - e1b
     exact hmRw ⟨c3233, c333⟩
   have hden : col 33 - col 3 ≠ 0 := by
     rw [hden11, neg_ne_zero]
@@ -4517,12 +4526,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e11a, e11b⟩ := r11
   obtain ⟨e12a, e12b⟩ := r12
   have hmRw : Not ((col 35 = col 36) ∧ (col 36 = col 3)) := hm
-  have hnum : col 36 - col 35 = col 2 - col 1 := by linarith
-  have hden12 : col 36 - col 3 = -(12 * (col 2 - col 1)) := by linarith
+  have hnum : col 36 - col 35 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b
+  have hden12 : col 36 - col 3 = -(12 * (col 2 - col 1)) := by
+    linear_combination e11b + e12a + 11*e2a + 10*e2b + 10*e3a + 9*e3b + 9*e4a + 8*e4b + 8*e5a + 7*e5b + 7*e6a + 6*e6b + 6*e7a + 5*e7b + 5*e8a + 4*e8b + 4*e9a + 3*e9b + 3*e10a + 2*e10b + 2*e11a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c3536 : col 35 = col 36 := by linarith
-    have c363 : col 36 = col 3 := by linarith
+    have c3536 : col 35 = col 36 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b - hz0
+    have c363 : col 36 = col 3 := by
+      linear_combination e11b + e12a + 11*e2a + 10*e2b + 10*e3a + 9*e3b + 9*e4a + 8*e4b + 8*e5a + 7*e5b + 7*e6a + 6*e6b + 6*e7a + 5*e7b + 5*e8a + 4*e8b + 4*e9a + 3*e9b + 3*e10a + 2*e10b + 2*e11a + -12*hz0 - e1b
     exact hmRw ⟨c3536, c363⟩
   have hden : col 36 - col 3 ≠ 0 := by
     rw [hden12, neg_ne_zero]
@@ -4828,12 +4841,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e12a, e12b⟩ := r12
   obtain ⟨e13a, e13b⟩ := r13
   have hmRw : Not ((col 38 = col 39) ∧ (col 39 = col 3)) := hm
-  have hnum : col 39 - col 38 = col 2 - col 1 := by linarith
-  have hden13 : col 39 - col 3 = -(13 * (col 2 - col 1)) := by linarith
+  have hnum : col 39 - col 38 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b
+  have hden13 : col 39 - col 3 = -(13 * (col 2 - col 1)) := by
+    linear_combination e12b + e13a + 12*e2a + 11*e2b + 11*e3a + 10*e3b + 10*e4a + 9*e4b + 9*e5a + 8*e5b + 8*e6a + 7*e6b + 7*e7a + 6*e7b + 6*e8a + 5*e8b + 5*e9a + 4*e9b + 4*e10a + 3*e10b + 3*e11a + 2*e11b + 2*e12a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c3839 : col 38 = col 39 := by linarith
-    have c393 : col 39 = col 3 := by linarith
+    have c3839 : col 38 = col 39 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b - hz0
+    have c393 : col 39 = col 3 := by
+      linear_combination e12b + e13a + 12*e2a + 11*e2b + 11*e3a + 10*e3b + 10*e4a + 9*e4b + 9*e5a + 8*e5b + 8*e6a + 7*e6b + 7*e7a + 6*e7b + 6*e8a + 5*e8b + 5*e9a + 4*e9b + 4*e10a + 3*e10b + 3*e11a + 2*e11b + 2*e12a + -13*hz0 - e1b
     exact hmRw ⟨c3839, c393⟩
   have hden : col 39 - col 3 ≠ 0 := by
     rw [hden13, neg_ne_zero]
@@ -5157,12 +5174,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e13a, e13b⟩ := r13
   obtain ⟨e14a, e14b⟩ := r14
   have hmRw : Not ((col 41 = col 42) ∧ (col 42 = col 3)) := hm
-  have hnum : col 42 - col 41 = col 2 - col 1 := by linarith
-  have hden14 : col 42 - col 3 = -(14 * (col 2 - col 1)) := by linarith
+  have hnum : col 42 - col 41 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b
+  have hden14 : col 42 - col 3 = -(14 * (col 2 - col 1)) := by
+    linear_combination e13b + e14a + 13*e2a + 12*e2b + 12*e3a + 11*e3b + 11*e4a + 10*e4b + 10*e5a + 9*e5b + 9*e6a + 8*e6b + 8*e7a + 7*e7b + 7*e8a + 6*e8b + 6*e9a + 5*e9b + 5*e10a + 4*e10b + 4*e11a + 3*e11b + 3*e12a + 2*e12b + 2*e13a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c4142 : col 41 = col 42 := by linarith
-    have c423 : col 42 = col 3 := by linarith
+    have c4142 : col 41 = col 42 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b - hz0
+    have c423 : col 42 = col 3 := by
+      linear_combination e13b + e14a + 13*e2a + 12*e2b + 12*e3a + 11*e3b + 11*e4a + 10*e4b + 10*e5a + 9*e5b + 9*e6a + 8*e6b + 8*e7a + 7*e7b + 7*e8a + 6*e8b + 6*e9a + 5*e9b + 5*e10a + 4*e10b + 4*e11a + 3*e11b + 3*e12a + 2*e12b + 2*e13a + -14*hz0 - e1b
     exact hmRw ⟨c4142, c423⟩
   have hden : col 42 - col 3 ≠ 0 := by
     rw [hden14, neg_ne_zero]
@@ -5504,12 +5525,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e14a, e14b⟩ := r14
   obtain ⟨e15a, e15b⟩ := r15
   have hmRw : Not ((col 44 = col 45) ∧ (col 45 = col 3)) := hm
-  have hnum : col 45 - col 44 = col 2 - col 1 := by linarith
-  have hden15 : col 45 - col 3 = -(15 * (col 2 - col 1)) := by linarith
+  have hnum : col 45 - col 44 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b
+  have hden15 : col 45 - col 3 = -(15 * (col 2 - col 1)) := by
+    linear_combination e14b + e15a + 14*e2a + 13*e2b + 13*e3a + 12*e3b + 12*e4a + 11*e4b + 11*e5a + 10*e5b + 10*e6a + 9*e6b + 9*e7a + 8*e7b + 8*e8a + 7*e8b + 7*e9a + 6*e9b + 6*e10a + 5*e10b + 5*e11a + 4*e11b + 4*e12a + 3*e12b + 3*e13a + 2*e13b + 2*e14a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c4445 : col 44 = col 45 := by linarith
-    have c453 : col 45 = col 3 := by linarith
+    have c4445 : col 44 = col 45 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b - hz0
+    have c453 : col 45 = col 3 := by
+      linear_combination e14b + e15a + 14*e2a + 13*e2b + 13*e3a + 12*e3b + 12*e4a + 11*e4b + 11*e5a + 10*e5b + 10*e6a + 9*e6b + 9*e7a + 8*e7b + 8*e8a + 7*e8b + 7*e9a + 6*e9b + 6*e10a + 5*e10b + 5*e11a + 4*e11b + 4*e12a + 3*e12b + 3*e13a + 2*e13b + 2*e14a + -15*hz0 - e1b
     exact hmRw ⟨c4445, c453⟩
   have hden : col 45 - col 3 ≠ 0 := by
     rw [hden15, neg_ne_zero]
@@ -5870,12 +5895,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e15a, e15b⟩ := r15
   obtain ⟨e16a, e16b⟩ := r16
   have hmRw : Not ((col 47 = col 48) ∧ (col 48 = col 3)) := hm
-  have hnum : col 48 - col 47 = col 2 - col 1 := by linarith
-  have hden16 : col 48 - col 3 = -(16 * (col 2 - col 1)) := by linarith
+  have hnum : col 48 - col 47 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b
+  have hden16 : col 48 - col 3 = -(16 * (col 2 - col 1)) := by
+    linear_combination e15b + e16a + 15*e2a + 14*e2b + 14*e3a + 13*e3b + 13*e4a + 12*e4b + 12*e5a + 11*e5b + 11*e6a + 10*e6b + 10*e7a + 9*e7b + 9*e8a + 8*e8b + 8*e9a + 7*e9b + 7*e10a + 6*e10b + 6*e11a + 5*e11b + 5*e12a + 4*e12b + 4*e13a + 3*e13b + 3*e14a + 2*e14b + 2*e15a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c4748 : col 47 = col 48 := by linarith
-    have c483 : col 48 = col 3 := by linarith
+    have c4748 : col 47 = col 48 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b - hz0
+    have c483 : col 48 = col 3 := by
+      linear_combination e15b + e16a + 15*e2a + 14*e2b + 14*e3a + 13*e3b + 13*e4a + 12*e4b + 12*e5a + 11*e5b + 11*e6a + 10*e6b + 10*e7a + 9*e7b + 9*e8a + 8*e8b + 8*e9a + 7*e9b + 7*e10a + 6*e10b + 6*e11a + 5*e11b + 5*e12a + 4*e12b + 4*e13a + 3*e13b + 3*e14a + 2*e14b + 2*e15a + -16*hz0 - e1b
     exact hmRw ⟨c4748, c483⟩
   have hden : col 48 - col 3 ≠ 0 := by
     rw [hden16, neg_ne_zero]
@@ -6255,12 +6284,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e16a, e16b⟩ := r16
   obtain ⟨e17a, e17b⟩ := r17
   have hmRw : Not ((col 50 = col 51) ∧ (col 51 = col 3)) := hm
-  have hnum : col 51 - col 50 = col 2 - col 1 := by linarith
-  have hden17 : col 51 - col 3 = -(17 * (col 2 - col 1)) := by linarith
+  have hnum : col 51 - col 50 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b
+  have hden17 : col 51 - col 3 = -(17 * (col 2 - col 1)) := by
+    linear_combination e16b + e17a + 16*e2a + 15*e2b + 15*e3a + 14*e3b + 14*e4a + 13*e4b + 13*e5a + 12*e5b + 12*e6a + 11*e6b + 11*e7a + 10*e7b + 10*e8a + 9*e8b + 9*e9a + 8*e9b + 8*e10a + 7*e10b + 7*e11a + 6*e11b + 6*e12a + 5*e12b + 5*e13a + 4*e13b + 4*e14a + 3*e14b + 3*e15a + 2*e15b + 2*e16a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c5051 : col 50 = col 51 := by linarith
-    have c513 : col 51 = col 3 := by linarith
+    have c5051 : col 50 = col 51 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b - hz0
+    have c513 : col 51 = col 3 := by
+      linear_combination e16b + e17a + 16*e2a + 15*e2b + 15*e3a + 14*e3b + 14*e4a + 13*e4b + 13*e5a + 12*e5b + 12*e6a + 11*e6b + 11*e7a + 10*e7b + 10*e8a + 9*e8b + 9*e9a + 8*e9b + 8*e10a + 7*e10b + 7*e11a + 6*e11b + 6*e12a + 5*e12b + 5*e13a + 4*e13b + 4*e14a + 3*e14b + 3*e15a + 2*e15b + 2*e16a + -17*hz0 - e1b
     exact hmRw ⟨c5051, c513⟩
   have hden : col 51 - col 3 ≠ 0 := by
     rw [hden17, neg_ne_zero]
@@ -6657,12 +6690,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e17a, e17b⟩ := r17
   obtain ⟨e18a, e18b⟩ := r18
   have hmRw : Not ((col 53 = col 54) ∧ (col 54 = col 3)) := hm
-  have hnum : col 54 - col 53 = col 2 - col 1 := by linarith
-  have hden18 : col 54 - col 3 = -(18 * (col 2 - col 1)) := by linarith
+  have hnum : col 54 - col 53 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b
+  have hden18 : col 54 - col 3 = -(18 * (col 2 - col 1)) := by
+    linear_combination e17b + e18a + 17*e2a + 16*e2b + 16*e3a + 15*e3b + 15*e4a + 14*e4b + 14*e5a + 13*e5b + 13*e6a + 12*e6b + 12*e7a + 11*e7b + 11*e8a + 10*e8b + 10*e9a + 9*e9b + 9*e10a + 8*e10b + 8*e11a + 7*e11b + 7*e12a + 6*e12b + 6*e13a + 5*e13b + 5*e14a + 4*e14b + 4*e15a + 3*e15b + 3*e16a + 2*e16b + 2*e17a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c5354 : col 53 = col 54 := by linarith
-    have c543 : col 54 = col 3 := by linarith
+    have c5354 : col 53 = col 54 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b - hz0
+    have c543 : col 54 = col 3 := by
+      linear_combination e17b + e18a + 17*e2a + 16*e2b + 16*e3a + 15*e3b + 15*e4a + 14*e4b + 14*e5a + 13*e5b + 13*e6a + 12*e6b + 12*e7a + 11*e7b + 11*e8a + 10*e8b + 10*e9a + 9*e9b + 9*e10a + 8*e10b + 8*e11a + 7*e11b + 7*e12a + 6*e12b + 6*e13a + 5*e13b + 5*e14a + 4*e14b + 4*e15a + 3*e15b + 3*e16a + 2*e16b + 2*e17a + -18*hz0 - e1b
     exact hmRw ⟨c5354, c543⟩
   have hden : col 54 - col 3 ≠ 0 := by
     rw [hden18, neg_ne_zero]
@@ -7077,12 +7114,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e18a, e18b⟩ := r18
   obtain ⟨e19a, e19b⟩ := r19
   have hmRw : Not ((col 56 = col 57) ∧ (col 57 = col 3)) := hm
-  have hnum : col 57 - col 56 = col 2 - col 1 := by linarith
-  have hden19 : col 57 - col 3 = -(19 * (col 2 - col 1)) := by linarith
+  have hnum : col 57 - col 56 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b
+  have hden19 : col 57 - col 3 = -(19 * (col 2 - col 1)) := by
+    linear_combination e18b + e19a + 18*e2a + 17*e2b + 17*e3a + 16*e3b + 16*e4a + 15*e4b + 15*e5a + 14*e5b + 14*e6a + 13*e6b + 13*e7a + 12*e7b + 12*e8a + 11*e8b + 11*e9a + 10*e9b + 10*e10a + 9*e10b + 9*e11a + 8*e11b + 8*e12a + 7*e12b + 7*e13a + 6*e13b + 6*e14a + 5*e14b + 5*e15a + 4*e15b + 4*e16a + 3*e16b + 3*e17a + 2*e17b + 2*e18a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c5657 : col 56 = col 57 := by linarith
-    have c573 : col 57 = col 3 := by linarith
+    have c5657 : col 56 = col 57 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b - hz0
+    have c573 : col 57 = col 3 := by
+      linear_combination e18b + e19a + 18*e2a + 17*e2b + 17*e3a + 16*e3b + 16*e4a + 15*e4b + 15*e5a + 14*e5b + 14*e6a + 13*e6b + 13*e7a + 12*e7b + 12*e8a + 11*e8b + 11*e9a + 10*e9b + 10*e10a + 9*e10b + 9*e11a + 8*e11b + 8*e12a + 7*e12b + 7*e13a + 6*e13b + 6*e14a + 5*e14b + 5*e15a + 4*e15b + 4*e16a + 3*e16b + 3*e17a + 2*e17b + 2*e18a + -19*hz0 - e1b
     exact hmRw ⟨c5657, c573⟩
   have hden : col 57 - col 3 ≠ 0 := by
     rw [hden19, neg_ne_zero]
@@ -7516,12 +7557,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e19a, e19b⟩ := r19
   obtain ⟨e20a, e20b⟩ := r20
   have hmRw : Not ((col 59 = col 60) ∧ (col 60 = col 3)) := hm
-  have hnum : col 60 - col 59 = col 2 - col 1 := by linarith
-  have hden20 : col 60 - col 3 = -(20 * (col 2 - col 1)) := by linarith
+  have hnum : col 60 - col 59 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b
+  have hden20 : col 60 - col 3 = -(20 * (col 2 - col 1)) := by
+    linear_combination e19b + e20a + 19*e2a + 18*e2b + 18*e3a + 17*e3b + 17*e4a + 16*e4b + 16*e5a + 15*e5b + 15*e6a + 14*e6b + 14*e7a + 13*e7b + 13*e8a + 12*e8b + 12*e9a + 11*e9b + 11*e10a + 10*e10b + 10*e11a + 9*e11b + 9*e12a + 8*e12b + 8*e13a + 7*e13b + 7*e14a + 6*e14b + 6*e15a + 5*e15b + 5*e16a + 4*e16b + 4*e17a + 3*e17b + 3*e18a + 2*e18b + 2*e19a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c5960 : col 59 = col 60 := by linarith
-    have c603 : col 60 = col 3 := by linarith
+    have c5960 : col 59 = col 60 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b - hz0
+    have c603 : col 60 = col 3 := by
+      linear_combination e19b + e20a + 19*e2a + 18*e2b + 18*e3a + 17*e3b + 17*e4a + 16*e4b + 16*e5a + 15*e5b + 15*e6a + 14*e6b + 14*e7a + 13*e7b + 13*e8a + 12*e8b + 12*e9a + 11*e9b + 11*e10a + 10*e10b + 10*e11a + 9*e11b + 9*e12a + 8*e12b + 8*e13a + 7*e13b + 7*e14a + 6*e14b + 6*e15a + 5*e15b + 5*e16a + 4*e16b + 4*e17a + 3*e17b + 3*e18a + 2*e18b + 2*e19a + -20*hz0 - e1b
     exact hmRw ⟨c5960, c603⟩
   have hden : col 60 - col 3 ≠ 0 := by
     rw [hden20, neg_ne_zero]
@@ -7973,12 +8018,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e20a, e20b⟩ := r20
   obtain ⟨e21a, e21b⟩ := r21
   have hmRw : Not ((col 62 = col 63) ∧ (col 63 = col 3)) := hm
-  have hnum : col 63 - col 62 = col 2 - col 1 := by linarith
-  have hden21 : col 63 - col 3 = -(21 * (col 2 - col 1)) := by linarith
+  have hnum : col 63 - col 62 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b
+  have hden21 : col 63 - col 3 = -(21 * (col 2 - col 1)) := by
+    linear_combination e20b + e21a + 20*e2a + 19*e2b + 19*e3a + 18*e3b + 18*e4a + 17*e4b + 17*e5a + 16*e5b + 16*e6a + 15*e6b + 15*e7a + 14*e7b + 14*e8a + 13*e8b + 13*e9a + 12*e9b + 12*e10a + 11*e10b + 11*e11a + 10*e11b + 10*e12a + 9*e12b + 9*e13a + 8*e13b + 8*e14a + 7*e14b + 7*e15a + 6*e15b + 6*e16a + 5*e16b + 5*e17a + 4*e17b + 4*e18a + 3*e18b + 3*e19a + 2*e19b + 2*e20a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c6263 : col 62 = col 63 := by linarith
-    have c633 : col 63 = col 3 := by linarith
+    have c6263 : col 62 = col 63 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b - hz0
+    have c633 : col 63 = col 3 := by
+      linear_combination e20b + e21a + 20*e2a + 19*e2b + 19*e3a + 18*e3b + 18*e4a + 17*e4b + 17*e5a + 16*e5b + 16*e6a + 15*e6b + 15*e7a + 14*e7b + 14*e8a + 13*e8b + 13*e9a + 12*e9b + 12*e10a + 11*e10b + 11*e11a + 10*e11b + 10*e12a + 9*e12b + 9*e13a + 8*e13b + 8*e14a + 7*e14b + 7*e15a + 6*e15b + 6*e16a + 5*e16b + 5*e17a + 4*e17b + 4*e18a + 3*e18b + 3*e19a + 2*e19b + 2*e20a + -21*hz0 - e1b
     exact hmRw ⟨c6263, c633⟩
   have hden : col 63 - col 3 ≠ 0 := by
     rw [hden21, neg_ne_zero]
@@ -8448,12 +8497,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e21a, e21b⟩ := r21
   obtain ⟨e22a, e22b⟩ := r22
   have hmRw : Not ((col 65 = col 66) ∧ (col 66 = col 3)) := hm
-  have hnum : col 66 - col 65 = col 2 - col 1 := by linarith
-  have hden22 : col 66 - col 3 = -(22 * (col 2 - col 1)) := by linarith
+  have hnum : col 66 - col 65 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b
+  have hden22 : col 66 - col 3 = -(22 * (col 2 - col 1)) := by
+    linear_combination e21b + e22a + 21*e2a + 20*e2b + 20*e3a + 19*e3b + 19*e4a + 18*e4b + 18*e5a + 17*e5b + 17*e6a + 16*e6b + 16*e7a + 15*e7b + 15*e8a + 14*e8b + 14*e9a + 13*e9b + 13*e10a + 12*e10b + 12*e11a + 11*e11b + 11*e12a + 10*e12b + 10*e13a + 9*e13b + 9*e14a + 8*e14b + 8*e15a + 7*e15b + 7*e16a + 6*e16b + 6*e17a + 5*e17b + 5*e18a + 4*e18b + 4*e19a + 3*e19b + 3*e20a + 2*e20b + 2*e21a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c6566 : col 65 = col 66 := by linarith
-    have c663 : col 66 = col 3 := by linarith
+    have c6566 : col 65 = col 66 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b - hz0
+    have c663 : col 66 = col 3 := by
+      linear_combination e21b + e22a + 21*e2a + 20*e2b + 20*e3a + 19*e3b + 19*e4a + 18*e4b + 18*e5a + 17*e5b + 17*e6a + 16*e6b + 16*e7a + 15*e7b + 15*e8a + 14*e8b + 14*e9a + 13*e9b + 13*e10a + 12*e10b + 12*e11a + 11*e11b + 11*e12a + 10*e12b + 10*e13a + 9*e13b + 9*e14a + 8*e14b + 8*e15a + 7*e15b + 7*e16a + 6*e16b + 6*e17a + 5*e17b + 5*e18a + 4*e18b + 4*e19a + 3*e19b + 3*e20a + 2*e20b + 2*e21a + -22*hz0 - e1b
     exact hmRw ⟨c6566, c663⟩
   have hden : col 66 - col 3 ≠ 0 := by
     rw [hden22, neg_ne_zero]
@@ -8941,12 +8994,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e22a, e22b⟩ := r22
   obtain ⟨e23a, e23b⟩ := r23
   have hmRw : Not ((col 68 = col 69) ∧ (col 69 = col 3)) := hm
-  have hnum : col 69 - col 68 = col 2 - col 1 := by linarith
-  have hden23 : col 69 - col 3 = -(23 * (col 2 - col 1)) := by linarith
+  have hnum : col 69 - col 68 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b
+  have hden23 : col 69 - col 3 = -(23 * (col 2 - col 1)) := by
+    linear_combination e22b + e23a + 22*e2a + 21*e2b + 21*e3a + 20*e3b + 20*e4a + 19*e4b + 19*e5a + 18*e5b + 18*e6a + 17*e6b + 17*e7a + 16*e7b + 16*e8a + 15*e8b + 15*e9a + 14*e9b + 14*e10a + 13*e10b + 13*e11a + 12*e11b + 12*e12a + 11*e12b + 11*e13a + 10*e13b + 10*e14a + 9*e14b + 9*e15a + 8*e15b + 8*e16a + 7*e16b + 7*e17a + 6*e17b + 6*e18a + 5*e18b + 5*e19a + 4*e19b + 4*e20a + 3*e20b + 3*e21a + 2*e21b + 2*e22a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c6869 : col 68 = col 69 := by linarith
-    have c693 : col 69 = col 3 := by linarith
+    have c6869 : col 68 = col 69 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b - hz0
+    have c693 : col 69 = col 3 := by
+      linear_combination e22b + e23a + 22*e2a + 21*e2b + 21*e3a + 20*e3b + 20*e4a + 19*e4b + 19*e5a + 18*e5b + 18*e6a + 17*e6b + 17*e7a + 16*e7b + 16*e8a + 15*e8b + 15*e9a + 14*e9b + 14*e10a + 13*e10b + 13*e11a + 12*e11b + 12*e12a + 11*e12b + 11*e13a + 10*e13b + 10*e14a + 9*e14b + 9*e15a + 8*e15b + 8*e16a + 7*e16b + 7*e17a + 6*e17b + 6*e18a + 5*e18b + 5*e19a + 4*e19b + 4*e20a + 3*e20b + 3*e21a + 2*e21b + 2*e22a + -23*hz0 - e1b
     exact hmRw ⟨c6869, c693⟩
   have hden : col 69 - col 3 ≠ 0 := by
     rw [hden23, neg_ne_zero]
@@ -9429,12 +9486,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e23a, e23b⟩ := r23
   obtain ⟨e24a, e24b⟩ := r24
   have hmRw : Not ((col 71 = col 72) ∧ (col 72 = col 3)) := hm
-  have hnum : col 72 - col 71 = col 2 - col 1 := by linarith
-  have hden24 : col 72 - col 3 = -(24 * (col 2 - col 1)) := by linarith
+  have hnum : col 72 - col 71 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b
+  have hden24 : col 72 - col 3 = -(24 * (col 2 - col 1)) := by
+    linear_combination e23b + e24a + 23*e2a + 22*e2b + 22*e3a + 21*e3b + 21*e4a + 20*e4b + 20*e5a + 19*e5b + 19*e6a + 18*e6b + 18*e7a + 17*e7b + 17*e8a + 16*e8b + 16*e9a + 15*e9b + 15*e10a + 14*e10b + 14*e11a + 13*e11b + 13*e12a + 12*e12b + 12*e13a + 11*e13b + 11*e14a + 10*e14b + 10*e15a + 9*e15b + 9*e16a + 8*e16b + 8*e17a + 7*e17b + 7*e18a + 6*e18b + 6*e19a + 5*e19b + 5*e20a + 4*e20b + 4*e21a + 3*e21b + 3*e22a + 2*e22b + 2*e23a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c7172 : col 71 = col 72 := by linarith
-    have c723 : col 72 = col 3 := by linarith
+    have c7172 : col 71 = col 72 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b - hz0
+    have c723 : col 72 = col 3 := by
+      linear_combination e23b + e24a + 23*e2a + 22*e2b + 22*e3a + 21*e3b + 21*e4a + 20*e4b + 20*e5a + 19*e5b + 19*e6a + 18*e6b + 18*e7a + 17*e7b + 17*e8a + 16*e8b + 16*e9a + 15*e9b + 15*e10a + 14*e10b + 14*e11a + 13*e11b + 13*e12a + 12*e12b + 12*e13a + 11*e13b + 11*e14a + 10*e14b + 10*e15a + 9*e15b + 9*e16a + 8*e16b + 8*e17a + 7*e17b + 7*e18a + 6*e18b + 6*e19a + 5*e19b + 5*e20a + 4*e20b + 4*e21a + 3*e21b + 3*e22a + 2*e22b + 2*e23a + -24*hz0 - e1b
     exact hmRw ⟨c7172, c723⟩
   have hden : col 72 - col 3 ≠ 0 := by
     rw [hden24, neg_ne_zero]
@@ -9794,7 +9855,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨69, 66, 65, 68, CrossingSign.pos⟩,
         ⟨72, 69, 68, 71, CrossingSign.pos⟩,
         ⟨75, 72, 71, 74, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -9934,12 +9995,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e24a, e24b⟩ := r24
   obtain ⟨e25a, e25b⟩ := r25
   have hmRw : Not ((col 74 = col 75) ∧ (col 75 = col 3)) := hm
-  have hnum : col 75 - col 74 = col 2 - col 1 := by linarith
-  have hden25 : col 75 - col 3 = -(25 * (col 2 - col 1)) := by linarith
+  have hnum : col 75 - col 74 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b
+  have hden25 : col 75 - col 3 = -(25 * (col 2 - col 1)) := by
+    linear_combination e24b + e25a + 24*e2a + 23*e2b + 23*e3a + 22*e3b + 22*e4a + 21*e4b + 21*e5a + 20*e5b + 20*e6a + 19*e6b + 19*e7a + 18*e7b + 18*e8a + 17*e8b + 17*e9a + 16*e9b + 16*e10a + 15*e10b + 15*e11a + 14*e11b + 14*e12a + 13*e12b + 13*e13a + 12*e13b + 12*e14a + 11*e14b + 11*e15a + 10*e15b + 10*e16a + 9*e16b + 9*e17a + 8*e17b + 8*e18a + 7*e18b + 7*e19a + 6*e19b + 6*e20a + 5*e20b + 5*e21a + 4*e21b + 4*e22a + 3*e22b + 3*e23a + 2*e23b + 2*e24a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c7475 : col 74 = col 75 := by linarith
-    have c753 : col 75 = col 3 := by linarith
+    have c7475 : col 74 = col 75 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b - hz0
+    have c753 : col 75 = col 3 := by
+      linear_combination e24b + e25a + 24*e2a + 23*e2b + 23*e3a + 22*e3b + 22*e4a + 21*e4b + 21*e5a + 20*e5b + 20*e6a + 19*e6b + 19*e7a + 18*e7b + 18*e8a + 17*e8b + 17*e9a + 16*e9b + 16*e10a + 15*e10b + 15*e11a + 14*e11b + 14*e12a + 13*e12b + 13*e13a + 12*e13b + 12*e14a + 11*e14b + 11*e15a + 10*e15b + 10*e16a + 9*e16b + 9*e17a + 8*e17b + 8*e18a + 7*e18b + 7*e19a + 6*e19b + 6*e20a + 5*e20b + 5*e21a + 4*e21b + 4*e22a + 3*e22b + 3*e23a + 2*e23b + 2*e24a + -25*hz0 - e1b
     exact hmRw ⟨c7475, c753⟩
   have hden : col 75 - col 3 ≠ 0 := by
     rw [hden25, neg_ne_zero]
@@ -10087,7 +10152,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨69, 66, 65, 68, CrossingSign.pos⟩,
         ⟨72, 69, 68, 71, CrossingSign.pos⟩,
         ⟨75, 72, 71, 74, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -10311,7 +10376,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨72, 69, 68, 71, CrossingSign.pos⟩,
         ⟨75, 72, 71, 74, CrossingSign.pos⟩,
         ⟨78, 75, 74, 77, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -10456,12 +10521,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e25a, e25b⟩ := r25
   obtain ⟨e26a, e26b⟩ := r26
   have hmRw : Not ((col 77 = col 78) ∧ (col 78 = col 3)) := hm
-  have hnum : col 78 - col 77 = col 2 - col 1 := by linarith
-  have hden26 : col 78 - col 3 = -(26 * (col 2 - col 1)) := by linarith
+  have hnum : col 78 - col 77 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b
+  have hden26 : col 78 - col 3 = -(26 * (col 2 - col 1)) := by
+    linear_combination e25b + e26a + 25*e2a + 24*e2b + 24*e3a + 23*e3b + 23*e4a + 22*e4b + 22*e5a + 21*e5b + 21*e6a + 20*e6b + 20*e7a + 19*e7b + 19*e8a + 18*e8b + 18*e9a + 17*e9b + 17*e10a + 16*e10b + 16*e11a + 15*e11b + 15*e12a + 14*e12b + 14*e13a + 13*e13b + 13*e14a + 12*e14b + 12*e15a + 11*e15b + 11*e16a + 10*e16b + 10*e17a + 9*e17b + 9*e18a + 8*e18b + 8*e19a + 7*e19b + 7*e20a + 6*e20b + 6*e21a + 5*e21b + 5*e22a + 4*e22b + 4*e23a + 3*e23b + 3*e24a + 2*e24b + 2*e25a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c7778 : col 77 = col 78 := by linarith
-    have c783 : col 78 = col 3 := by linarith
+    have c7778 : col 77 = col 78 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b - hz0
+    have c783 : col 78 = col 3 := by
+      linear_combination e25b + e26a + 25*e2a + 24*e2b + 24*e3a + 23*e3b + 23*e4a + 22*e4b + 22*e5a + 21*e5b + 21*e6a + 20*e6b + 20*e7a + 19*e7b + 19*e8a + 18*e8b + 18*e9a + 17*e9b + 17*e10a + 16*e10b + 16*e11a + 15*e11b + 15*e12a + 14*e12b + 14*e13a + 13*e13b + 13*e14a + 12*e14b + 12*e15a + 11*e15b + 11*e16a + 10*e16b + 10*e17a + 9*e17b + 9*e18a + 8*e18b + 8*e19a + 7*e19b + 7*e20a + 6*e20b + 6*e21a + 5*e21b + 5*e22a + 4*e22b + 4*e23a + 3*e23b + 3*e24a + 2*e24b + 2*e25a + -26*hz0 - e1b
     exact hmRw ⟨c7778, c783⟩
   have hden : col 78 - col 3 ≠ 0 := by
     rw [hden26, neg_ne_zero]
@@ -10697,7 +10766,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨72, 69, 68, 71, CrossingSign.pos⟩,
         ⟨75, 72, 71, 74, CrossingSign.pos⟩,
         ⟨78, 75, 74, 77, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -10879,7 +10948,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨75, 72, 71, 74, CrossingSign.pos⟩,
         ⟨78, 75, 74, 77, CrossingSign.pos⟩,
         ⟨81, 78, 77, 80, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -11029,12 +11098,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e26a, e26b⟩ := r26
   obtain ⟨e27a, e27b⟩ := r27
   have hmRw : Not ((col 80 = col 81) ∧ (col 81 = col 3)) := hm
-  have hnum : col 81 - col 80 = col 2 - col 1 := by linarith
-  have hden27 : col 81 - col 3 = -(27 * (col 2 - col 1)) := by linarith
+  have hnum : col 81 - col 80 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b
+  have hden27 : col 81 - col 3 = -(27 * (col 2 - col 1)) := by
+    linear_combination e26b + e27a + 26*e2a + 25*e2b + 25*e3a + 24*e3b + 24*e4a + 23*e4b + 23*e5a + 22*e5b + 22*e6a + 21*e6b + 21*e7a + 20*e7b + 20*e8a + 19*e8b + 19*e9a + 18*e9b + 18*e10a + 17*e10b + 17*e11a + 16*e11b + 16*e12a + 15*e12b + 15*e13a + 14*e13b + 14*e14a + 13*e14b + 13*e15a + 12*e15b + 12*e16a + 11*e16b + 11*e17a + 10*e17b + 10*e18a + 9*e18b + 9*e19a + 8*e19b + 8*e20a + 7*e20b + 7*e21a + 6*e21b + 6*e22a + 5*e22b + 5*e23a + 4*e23b + 4*e24a + 3*e24b + 3*e25a + 2*e25b + 2*e26a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c8081 : col 80 = col 81 := by linarith
-    have c813 : col 81 = col 3 := by linarith
+    have c8081 : col 80 = col 81 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b - hz0
+    have c813 : col 81 = col 3 := by
+      linear_combination e26b + e27a + 26*e2a + 25*e2b + 25*e3a + 24*e3b + 24*e4a + 23*e4b + 23*e5a + 22*e5b + 22*e6a + 21*e6b + 21*e7a + 20*e7b + 20*e8a + 19*e8b + 19*e9a + 18*e9b + 18*e10a + 17*e10b + 17*e11a + 16*e11b + 16*e12a + 15*e12b + 15*e13a + 14*e13b + 14*e14a + 13*e14b + 13*e15a + 12*e15b + 12*e16a + 11*e16b + 11*e17a + 10*e17b + 10*e18a + 9*e18b + 9*e19a + 8*e19b + 8*e20a + 7*e20b + 7*e21a + 6*e21b + 6*e22a + 5*e22b + 5*e23a + 4*e23b + 4*e24a + 3*e24b + 3*e25a + 2*e25b + 2*e26a + -27*hz0 - e1b
     exact hmRw ⟨c8081, c813⟩
   have hden : col 81 - col 3 ≠ 0 := by
     rw [hden27, neg_ne_zero]
@@ -11277,7 +11350,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨75, 72, 71, 74, CrossingSign.pos⟩,
         ⟨78, 75, 74, 77, CrossingSign.pos⟩,
         ⟨81, 78, 77, 80, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -11465,7 +11538,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨78, 75, 74, 77, CrossingSign.pos⟩,
         ⟨81, 78, 77, 80, CrossingSign.pos⟩,
         ⟨84, 81, 80, 83, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -11620,12 +11693,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e27a, e27b⟩ := r27
   obtain ⟨e28a, e28b⟩ := r28
   have hmRw : Not ((col 83 = col 84) ∧ (col 84 = col 3)) := hm
-  have hnum : col 84 - col 83 = col 2 - col 1 := by linarith
-  have hden28 : col 84 - col 3 = -(28 * (col 2 - col 1)) := by linarith
+  have hnum : col 84 - col 83 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b
+  have hden28 : col 84 - col 3 = -(28 * (col 2 - col 1)) := by
+    linear_combination e27b + e28a + 27*e2a + 26*e2b + 26*e3a + 25*e3b + 25*e4a + 24*e4b + 24*e5a + 23*e5b + 23*e6a + 22*e6b + 22*e7a + 21*e7b + 21*e8a + 20*e8b + 20*e9a + 19*e9b + 19*e10a + 18*e10b + 18*e11a + 17*e11b + 17*e12a + 16*e12b + 16*e13a + 15*e13b + 15*e14a + 14*e14b + 14*e15a + 13*e15b + 13*e16a + 12*e16b + 12*e17a + 11*e17b + 11*e18a + 10*e18b + 10*e19a + 9*e19b + 9*e20a + 8*e20b + 8*e21a + 7*e21b + 7*e22a + 6*e22b + 6*e23a + 5*e23b + 5*e24a + 4*e24b + 4*e25a + 3*e25b + 3*e26a + 2*e26b + 2*e27a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c8384 : col 83 = col 84 := by linarith
-    have c843 : col 84 = col 3 := by linarith
+    have c8384 : col 83 = col 84 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b - hz0
+    have c843 : col 84 = col 3 := by
+      linear_combination e27b + e28a + 27*e2a + 26*e2b + 26*e3a + 25*e3b + 25*e4a + 24*e4b + 24*e5a + 23*e5b + 23*e6a + 22*e6b + 22*e7a + 21*e7b + 21*e8a + 20*e8b + 20*e9a + 19*e9b + 19*e10a + 18*e10b + 18*e11a + 17*e11b + 17*e12a + 16*e12b + 16*e13a + 15*e13b + 15*e14a + 14*e14b + 14*e15a + 13*e15b + 13*e16a + 12*e16b + 12*e17a + 11*e17b + 11*e18a + 10*e18b + 10*e19a + 9*e19b + 9*e20a + 8*e20b + 8*e21a + 7*e21b + 7*e22a + 6*e22b + 6*e23a + 5*e23b + 5*e24a + 4*e24b + 4*e25a + 3*e25b + 3*e26a + 2*e26b + 2*e27a + -28*hz0 - e1b
     exact hmRw ⟨c8384, c843⟩
   have hden : col 84 - col 3 ≠ 0 := by
     rw [hden28, neg_ne_zero]
@@ -11875,7 +11952,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨78, 75, 74, 77, CrossingSign.pos⟩,
         ⟨81, 78, 77, 80, CrossingSign.pos⟩,
         ⟨84, 81, 80, 83, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -12069,7 +12146,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨81, 78, 77, 80, CrossingSign.pos⟩,
         ⟨84, 81, 80, 83, CrossingSign.pos⟩,
         ⟨87, 84, 83, 86, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -12169,12 +12246,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e27a, e27b⟩ := r27
   obtain ⟨e28a, e28b⟩ := r28
   obtain ⟨e29a, e29b⟩ := r29
-  have hnum : col 87 - col 86 = col 2 - col 1 := by linarith
-  have hden29 : col 87 - col 3 = -(29 * (col 2 - col 1)) := by linarith
+  have hnum : col 87 - col 86 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b
+  have hden29 : col 87 - col 3 = -(29 * (col 2 - col 1)) := by
+    linear_combination e28b + e29a + 28*e2a + 27*e2b + 27*e3a + 26*e3b + 26*e4a + 25*e4b + 25*e5a + 24*e5b + 24*e6a + 23*e6b + 23*e7a + 22*e7b + 22*e8a + 21*e8b + 21*e9a + 20*e9b + 20*e10a + 19*e10b + 19*e11a + 18*e11b + 18*e12a + 17*e12b + 17*e13a + 16*e13b + 16*e14a + 15*e14b + 15*e15a + 14*e15b + 14*e16a + 13*e16b + 13*e17a + 12*e17b + 12*e18a + 11*e18b + 11*e19a + 10*e19b + 10*e20a + 9*e20b + 9*e21a + 8*e21b + 8*e22a + 7*e22b + 7*e23a + 6*e23b + 6*e24a + 5*e24b + 5*e25a + 4*e25b + 4*e26a + 3*e26b + 3*e27a + 2*e27b + 2*e28a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c8687 : col 86 = col 87 := by linarith
-    have c873 : col 87 = col 3 := by linarith
+    have c8687 : col 86 = col 87 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b - hz0
+    have c873 : col 87 = col 3 := by
+      linear_combination e28b + e29a + 28*e2a + 27*e2b + 27*e3a + 26*e3b + 26*e4a + 25*e4b + 25*e5a + 24*e5b + 24*e6a + 23*e6b + 23*e7a + 22*e7b + 22*e8a + 21*e8b + 21*e9a + 20*e9b + 20*e10a + 19*e10b + 19*e11a + 18*e11b + 18*e12a + 17*e12b + 17*e13a + 16*e13b + 16*e14a + 15*e14b + 15*e15a + 14*e15b + 14*e16a + 13*e16b + 13*e17a + 12*e17b + 12*e18a + 11*e18b + 11*e19a + 10*e19b + 10*e20a + 9*e20b + 9*e21a + 8*e21b + 8*e22a + 7*e22b + 7*e23a + 6*e23b + 6*e24a + 5*e24b + 5*e25a + 4*e25b + 4*e26a + 3*e26b + 3*e27a + 2*e27b + 2*e28a + -29*hz0 - e1b
     exact hmRw ⟨c8687, c873⟩
   have hden : col 87 - col 3 ≠ 0 := by
     rw [hden29, neg_ne_zero]
@@ -12533,7 +12614,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨81, 78, 77, 80, CrossingSign.pos⟩,
         ⟨84, 81, 80, 83, CrossingSign.pos⟩,
         ⟨87, 84, 83, 86, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -12733,7 +12814,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨84, 81, 80, 83, CrossingSign.pos⟩,
         ⟨87, 84, 83, 86, CrossingSign.pos⟩,
         ⟨90, 87, 86, 89, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -12836,12 +12917,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e28a, e28b⟩ := r28
   obtain ⟨e29a, e29b⟩ := r29
   obtain ⟨e30a, e30b⟩ := r30
-  have hnum : col 90 - col 89 = col 2 - col 1 := by linarith
-  have hden30 : col 90 - col 3 = -(30 * (col 2 - col 1)) := by linarith
+  have hnum : col 90 - col 89 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b
+  have hden30 : col 90 - col 3 = -(30 * (col 2 - col 1)) := by
+    linear_combination e29b + e30a + 29*e2a + 28*e2b + 28*e3a + 27*e3b + 27*e4a + 26*e4b + 26*e5a + 25*e5b + 25*e6a + 24*e6b + 24*e7a + 23*e7b + 23*e8a + 22*e8b + 22*e9a + 21*e9b + 21*e10a + 20*e10b + 20*e11a + 19*e11b + 19*e12a + 18*e12b + 18*e13a + 17*e13b + 17*e14a + 16*e14b + 16*e15a + 15*e15b + 15*e16a + 14*e16b + 14*e17a + 13*e17b + 13*e18a + 12*e18b + 12*e19a + 11*e19b + 11*e20a + 10*e20b + 10*e21a + 9*e21b + 9*e22a + 8*e22b + 8*e23a + 7*e23b + 7*e24a + 6*e24b + 6*e25a + 5*e25b + 5*e26a + 4*e26b + 4*e27a + 3*e27b + 3*e28a + 2*e28b + 2*e29a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c8990 : col 89 = col 90 := by linarith
-    have c903 : col 90 = col 3 := by linarith
+    have c8990 : col 89 = col 90 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b - hz0
+    have c903 : col 90 = col 3 := by
+      linear_combination e29b + e30a + 29*e2a + 28*e2b + 28*e3a + 27*e3b + 27*e4a + 26*e4b + 26*e5a + 25*e5b + 25*e6a + 24*e6b + 24*e7a + 23*e7b + 23*e8a + 22*e8b + 22*e9a + 21*e9b + 21*e10a + 20*e10b + 20*e11a + 19*e11b + 19*e12a + 18*e12b + 18*e13a + 17*e13b + 17*e14a + 16*e14b + 16*e15a + 15*e15b + 15*e16a + 14*e16b + 14*e17a + 13*e17b + 13*e18a + 12*e18b + 12*e19a + 11*e19b + 11*e20a + 10*e20b + 10*e21a + 9*e21b + 9*e22a + 8*e22b + 8*e23a + 7*e23b + 7*e24a + 6*e24b + 6*e25a + 5*e25b + 5*e26a + 4*e26b + 4*e27a + 3*e27b + 3*e28a + 2*e28b + 2*e29a + -30*hz0 - e1b
     exact hmRw ⟨c8990, c903⟩
   have hden : col 90 - col 3 ≠ 0 := by
     rw [hden30, neg_ne_zero]
@@ -13210,7 +13295,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨84, 81, 80, 83, CrossingSign.pos⟩,
         ⟨87, 84, 83, 86, CrossingSign.pos⟩,
         ⟨90, 87, 86, 89, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -13416,7 +13501,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨87, 84, 83, 86, CrossingSign.pos⟩,
         ⟨90, 87, 86, 89, CrossingSign.pos⟩,
         ⟨93, 90, 89, 92, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -13522,12 +13607,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e29a, e29b⟩ := r29
   obtain ⟨e30a, e30b⟩ := r30
   obtain ⟨e31a, e31b⟩ := r31
-  have hnum : col 93 - col 92 = col 2 - col 1 := by linarith
-  have hden31 : col 93 - col 3 = -(31 * (col 2 - col 1)) := by linarith
+  have hnum : col 93 - col 92 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b - e31a - e31b
+  have hden31 : col 93 - col 3 = -(31 * (col 2 - col 1)) := by
+    linear_combination e30b + e31a + 30*e2a + 29*e2b + 29*e3a + 28*e3b + 28*e4a + 27*e4b + 27*e5a + 26*e5b + 26*e6a + 25*e6b + 25*e7a + 24*e7b + 24*e8a + 23*e8b + 23*e9a + 22*e9b + 22*e10a + 21*e10b + 21*e11a + 20*e11b + 20*e12a + 19*e12b + 19*e13a + 18*e13b + 18*e14a + 17*e14b + 17*e15a + 16*e15b + 16*e16a + 15*e16b + 15*e17a + 14*e17b + 14*e18a + 13*e18b + 13*e19a + 12*e19b + 12*e20a + 11*e20b + 11*e21a + 10*e21b + 10*e22a + 9*e22b + 9*e23a + 8*e23b + 8*e24a + 7*e24b + 7*e25a + 6*e25b + 6*e26a + 5*e26b + 5*e27a + 4*e27b + 4*e28a + 3*e28b + 3*e29a + 2*e29b + 2*e30a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c9293 : col 92 = col 93 := by linarith
-    have c933 : col 93 = col 3 := by linarith
+    have c9293 : col 92 = col 93 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b + e31a + e31b - hz0
+    have c933 : col 93 = col 3 := by
+      linear_combination e30b + e31a + 30*e2a + 29*e2b + 29*e3a + 28*e3b + 28*e4a + 27*e4b + 27*e5a + 26*e5b + 26*e6a + 25*e6b + 25*e7a + 24*e7b + 24*e8a + 23*e8b + 23*e9a + 22*e9b + 22*e10a + 21*e10b + 21*e11a + 20*e11b + 20*e12a + 19*e12b + 19*e13a + 18*e13b + 18*e14a + 17*e14b + 17*e15a + 16*e15b + 16*e16a + 15*e16b + 15*e17a + 14*e17b + 14*e18a + 13*e18b + 13*e19a + 12*e19b + 12*e20a + 11*e20b + 11*e21a + 10*e21b + 10*e22a + 9*e22b + 9*e23a + 8*e23b + 8*e24a + 7*e24b + 7*e25a + 6*e25b + 6*e26a + 5*e26b + 5*e27a + 4*e27b + 4*e28a + 3*e28b + 3*e29a + 2*e29b + 2*e30a + -31*hz0 - e1b
     exact hmRw ⟨c9293, c933⟩
   have hden : col 93 - col 3 ≠ 0 := by
     rw [hden31, neg_ne_zero]
@@ -13906,7 +13995,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨87, 84, 83, 86, CrossingSign.pos⟩,
         ⟨90, 87, 86, 89, CrossingSign.pos⟩,
         ⟨93, 90, 89, 92, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -14118,7 +14207,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨90, 87, 86, 89, CrossingSign.pos⟩,
         ⟨93, 90, 89, 92, CrossingSign.pos⟩,
         ⟨96, 93, 92, 95, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -14227,12 +14316,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e30a, e30b⟩ := r30
   obtain ⟨e31a, e31b⟩ := r31
   obtain ⟨e32a, e32b⟩ := r32
-  have hnum : col 96 - col 95 = col 2 - col 1 := by linarith
-  have hden32 : col 96 - col 3 = -(32 * (col 2 - col 1)) := by linarith
+  have hnum : col 96 - col 95 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b - e31a - e31b - e32a - e32b
+  have hden32 : col 96 - col 3 = -(32 * (col 2 - col 1)) := by
+    linear_combination e31b + e32a + 31*e2a + 30*e2b + 30*e3a + 29*e3b + 29*e4a + 28*e4b + 28*e5a + 27*e5b + 27*e6a + 26*e6b + 26*e7a + 25*e7b + 25*e8a + 24*e8b + 24*e9a + 23*e9b + 23*e10a + 22*e10b + 22*e11a + 21*e11b + 21*e12a + 20*e12b + 20*e13a + 19*e13b + 19*e14a + 18*e14b + 18*e15a + 17*e15b + 17*e16a + 16*e16b + 16*e17a + 15*e17b + 15*e18a + 14*e18b + 14*e19a + 13*e19b + 13*e20a + 12*e20b + 12*e21a + 11*e21b + 11*e22a + 10*e22b + 10*e23a + 9*e23b + 9*e24a + 8*e24b + 8*e25a + 7*e25b + 7*e26a + 6*e26b + 6*e27a + 5*e27b + 5*e28a + 4*e28b + 4*e29a + 3*e29b + 3*e30a + 2*e30b + 2*e31a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c9596 : col 95 = col 96 := by linarith
-    have c963 : col 96 = col 3 := by linarith
+    have c9596 : col 95 = col 96 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b + e31a + e31b + e32a + e32b - hz0
+    have c963 : col 96 = col 3 := by
+      linear_combination e31b + e32a + 31*e2a + 30*e2b + 30*e3a + 29*e3b + 29*e4a + 28*e4b + 28*e5a + 27*e5b + 27*e6a + 26*e6b + 26*e7a + 25*e7b + 25*e8a + 24*e8b + 24*e9a + 23*e9b + 23*e10a + 22*e10b + 22*e11a + 21*e11b + 21*e12a + 20*e12b + 20*e13a + 19*e13b + 19*e14a + 18*e14b + 18*e15a + 17*e15b + 17*e16a + 16*e16b + 16*e17a + 15*e17b + 15*e18a + 14*e18b + 14*e19a + 13*e19b + 13*e20a + 12*e20b + 12*e21a + 11*e21b + 11*e22a + 10*e22b + 10*e23a + 9*e23b + 9*e24a + 8*e24b + 8*e25a + 7*e25b + 7*e26a + 6*e26b + 6*e27a + 5*e27b + 5*e28a + 4*e28b + 4*e29a + 3*e29b + 3*e30a + 2*e30b + 2*e31a + -32*hz0 - e1b
     exact hmRw ⟨c9596, c963⟩
   have hden : col 96 - col 3 ≠ 0 := by
     rw [hden32, neg_ne_zero]
@@ -14621,7 +14714,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨90, 87, 86, 89, CrossingSign.pos⟩,
         ⟨93, 90, 89, 92, CrossingSign.pos⟩,
         ⟨96, 93, 92, 95, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -14839,7 +14932,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨93, 90, 89, 92, CrossingSign.pos⟩,
         ⟨96, 93, 92, 95, CrossingSign.pos⟩,
         ⟨99, 96, 95, 98, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -14951,12 +15044,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e31a, e31b⟩ := r31
   obtain ⟨e32a, e32b⟩ := r32
   obtain ⟨e33a, e33b⟩ := r33
-  have hnum : col 99 - col 98 = col 2 - col 1 := by linarith
-  have hden33 : col 99 - col 3 = -(33 * (col 2 - col 1)) := by linarith
+  have hnum : col 99 - col 98 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b - e31a - e31b - e32a - e32b - e33a - e33b
+  have hden33 : col 99 - col 3 = -(33 * (col 2 - col 1)) := by
+    linear_combination e32b + e33a + 32*e2a + 31*e2b + 31*e3a + 30*e3b + 30*e4a + 29*e4b + 29*e5a + 28*e5b + 28*e6a + 27*e6b + 27*e7a + 26*e7b + 26*e8a + 25*e8b + 25*e9a + 24*e9b + 24*e10a + 23*e10b + 23*e11a + 22*e11b + 22*e12a + 21*e12b + 21*e13a + 20*e13b + 20*e14a + 19*e14b + 19*e15a + 18*e15b + 18*e16a + 17*e16b + 17*e17a + 16*e17b + 16*e18a + 15*e18b + 15*e19a + 14*e19b + 14*e20a + 13*e20b + 13*e21a + 12*e21b + 12*e22a + 11*e22b + 11*e23a + 10*e23b + 10*e24a + 9*e24b + 9*e25a + 8*e25b + 8*e26a + 7*e26b + 7*e27a + 6*e27b + 6*e28a + 5*e28b + 5*e29a + 4*e29b + 4*e30a + 3*e30b + 3*e31a + 2*e31b + 2*e32a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c9899 : col 98 = col 99 := by linarith
-    have c993 : col 99 = col 3 := by linarith
+    have c9899 : col 98 = col 99 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b + e31a + e31b + e32a + e32b + e33a + e33b - hz0
+    have c993 : col 99 = col 3 := by
+      linear_combination e32b + e33a + 32*e2a + 31*e2b + 31*e3a + 30*e3b + 30*e4a + 29*e4b + 29*e5a + 28*e5b + 28*e6a + 27*e6b + 27*e7a + 26*e7b + 26*e8a + 25*e8b + 25*e9a + 24*e9b + 24*e10a + 23*e10b + 23*e11a + 22*e11b + 22*e12a + 21*e12b + 21*e13a + 20*e13b + 20*e14a + 19*e14b + 19*e15a + 18*e15b + 18*e16a + 17*e16b + 17*e17a + 16*e17b + 16*e18a + 15*e18b + 15*e19a + 14*e19b + 14*e20a + 13*e20b + 13*e21a + 12*e21b + 12*e22a + 11*e22b + 11*e23a + 10*e23b + 10*e24a + 9*e24b + 9*e25a + 8*e25b + 8*e26a + 7*e26b + 7*e27a + 6*e27b + 6*e28a + 5*e28b + 5*e29a + 4*e29b + 4*e30a + 3*e30b + 3*e31a + 2*e31b + 2*e32a + -33*hz0 - e1b
     exact hmRw ⟨c9899, c993⟩
   have hden : col 99 - col 3 ≠ 0 := by
     rw [hden33, neg_ne_zero]
@@ -15355,7 +15452,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨93, 90, 89, 92, CrossingSign.pos⟩,
         ⟨96, 93, 92, 95, CrossingSign.pos⟩,
         ⟨99, 96, 95, 98, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -15579,7 +15676,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨96, 93, 92, 95, CrossingSign.pos⟩,
         ⟨99, 96, 95, 98, CrossingSign.pos⟩,
         ⟨102, 99, 98, 101, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -15694,12 +15791,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e32a, e32b⟩ := r32
   obtain ⟨e33a, e33b⟩ := r33
   obtain ⟨e34a, e34b⟩ := r34
-  have hnum : col 102 - col 101 = col 2 - col 1 := by linarith
-  have hden34 : col 102 - col 3 = -(34 * (col 2 - col 1)) := by linarith
+  have hnum : col 102 - col 101 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b - e31a - e31b - e32a - e32b - e33a - e33b - e34a - e34b
+  have hden34 : col 102 - col 3 = -(34 * (col 2 - col 1)) := by
+    linear_combination e33b + e34a + 33*e2a + 32*e2b + 32*e3a + 31*e3b + 31*e4a + 30*e4b + 30*e5a + 29*e5b + 29*e6a + 28*e6b + 28*e7a + 27*e7b + 27*e8a + 26*e8b + 26*e9a + 25*e9b + 25*e10a + 24*e10b + 24*e11a + 23*e11b + 23*e12a + 22*e12b + 22*e13a + 21*e13b + 21*e14a + 20*e14b + 20*e15a + 19*e15b + 19*e16a + 18*e16b + 18*e17a + 17*e17b + 17*e18a + 16*e18b + 16*e19a + 15*e19b + 15*e20a + 14*e20b + 14*e21a + 13*e21b + 13*e22a + 12*e22b + 12*e23a + 11*e23b + 11*e24a + 10*e24b + 10*e25a + 9*e25b + 9*e26a + 8*e26b + 8*e27a + 7*e27b + 7*e28a + 6*e28b + 6*e29a + 5*e29b + 5*e30a + 4*e30b + 4*e31a + 3*e31b + 3*e32a + 2*e32b + 2*e33a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c101102 : col 101 = col 102 := by linarith
-    have c1023 : col 102 = col 3 := by linarith
+    have c101102 : col 101 = col 102 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b + e31a + e31b + e32a + e32b + e33a + e33b + e34a + e34b - hz0
+    have c1023 : col 102 = col 3 := by
+      linear_combination e33b + e34a + 33*e2a + 32*e2b + 32*e3a + 31*e3b + 31*e4a + 30*e4b + 30*e5a + 29*e5b + 29*e6a + 28*e6b + 28*e7a + 27*e7b + 27*e8a + 26*e8b + 26*e9a + 25*e9b + 25*e10a + 24*e10b + 24*e11a + 23*e11b + 23*e12a + 22*e12b + 22*e13a + 21*e13b + 21*e14a + 20*e14b + 20*e15a + 19*e15b + 19*e16a + 18*e16b + 18*e17a + 17*e17b + 17*e18a + 16*e18b + 16*e19a + 15*e19b + 15*e20a + 14*e20b + 14*e21a + 13*e21b + 13*e22a + 12*e22b + 12*e23a + 11*e23b + 11*e24a + 10*e24b + 10*e25a + 9*e25b + 9*e26a + 8*e26b + 8*e27a + 7*e27b + 7*e28a + 6*e28b + 6*e29a + 5*e29b + 5*e30a + 4*e30b + 4*e31a + 3*e31b + 3*e32a + 2*e32b + 2*e33a + -34*hz0 - e1b
     exact hmRw ⟨c101102, c1023⟩
   have hden : col 102 - col 3 ≠ 0 := by
     rw [hden34, neg_ne_zero]
@@ -16108,7 +16209,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨96, 93, 92, 95, CrossingSign.pos⟩,
         ⟨99, 96, 95, 98, CrossingSign.pos⟩,
         ⟨102, 99, 98, 101, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -16338,7 +16439,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨99, 96, 95, 98, CrossingSign.pos⟩,
         ⟨102, 99, 98, 101, CrossingSign.pos⟩,
         ⟨105, 102, 101, 104, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -16456,12 +16557,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e33a, e33b⟩ := r33
   obtain ⟨e34a, e34b⟩ := r34
   obtain ⟨e35a, e35b⟩ := r35
-  have hnum : col 105 - col 104 = col 2 - col 1 := by linarith
-  have hden35 : col 105 - col 3 = -(35 * (col 2 - col 1)) := by linarith
+  have hnum : col 105 - col 104 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b - e31a - e31b - e32a - e32b - e33a - e33b - e34a - e34b - e35a - e35b
+  have hden35 : col 105 - col 3 = -(35 * (col 2 - col 1)) := by
+    linear_combination e34b + e35a + 34*e2a + 33*e2b + 33*e3a + 32*e3b + 32*e4a + 31*e4b + 31*e5a + 30*e5b + 30*e6a + 29*e6b + 29*e7a + 28*e7b + 28*e8a + 27*e8b + 27*e9a + 26*e9b + 26*e10a + 25*e10b + 25*e11a + 24*e11b + 24*e12a + 23*e12b + 23*e13a + 22*e13b + 22*e14a + 21*e14b + 21*e15a + 20*e15b + 20*e16a + 19*e16b + 19*e17a + 18*e17b + 18*e18a + 17*e18b + 17*e19a + 16*e19b + 16*e20a + 15*e20b + 15*e21a + 14*e21b + 14*e22a + 13*e22b + 13*e23a + 12*e23b + 12*e24a + 11*e24b + 11*e25a + 10*e25b + 10*e26a + 9*e26b + 9*e27a + 8*e27b + 8*e28a + 7*e28b + 7*e29a + 6*e29b + 6*e30a + 5*e30b + 5*e31a + 4*e31b + 4*e32a + 3*e32b + 3*e33a + 2*e33b + 2*e34a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c104105 : col 104 = col 105 := by linarith
-    have c1053 : col 105 = col 3 := by linarith
+    have c104105 : col 104 = col 105 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b + e31a + e31b + e32a + e32b + e33a + e33b + e34a + e34b + e35a + e35b - hz0
+    have c1053 : col 105 = col 3 := by
+      linear_combination e34b + e35a + 34*e2a + 33*e2b + 33*e3a + 32*e3b + 32*e4a + 31*e4b + 31*e5a + 30*e5b + 30*e6a + 29*e6b + 29*e7a + 28*e7b + 28*e8a + 27*e8b + 27*e9a + 26*e9b + 26*e10a + 25*e10b + 25*e11a + 24*e11b + 24*e12a + 23*e12b + 23*e13a + 22*e13b + 22*e14a + 21*e14b + 21*e15a + 20*e15b + 20*e16a + 19*e16b + 19*e17a + 18*e17b + 18*e18a + 17*e18b + 17*e19a + 16*e19b + 16*e20a + 15*e20b + 15*e21a + 14*e21b + 14*e22a + 13*e22b + 13*e23a + 12*e23b + 12*e24a + 11*e24b + 11*e25a + 10*e25b + 10*e26a + 9*e26b + 9*e27a + 8*e27b + 8*e28a + 7*e28b + 7*e29a + 6*e29b + 6*e30a + 5*e30b + 5*e31a + 4*e31b + 4*e32a + 3*e32b + 3*e33a + 2*e33b + 2*e34a + -35*hz0 - e1b
     exact hmRw ⟨c104105, c1053⟩
   have hden : col 105 - col 3 ≠ 0 := by
     rw [hden35, neg_ne_zero]
@@ -16880,7 +16985,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨99, 96, 95, 98, CrossingSign.pos⟩,
         ⟨102, 99, 98, 101, CrossingSign.pos⟩,
         ⟨105, 102, 101, 104, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -17116,7 +17221,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨102, 99, 98, 101, CrossingSign.pos⟩,
         ⟨105, 102, 101, 104, CrossingSign.pos⟩,
         ⟨108, 105, 104, 107, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -17237,12 +17342,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e34a, e34b⟩ := r34
   obtain ⟨e35a, e35b⟩ := r35
   obtain ⟨e36a, e36b⟩ := r36
-  have hnum : col 108 - col 107 = col 2 - col 1 := by linarith
-  have hden36 : col 108 - col 3 = -(36 * (col 2 - col 1)) := by linarith
+  have hnum : col 108 - col 107 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b - e31a - e31b - e32a - e32b - e33a - e33b - e34a - e34b - e35a - e35b - e36a - e36b
+  have hden36 : col 108 - col 3 = -(36 * (col 2 - col 1)) := by
+    linear_combination e35b + e36a + 35*e2a + 34*e2b + 34*e3a + 33*e3b + 33*e4a + 32*e4b + 32*e5a + 31*e5b + 31*e6a + 30*e6b + 30*e7a + 29*e7b + 29*e8a + 28*e8b + 28*e9a + 27*e9b + 27*e10a + 26*e10b + 26*e11a + 25*e11b + 25*e12a + 24*e12b + 24*e13a + 23*e13b + 23*e14a + 22*e14b + 22*e15a + 21*e15b + 21*e16a + 20*e16b + 20*e17a + 19*e17b + 19*e18a + 18*e18b + 18*e19a + 17*e19b + 17*e20a + 16*e20b + 16*e21a + 15*e21b + 15*e22a + 14*e22b + 14*e23a + 13*e23b + 13*e24a + 12*e24b + 12*e25a + 11*e25b + 11*e26a + 10*e26b + 10*e27a + 9*e27b + 9*e28a + 8*e28b + 8*e29a + 7*e29b + 7*e30a + 6*e30b + 6*e31a + 5*e31b + 5*e32a + 4*e32b + 4*e33a + 3*e33b + 3*e34a + 2*e34b + 2*e35a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c107108 : col 107 = col 108 := by linarith
-    have c1083 : col 108 = col 3 := by linarith
+    have c107108 : col 107 = col 108 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b + e31a + e31b + e32a + e32b + e33a + e33b + e34a + e34b + e35a + e35b + e36a + e36b - hz0
+    have c1083 : col 108 = col 3 := by
+      linear_combination e35b + e36a + 35*e2a + 34*e2b + 34*e3a + 33*e3b + 33*e4a + 32*e4b + 32*e5a + 31*e5b + 31*e6a + 30*e6b + 30*e7a + 29*e7b + 29*e8a + 28*e8b + 28*e9a + 27*e9b + 27*e10a + 26*e10b + 26*e11a + 25*e11b + 25*e12a + 24*e12b + 24*e13a + 23*e13b + 23*e14a + 22*e14b + 22*e15a + 21*e15b + 21*e16a + 20*e16b + 20*e17a + 19*e17b + 19*e18a + 18*e18b + 18*e19a + 17*e19b + 17*e20a + 16*e20b + 16*e21a + 15*e21b + 15*e22a + 14*e22b + 14*e23a + 13*e23b + 13*e24a + 12*e24b + 12*e25a + 11*e25b + 11*e26a + 10*e26b + 10*e27a + 9*e27b + 9*e28a + 8*e28b + 8*e29a + 7*e29b + 7*e30a + 6*e30b + 6*e31a + 5*e31b + 5*e32a + 4*e32b + 4*e33a + 3*e33b + 3*e34a + 2*e34b + 2*e35a + -36*hz0 - e1b
     exact hmRw ⟨c107108, c1083⟩
   have hden : col 108 - col 3 ≠ 0 := by
     rw [hden36, neg_ne_zero]
@@ -17691,7 +17800,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨102, 99, 98, 101, CrossingSign.pos⟩,
         ⟨105, 102, 101, 104, CrossingSign.pos⟩,
         ⟨108, 105, 104, 107, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -17925,7 +18034,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨105, 102, 101, 104, CrossingSign.pos⟩,
         ⟨108, 105, 104, 107, CrossingSign.pos⟩,
         ⟨111, 108, 107, 110, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -18049,12 +18158,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e35a, e35b⟩ := r35
   obtain ⟨e36a, e36b⟩ := r36
   obtain ⟨e37a, e37b⟩ := r37
-  have hnum : col 111 - col 110 = col 2 - col 1 := by linarith
-  have hden37 : col 111 - col 3 = -(37 * (col 2 - col 1)) := by linarith
+  have hnum : col 111 - col 110 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b - e31a - e31b - e32a - e32b - e33a - e33b - e34a - e34b - e35a - e35b - e36a - e36b - e37a - e37b
+  have hden37 : col 111 - col 3 = -(37 * (col 2 - col 1)) := by
+    linear_combination e36b + e37a + 36*e2a + 35*e2b + 35*e3a + 34*e3b + 34*e4a + 33*e4b + 33*e5a + 32*e5b + 32*e6a + 31*e6b + 31*e7a + 30*e7b + 30*e8a + 29*e8b + 29*e9a + 28*e9b + 28*e10a + 27*e10b + 27*e11a + 26*e11b + 26*e12a + 25*e12b + 25*e13a + 24*e13b + 24*e14a + 23*e14b + 23*e15a + 22*e15b + 22*e16a + 21*e16b + 21*e17a + 20*e17b + 20*e18a + 19*e18b + 19*e19a + 18*e19b + 18*e20a + 17*e20b + 17*e21a + 16*e21b + 16*e22a + 15*e22b + 15*e23a + 14*e23b + 14*e24a + 13*e24b + 13*e25a + 12*e25b + 12*e26a + 11*e26b + 11*e27a + 10*e27b + 10*e28a + 9*e28b + 9*e29a + 8*e29b + 8*e30a + 7*e30b + 7*e31a + 6*e31b + 6*e32a + 5*e32b + 5*e33a + 4*e33b + 4*e34a + 3*e34b + 3*e35a + 2*e35b + 2*e36a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c110111 : col 110 = col 111 := by linarith
-    have c1113 : col 111 = col 3 := by linarith
+    have c110111 : col 110 = col 111 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b + e31a + e31b + e32a + e32b + e33a + e33b + e34a + e34b + e35a + e35b + e36a + e36b + e37a + e37b - hz0
+    have c1113 : col 111 = col 3 := by
+      linear_combination e36b + e37a + 36*e2a + 35*e2b + 35*e3a + 34*e3b + 34*e4a + 33*e4b + 33*e5a + 32*e5b + 32*e6a + 31*e6b + 31*e7a + 30*e7b + 30*e8a + 29*e8b + 29*e9a + 28*e9b + 28*e10a + 27*e10b + 27*e11a + 26*e11b + 26*e12a + 25*e12b + 25*e13a + 24*e13b + 24*e14a + 23*e14b + 23*e15a + 22*e15b + 22*e16a + 21*e16b + 21*e17a + 20*e17b + 20*e18a + 19*e18b + 19*e19a + 18*e19b + 18*e20a + 17*e20b + 17*e21a + 16*e21b + 16*e22a + 15*e22b + 15*e23a + 14*e23b + 14*e24a + 13*e24b + 13*e25a + 12*e25b + 12*e26a + 11*e26b + 11*e27a + 10*e27b + 10*e28a + 9*e28b + 9*e29a + 8*e29b + 8*e30a + 7*e30b + 7*e31a + 6*e31b + 6*e32a + 5*e32b + 5*e33a + 4*e33b + 4*e34a + 3*e34b + 3*e35a + 2*e35b + 2*e36a + -37*hz0 - e1b
     exact hmRw ⟨c110111, c1113⟩
   have hden : col 111 - col 3 ≠ 0 := by
     rw [hden37, neg_ne_zero]
@@ -18513,7 +18626,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨105, 102, 101, 104, CrossingSign.pos⟩,
         ⟨108, 105, 104, 107, CrossingSign.pos⟩,
         ⟨111, 108, 107, 110, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -18753,7 +18866,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨108, 105, 104, 107, CrossingSign.pos⟩,
         ⟨111, 108, 107, 110, CrossingSign.pos⟩,
         ⟨114, 111, 110, 113, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -18880,12 +18993,16 @@ theorem coloring_fraction_invert_add_negOne_negOne_negOne_negOne_negOne_negOne_n
   obtain ⟨e36a, e36b⟩ := r36
   obtain ⟨e37a, e37b⟩ := r37
   obtain ⟨e38a, e38b⟩ := r38
-  have hnum : col 114 - col 113 = col 2 - col 1 := by linarith
-  have hden38 : col 114 - col 3 = -(38 * (col 2 - col 1)) := by linarith
+  have hnum : col 114 - col 113 = col 2 - col 1 := by
+    linear_combination -e2a - e2b - e3a - e3b - e4a - e4b - e5a - e5b - e6a - e6b - e7a - e7b - e8a - e8b - e9a - e9b - e10a - e10b - e11a - e11b - e12a - e12b - e13a - e13b - e14a - e14b - e15a - e15b - e16a - e16b - e17a - e17b - e18a - e18b - e19a - e19b - e20a - e20b - e21a - e21b - e22a - e22b - e23a - e23b - e24a - e24b - e25a - e25b - e26a - e26b - e27a - e27b - e28a - e28b - e29a - e29b - e30a - e30b - e31a - e31b - e32a - e32b - e33a - e33b - e34a - e34b - e35a - e35b - e36a - e36b - e37a - e37b - e38a - e38b
+  have hden38 : col 114 - col 3 = -(38 * (col 2 - col 1)) := by
+    linear_combination e37b + e38a + 37*e2a + 36*e2b + 36*e3a + 35*e3b + 35*e4a + 34*e4b + 34*e5a + 33*e5b + 33*e6a + 32*e6b + 32*e7a + 31*e7b + 31*e8a + 30*e8b + 30*e9a + 29*e9b + 29*e10a + 28*e10b + 28*e11a + 27*e11b + 27*e12a + 26*e12b + 26*e13a + 25*e13b + 25*e14a + 24*e14b + 24*e15a + 23*e15b + 23*e16a + 22*e16b + 22*e17a + 21*e17b + 21*e18a + 20*e18b + 20*e19a + 19*e19b + 19*e20a + 18*e20b + 18*e21a + 17*e21b + 17*e22a + 16*e22b + 16*e23a + 15*e23b + 15*e24a + 14*e24b + 14*e25a + 13*e25b + 13*e26a + 12*e26b + 12*e27a + 11*e27b + 11*e28a + 10*e28b + 10*e29a + 9*e29b + 9*e30a + 8*e30b + 8*e31a + 7*e31b + 7*e32a + 6*e32b + 6*e33a + 5*e33b + 5*e34a + 4*e34b + 4*e35a + 3*e35b + 3*e36a + 2*e36b + 2*e37a - e1b
   have hd : col 2 - col 1 ≠ 0 := by
     intro hz0
-    have c113114 : col 113 = col 114 := by linarith
-    have c1143 : col 114 = col 3 := by linarith
+    have c113114 : col 113 = col 114 := by
+      linear_combination e2a + e2b + e3a + e3b + e4a + e4b + e5a + e5b + e6a + e6b + e7a + e7b + e8a + e8b + e9a + e9b + e10a + e10b + e11a + e11b + e12a + e12b + e13a + e13b + e14a + e14b + e15a + e15b + e16a + e16b + e17a + e17b + e18a + e18b + e19a + e19b + e20a + e20b + e21a + e21b + e22a + e22b + e23a + e23b + e24a + e24b + e25a + e25b + e26a + e26b + e27a + e27b + e28a + e28b + e29a + e29b + e30a + e30b + e31a + e31b + e32a + e32b + e33a + e33b + e34a + e34b + e35a + e35b + e36a + e36b + e37a + e37b + e38a + e38b - hz0
+    have c1143 : col 114 = col 3 := by
+      linear_combination e37b + e38a + 37*e2a + 36*e2b + 36*e3a + 35*e3b + 35*e4a + 34*e4b + 34*e5a + 33*e5b + 33*e6a + 32*e6b + 32*e7a + 31*e7b + 31*e8a + 30*e8b + 30*e9a + 29*e9b + 29*e10a + 28*e10b + 28*e11a + 27*e11b + 27*e12a + 26*e12b + 26*e13a + 25*e13b + 25*e14a + 24*e14b + 24*e15a + 23*e15b + 23*e16a + 22*e16b + 22*e17a + 21*e17b + 21*e18a + 20*e18b + 20*e19a + 19*e19b + 19*e20a + 18*e20b + 18*e21a + 17*e21b + 17*e22a + 16*e22b + 16*e23a + 15*e23b + 15*e24a + 14*e24b + 14*e25a + 13*e25b + 13*e26a + 12*e26b + 12*e27a + 11*e27b + 11*e28a + 10*e28b + 10*e29a + 9*e29b + 9*e30a + 8*e30b + 8*e31a + 7*e31b + 7*e32a + 6*e32b + 6*e33a + 5*e33b + 5*e34a + 4*e34b + 4*e35a + 3*e35b + 3*e36a + 2*e36b + 2*e37a + -38*hz0 - e1b
     exact hmRw ⟨c113114, c1143⟩
   have hden : col 114 - col 3 ≠ 0 := by
     rw [hden38, neg_ne_zero]
