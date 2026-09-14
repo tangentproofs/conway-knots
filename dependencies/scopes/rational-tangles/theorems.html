@@ -903,12 +903,12 @@
 
 <h1 id="coloring-fraction-toolkit-dependency-map">Coloring-fraction toolkit dependency map</h1>
 <p><a href="../../chapters/rational-tangles.html">Parent map</a> · <a href="../../full.html">Full theorem DAG</a></p>
-<p>This map shows the container's direct articles. Nested containers are collapsed and clickable; dependency edges are rolled up from their leaves. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">85</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_prove"></span><span class="bp-legend-label">ready to prove</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Statement is in Lean and every prerequisite is proved — ready to work.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">2</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
+<p>This map shows the container's direct articles. Nested containers are collapsed and clickable; dependency edges are rolled up from their leaves. <span class="bp-legend-tip"><button type="button" class="bp-legend-icon" aria-describedby="bp-legend-note"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7"/><path d="M8 7v4.5" /><circle cx="8" cy="4.6" r="0.9" class="bp-legend-dot"/></svg><span class="bp-visually-hidden">What the colours mean</span></button><span class="bp-legend-note" id="bp-legend-note" role="tooltip"><div class="bp-legend-grid"><span class="bp-swatch bp-swatch-fully_proved"></span><span class="bp-legend-label">fully proved</span><span class="bp-legend-count">87</span><span class="bp-legend-meaning">Proved, and every prerequisite is fully proved too.</span><span class="bp-swatch bp-swatch-proved"></span><span class="bp-legend-label">proved</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Proof compiles, but something it rests on is not finished.</span><span class="bp-swatch bp-swatch-can_state"></span><span class="bp-legend-label">ready to state</span><span class="bp-legend-count">1</span><span class="bp-legend-meaning">Prerequisites are stated, so this can be written down.</span></div></span></span></p>
 <div class="mermaid">graph LR
   n0["Invert and mirror on constructors&lt;br/&gt;&lt;small&gt;3 items · 3 fully proved&lt;/small&gt;"]:::scope
-  n1("Alternating rational tangles related by flypes"):::can_state
+  n1("Alternating rational tangles related by flypes"):::proved
   n2["Canceling chains&lt;br/&gt;&lt;small&gt;7 items · 7 fully proved&lt;/small&gt;"]:::scope
-  n3["Classification&lt;br/&gt;&lt;small&gt;4 items · 2 fully proved · 1 proved · 1 ready to prove&lt;/small&gt;"]:::scope
+  n3["Classification&lt;br/&gt;&lt;small&gt;4 items · 4 fully proved&lt;/small&gt;"]:::scope
   n4("Uniqueness of the coloring fraction on larger honest classes"):::fully_proved
   n5("Invert-add with a trivial infinite summand"):::fully_proved
   n6("Invert-add with a trivial horizontal summand"):::fully_proved
@@ -987,9 +987,9 @@
   n14 --&gt;|2| n3
   n14 -. 2 .-&gt; n3
   click n0 "theorems/addLeft-mulTop.html" "Invert and mirror on constructors — 3 items · 3 fully proved"
-  click n1 "../../../roadmap/rational-tangles/theorems/index.html#alternating-flypes" "Alternating rational tangles related by flypes — 1 item · 1 ready to state"
+  click n1 "../../../roadmap/rational-tangles/theorems/index.html#alternating-flypes" "Alternating rational tangles related by flypes — 1 item · 1 proved"
   click n2 "theorems/canceling-chains.html" "Canceling chains — 7 items · 7 fully proved"
-  click n3 "theorems/classification.html" "Classification — 4 items · 2 fully proved · 1 proved · 1 ready to prove"
+  click n3 "theorems/classification.html" "Classification — 4 items · 4 fully proved"
   click n4 "../../../roadmap/rational-tangles/theorems/index.html#coloring-fraction-unique" "Uniqueness of the coloring fraction on larger honest classes — 1 item · 1 fully proved"
   click n5 "../../../roadmap/rational-tangles/theorems/index.html#coloring-invert-add-infinity" "Invert-add with a trivial infinite summand — 1 item · 1 fully proved"
   click n6 "../../../roadmap/rational-tangles/theorems/index.html#coloring-invert-add-zero" "Invert-add with a trivial horizontal summand — 1 item · 1 fully proved"
