@@ -12,8 +12,9 @@ in [factored rungs two](factored-rungs-two/README.md),
 [factored rungs three](factored-rungs-three/README.md),
 [factored rungs four](factored-rungs-four/README.md),
 [factored rungs five](factored-rungs-five/README.md),
-[factored rungs six](factored-rungs-six/README.md), and
-[factored rungs seven](factored-rungs-seven/README.md)).
+[factored rungs six](factored-rungs-six/README.md),
+[factored rungs seven](factored-rungs-seven/README.md), and
+[factored rungs eight](factored-rungs-eight/README.md)).
 
 ## Nodes
 
@@ -35,3 +36,4 @@ in [factored rungs two](factored-rungs-two/README.md),
 - [Negative invert-add ladder: factored rungs five](factored-rungs-five/README.md)
 - [Negative invert-add ladder: factored rungs six](factored-rungs-six/README.md)
 - [Negative invert-add ladder: factored rungs seven](factored-rungs-seven/README.md)
+- [Negative invert-add ladder: factored rungs eight](factored-rungs-eight/README.md)
