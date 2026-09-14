@@ -1,6 +1,9 @@
 ---
 declaration: theorem
 origin: cited
+statement: formalized
+lean: RationalTangles.isotopic_of_flype RationalTangles.isotopic_of_flypeSeq
+proof: formalized
 ---
 
 # Alternating rational tangles related by flypes
@@ -20,6 +23,20 @@ rational by Corollary 1.
 
 This article is retained as exposition of the unused §4 flyping argument.
 It is not a dependency of Theorem 1.
+
+## Formalization status
+
+The forward direction is formalized, and needs no alternating
+hypothesis: a rational (local) flype is a tangle isotopy
+(`isotopic_of_flype`, the `Isotopic.flype` constructor), hence a finite
+sequence of rational flypes — `Relation.ReflTransGen IsLocalFlype` —
+yields an isotopy (`isotopic_of_flypeSeq`, by transitivity induction).
+The `proof: formalized` flag covers exactly this direction. The
+converse (isotopic alternating tangles differ by flypes, via the Tait
+conjecture and the pancake-flip reconfiguration) remains unformalized
+background: the pancake-flip step has no Lean backing beyond the
+coloring-honest fragment, and Tait itself is background exposition
+(see [Tait flyping conjecture](tait-flyping.md)).
 
 ## Sources
 

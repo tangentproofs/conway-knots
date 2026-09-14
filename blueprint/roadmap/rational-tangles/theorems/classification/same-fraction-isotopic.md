@@ -2,6 +2,7 @@
 declaration: theorem
 origin: cited
 statement: formalized
+proof: formalized
 lean: RationalTangles.twist_same_fraction_isotopic RationalTangles.twist_same_fraction_isotopic_of_noMulTop RationalTangles.twist_same_fraction_isotopic_of_rightBottom RationalTangles.IsTwistForm.fraction_unique RationalTangles.IsTwistForm.toStandard_fraction_unique RationalTangles.standard_same_CFValue_isotopic RationalTangles.TwistExpr.isotopic_canonicalCF RationalTangles.TwistExpr.toNoMulTop RationalTangles.TwistExpr.toNoMulTop_noMulTop RationalTangles.TwistExpr.toNoMulTop_isotopic RationalTangles.TwistExpr.toNoMulTop_toStandard_fraction RationalTangles.TwistExpr.exists_noMulTop_isotopic RationalTangles.IsTwistForm.exists_unique_fraction_rightBottom RationalTangles.IsTwistForm.same_fraction_isotopic_rightBottom RationalTangles.IsTwistForm.exists_unique_fraction_noMulTop RationalTangles.IsTwistForm.same_fraction_isotopic_noMulTop
 ---
 
@@ -34,7 +35,13 @@ outstanding for the unrestricted `mulTop` case is algebraic
 hypothesis is now discharged when the inner fraction is `±1`
 (`mulTop_comm_of_unit_fraction`, claimed with the twist-diagram
 fraction results) — and coloring transport along the
-normalization path, so this node is not yet marked proved. The
+normalization path. Scope of the `proof: formalized` flag (2026-09-14):
+it covers exactly the fragment described here — twist-form expressions
+unconditionally on `noMulTop` (hence `rightBottom`), conditionally in
+general on the recorded agreement hypotheses, plus the diagram-level
+`rightBottom` / `noMulTop`-`slideReady` results. This follows the
+Theorems 4 → 2 → 1 fragment-closure precedent; the unrestricted
+`mulTop` case remains outstanding as described. The
 boundary is now sharp, not merely outstanding: the agreement
 hypotheses are necessary in general, since a `mulTop` node over
 inner fraction `2` has algebraic `F = 1/3` against standard-form
