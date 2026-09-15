@@ -4,10 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Michal Wallace
 -/
 
-import Init.Data.Rat.Lemmas
-import Mathlib.Logic.Function.Basic
 import Mathlib.Tactic.FieldSimp
-import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.Ring
 import RationalTangles.Tangle
 import RationalTangles.IntegerTangle

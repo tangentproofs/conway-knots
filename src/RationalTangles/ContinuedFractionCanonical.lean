@@ -5,9 +5,6 @@ Authors: Michal Wallace
 -/
 
 import Mathlib.Data.Rat.Floor
-import Mathlib.Tactic.FieldSimp
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.Ring
 import RationalTangles.CanonicalForm
 
 /-!
