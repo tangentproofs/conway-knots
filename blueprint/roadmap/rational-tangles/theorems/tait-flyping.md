@@ -1,9 +1,13 @@
 ---
-declaration: theorem
 origin: background
 ---
 
 # Tait flyping conjecture
+
+**Out of scope (project decision, 2026-09-14):** this article is background
+exposition only, not a formalization target. The project formalizes what's in
+the papers via the coloring-fraction proof of §5; the Tait flyping conjecture
+is not on that path and will not be formalized here.
 
 Two alternating knots are isotopic if and only if any two corresponding
 diagrams on $S^2$ are related by a finite sequence of flypes.
