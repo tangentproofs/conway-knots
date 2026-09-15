@@ -6,8 +6,6 @@ Authors: Michal Wallace
 
 import Mathlib.Data.Fintype.Fin
 import Mathlib.Tactic.FinCases
-import Mathlib.Tactic.Linarith
-import Mathlib.Tactic.Ring
 import RationalTangles.ColoringMoves
 import RationalTangles.StandardForm
 

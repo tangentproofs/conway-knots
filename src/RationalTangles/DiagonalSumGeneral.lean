@@ -7442,7 +7442,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨54, 51, 50, 53, CrossingSign.pos⟩,
         ⟨57, 54, 53, 56, CrossingSign.pos⟩,
         ⟨60, 57, 56, 59, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -7694,7 +7694,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨54, 51, 50, 53, CrossingSign.pos⟩,
         ⟨57, 54, 53, 56, CrossingSign.pos⟩,
         ⟨60, 57, 56, 59, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -7898,7 +7898,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨57, 54, 53, 56, CrossingSign.pos⟩,
         ⟨60, 57, 56, 59, CrossingSign.pos⟩,
         ⟨63, 60, 59, 62, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -8159,7 +8159,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨57, 54, 53, 56, CrossingSign.pos⟩,
         ⟨60, 57, 56, 59, CrossingSign.pos⟩,
         ⟨63, 60, 59, 62, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -8372,7 +8372,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨60, 57, 56, 59, CrossingSign.pos⟩,
         ⟨63, 60, 59, 62, CrossingSign.pos⟩,
         ⟨66, 63, 62, 65, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -8642,7 +8642,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨60, 57, 56, 59, CrossingSign.pos⟩,
         ⟨63, 60, 59, 62, CrossingSign.pos⟩,
         ⟨66, 63, 62, 65, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -8864,7 +8864,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨63, 60, 59, 62, CrossingSign.pos⟩,
         ⟨66, 63, 62, 65, CrossingSign.pos⟩,
         ⟨69, 66, 65, 68, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -9143,7 +9143,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨63, 60, 59, 62, CrossingSign.pos⟩,
         ⟨66, 63, 62, 65, CrossingSign.pos⟩,
         ⟨69, 66, 65, 68, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       ((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
@@ -9351,7 +9351,7 @@ theorem invert_add_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOne_negOn
         ⟨66, 63, 62, 65, CrossingSign.pos⟩,
         ⟨69, 66, 65, 68, CrossingSign.pos⟩,
         ⟨72, 69, 68, 71, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   simp only [TangleDiagram.IsColored, hcs] at hc
   exact ⟨hc ⟨2, 3, 0, 1, CrossingSign.pos⟩ (by decide),
     hc ⟨6, 2, 1, 5, CrossingSign.pos⟩ (by decide),
@@ -9639,7 +9639,7 @@ theorem HasColoringFraction.invert_add_negOne_negOne_negOne_negOne_negOne_negOne
         ⟨66, 63, 62, 65, CrossingSign.pos⟩,
         ⟨69, 66, 65, 68, CrossingSign.pos⟩,
         ⟨72, 69, 68, 71, CrossingSign.pos⟩] := by
-    decide
+    native_decide
   have hM : ColorMatrix.of
       (((((((((((((((((((((((((crossingTangle CrossingSign.neg).add
         (crossingTangle CrossingSign.neg)).add
