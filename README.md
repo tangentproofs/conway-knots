@@ -19,9 +19,27 @@ at `blueprint/sources/kauffman-lambropoulou-2004.pdf`.
 
 Developed with [AutoformBot](https://github.com/facebookresearch/autoform-bot).
 
-- `lean-toolchain` and `lakefile.toml` pin Lean and Mathlib `v4.32.2`.
-  Lean/elan are not installed in this workspace; do not run `lake update`
-  or `lake build` until a toolchain is available.
-- The Conway 1970 knot/link census is out of scope for this milestone.
+- `lean-toolchain` and `lakefile.toml` pin Lean and Mathlib `v4.35.0-rc1`.
+  Prefer `lake exe cache get` before building Mathlib targets.
 - Classification is proved via the integral coloring of Kauffman–Lambropoulou
   §5 (Theorem 4), not via Tait flyping.
+
+## Knot enumeration (Conway census fragment)
+
+Executable `enumerate_knots` lists **rational** (2-bridge) prime knots by
+Conway continued-fraction notation up to a chosen crossing bound:
+
+```sh
+lake build enumerate_knots
+lake exe enumerate_knots -- 7
+lake exe enumerate_knots -- 8 --check
+```
+
+Through 7 crossings this matches the full prime-knot census (all such knots
+are rational). From 8 crossings it matches the 2-bridge counts only; basic
+polyhedra and non-rational algebraic knots are not yet enumerated. See
+`src/ConwayEnumeration/RationalKnot.lean` for method and gaps.
+
+The enumerator does not import Mathlib or `RationalTangles`. Default
+`lake build` builds `enumerate_knots` only. Theorem-track:
+`lake exe cache get && lake build RationalTangles`.
