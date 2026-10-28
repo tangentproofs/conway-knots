@@ -2,3 +2,6 @@
 site/
 site-src/
 *.log
+learn/node_modules/
+learn/dist/
+__pycache__/

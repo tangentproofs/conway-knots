@@ -17,6 +17,8 @@ at `blueprint/sources/kauffman-lambropoulou-2004.pdf`.
 
 **Blueprint:** [Browse the formalization blueprint](blueprint/README.md).
 
+**Plain-English explainer:** <https://tangentproofs.github.io/conway-knots/learn/>. Every headline statement read back into English, with proof outlines, quizzes, an honest review of what is and isn't proved, and browsable source (sources in `learn/`).
+
 Developed with [AutoformBot](https://github.com/facebookresearch/autoform-bot).
 
 - `lean-toolchain` and `lakefile.toml` pin Lean and Mathlib `v4.32.2`.

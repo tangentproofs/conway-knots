@@ -1,0 +1,72 @@
+name: Explainer site (learn/)
+
+# The plain-English informalization site lives in learn/ and is served at
+# https://tangentproofs.github.io/conway-knots/learn/. GitHub Pages serves the
+# gh-pages branch, which `mkdocs gh-deploy` (the blueprint) replaces wholesale.
+# This workflow builds learn/ (Node only, no Lean) and writes it into
+# gh-pages:/learn/. It also runs after every Pages build, so a blueprint deploy
+# that drops learn/ is repaired automatically; when nothing changed it does nothing.
+on:
+  push:
+    branches: [main]
+    paths: ["learn/**", "src/**", ".github/workflows/learn-pages.yml"]
+  pull_request:
+    paths: ["learn/**", "src/**", ".github/workflows/learn-pages.yml"]
+  workflow_dispatch:
+  page_build:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: learn-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: learn/package-lock.json
+
+      - name: Validate explainer nodes and run the shared tests
+        working-directory: learn
+        run: |
+          npm ci
+          python3 -m pip install --quiet pyyaml
+          npm test
+
+      - name: Check data/ and nodes/ are in sync with the Lean source and nodes_src
+        working-directory: learn
+        run: |
+          python3 tools/scan_decls.py
+          python3 tools/write_nodes.py
+          git diff --exit-code data/ nodes/ || { echo "::error::learn/data or learn/nodes is stale; run python3 learn/tools/scan_decls.py && python3 learn/tools/write_nodes.py"; exit 1; }
+
+      - name: Build the informalization site (node pages + browsable Lean source)
+        working-directory: learn
+        run: npm run build
+
+      - name: Publish into gh-pages:/learn/
+        if: github.event_name != 'pull_request'
+        run: |
+          git fetch --depth=1 origin gh-pages
+          git worktree add --detach ../gh-pages origin/gh-pages
+          rm -rf ../gh-pages/learn
+          mkdir -p ../gh-pages/learn
+          cp -r learn/dist/. ../gh-pages/learn/
+          cd ../gh-pages
+          git add -A learn
+          if git diff --cached --quiet; then
+            echo "gh-pages:/learn/ is already up to date"
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Deploy learn/ explainer from ${GITHUB_SHA::7}"
+          git push origin HEAD:gh-pages

@@ -1,0 +1,7 @@
+{
+  "roots": ["src"],
+  "ns": "RationalTangles.",
+  "headlines": ["rational_classification_fragment", "twist_same_fraction_isotopic_of_noMulTop", "coloring_fraction_invariant_ColoringIsotopy", "coloring_fraction_eq_F_any_slideReady"],
+  "mathlibNamespaces": ["Finset", "Real", "Nat", "Int", "Function", "List", "Equiv", "Rat", "Fintype", "Set", "Multiset", "Option", "Prod", "Fin", "Bool"],
+  "mathlibNames": ["Rat", "Int", "Nat", "List", "Fin", "Prop", "Option", "Bool"]
+}
