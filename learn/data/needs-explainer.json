@@ -1,0 +1,8666 @@
+[
+ {
+  "id": "HasColoringFraction.of_ColoringIsotopy",
+  "kind": "theorem",
+  "depth": 1,
+  "file": "src/RationalTangles/ColorFractionUnique.lean",
+  "line": 4024,
+  "meaningDeps": [
+   "TangleDiagram",
+   "CFValue",
+   "ColoringIsotopy",
+   "HasColoringFraction"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "twist_coloring_diagonal_slideReady",
+  "kind": "theorem",
+  "depth": 1,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 976,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.slideReady",
+   "TwistExpr.diagram",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 6
+ },
+ {
+  "id": "twist_same_fraction_isotopic",
+  "kind": "theorem",
+  "depth": 1,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 119,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.fraction",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction",
+   "Isotopic",
+   "TwistExpr.diagram"
+  ],
+  "explainedDeps": 6
+ },
+ {
+  "id": "TwistExpr.fraction_ColoringIsotopy_noMulTop_colorFrom",
+  "kind": "theorem",
+  "depth": 1,
+  "file": "src/RationalTangles/DiagonalSumGeneral.lean",
+  "line": 54,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.noMulTop",
+   "TwistExpr.slideReady",
+   "ColoringIsotopy",
+   "TwistExpr.diagram",
+   "TwistExpr.fraction"
+  ],
+  "explainedDeps": 6
+ },
+ {
+  "id": "TwistExpr.toStandard_fraction_ColoringIsotopy_colorFrom",
+  "kind": "theorem",
+  "depth": 1,
+  "file": "src/RationalTangles/ColorFractionUnique.lean",
+  "line": 1432,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.slideReady",
+   "ColoringIsotopy",
+   "TwistExpr.diagram",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction"
+  ],
+  "explainedDeps": 6
+ },
+ {
+  "id": "coloring_fraction_toStandard",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 241,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.slideReady",
+   "TwistExpr.diagram",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "ColorMatrix.NotMono",
+   "ColorMatrix.fraction",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction"
+  ],
+  "explainedDeps": 10
+ },
+ {
+  "id": "ColorMatrix.DiagonalSum_of_add",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 315,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "colorAddRight",
+   "TangleDiagram.add"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "ColorMatrix.DiagonalSum_of_mul",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 325,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "colorMulBottom",
+   "TangleDiagram.mul"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "crossingTangle_diagonal_any",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 308,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "crossingTangle_NW_ne_NE",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 235,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "crossingTangle_NW_ne_SW",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 230,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "infinity_diagonal_any",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 287,
+  "meaningDeps": [
+   "ColorMatrix.of",
+   "TangleDiagram.infinity",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_add_left",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 170,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.IsColored"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_add_right",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 175,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.IsColored",
+   "colorAddRight"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_mul_bottom",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 191,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "TangleDiagram.IsColored",
+   "colorMulBottom"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_mul_top",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 186,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "TangleDiagram.IsColored"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "negOne_diagonal_any",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 298,
+  "meaningDeps": [
+   "negOne",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "one_diagonal_any",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 292,
+  "meaningDeps": [
+   "one",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "SameEndpointColors.trans",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 33,
+  "meaningDeps": [
+   "TangleDiagram",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "twist_same_toStandard_fraction_isotopic",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 107,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction",
+   "Isotopic",
+   "TwistExpr.diagram"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "TwistExpr.colorFrom_diagonal_slideReady",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 1053,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.slideReady",
+   "ColorMatrix.of",
+   "TwistExpr.diagram",
+   "TwistExpr.colorFrom",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 6
+ },
+ {
+  "id": "TwistExpr.colorFrom_isColored_slideReady",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 1009,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.slideReady",
+   "TwistExpr.diagram",
+   "TangleDiagram.IsColored",
+   "TwistExpr.colorFrom"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "TwistExpr.colorFrom_notMono_slideReady",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 1059,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.slideReady",
+   "ColorMatrix.of",
+   "TwistExpr.diagram",
+   "TwistExpr.colorFrom",
+   "ColorMatrix.NotMono"
+  ],
+  "explainedDeps": 6
+ },
+ {
+  "id": "TwistExpr.fraction_eq_toStandard_addLeft",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 455,
+  "meaningDeps": [
+   "TwistExpr",
+   "CrossingSign",
+   "TwistExpr.fraction",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "TwistExpr.fraction_eq_toStandard_addRight",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 462,
+  "meaningDeps": [
+   "TwistExpr",
+   "CrossingSign",
+   "TwistExpr.fraction",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "TwistExpr.fraction_eq_toStandard_mulBottom",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 469,
+  "meaningDeps": [
+   "TwistExpr",
+   "CrossingSign",
+   "TwistExpr.fraction",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "TwistExpr.fraction_eq_toStandard_rightBottom",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 424,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.rightBottom",
+   "TwistExpr.fraction",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "TwistExpr.toStandard_fraction_ColoringIsotopy",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 1299,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.slideReady",
+   "ColoringIsotopy",
+   "TwistExpr.diagram",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "ColorMatrix.NotMono",
+   "TwistExpr.toStandard",
+   "StandardExpr.fraction"
+  ],
+  "explainedDeps": 10
+ },
+ {
+  "id": "zero_diagonal_any",
+  "kind": "theorem",
+  "depth": 2,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 283,
+  "meaningDeps": [
+   "ColorMatrix.of",
+   "TangleDiagram.zero",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "add_crossings_append",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 154,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "Crossing.rename",
+   "addGlue",
+   "addShift"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "addGlue",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 132,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "addShift",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 129,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "ArithmeticCF.length",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 342,
+  "meaningDeps": [
+   "ArithmeticCF"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "CFValue.add_comm",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 85,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.add"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CFValue.zero_add",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 91,
+  "meaningDeps": [
+   "CFValue"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddLeftNegOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 167,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorGlueAdd",
+   "negOne",
+   "colorNegOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorAddLeftOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 163,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorGlueAdd",
+   "one",
+   "colorOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorAddNegOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 664,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 658,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddRight",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 138,
+  "meaningDeps": [
+   "TangleDiagram",
+   "addGlue",
+   "addShift"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorInfinity",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 412,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "coloring_ColoringIsotopy",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 2049,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColoringIsotopy",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_toStandard",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 165,
+  "meaningDeps": [
+   "TwistExpr",
+   "TwistExpr.slideReady",
+   "TwistExpr.diagram",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "TwistExpr.toStandard",
+   "StandardExpr.diagram",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 8
+ },
+ {
+  "id": "ColoringRule_rename",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 203,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.rename"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColorMatrix.NotMono_of_eq",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 34,
+  "meaningDeps": [
+   "ColorMatrix",
+   "ColorMatrix.NotMono"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColorMatrix.of_add_negOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 470,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "TangleDiagram.add",
+   "negOne",
+   "colorAddNegOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "ColorMatrix.of_add_one",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 441,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "TangleDiagram.add",
+   "one",
+   "colorAddOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "ColorMatrix.of_add_right",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 251,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "colorAddRight",
+   "TangleDiagram.add"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColorMatrix.of_colorAddLeftNegOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 257,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "negOne",
+   "colorAddLeftNegOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColorMatrix.of_colorAddLeftOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 223,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "one",
+   "colorAddLeftOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColorMatrix.of_colorMulTopNegOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 333,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "negOne",
+   "colorMulTopNegOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColorMatrix.of_colorMulTopOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 299,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "one",
+   "colorMulTopOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColorMatrix.of_mul_bottom",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 271,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "colorMulBottom",
+   "TangleDiagram.mul"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColorMatrix.of_mul_negOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 534,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "TangleDiagram.mul",
+   "negOne",
+   "colorMulNegOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "ColorMatrix.of_mul_one",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 502,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "TangleDiagram.mul",
+   "one",
+   "colorMulOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "ColorMatrix.of_sameEndpoint",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 21,
+  "meaningDeps": [
+   "TangleDiagram",
+   "SameEndpointColors",
+   "ColorMatrix.of"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorMulBottom",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 147,
+  "meaningDeps": [
+   "TangleDiagram",
+   "mulGlue",
+   "addShift"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorMulNegOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 676,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorMulOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 670,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorMulTopNegOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 175,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorGlueMul",
+   "negOne",
+   "colorNegOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorMulTopOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 171,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorGlueMul",
+   "one",
+   "colorOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorNegOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 469,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorOne",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 435,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorZero",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 390,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "Crossing.rename",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 106,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.sameUpToRotation",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 117,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.rotate180",
+   "Crossing.reverseUnders"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CrossingSign.flip",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 56,
+  "meaningDeps": [
+   "CrossingSign"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "infinity_isColored",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 415,
+  "meaningDeps": [
+   "TangleDiagram.infinity",
+   "colorInfinity"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "IsColored_add_negOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 800,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.add",
+   "negOne",
+   "colorAddNegOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "IsColored_add_one",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 736,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.add",
+   "one",
+   "colorAddOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "IsColored_colorAddLeftNegOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 186,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "negOne",
+   "colorAddLeftNegOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_colorAddLeftOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 178,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "one",
+   "colorAddLeftOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_colorMulTopNegOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 207,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "negOne",
+   "colorMulTopNegOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_colorMulTopOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 197,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "one",
+   "colorMulTopOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_mul_negOne",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 876,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.mul",
+   "negOne",
+   "colorMulNegOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "IsColored_mul_one",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 838,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.mul",
+   "one",
+   "colorMulOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "IsFlypeCrossingSlide",
+  "kind": "structure",
+  "depth": 3,
+  "file": "src/RationalTangles/Flype.lean",
+  "line": 87,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.adjacentDistinct",
+   "Crossing.portsDistinct",
+   "Crossing.isOverArc",
+   "Crossing.isUnderArc",
+   "Crossing.extOverArc",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "IsR3OverSlide",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 377,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.adjacentDistinct",
+   "Crossing.portsDistinct",
+   "Crossing.isOverArc",
+   "Crossing.memArc",
+   "Crossing.isUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "IsReidemeisterIAdd",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 281,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "PlanarIsotopy",
+   "collapseKink"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "IsReidemeisterIIAdd",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 341,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "IsR2Pair",
+   "PlanarIsotopy",
+   "collapseR2"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "mul_crossings_append",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 162,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "Crossing.rename",
+   "mulGlue",
+   "addShift"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "mulGlue",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 141,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "negOne_isColored",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 477,
+  "meaningDeps": [
+   "negOne",
+   "colorNegOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "negOne_matrix",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 485,
+  "meaningDeps": [
+   "ColorMatrix.of",
+   "negOne",
+   "colorNegOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "negOne_NW_ne_NE",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 228,
+  "meaningDeps": [
+   "negOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "negOne_NW_ne_SW",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 226,
+  "meaningDeps": [
+   "negOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "one_isColored",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 443,
+  "meaningDeps": [
+   "one",
+   "colorOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "one_matrix",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 451,
+  "meaningDeps": [
+   "ColorMatrix.of",
+   "one",
+   "colorOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "one_NW_ne_NE",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 225,
+  "meaningDeps": [
+   "one"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "one_NW_ne_SW",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 224,
+  "meaningDeps": [
+   "one"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "pairRel",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 251,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "r3ExtMatch",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 386,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.extOverArc",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "SameEndpointColors",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 238,
+  "meaningDeps": [
+   "TangleDiagram"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "standard_same_CFValue_isotopic",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 80,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "Isotopic",
+   "StandardExpr.diagram"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "TangleDiagram.endsOf",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 233,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.ArcEnd",
+   "ArithmeticCF.length",
+   "Endpoint",
+   "TangleDiagram.boundary"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "TangleDiagram.maxArc",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 70,
+  "meaningDeps": [
+   "TangleDiagram"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "TangleDiagram.rename",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 215,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Crossing.rename"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "TwistExpr.rightBottom",
+  "kind": "def",
+  "depth": 3,
+  "file": "src/RationalTangles/Rational.lean",
+  "line": 64,
+  "meaningDeps": [
+   "TwistExpr",
+   "one",
+   "negOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "zero_isColored",
+  "kind": "theorem",
+  "depth": 3,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 393,
+  "meaningDeps": [
+   "TangleDiagram.zero",
+   "colorZero"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "add_eq_add",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 22,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "add_NE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 141,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "addGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "add_negOne_crossings",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 784,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "negOne",
+   "TangleDiagram.maxArc",
+   "CrossingSign"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "add_negOne_NE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 460,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "negOne",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "add_negOne_SE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 465,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "negOne",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "add_one_crossings",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 709,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "one",
+   "TangleDiagram.maxArc",
+   "CrossingSign"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "add_one_NE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 726,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "one",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "add_one_NW",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 718,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "one"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "add_one_SE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 731,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "one",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "add_one_SW",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 722,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "one"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "add_SE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 145,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "addGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "add_zero_eq",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 174,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "addGlue_shift_eq",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 241,
+  "meaningDeps": [
+   "TangleDiagram",
+   "addGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "arc_le_maxArc_of_mem",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 489,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Crossing",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "collapseKink",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 274,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.eraseCrossing",
+   "TangleDiagram.rename",
+   "mergeArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "collapseR2",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 335,
+  "meaningDeps": [
+   "TangleDiagram",
+   "eraseTwo",
+   "TangleDiagram.rename",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddNegOne_old",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 687,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorAddNegOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddNegOne_old_arc",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 456,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorAddNegOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddOne_old",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 682,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorAddOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddOne_old_arc",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 437,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorAddOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorGlueAdd",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 29,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorGlueAdd_comp_shift",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 49,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorGlueAdd",
+   "addGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorGlueAdd_of_le",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 37,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorGlueAdd"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorGlueMul",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 33,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorGlueMul_comp_shift",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 71,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorGlueMul",
+   "mulGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorGlueMul_of_le",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 43,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorGlueMul"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "coloring_add_assoc",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1755,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_add_assoc_rev",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1825,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_add_left",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 215,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "colorAddRight",
+   "SameEndpointColors",
+   "TangleDiagram.add",
+   "colorGlueAdd"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_add_right",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 249,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "colorAddRight",
+   "SameEndpointColors",
+   "TangleDiagram.add",
+   "colorGlueAdd"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_commute_add",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 99,
+  "meaningDeps": [
+   "CrossingSign",
+   "TangleDiagram",
+   "crossingTangle",
+   "TangleDiagram.add",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 7
+ },
+ {
+  "id": "coloring_commute_mul",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 127,
+  "meaningDeps": [
+   "CrossingSign",
+   "TangleDiagram",
+   "crossingTangle",
+   "TangleDiagram.mul",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 7
+ },
+ {
+  "id": "coloring_invert_unit",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 406,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.invert",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "coloring_invert_unit_rev",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 451,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle",
+   "TangleDiagram.invert",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "coloring_IsLocalFlype",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 198,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsLocalFlype",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_IsReidemeisterI",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 410,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsReidemeisterI",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.WellFormed",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "coloring_IsReidemeisterII",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 2054,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsReidemeisterII",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.WellFormed",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "coloring_IsReidemeisterIIILocal",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 456,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsReidemeisterIIILocal",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_mul_assoc",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1901,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_mul_assoc_rev",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1971,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_mul_left",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 287,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "colorMulBottom",
+   "SameEndpointColors",
+   "TangleDiagram.mul",
+   "colorGlueMul"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_mul_right",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 321,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "colorMulBottom",
+   "SameEndpointColors",
+   "TangleDiagram.mul",
+   "colorGlueMul"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_negOne_toStandard",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 158,
+  "meaningDeps": [
+   "negOne",
+   "StandardExpr",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "coloring_one_toStandard",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 153,
+  "meaningDeps": [
+   "one",
+   "StandardExpr",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "coloring_planar_isotopy",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringMoves.lean",
+  "line": 47,
+  "meaningDeps": [
+   "TangleDiagram",
+   "PlanarIsotopy",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_zero_add",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 586,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.zero",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColoringRule_congr",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 262,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColorMatrix.DiagonalSum_left_of_add",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 40,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "TangleDiagram.add",
+   "ColorMatrix.DiagonalSum",
+   "colorAddRight"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "ColorMatrix.DiagonalSum_of_eq",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 30,
+  "meaningDeps": [
+   "ColorMatrix",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColorMatrix.DiagonalSum_top_of_mul",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringToStandard.lean",
+  "line": 60,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ColorMatrix.of",
+   "TangleDiagram.mul",
+   "ColorMatrix.DiagonalSum",
+   "colorMulBottom"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "ColorMatrix.ext",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 218,
+  "meaningDeps": [
+   "ColorMatrix"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "ColorMatrix.fraction_add_negOne",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 112,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "ColorMatrix.fraction_add_one",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 100,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "ColorMatrix.fraction_mul_negOne",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 584,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "ColorMatrix.fraction_mul_one",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 554,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "ColorMatrix.of_add_negOne_colored",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 766,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "negOne",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "ColorMatrix.of_add_one_colored",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 752,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "one",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "ColorMatrix.of_mul_negOne_colored",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 800,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "negOne",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "ColorMatrix.of_mul_one_colored",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 784,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "one",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "colorMulNegOne_old",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 697,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorMulNegOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorMulNegOne_old_arc",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 520,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorMulNegOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorMulOne_old",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 692,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorMulOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorMulOne_old_arc",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 488,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc",
+   "colorMulOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorNegOne_0",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 472,
+  "meaningDeps": [
+   "colorNegOne"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorNegOne_1",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 473,
+  "meaningDeps": [
+   "colorNegOne"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorNegOne_2",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 474,
+  "meaningDeps": [
+   "colorNegOne"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorNegOne_3",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 475,
+  "meaningDeps": [
+   "colorNegOne"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorOne_0",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 438,
+  "meaningDeps": [
+   "colorOne"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorOne_1",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 439,
+  "meaningDeps": [
+   "colorOne"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorOne_2",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 440,
+  "meaningDeps": [
+   "colorOne"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorOne_3",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 441,
+  "meaningDeps": [
+   "colorOne"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "Crossing.adjacentDistinct",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 300,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.extOverArc",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 362,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.isOverArc",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 292,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.isUnderArc",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 296,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.memArc",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 121,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.otherUnderArc",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 366,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.portsDistinct",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 370,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.rename_comp",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 150,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.rename"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.reverseUnders",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 112,
+  "meaningDeps": [
+   "Crossing",
+   "CrossingSign.flip"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Endpoint",
+  "kind": "inductive",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 38,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "exterior",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 417,
+  "meaningDeps": [
+   "TangleDiagram",
+   "eraseThree"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "flype_add",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 386,
+  "meaningDeps": [
+   "CrossingSign",
+   "TangleDiagram",
+   "Isotopic",
+   "crossingTangle",
+   "TangleDiagram.rot180"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "flype_mul",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 391,
+  "meaningDeps": [
+   "CrossingSign",
+   "TangleDiagram",
+   "Isotopic",
+   "crossingTangle",
+   "TangleDiagram.rot180"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "infinity_fraction_of_colored",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 629,
+  "meaningDeps": [
+   "ColorMatrix.of",
+   "TangleDiagram.infinity",
+   "ColorMatrix.fraction"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_colorGlueAdd",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 93,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.add",
+   "colorGlueAdd"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_colorGlueMul",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 117,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.mul",
+   "colorGlueMul"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_one_addRight_zero",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 491,
+  "meaningDeps": [
+   "Isotopic",
+   "one",
+   "StandardExpr"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_planar",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Flype.lean",
+  "line": 186,
+  "meaningDeps": [
+   "TangleDiagram",
+   "PlanarIsotopy",
+   "Isotopic"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsR2Pair",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 308,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.adjacentDistinct",
+   "Crossing.memArc",
+   "Crossing.isOverArc",
+   "Crossing.isUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "maxArc_ge_NE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 446,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "maxArc_ge_NW",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 442,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "maxArc_ge_SE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 453,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "maxArc_ge_SW",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 461,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "mul_eq_mul",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 23,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "mul_negOne_crossings",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 868,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "negOne",
+   "TangleDiagram.maxArc",
+   "CrossingSign"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "mul_negOne_SE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 524,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "negOne",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "mul_negOne_SW",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 529,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "negOne",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "mul_one_crossings",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 830,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "one",
+   "TangleDiagram.maxArc",
+   "CrossingSign"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "mul_one_SE",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 492,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "one",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "mul_one_SW",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 497,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "one",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "mul_SE_glue",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 149,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "mulGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "mul_SW_glue",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 153,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "mulGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "mulGlue_shift_eq",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 261,
+  "meaningDeps": [
+   "TangleDiagram",
+   "mulGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "NotMono_of_add_negOne",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 828,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "negOne",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "ColorMatrix.NotMono"
+  ],
+  "explainedDeps": 7
+ },
+ {
+  "id": "NotMono_of_add_one",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 818,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "one",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "ColorMatrix.NotMono"
+  ],
+  "explainedDeps": 7
+ },
+ {
+  "id": "NotMono_of_mul_negOne",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 848,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "negOne",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "ColorMatrix.NotMono"
+  ],
+  "explainedDeps": 7
+ },
+ {
+  "id": "NotMono_of_mul_one",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 838,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mul",
+   "one",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "ColorMatrix.NotMono"
+  ],
+  "explainedDeps": 7
+ },
+ {
+  "id": "planar_negOne_zero_add",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 496,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "negOne",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "sameCrossingData",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 397,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Crossing",
+   "pairRel",
+   "Crossing.sameUpToRotation"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "standard_coloring_diagonal",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 335,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.diagram",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "standard_same_fraction_isotopic",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 39,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "CFValue",
+   "Isotopic",
+   "StandardExpr.diagram"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "standard_same_inf_isotopic",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 59,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "CFValue",
+   "Isotopic",
+   "StandardExpr.diagram"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "TangleDiagram.ArcEnd",
+  "kind": "inductive",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 227,
+  "meaningDeps": [
+   "TangleDiagram.boundary",
+   "Endpoint"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "TangleDiagram.boundary",
+  "kind": "def",
+  "depth": 4,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 208,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Endpoint"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "TwistExpr.isotopic_rot180",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 396,
+  "meaningDeps": [
+   "TwistExpr",
+   "Isotopic",
+   "TwistExpr.diagram",
+   "TangleDiagram.rot180"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "zero_fraction_of_colored",
+  "kind": "theorem",
+  "depth": 4,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 623,
+  "meaningDeps": [
+   "ColorMatrix.of",
+   "TangleDiagram.zero",
+   "ColorMatrix.fraction",
+   "CFValue"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "add_NW",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1014,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CFValue.ofInt",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 43,
+  "meaningDeps": [
+   "CFValue"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddRight_NE",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 181,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorAddRight",
+   "TangleDiagram.add"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorAddRight_NW",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 157,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorAddRight"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddRight_SE",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 185,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorAddRight",
+   "TangleDiagram.add"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorAddRight_SW",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 161,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorAddRight"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorFlype",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 21,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorFlype_ColoringRule_FE",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 61,
+  "meaningDeps": [
+   "Crossing",
+   "IsFlypeCrossingSlide",
+   "ColoringRule",
+   "colorFlype"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorFlype_f",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 41,
+  "meaningDeps": [
+   "colorFlype"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorFlype_uE",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 27,
+  "meaningDeps": [
+   "colorFlype"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorFlype_wE",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 31,
+  "meaningDeps": [
+   "colorFlype"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "coloring_flype_slide_add",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1448,
+  "meaningDeps": [
+   "CrossingSign",
+   "TangleDiagram",
+   "crossingTangle",
+   "TangleDiagram.add",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "TangleDiagram.rot180",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 8
+ },
+ {
+  "id": "coloring_flype_slide_mul",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1534,
+  "meaningDeps": [
+   "CrossingSign",
+   "TangleDiagram",
+   "crossingTangle",
+   "TangleDiagram.mul",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "TangleDiagram.rot180",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 8
+ },
+ {
+  "id": "coloring_reidemeister_I_add",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 385,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsReidemeisterIAdd",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.WellFormed",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_reidemeister_I_remove",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 395,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsReidemeisterIAdd",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "coloring_reidemeister_II_add",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 2042,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsReidemeisterIIAdd",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.WellFormed",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "coloring_reidemeister_II_remove",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1077,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsReidemeisterIIAdd",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "coloring_rot180_diagonal",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1633,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "ColorMatrix.of",
+   "ColorMatrix.DiagonalSum",
+   "TangleDiagram.rot180",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "ColoringRule_sameUpToRotation",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 185,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.sameUpToRotation",
+   "ColoringRule"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorInvertUnit",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 392,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorInvertUnitInv",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 444,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorMulBottom_NE",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 173,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorMulBottom"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorMulBottom_NW",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 169,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorMulBottom"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorMulBottom_SE",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 189,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorMulBottom",
+   "TangleDiagram.mul"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorMulBottom_SW",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 193,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorMulBottom",
+   "TangleDiagram.mul"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorR3",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 173,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorR3_ColoringRule_P",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 258,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "r3ExtMatch",
+   "ColoringRule",
+   "colorR3"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorR3_ColoringRule_Q",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 294,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "r3ExtMatch",
+   "ColoringRule",
+   "colorR3"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorR3_ColoringRule_R",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 329,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "r3ExtMatch",
+   "ColoringRule",
+   "colorR3"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorR3_f",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 199,
+  "meaningDeps": [
+   "colorR3"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorZeroAdd",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 561,
+  "meaningDeps": [
+   "TangleDiagram"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorZeroAdd_reindex",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 566,
+  "meaningDeps": [
+   "TangleDiagram",
+   "colorZeroAdd",
+   "zeroAddReindex"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.a0_le_maxArc",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 469,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.a1_le_maxArc",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 472,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.a2_le_maxArc",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 475,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.a3_le_maxArc",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 479,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.maxArc",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 39,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "divInt_add_one",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 51,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "divInt_sub_one",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 57,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "eraseThree",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 411,
+  "meaningDeps": [
+   "TangleDiagram",
+   "dropIdxs"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "eraseTwo",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 329,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.eraseCrossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "foldl_maxArc_ge",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 421,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "IsColored_colorZeroAdd",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 575,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.zero",
+   "colorZeroAdd"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_rename_injective",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 220,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.rename"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_crossingTangle_rot180",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 376,
+  "meaningDeps": [
+   "CrossingSign",
+   "Isotopic",
+   "crossingTangle",
+   "TangleDiagram.rot180"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "isotopic_infinity_rot180",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 366,
+  "meaningDeps": [
+   "Isotopic",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_negOne_rot180",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 373,
+  "meaningDeps": [
+   "Isotopic",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_one_rot180",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 370,
+  "meaningDeps": [
+   "Isotopic",
+   "one"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_zero_rot180",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 362,
+  "meaningDeps": [
+   "Isotopic",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "maxArc_ge_of_mem",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 483,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Crossing",
+   "Crossing.maxArc",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "mergeArc",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 268,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "negOne_rename_shift",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 777,
+  "meaningDeps": [
+   "negOne",
+   "CrossingSign"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "one_rename_shift",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 702,
+  "meaningDeps": [
+   "one",
+   "CrossingSign"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "oneToZeroAdd",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 62,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "oneToZeroAdd_injective",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 65,
+  "meaningDeps": [
+   "oneToZeroAdd"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "pairRel_colorFlype_rest",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 129,
+  "meaningDeps": [
+   "Crossing",
+   "pairRel",
+   "Crossing.sameUpToRotation",
+   "Crossing.rename",
+   "ColoringRule",
+   "colorFlype"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "pairRel_colorFlype_t",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 159,
+  "meaningDeps": [
+   "Crossing",
+   "pairRel",
+   "ColoringRule",
+   "colorFlype"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "pairRel_coloring",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringMoves.lean",
+  "line": 23,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "pairRel"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "pairRel_colorR3_rest",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 424,
+  "meaningDeps": [
+   "Crossing",
+   "pairRel",
+   "Crossing.sameUpToRotation",
+   "Crossing.rename",
+   "ColoringRule",
+   "colorR3"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "planar_one_zero_add",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 127,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "one",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "r2Merge",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 324,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.oppositeArc",
+   "memArcB"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "rot180_rot180",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/Flip.lean",
+  "line": 83,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.rot180"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "StandardExpr.isotopic_canonicalCF",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 32,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "CFValue",
+   "Isotopic",
+   "StandardExpr.diagram",
+   "canonicalCF",
+   "ArithmeticCF.tangle"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "StandardExpr.isotopic_infinity_of_fraction",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 50,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "CFValue",
+   "Isotopic",
+   "StandardExpr.diagram",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 6
+ },
+ {
+  "id": "TangleDiagram.eraseCrossing",
+  "kind": "def",
+  "depth": 5,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 223,
+  "meaningDeps": [
+   "TangleDiagram"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "zero_add_NE_reindex",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 534,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.zero",
+   "zeroAddReindex"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "zero_add_SE_reindex",
+  "kind": "theorem",
+  "depth": 5,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 539,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.zero",
+   "zeroAddReindex"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "add_NE_rename",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/Flip.lean",
+  "line": 140,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "add_SE_rename",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/Flip.lean",
+  "line": 147,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "addGlue_NW",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 202,
+  "meaningDeps": [
+   "TangleDiagram",
+   "addGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "ArithmeticCF.isotopic_canonicalCF",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 860,
+  "meaningDeps": [
+   "ArithmeticCF",
+   "ArithmeticCF.value",
+   "CFValue",
+   "Isotopic",
+   "ArithmeticCF.tangle",
+   "canonicalCF"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "ArithmeticCF.tangle",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/ContinuedFractionForm.lean",
+  "line": 29,
+  "meaningDeps": [
+   "ArithmeticCF",
+   "TangleDiagram",
+   "cfTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "canonicalCF",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 425,
+  "meaningDeps": [
+   "ArithmeticCF",
+   "canonicalTerms",
+   "canonicalTerms_ne",
+   "canonicalTerms_later_ne_zero"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "cf_to_canonical",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 799,
+  "meaningDeps": [
+   "IsCFList",
+   "ArithmeticCF",
+   "ArithmeticCF.IsCanonical",
+   "Isotopic",
+   "cfTangle",
+   "ArithmeticCF.tangle",
+   "ArithmeticCF.value",
+   "valueOfList",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "colorAddKink",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 304,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "mergeArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddR2",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1251,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "colorAddR2CD"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorDiagInvol",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1414,
+  "meaningDeps": [
+   "TangleDiagram"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorFlype_of_ne",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 36,
+  "meaningDeps": [
+   "colorFlype"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "coloring_planar_isotopy_backward",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 66,
+  "meaningDeps": [
+   "TangleDiagram",
+   "PlanarIsotopy",
+   "TangleDiagram.IsColored",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColoringRule_colorFlype_rest",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 87,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.rename",
+   "Crossing.sameUpToRotation",
+   "Crossing.memArc",
+   "colorFlype"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColoringRule_colorFlype_t",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 119,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.rotate180",
+   "Crossing.rename",
+   "Crossing.sameUpToRotation",
+   "Crossing.memArc",
+   "colorFlype"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "ColoringRule_colorR3_rest",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 387,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.rename",
+   "Crossing.sameUpToRotation",
+   "Crossing.memArc",
+   "colorR3"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColoringRule_of_slide",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 144,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.isOverArc",
+   "Crossing.isUnderArc",
+   "Crossing.portsDistinct",
+   "Crossing.extOverArc",
+   "Crossing.otherUnderArc",
+   "ColoringRule"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColoringRule_reverseUnders",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 178,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.reverseUnders"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColoringRule_rotate180",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 170,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.rotate180"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "colorR3_of_ne",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 194,
+  "meaningDeps": [
+   "colorR3"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorR3_uE",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 180,
+  "meaningDeps": [
+   "colorR3"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorR3_vE",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 184,
+  "meaningDeps": [
+   "colorR3"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorR3_wE",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 189,
+  "meaningDeps": [
+   "colorR3"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorRot180Arc",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1372,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorRot180Arc_NE",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1431,
+  "meaningDeps": [
+   "CrossingSign",
+   "colorRot180Arc",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorRot180Arc_NW",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1427,
+  "meaningDeps": [
+   "CrossingSign",
+   "colorRot180Arc",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorRot180Arc_SE",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1435,
+  "meaningDeps": [
+   "CrossingSign",
+   "colorRot180Arc",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorRot180Arc_SW",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1439,
+  "meaningDeps": [
+   "CrossingSign",
+   "colorRot180Arc",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.extOverArc_color",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 90,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.isOverArc",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.oppositeArc",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 134,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.portOf",
+   "Crossing.arcs"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.otherUnderArc_sum_over",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 110,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.isOverArc",
+   "Crossing.isUnderArc",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.reverseUnders_involutive",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 157,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.reverseUnders"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.rotate180_involutive",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 154,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.rotate180"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "dropIdxs",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 404,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "flype_extOver_not_uw",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 47,
+  "meaningDeps": [
+   "Crossing",
+   "IsFlypeCrossingSlide",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "flype_otherUnder_not_uw",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringFlype.lean",
+  "line": 54,
+  "meaningDeps": [
+   "Crossing",
+   "IsFlypeCrossingSlide",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "foldl_maxArc_ge_mem",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 429,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isCanonical_value_ne_inf",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 855,
+  "meaningDeps": [
+   "ArithmeticCF",
+   "ArithmeticCF.IsCanonical",
+   "ArithmeticCF.value",
+   "CFValue"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "IsColored_collapseKink",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 279,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.IsColored",
+   "collapseKink",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "IsColored_collapseR2",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1021,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.IsColored",
+   "collapseR2",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "IsColored_colorAddKink",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 318,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "collapseKink",
+   "TangleDiagram.IsColored",
+   "colorAddKink",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_colorAddR2",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1997,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "IsR2Pair",
+   "collapseR2",
+   "TangleDiagram.IsColored",
+   "colorAddR2",
+   "SameEndpointColors"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_colorDiagInvol",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1418,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "colorDiagInvol"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "IsColored_colorRot180Arc",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1386,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle",
+   "TangleDiagram.IsColored",
+   "colorRot180Arc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsColored_rename",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 207,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.rename",
+   "TangleDiagram.IsColored"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "IsColored_rot180",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1230,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.rot180"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "IsR2Pair.over_color_eq",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1069,
+  "meaningDeps": [
+   "Crossing",
+   "IsR2Pair",
+   "ColoringRule"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "memArcB",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 318,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "mulGlue_NW",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColorFraction.lean",
+  "line": 213,
+  "meaningDeps": [
+   "TangleDiagram",
+   "mulGlue",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "planar_infinity_rot180",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 338,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "planar_negOne_rot180",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 352,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "planar_one_rot180",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 342,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "one"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "planar_zero_rot180",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 334,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r3_P_extOver_not_internal",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 208,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r3_P_otherUnder_not_internal",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 216,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r3_Q_extOver_not_internal",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 224,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r3_Q_otherUnder_not_internal",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 232,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r3_R_extOver_not_internal",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 240,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r3_R_otherUnder_not_internal",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 248,
+  "meaningDeps": [
+   "Crossing",
+   "IsR3OverSlide",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "StandardExpr.toCF",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 602,
+  "meaningDeps": [
+   "StandardExpr",
+   "ArithmeticCF",
+   "StandardExpr.cfTerms",
+   "StandardExpr.cfTerms_ne",
+   "StandardExpr.cfTerms_isCFList"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "StandardExpr.toCF_isotopic",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 622,
+  "meaningDeps": [
+   "StandardExpr",
+   "Isotopic",
+   "StandardExpr.diagram",
+   "StandardExpr.toCF",
+   "ArithmeticCF.tangle"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "StandardExpr.toCF_value_of_fraction",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 25,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "CFValue",
+   "StandardExpr.toCF",
+   "ArithmeticCF.value"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "StandardExpr.toCF_value_of_inf",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/CanonicalFormUnique.lean",
+  "line": 45,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "CFValue",
+   "StandardExpr.toCF",
+   "ArithmeticCF.value"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "zero_add_crossings_reindex",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 523,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.zero",
+   "Crossing.rename",
+   "zeroAddReindex"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "zero_maxArc",
+  "kind": "theorem",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 495,
+  "meaningDeps": [
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "zeroAddReindex",
+  "kind": "def",
+  "depth": 6,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 501,
+  "meaningDeps": [
+   "TangleDiagram"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "absSum",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 168,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "absSum_applyFirstTransfer_lt",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 426,
+  "meaningDeps": [
+   "IsCFList",
+   "IsAlternating",
+   "absSum",
+   "applyFirstTransfer"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "applyFirstTransfer",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 252,
+  "meaningDeps": [
+   "transferHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "applyFirstTransfer_isotopic",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 370,
+  "meaningDeps": [
+   "IsCFList",
+   "Isotopic",
+   "cfTangle",
+   "applyFirstTransfer"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "canonicalTerms",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 386,
+  "meaningDeps": [
+   "oddify",
+   "euclidPos"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "canonicalTerms_later_ne_zero",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 395,
+  "meaningDeps": [
+   "canonicalTerms"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "canonicalTerms_ne",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 390,
+  "meaningDeps": [
+   "canonicalTerms"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "cfTangle",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionForm.lean",
+  "line": 23,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.infinity",
+   "integerTangle",
+   "TangleDiagram.invert"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "cfTangle_isotopic_canonicalCF",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 850,
+  "meaningDeps": [
+   "IsCFList",
+   "valueOfList",
+   "CFValue",
+   "Isotopic",
+   "cfTangle",
+   "canonicalCF",
+   "ArithmeticCF.tangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "cfTangle_reduce",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 464,
+  "meaningDeps": [
+   "IsCFList",
+   "absSum",
+   "ArithmeticCF.length",
+   "Isotopic",
+   "cfTangle",
+   "valueOfList",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CFValue.neg",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 58,
+  "meaningDeps": [
+   "CFValue"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "CFValue.neg_inf",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 68,
+  "meaningDeps": [
+   "CFValue.neg"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "collapseKink_eq",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 271,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "collapseKink",
+   "TangleDiagram.eraseCrossing",
+   "TangleDiagram.rename",
+   "mergeArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "collapseR2_eq",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1014,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "collapseR2",
+   "eraseTwo",
+   "TangleDiagram.rename",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddKink_ne",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 310,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "colorAddKink",
+   "mergeArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddR2_ColoringRule_first",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1656,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "IsR2Pair",
+   "ColoringRule",
+   "colorAddR2"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "colorAddR2_ColoringRule_other",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1945,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "IsR2Pair",
+   "collapseR2",
+   "TangleDiagram.IsColored",
+   "Crossing",
+   "ColoringRule",
+   "colorAddR2"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "colorAddR2_ColoringRule_second",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1931,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "IsR2Pair",
+   "ColoringRule",
+   "colorAddR2"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "colorAddR2_unshared",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1263,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "colorAddR2",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddR2CD",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1241,
+  "meaningDeps": [
+   "Crossing",
+   "memArcB",
+   "r2OverColor",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "coloring_affine",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/Coloring.lean",
+  "line": 86,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColoringRule_kink_mono",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 113,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.IsKink",
+   "ColoringRule",
+   "Crossing.arcs"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColoringRule_kink_of_mono",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 123,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.IsKink",
+   "Crossing.arcs",
+   "ColoringRule"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.arcs",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 89,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.extOverArc_eq_a0",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 126,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.extOverArc_eq_a2",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 122,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.extOverArc_isOver",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 47,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.isOverArc",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.extOverArc_mem",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 25,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.extOverArc_ne_self",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 54,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.isOverArc",
+   "Crossing.extOverArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.isOver_ne_isUnder",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 80,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.isOverArc",
+   "Crossing.isUnderArc",
+   "Crossing.portsDistinct"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.isOverArc.color",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 40,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.isOverArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.otherUnderArc_eq_a1",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 137,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.otherUnderArc_eq_a3",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 133,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.otherUnderArc_isUnder",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 35,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.isUnderArc",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.otherUnderArc_mem",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 30,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.otherUnderArc_ne_self",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 67,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.isUnderArc",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.otherUnderArc_sum",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 100,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.isUnderArc",
+   "Crossing.otherUnderArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.portOf",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 125,
+  "meaningDeps": [
+   "Crossing"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.sameUpToRotation.symm",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 42,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.sameUpToRotation"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "crossingTangle_NE",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1251,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "crossingTangle_NW",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1248,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "crossingTangle_SE",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1254,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "crossingTangle_SW",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 1257,
+  "meaningDeps": [
+   "CrossingSign",
+   "crossingTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "cycle02_13",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 326,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "cycle02_13_injective",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 329,
+  "meaningDeps": [
+   "cycle02_13"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "exists_valueOfList_nonneg",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 516,
+  "meaningDeps": [
+   "valueOfList",
+   "CFValue"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "IsAlternating",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 179,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "IsCFList",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 421,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "IsColored_eraseCrossing",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 103,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "TangleDiagram.eraseCrossing"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "IsColored_eraseTwo",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 946,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.IsColored",
+   "eraseTwo"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_infinity_cfTangle_cancel",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 607,
+  "meaningDeps": [
+   "Isotopic",
+   "TangleDiagram.infinity",
+   "cfTangle"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "IsR2Pair.shared_over_under",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1107,
+  "meaningDeps": [
+   "Crossing",
+   "IsR2Pair",
+   "Crossing.memArc",
+   "Crossing.isOverArc",
+   "Crossing.isUnderArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "kink_loop_not_boundary",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 236,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "Endpoint",
+   "TangleDiagram.boundary"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "kink_loop_not_mem_erase",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 195,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "Crossing",
+   "TangleDiagram.eraseCrossing",
+   "Crossing.memArc"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "later_map_neg",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 377,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "later_pos_of_nonneg",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 534,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "mergeArc_color_eq",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 96,
+  "meaningDeps": [
+   "mergeArc"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "ne_of_mem_not_mem",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 118,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "oddify_alternating",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 595,
+  "meaningDeps": [
+   "IsCFList",
+   "IsAlternating",
+   "ArithmeticCF.length",
+   "ArithmeticCF",
+   "ArithmeticCF.IsCanonical",
+   "Isotopic",
+   "cfTangle",
+   "ArithmeticCF.tangle",
+   "ArithmeticCF.value",
+   "valueOfList"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "pack_alternating",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 204,
+  "meaningDeps": [
+   "IsCFList",
+   "ArithmeticCF.length",
+   "IsAlternating",
+   "ArithmeticCF",
+   "ArithmeticCF.IsCanonical",
+   "cfTangle",
+   "ArithmeticCF.tangle",
+   "ArithmeticCF.value",
+   "valueOfList"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "pairRel_nil",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 72,
+  "meaningDeps": [
+   "pairRel"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "pairRel_symm",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 57,
+  "meaningDeps": [
+   "pairRel"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "r2_over_eq_of_shared_over",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1061,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_shared_not_boundary",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1359,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "Endpoint",
+   "TangleDiagram.boundary"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2Merge_color_of_over_eq",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 997,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "r2Merge"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "sameUpToRotation_memArc",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringR3.lean",
+  "line": 367,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.sameUpToRotation",
+   "Crossing.memArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "StandardExpr.cfTerms",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 583,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.toTerms"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "StandardExpr.cfTerms_isCFList",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 592,
+  "meaningDeps": [
+   "StandardExpr",
+   "IsCFList",
+   "StandardExpr.cfTerms"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "StandardExpr.cfTerms_ne",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 588,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.cfTerms"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "StandardExpr.fraction_eq_toCF_value",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 105,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "StandardExpr.toCF",
+   "ArithmeticCF.value"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "StandardExpr.toTerms",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 461,
+  "meaningDeps": [
+   "StandardExpr",
+   "bumpHead",
+   "CrossingSign.toInt",
+   "invertTerms"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "StandardExpr.toTerms_isotopic",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 549,
+  "meaningDeps": [
+   "StandardExpr",
+   "Isotopic",
+   "StandardExpr.diagram",
+   "cfTangle",
+   "StandardExpr.toTerms"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "swap01",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 28,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "swap01_injective",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 31,
+  "meaningDeps": [
+   "swap01"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList",
+  "kind": "def",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 152,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.ofInt",
+   "CFValue.add",
+   "CFValue.inv"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "valueOfList_applyFirstTransfer",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 1044,
+  "meaningDeps": [
+   "valueOfList",
+   "applyFirstTransfer",
+   "valueOfList_transferHead",
+   "valueOfList_cons"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_neg",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 161,
+  "meaningDeps": [
+   "valueOfList",
+   "CFValue.neg",
+   "valueOfList_cons",
+   "CFValue.ofInt_neg",
+   "CFValue.neg_add",
+   "CFValue.neg_inv"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "zeroAddReindex_eq_glue",
+  "kind": "theorem",
+  "depth": 7,
+  "file": "src/RationalTangles/ColoringIsotopy.lean",
+  "line": 506,
+  "meaningDeps": [
+   "TangleDiagram",
+   "addGlue",
+   "TangleDiagram.zero",
+   "zeroAddReindex"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "absSum_transferHead",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 226,
+  "meaningDeps": [
+   "oppSign",
+   "absSum",
+   "transferHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "applyFirstTransfer_ne",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 261,
+  "meaningDeps": [
+   "applyFirstTransfer",
+   "transferHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "boundary_end_mem_endsOf",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 226,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Endpoint",
+   "TangleDiagram.ArcEnd",
+   "TangleDiagram.endsOf",
+   "TangleDiagram.boundary"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "bumpHead",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 424,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "bumpHead_isCFList",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 432,
+  "meaningDeps": [
+   "IsCFList",
+   "bumpHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "canonicalCF_unique",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 850,
+  "meaningDeps": [
+   "ArithmeticCF",
+   "ArithmeticCF.IsCanonical",
+   "ArithmeticCF.value",
+   "CFValue",
+   "canonicalCF"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "CFValue.neg_add",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 117,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.add",
+   "CFValue.neg"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CFValue.neg_inv",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 121,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.inv",
+   "CFValue.neg"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CFValue.ofInt_neg",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 130,
+  "meaningDeps": [
+   "CFValue.ofInt",
+   "CFValue.neg"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorAddR2CD_unshared",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1255,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "colorAddR2CD",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "ColoringRule.oppositeArc_color",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 987,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.memArc",
+   "Crossing.oppositeArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "ColoringRule.over_of_mem",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1054,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "crossing_end_mem_endsOf",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 164,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.ArcEnd",
+   "TangleDiagram.endsOf"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.IsKink",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 142,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.arcs"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.reverseUnders_rotate180",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 162,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.reverseUnders",
+   "Crossing.rotate180"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CrossingSign.toInt",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/IntegerTangle.lean",
+  "line": 86,
+  "meaningDeps": [
+   "CrossingSign"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "euclidPos",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 68,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "euclidPos_ne_nil",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 87,
+  "meaningDeps": [
+   "euclidPos"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "exists_valueOfList_all_pos",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 480,
+  "meaningDeps": [
+   "valueOfList",
+   "CFValue"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Fin.succ_ne_self",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 180,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "getD_eq_getElem",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 107,
+  "meaningDeps": [
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "getLast_mem_tail",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 582,
+  "meaningDeps": [
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "integerTangle",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/IntegerTangle.lean",
+  "line": 45,
+  "meaningDeps": [
+   "TangleDiagram",
+   "one",
+   "negOne",
+   "TangleDiagram.add",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "invert_zero",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 184,
+  "meaningDeps": [
+   "TangleDiagram.zero",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "invertTerms",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 428,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "invertTerms_isCFList",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 440,
+  "meaningDeps": [
+   "IsCFList",
+   "invertTerms"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isAlternating_singleton",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 185,
+  "meaningDeps": [
+   "IsAlternating"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isCFList_cons_nonzero_head",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 456,
+  "meaningDeps": [
+   "IsCFList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isCFList_singleton",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 446,
+  "meaningDeps": [
+   "IsCFList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isCFList_tail",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 477,
+  "meaningDeps": [
+   "IsCFList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isotopic_add_crossing_comm",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 278,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "CrossingSign",
+   "Isotopic",
+   "TangleDiagram.add",
+   "crossingTangle"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "isotopic_cfTangle_add_crossing",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 525,
+  "meaningDeps": [
+   "IsCFList",
+   "CrossingSign",
+   "Isotopic",
+   "cfTangle",
+   "crossingTangle",
+   "bumpHead",
+   "CrossingSign.toInt",
+   "isotopic_infinity_add_crossing",
+   "isotopic_integer_add_crossing"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_cfTangle_cons",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 297,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isotopic_cfTangle_cons_zero",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 271,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isotopic_cfTangle_invert",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 501,
+  "meaningDeps": [
+   "IsCFList",
+   "Isotopic",
+   "cfTangle",
+   "TangleDiagram.invert",
+   "invertTerms",
+   "isotopic_infinity_invert",
+   "integerTangle_zero",
+   "invert_zero"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_cfTangle_join_negOne",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 330,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle",
+   "integerTangle",
+   "TangleDiagram.invert",
+   "negOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_cfTangle_join_one",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 314,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle",
+   "integerTangle",
+   "TangleDiagram.invert",
+   "one"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_cfTangle_snoc_zero",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 266,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_cfTangle_split_negOne",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 353,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isotopic_cfTangle_split_one",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 347,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isotopic_cfTangle_zero_cons",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 493,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle",
+   "TangleDiagram.invert"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_crossing_integer",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 169,
+  "meaningDeps": [
+   "CrossingSign",
+   "Isotopic",
+   "crossingTangle",
+   "integerTangle",
+   "CrossingSign.toInt"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_infinity_invert",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 94,
+  "meaningDeps": [
+   "Isotopic",
+   "TangleDiagram.infinity",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_one_add_negOne_zero",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 61,
+  "meaningDeps": [
+   "Isotopic",
+   "one",
+   "negOne",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "isotopic_transfer_neg",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 184,
+  "meaningDeps": [
+   "IsCFList",
+   "Isotopic",
+   "cfTangle"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isotopic_transfer_pos",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 130,
+  "meaningDeps": [
+   "IsCFList",
+   "Isotopic",
+   "cfTangle"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "IsRational",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/Rational.lean",
+  "line": 107,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TwistExpr",
+   "Isotopic"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isRational_cfTangle",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 482,
+  "meaningDeps": [
+   "IsCFList",
+   "IsRational",
+   "cfTangle",
+   "isRational_infinity",
+   "isRational_integer",
+   "isRational_add_integer_left",
+   "isRational_invert",
+   "isCFList_tail"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "kink_loop_ends",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 171,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.ArcEnd",
+   "TangleDiagram.endsOf"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "lemma4_unit",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 147,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "CrossingSign",
+   "Isotopic",
+   "TangleDiagram.mul",
+   "crossingTangle",
+   "TangleDiagram.add",
+   "TangleDiagram.invert"
+  ],
+  "explainedDeps": 7
+ },
+ {
+  "id": "length_ge_three_of_distinct_mem",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 147,
+  "meaningDeps": [
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "mem_eraseTwo_of_ne",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1375,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "Crossing",
+   "eraseTwo"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "memArc_port",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 187,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "Crossing.arcs"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "memArcB_iff",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 940,
+  "meaningDeps": [
+   "Crossing",
+   "memArcB",
+   "Crossing.memArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "not_alternating_tail",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 394,
+  "meaningDeps": [
+   "IsAlternating"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "oddify",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 182,
+  "meaningDeps": [
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "oddify_euclid_later_ne_zero",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 338,
+  "meaningDeps": [
+   "oddify",
+   "euclidPos"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "oddify_ne_nil",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 227,
+  "meaningDeps": [
+   "oddify"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "r2_D_over_ports_color",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1693,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "IsR2Pair",
+   "colorAddR2",
+   "r2OverColor"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_D_under_ports_sum",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1875,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "IsR2Pair",
+   "colorAddR2",
+   "r2OverColor"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_not_mem_third",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1341,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_over_ports_color",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1565,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "colorAddR2",
+   "r2OverColor"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_shared_two_ends",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1127,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.ArcEnd",
+   "TangleDiagram.endsOf"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r2_three_ends_false",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1143,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.ArcEnd",
+   "TangleDiagram.endsOf",
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r2_under_ports_sum",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1609,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "colorAddR2",
+   "r2OverColor"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_wf_len2",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1152,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "TangleDiagram.endsOf"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2OverColor",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1238,
+  "meaningDeps": [
+   "Crossing",
+   "memArcB",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "StandardExpr.fraction_eq_valueOfList",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 87,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.fraction",
+   "valueOfList",
+   "StandardExpr.toTerms"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "StandardExpr.isRational",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 144,
+  "meaningDeps": [
+   "StandardExpr",
+   "IsRational",
+   "StandardExpr.diagram"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "StandardExpr.toTerms_isCFList",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 467,
+  "meaningDeps": [
+   "StandardExpr",
+   "IsCFList",
+   "StandardExpr.toTerms"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "transfer_neg_list_eq",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 364,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "transferHead",
+  "kind": "def",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 196,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "transferHead_neg_eq",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 359,
+  "meaningDeps": [
+   "transferHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "value_singleton",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 23,
+  "meaningDeps": [
+   "valueOfList",
+   "CFValue.ofInt"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_concat_negOne",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 46,
+  "meaningDeps": [
+   "valueOfList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_concat_one",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 37,
+  "meaningDeps": [
+   "valueOfList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_cons",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 158,
+  "meaningDeps": [
+   "valueOfList",
+   "CFValue.ofInt",
+   "CFValue.add",
+   "CFValue.inv"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "valueOfList_cons_inf",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 986,
+  "meaningDeps": [
+   "valueOfList",
+   "CFValue.ofInt"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_cons_ofRat",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 475,
+  "meaningDeps": [
+   "valueOfList",
+   "CFValue"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "valueOfList_cons_zero",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 981,
+  "meaningDeps": [
+   "valueOfList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_snoc_zero",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 978,
+  "meaningDeps": [
+   "valueOfList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_split_negOne",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 61,
+  "meaningDeps": [
+   "valueOfList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_split_one",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 56,
+  "meaningDeps": [
+   "valueOfList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_transferHead",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 1017,
+  "meaningDeps": [
+   "oppSign",
+   "valueOfList",
+   "transferHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_zero_one_negOne",
+  "kind": "theorem",
+  "depth": 8,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 80,
+  "meaningDeps": [
+   "valueOfList"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "absSum_map_neg",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 175,
+  "meaningDeps": [
+   "absSum"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "ArithmeticCF.ext",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 31,
+  "meaningDeps": [
+   "ArithmeticCF"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "canonicalTerms_unique",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 811,
+  "meaningDeps": [
+   "ArithmeticCF.length",
+   "valueOfList",
+   "CFValue",
+   "canonicalTerms"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "cfTangle_mirror",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 115,
+  "meaningDeps": [
+   "Isotopic",
+   "cfTangle",
+   "TangleDiagram.mirror",
+   "isotopic_integer_mirror",
+   "add_eq_add",
+   "mirror_add",
+   "mirror_invert"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CFValue.add_assoc",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 82,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.add"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CFValue.add_ofRat",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 80,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "CFValue.inv_inv",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 94,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.inv"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "CFValue.inv_ofRat",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 77,
+  "meaningDeps": [
+   "CFValue.inv"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "CFValue.neg_neg",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 69,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.neg"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "CFValue.ofInt_add",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 105,
+  "meaningDeps": [
+   "CFValue.ofInt",
+   "CFValue.add"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "CFValue.ofInt_zero",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 109,
+  "meaningDeps": [
+   "CFValue.ofInt"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorAddR2_overs_of_a0_shared",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1464,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "colorAddR2",
+   "r2OverColor"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddR2_overs_of_a2_shared",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1488,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "colorAddR2",
+   "r2OverColor"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddR2_shared_under",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1330,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "colorAddR2",
+   "r2OverColor",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "ColoringRule.opposite_color",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 958,
+  "meaningDeps": [
+   "Crossing",
+   "ColoringRule",
+   "Crossing.arcs"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "crossing_end_mem_endsOf_eq",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1121,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.ArcEnd",
+   "TangleDiagram.endsOf"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "euclidPos_eq",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 79,
+  "meaningDeps": [
+   "euclidPos"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "euclidPos_last_ge_two",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 271,
+  "meaningDeps": [
+   "euclidPos",
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "euclidPos_tail_pos",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 246,
+  "meaningDeps": [
+   "euclidPos"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "flipping_lemma",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 470,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "Isotopic",
+   "TangleDiagram.rot180",
+   "TangleDiagram.invert",
+   "TangleDiagram.rotate"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "integerTangle_zero",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/IntegerTangle.lean",
+  "line": 60,
+  "meaningDeps": [
+   "integerTangle",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isotopic_add_crossing_right_assoc",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 284,
+  "meaningDeps": [
+   "TangleDiagram",
+   "CrossingSign",
+   "IsRational",
+   "Isotopic",
+   "TangleDiagram.add",
+   "crossingTangle"
+  ],
+  "explainedDeps": 5
+ },
+ {
+  "id": "isotopic_infinity_add_crossing",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 412,
+  "meaningDeps": [
+   "CrossingSign",
+   "Isotopic",
+   "TangleDiagram.infinity",
+   "crossingTangle"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "isotopic_integer_add",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 72,
+  "meaningDeps": [
+   "Isotopic",
+   "integerTangle"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isotopic_integer_add_crossing",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 333,
+  "meaningDeps": [
+   "CrossingSign",
+   "Isotopic",
+   "integerTangle",
+   "crossingTangle",
+   "CrossingSign.toInt"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_integer_add_infinity",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 227,
+  "meaningDeps": [
+   "Isotopic",
+   "integerTangle",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_integer_negOne",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 310,
+  "meaningDeps": [
+   "Isotopic",
+   "integerTangle",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_invert_invert",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 489,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "Isotopic",
+   "TangleDiagram.invert"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_mirror_mirror",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 29,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Isotopic",
+   "TangleDiagram.mirror"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_one_integer",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 125,
+  "meaningDeps": [
+   "Isotopic",
+   "integerTangle",
+   "one"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_rot180",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 461,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "Isotopic",
+   "TangleDiagram.rot180"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isR2_one_negOne",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 44,
+  "meaningDeps": [
+   "IsR2Pair"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "IsR2Pair.adjC",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1290,
+  "meaningDeps": [
+   "Crossing",
+   "IsR2Pair",
+   "Crossing.adjacentDistinct"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "IsR2Pair.adjD",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1293,
+  "meaningDeps": [
+   "Crossing",
+   "IsR2Pair",
+   "Crossing.adjacentDistinct"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isRational_add_crossing",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 189,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "CrossingSign",
+   "TangleDiagram.add",
+   "crossingTangle"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "isRational_add_integer_left",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 236,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "integerTangle",
+   "TangleDiagram.add"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isRational_cfTangle_any",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 210,
+  "meaningDeps": [
+   "IsRational",
+   "cfTangle",
+   "isRational_infinity",
+   "isRational_integer",
+   "isRational_add_integer_left",
+   "isRational_invert"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isRational_infinity",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 186,
+  "meaningDeps": [
+   "IsRational",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isRational_integer",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 274,
+  "meaningDeps": [
+   "IsRational",
+   "integerTangle"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isRational_invert",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 129,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "TangleDiagram.invert"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "length_ge_two_of_distinct_mem",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 135,
+  "meaningDeps": [
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "natAbs_add_one_of_neg",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 211,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "natAbs_sub_one_of_pos",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 202,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "oddify_length_odd",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 212,
+  "meaningDeps": [
+   "oddify",
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "one_add_negOne_crossings",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 28,
+  "meaningDeps": [
+   "one",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "one_eq_ofInt_one",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringStandard.lean",
+  "line": 205,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.ofInt"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "oppositeArc_a0",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1095,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.oppositeArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "oppositeArc_a1_of_ne",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1276,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.oppositeArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "oppositeArc_a2_of_ne",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1270,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.oppositeArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "oppositeArc_a3_of_ne",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1283,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.oppositeArc"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "oppSign",
+  "kind": "def",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 182,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "planar_infinity_invert",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 90,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "TangleDiagram.infinity",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "planar_zero_collapseR2_one_negOne",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 39,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "TangleDiagram.zero",
+   "collapseR2",
+   "one",
+   "negOne"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "portOf_arcs",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 978,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.portOf",
+   "Crossing.arcs"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "portOf_eq_some",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 964,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "Crossing.portOf"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r2_merge_C_other_under",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1824,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "IsR2Pair",
+   "r2Merge"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_ne_ports_of_shared",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1450,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_other_over_not_shared",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1185,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_other_under_not_shared",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1512,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_q_not_over",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1583,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2_shared_over_color",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1670,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.WellFormed",
+   "colorAddR2",
+   "r2OverColor"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "r2Merge_external",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1443,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "Crossing.oppositeArc",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r2Merge_id_not_C",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1438,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r2OverColor_a0_shared",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1426,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "r2OverColor",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "r2OverColor_a0_unshared",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1432,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "r2OverColor",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "StandardExpr.toTwist",
+  "kind": "def",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 134,
+  "meaningDeps": [
+   "StandardExpr",
+   "TwistExpr"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "StandardExpr.toTwist_diagram",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 140,
+  "meaningDeps": [
+   "StandardExpr",
+   "StandardExpr.toTwist",
+   "TwistExpr.diagram",
+   "StandardExpr.diagram"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "transfer_neg_terms",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 1012,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "transferHead_neg_eq_of_neg",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 1006,
+  "meaningDeps": [
+   "transferHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "transferHead_pos_eq",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 992,
+  "meaningDeps": [
+   "transferHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "valueOfList_bumpHead",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 48,
+  "meaningDeps": [
+   "valueOfList",
+   "bumpHead",
+   "CFValue.add",
+   "CFValue.ofInt",
+   "CFValue.inv"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "valueOfList_invertTerms",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ColoringFractionEq.lean",
+  "line": 69,
+  "meaningDeps": [
+   "valueOfList",
+   "invertTerms",
+   "CFValue.inv",
+   "CFValue.ofInt",
+   "CFValue.add",
+   "valueOfList_cons",
+   "CFValue.ofInt_zero",
+   "CFValue.zero_add",
+   "CFValue.inv_inv"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "valueOfList_transferHead_pos",
+  "kind": "theorem",
+  "depth": 9,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 997,
+  "meaningDeps": [
+   "valueOfList",
+   "transferHead"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "canonicalTerms_neg",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 801,
+  "meaningDeps": [
+   "canonicalTerms"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "CFValue.add_pred_one_inv",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 969,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.ofInt",
+   "CFValue.add",
+   "CFValue.inv"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "CFValue.neg_ofRat",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 67,
+  "meaningDeps": [
+   "CFValue.neg"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "CFValue.transfer_head_neg_sum",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 961,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.ofInt",
+   "CFValue.add",
+   "CFValue.neg",
+   "CFValue.inv"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "CFValue.transfer_one_inv",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 924,
+  "meaningDeps": [
+   "CFValue",
+   "CFValue.ofInt",
+   "CFValue.add",
+   "CFValue.neg",
+   "CFValue.inv"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "collapseR2_one_negOne_eq",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 34,
+  "meaningDeps": [
+   "collapseR2",
+   "one",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "colorAddR2_shared_over",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1310,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "colorAddR2",
+   "r2OverColor"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "colorAddR2CD_shared_under",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1318,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "colorAddR2CD",
+   "r2OverColor",
+   "r2Merge"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "integerTangle_nat_succ",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 224,
+  "meaningDeps": [
+   "integerTangle",
+   "one"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "integerTangle_neg_succ",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 230,
+  "meaningDeps": [
+   "integerTangle",
+   "negOne"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "integerTangle_negOne",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/IntegerTangle.lean",
+  "line": 66,
+  "meaningDeps": [
+   "integerTangle",
+   "TangleDiagram.zero",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "integerTangle_one",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/IntegerTangle.lean",
+  "line": 63,
+  "meaningDeps": [
+   "integerTangle",
+   "TangleDiagram.zero",
+   "one"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "invert_invert_eq_rot180",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 322,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.invert",
+   "TangleDiagram.rot180"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_infinity_add_negOne",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 402,
+  "meaningDeps": [
+   "Isotopic",
+   "TangleDiagram.infinity",
+   "negOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_infinity_add_one",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 392,
+  "meaningDeps": [
+   "Isotopic",
+   "TangleDiagram.infinity",
+   "one"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_integer_add_negOne",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 307,
+  "meaningDeps": [
+   "Isotopic",
+   "integerTangle",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_integer_add_one",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 292,
+  "meaningDeps": [
+   "Isotopic",
+   "integerTangle",
+   "one"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isotopic_integer_mirror",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 56,
+  "meaningDeps": [
+   "Isotopic",
+   "integerTangle",
+   "TangleDiagram.mirror",
+   "foldl_add_mirror",
+   "map_replicate_one_mirror",
+   "mirror_zero",
+   "negOne",
+   "isotopic_replicate_foldl",
+   "isotopic_mirror_mirror",
+   "one"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "isotopic_negOne_add_infinity",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 222,
+  "meaningDeps": [
+   "Isotopic",
+   "negOne",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isotopic_one_add_infinity",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 217,
+  "meaningDeps": [
+   "Isotopic",
+   "one",
+   "TangleDiagram.infinity"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "isRational_crossing_add",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 194,
+  "meaningDeps": [
+   "TangleDiagram",
+   "IsRational",
+   "CrossingSign",
+   "crossingTangle",
+   "TangleDiagram.add"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "isRational_of_isotopic",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 178,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Isotopic",
+   "IsRational"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isRational_zero",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 183,
+  "meaningDeps": [
+   "IsRational",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "map_neg_map_neg",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 797,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "mirror_add",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 139,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.mirror"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "mirror_invert",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 155,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.invert",
+   "TangleDiagram.mirror"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "nonneg_odd_eq_canonicalTerms",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 709,
+  "meaningDeps": [
+   "ArithmeticCF.length",
+   "valueOfList",
+   "CFValue",
+   "canonicalTerms"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "planar_mirror_mirror",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 262,
+  "meaningDeps": [
+   "TangleDiagram",
+   "PlanarIsotopy",
+   "TangleDiagram.mirror"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "planar_rotate_rotate_invert_invert",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 200,
+  "meaningDeps": [
+   "TangleDiagram",
+   "PlanarIsotopy",
+   "TangleDiagram.rotate",
+   "TangleDiagram.invert"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "r2_not_two_ports_and_other",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1163,
+  "meaningDeps": [
+   "TangleDiagram",
+   "ArithmeticCF.length",
+   "TangleDiagram.endsOf",
+   "TangleDiagram.ArcEnd"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "swap05_16",
+  "kind": "def",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 20,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "swap05_16_injective",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 23,
+  "meaningDeps": [
+   "swap05_16"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "TwistExpr.inverted",
+  "kind": "def",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 80,
+  "meaningDeps": [
+   "TwistExpr",
+   "one",
+   "negOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "TwistExpr.inverted_isotopic",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 98,
+  "meaningDeps": [
+   "TwistExpr",
+   "Isotopic",
+   "TwistExpr.diagram",
+   "TangleDiagram.invert",
+   "TwistExpr.inverted"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "value_nonneg_of_nonneg_terms",
+  "kind": "theorem",
+  "depth": 10,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 693,
+  "meaningDeps": [
+   "valueOfList",
+   "CFValue"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "CFValue.ofRat_injective",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFraction.lean",
+  "line": 114,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "colorAddR2CD_shared_over",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ColoringInvariance.lean",
+  "line": 1302,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.memArc",
+   "colorAddR2CD",
+   "r2OverColor"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "Crossing.switch_rename",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 56,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.rename",
+   "Crossing.switch"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.switch_switch",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 48,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.switch",
+   "Crossing.rotate180"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "eq_append_two",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 654,
+  "meaningDeps": [
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "foldl_add_mirror",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 20,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.add",
+   "TangleDiagram.mirror",
+   "mirror_add"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "infinity_add_negOne_crossings",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 355,
+  "meaningDeps": [
+   "TangleDiagram.infinity",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "infinity_add_one_crossings",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 350,
+  "meaningDeps": [
+   "TangleDiagram.infinity",
+   "one"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "integerTangle_negOfNat",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 215,
+  "meaningDeps": [
+   "integerTangle",
+   "negOne",
+   "TangleDiagram.add",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "integerTangle_ofNat",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 210,
+  "meaningDeps": [
+   "integerTangle",
+   "one",
+   "TangleDiagram.add",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "invert_invert_eq_hflip_vflip",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 193,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.invert",
+   "TangleDiagram.hflip",
+   "TangleDiagram.vflip"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isKink_infinity_add_negOne",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 387,
+  "meaningDeps": [
+   "Crossing.IsKink"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isKink_infinity_add_one",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 382,
+  "meaningDeps": [
+   "Crossing.IsKink"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isotopic_negOne_add_one_zero",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 72,
+  "meaningDeps": [
+   "Isotopic",
+   "negOne",
+   "one",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "isotopic_replicate_foldl",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 33,
+  "meaningDeps": [
+   "TangleDiagram",
+   "Isotopic",
+   "TangleDiagram.add",
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 4
+ },
+ {
+  "id": "IsStandard",
+  "kind": "def",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 305,
+  "meaningDeps": [
+   "ArithmeticCF.length"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isStandard_append_ge_two",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 674,
+  "meaningDeps": [
+   "IsStandard"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "isStandard_eq_euclidPos",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 559,
+  "meaningDeps": [
+   "IsStandard",
+   "valueOfList",
+   "CFValue",
+   "euclidPos"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "isStandard_singleton_nonneg",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 671,
+  "meaningDeps": [
+   "IsStandard"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "map_replicate_one_mirror",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/CanonicalFormExists.lean",
+  "line": 43,
+  "meaningDeps": [
+   "one",
+   "TangleDiagram.mirror",
+   "negOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "maxArc_mirror",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 136,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mirror",
+   "TangleDiagram.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "mirror_zero",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 164,
+  "meaningDeps": [
+   "TangleDiagram.zero"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "nonneg_eq_num_div_den",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 700,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "oddify_append_succ",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 683,
+  "meaningDeps": [
+   "oddify"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "oddify_of_odd",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 186,
+  "meaningDeps": [
+   "ArithmeticCF.length",
+   "oddify"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "pairRel_rotate180",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 147,
+  "meaningDeps": [
+   "Crossing",
+   "pairRel",
+   "Crossing.sameUpToRotation",
+   "Crossing.rotate180"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "pairRel_same_rotate180",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 154,
+  "meaningDeps": [
+   "Crossing",
+   "pairRel",
+   "Crossing.sameUpToRotation",
+   "Crossing.rotate180"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "planar_infinity_collapseKink_add_negOne",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 376,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "TangleDiagram.infinity",
+   "collapseKink",
+   "negOne"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "planar_infinity_collapseKink_add_one",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 370,
+  "meaningDeps": [
+   "PlanarIsotopy",
+   "TangleDiagram.infinity",
+   "collapseKink",
+   "one"
+  ],
+  "explainedDeps": 3
+ },
+ {
+  "id": "rename_id",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 142,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.rename"
+  ],
+  "explainedDeps": 1
+ },
+ {
+  "id": "replicate_succ_snoc",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 199,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "rot180_eq_hflip_vflip",
+  "kind": "theorem",
+  "depth": 11,
+  "file": "src/RationalTangles/Flip.lean",
+  "line": 68,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.rot180",
+   "TangleDiagram.hflip",
+   "TangleDiagram.vflip"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "collapseKink_infinity_add_negOne",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 365,
+  "meaningDeps": [
+   "collapseKink",
+   "TangleDiagram.infinity",
+   "negOne"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "collapseKink_infinity_add_one",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 360,
+  "meaningDeps": [
+   "collapseKink",
+   "TangleDiagram.infinity",
+   "one"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.sameUpToRotation_rotate180",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/Reidemeister.lean",
+  "line": 167,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.sameUpToRotation",
+   "Crossing.rotate180"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "eq_append_last",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 650,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "foldl_maxArc_map_switch",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 127,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.switch"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "isStandard_cons_tail",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 540,
+  "meaningDeps": [
+   "IsStandard"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "nat_rat_div_mod",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 100,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "num_div_den_eq",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 140,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "rotate180_same",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/FlippingLemma.lean",
+  "line": 144,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.rotate180",
+   "Crossing.sameUpToRotation"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "swap13",
+  "kind": "def",
+  "depth": 12,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 342,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ },
+ {
+  "id": "swap13_injective",
+  "kind": "theorem",
+  "depth": 12,
+  "file": "src/RationalTangles/ContinuedFractionFormExists.lean",
+  "line": 345,
+  "meaningDeps": [
+   "swap13"
+  ],
+  "explainedDeps": 0
+ },
+ {
+  "id": "TangleDiagram.hflip",
+  "kind": "def",
+  "depth": 12,
+  "file": "src/RationalTangles/Flip.lean",
+  "line": 31,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mirror"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "TangleDiagram.vflip",
+  "kind": "def",
+  "depth": 12,
+  "file": "src/RationalTangles/Flip.lean",
+  "line": 38,
+  "meaningDeps": [
+   "TangleDiagram",
+   "TangleDiagram.mirror"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "Crossing.switch_maxArc",
+  "kind": "theorem",
+  "depth": 13,
+  "file": "src/RationalTangles/Tangle.lean",
+  "line": 52,
+  "meaningDeps": [
+   "Crossing",
+   "Crossing.switch",
+   "Crossing.maxArc"
+  ],
+  "explainedDeps": 2
+ },
+ {
+  "id": "nat_cast_eq_div_mod",
+  "kind": "theorem",
+  "depth": 13,
+  "file": "src/RationalTangles/ContinuedFractionCanonical.lean",
+  "line": 91,
+  "meaningDeps": [],
+  "explainedDeps": 0
+ }
+]

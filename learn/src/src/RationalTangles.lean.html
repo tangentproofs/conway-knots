@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RationalTangles.lean · source · Conway's rational tangles, informalized</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../../src/source.css">
+</head>
+<body class="srcpage">
+<header class="top">
+  <a class="brand" href="../../index.html#/">conway <span>tangles</span> <em>informalized</em></a>
+  <nav>
+    <a href="../../index.html#/start">Start here</a>
+    <a href="../../index.html#/">Proof graph</a>
+    <a href="../../index.html#/nodes">Nodes</a>
+    <a href="../../src/index.html" class="on">Source</a>
+    <a href="../../index.html#/review">Review</a>
+    <a href="../../index.html#/trust">Trust</a>
+    <a href="../../index.html#/about">About</a>
+    <a href="https://github.com/tangentproofs/conway-knots" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+<div class="src-layout">
+  <aside class="src-side">
+    <details class="src-files" open><summary>Files</summary><nav class="src-tree"><ul><li class="dir"><details open><summary>src</summary><ul><li class="dir"><a href="../../src/index.html">RationalTangles/</a></li><li><a href="../../src/src/RationalTangles.lean.html" class="current" aria-current="page">RationalTangles</a></li></ul></details></li></ul></nav></details>
+    
+  </aside>
+  <main class="src-main">
+    <div class="src-head">
+      <code class="path"><span class="dir">src/</span><b>RationalTangles.lean</b></code>
+      <span class="muted small">54 lines · 0 declarations on the site</span>
+      <span class="grow"></span>
+      <a class="gh small" id="gh" href="https://github.com/tangentproofs/conway-knots/blob/main/src/RationalTangles.lean" target="_blank" rel="noopener">view on GitHub ↗</a>
+    </div>
+    <div class="src-range" id="range" hidden></div>
+    <div class="src-code lean" id="code">
+<div class="sl" id="L1"><a class="n" href="#L1" data-n="1" aria-label="line 1"></a><span class="c" style="--i:0"><span class="cm">/-</span></span></div>
+<div class="sl" id="L2"><a class="n" href="#L2" data-n="2" aria-label="line 2"></a><span class="c" style="--i:0"><span class="cm">Copyright (c) 2026 Michal Wallace. All rights reserved.</span></span></div>
+<div class="sl" id="L3"><a class="n" href="#L3" data-n="3" aria-label="line 3"></a><span class="c" style="--i:0"><span class="cm">Released under Apache 2.0 license as described in the file LICENSE.</span></span></div>
+<div class="sl" id="L4"><a class="n" href="#L4" data-n="4" aria-label="line 4"></a><span class="c" style="--i:0"><span class="cm">Authors: Michal Wallace</span></span></div>
+<div class="sl" id="L5"><a class="n" href="#L5" data-n="5" aria-label="line 5"></a><span class="c" style="--i:0"><span class="cm">-/</span></span></div>
+<div class="sl" id="L6"><a class="n" href="#L6" data-n="6" aria-label="line 6"></a><span class="c" style="--i:0">&#8203;</span></div>
+<div class="sl" id="L7"><a class="n" href="#L7" data-n="7" aria-label="line 7"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.Reidemeister</span></div>
+<div class="sl" id="L8"><a class="n" href="#L8" data-n="8" aria-label="line 8"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ContinuedFraction</span></div>
+<div class="sl" id="L9"><a class="n" href="#L9" data-n="9" aria-label="line 9"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.Tangle</span></div>
+<div class="sl" id="L10"><a class="n" href="#L10" data-n="10" aria-label="line 10"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.IntegerTangle</span></div>
+<div class="sl" id="L11"><a class="n" href="#L11" data-n="11" aria-label="line 11"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.Flip</span></div>
+<div class="sl" id="L12"><a class="n" href="#L12" data-n="12" aria-label="line 12"></a><span class="c" style="--i:0">import <a class="ref" href="../../src/src/RationalTangles/Flype.lean.html#L59-L67" title="Flype (Flype.lean line 59)"><span class="ty">RationalTangles.Flype</span></a></span></div>
+<div class="sl" id="L13"><a class="n" href="#L13" data-n="13" aria-label="line 13"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.Coloring</span></div>
+<div class="sl" id="L14"><a class="n" href="#L14" data-n="14" aria-label="line 14"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColoringMoves</span></div>
+<div class="sl" id="L15"><a class="n" href="#L15" data-n="15" aria-label="line 15"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColoringInvariance</span></div>
+<div class="sl" id="L16"><a class="n" href="#L16" data-n="16" aria-label="line 16"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColoringR3</span></div>
+<div class="sl" id="L17"><a class="n" href="#L17" data-n="17" aria-label="line 17"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColoringFlype</span></div>
+<div class="sl" id="L18"><a class="n" href="#L18" data-n="18" aria-label="line 18"></a><span class="c" style="--i:0">import <a class="ref" href="../../src/src/RationalTangles/Flype.lean.html#L217-L265" title="ColoringIsotopy (Flype.lean line 217)"><span class="ty">RationalTangles.ColoringIsotopy</span></a></span></div>
+<div class="sl" id="L19"><a class="n" href="#L19" data-n="19" aria-label="line 19"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColoringStandard</span></div>
+<div class="sl" id="L20"><a class="n" href="#L20" data-n="20" aria-label="line 20"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColoringToStandard</span></div>
+<div class="sl" id="L21"><a class="n" href="#L21" data-n="21" aria-label="line 21"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColoringFractionEq</span></div>
+<div class="sl" id="L22"><a class="n" href="#L22" data-n="22" aria-label="line 22"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColorFractionUnique</span></div>
+<div class="sl" id="L23"><a class="n" href="#L23" data-n="23" aria-label="line 23"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.DiagonalSumGeneral</span></div>
+<div class="sl" id="L24"><a class="n" href="#L24" data-n="24" aria-label="line 24"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.MulTopNormalize</span></div>
+<div class="sl" id="L25"><a class="n" href="#L25" data-n="25" aria-label="line 25"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.InvertAddZeroGeneral</span></div>
+<div class="sl" id="L26"><a class="n" href="#L26" data-n="26" aria-label="line 26"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColoringFractionTheorem</span></div>
+<div class="sl" id="L27"><a class="n" href="#L27" data-n="27" aria-label="line 27"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ColorFraction</span></div>
+<div class="sl" id="L28"><a class="n" href="#L28" data-n="28" aria-label="line 28"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.Rational</span></div>
+<div class="sl" id="L29"><a class="n" href="#L29" data-n="29" aria-label="line 29"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.StandardForm</span></div>
+<div class="sl" id="L30"><a class="n" href="#L30" data-n="30" aria-label="line 30"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ContinuedFractionForm</span></div>
+<div class="sl" id="L31"><a class="n" href="#L31" data-n="31" aria-label="line 31"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.CanonicalForm</span></div>
+<div class="sl" id="L32"><a class="n" href="#L32" data-n="32" aria-label="line 32"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.TangleFraction</span></div>
+<div class="sl" id="L33"><a class="n" href="#L33" data-n="33" aria-label="line 33"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.FlippingLemma</span></div>
+<div class="sl" id="L34"><a class="n" href="#L34" data-n="34" aria-label="line 34"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ContinuedFractionFormExists</span></div>
+<div class="sl" id="L35"><a class="n" href="#L35" data-n="35" aria-label="line 35"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.CanonicalFormExists</span></div>
+<div class="sl" id="L36"><a class="n" href="#L36" data-n="36" aria-label="line 36"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.ContinuedFractionCanonical</span></div>
+<div class="sl" id="L37"><a class="n" href="#L37" data-n="37" aria-label="line 37"></a><span class="c" style="--i:0">import <span class="ty">RationalTangles</span>.CanonicalFormUnique</span></div>
+<div class="sl" id="L38"><a class="n" href="#L38" data-n="38" aria-label="line 38"></a><span class="c" style="--i:0">&#8203;</span></div>
+<div class="sl" id="L39"><a class="n" href="#L39" data-n="39" aria-label="line 39"></a><span class="c" style="--i:0"><span class="cm">/-!</span></span></div>
+<div class="sl" id="L40"><a class="n" href="#L40" data-n="40" aria-label="line 40"></a><span class="c" style="--i:0"><span class="cm"># Rational tangles</span></span></div>
+<div class="sl" id="L41"><a class="n" href="#L41" data-n="41" aria-label="line 41"></a><span class="c" style="--i:0"><span class="cm"></span></span></div>
+<div class="sl" id="L42"><a class="n" href="#L42" data-n="42" aria-label="line 42"></a><span class="c" style="--i:0"><span class="cm">Formalization of Conway's classification of rational tangles after Conway</span></span></div>
+<div class="sl" id="L43"><a class="n" href="#L43" data-n="43" aria-label="line 43"></a><span class="c" style="--i:0"><span class="cm">(1970), following the combinatorial proof of Kauffman and Lambropoulou</span></span></div>
+<div class="sl" id="L44"><a class="n" href="#L44" data-n="44" aria-label="line 44"></a><span class="c" style="--i:0"><span class="cm">(Adv. Appl. Math. 33 (2004), arXiv:math/0311499).</span></span></div>
+<div class="sl" id="L45"><a class="n" href="#L45" data-n="45" aria-label="line 45"></a><span class="c" style="--i:0"><span class="cm"></span></span></div>
+<div class="sl" id="L46"><a class="n" href="#L46" data-n="46" aria-label="line 46"></a><span class="c" style="--i:0"><span class="cm">Currently the Lean sources contain combinatorial 2-tangle diagrams, the</span></span></div>
+<div class="sl" id="L47"><a class="n" href="#L47" data-n="47" aria-label="line 47"></a><span class="c" style="--i:0"><span class="cm">Reidemeister generators, integer/vertical tangles, flypes and flips,</span></span></div>
+<div class="sl" id="L48"><a class="n" href="#L48" data-n="48" aria-label="line 48"></a><span class="c" style="--i:0"><span class="cm">twist-form rational tangles, continued-fraction and canonical form, the</span></span></div>
+<div class="sl" id="L49"><a class="n" href="#L49" data-n="49" aria-label="line 49"></a><span class="c" style="--i:0"><span class="cm">arithmetic and tangle fractions, the integral coloring of §5, and local coloring lemmas for τ</span></span></div>
+<div class="sl" id="L50"><a class="n" href="#L50" data-n="50" aria-label="line 50"></a><span class="c" style="--i:0"><span class="cm">(Reidemeister I–III identities and coloring transport along planar isotopy).</span></span></div>
+<div class="sl" id="L51"><a class="n" href="#L51" data-n="51" aria-label="line 51"></a><span class="c" style="--i:0"><span class="cm"></span></span></div>
+<div class="sl" id="L52"><a class="n" href="#L52" data-n="52" aria-label="line 52"></a><span class="c" style="--i:0"><span class="cm">See `blueprint/` for the roadmap. The classification theorem is not yet</span></span></div>
+<div class="sl" id="L53"><a class="n" href="#L53" data-n="53" aria-label="line 53"></a><span class="c" style="--i:0"><span class="cm">stated.</span></span></div>
+<div class="sl" id="L54"><a class="n" href="#L54" data-n="54" aria-label="line 54"></a><span class="c" style="--i:0"><span class="cm">-/</span></span></div>
+    </div>
+  </main>
+</div>
+<footer>
+  The classification is J.H. Conway's (1970); the proof followed is Kauffman–Lambropoulou (2004). The Lean project (<a href="https://github.com/tangentproofs/conway-knots">tangentproofs/conway-knots</a>, Apache-2.0) is by Michal Wallace, developed with AutoformBot.
+  This is the verbatim Lean; the plain-English pages are community-written and may be wrong.
+</footer>
+<script>window.SRC = {"file":"src/RationalTangles.lean","github":"https://github.com/tangentproofs/conway-knots/blob/main/src/RationalTangles.lean","root":"../../","decls":[]};</script>
+<script src="../../src/source.js"></script>
+</body>
+</html>
